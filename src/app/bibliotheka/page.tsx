@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CURSUS } from "@/lib/cursus/grados";
 import { SECCIONES } from "@/lib/pharos/secciones";
 import { IconPlay, IconScroll, IconChevronRight } from "@/components/Icons";
+import { CTAProtegido } from "@/components/CTAProtegido";
 
 type Pestana = "cursus" | "koina";
 
@@ -260,15 +261,11 @@ function SeccionCursus() {
             ergátes. Cada pieza suma a paideía.
           </p>
         </div>
-        <button
-          className="shrink-0 rounded-md px-3 py-2 text-[0.88rem] font-semibold"
-          style={{
-            background: "var(--color-ocre-deep)",
-            color: "var(--color-surface)",
-          }}
-        >
-          Subir video
-        </button>
+        <CTAProtegido
+          etiqueta="Subir video"
+          etiquetaAnonimo="Entra para subir"
+          razon="Subir vídeos al cursus honorum requiere una cuenta."
+        />
       </div>
     </div>
   );

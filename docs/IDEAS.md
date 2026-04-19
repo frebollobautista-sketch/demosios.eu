@@ -89,5 +89,25 @@ Cuando haya varios oikonómoi y ergátai por barrio, ofrecer "sugeridos cercanos
 
 ## Taxonomía
 
+### 2026-04-19 — Códigos cortos de los ejes: KOI · PAI · POL
+Notas previas sobre abreviaturas de los indicadores (en sesiones anteriores o NotebookLM) no se encontraron en disco. Decisión: tres letras en alfabeto latino por cada eje — `KOI` (Koinonía), `PAI` (Paideía), `POL` (Politeía). Campo `codigo` añadido al tipo `Eje` en `src/lib/capital/ejes.ts`. Uso previsto: columnas SQL (`cap_koi`, `cap_pai`, `cap_pol` si alguna vez materializamos totales), parámetros de URL (`?eje=KOI`), badges compactos. Si aparecieran las notas originales y divergieran, renombrar es `sed` + una migración SQL.
+
+### 2026-04-19 — Códigos cortos de las 8 secciones PHAROS (pendiente)
+Para simetría con los ejes, conviene un código corto por sección PHAROS: propuesta `SAL / CLI / COM / MIG / DEF / MED / IND / TRA`. Todavía sin aplicar al código. Cuando las contribuciones empiecen a cargar la columna `seccion_pharos` con su id-slug actual (`salud-servicios-sociales`, etc.) podemos mantener ese slug y usar los códigos solo para UI.
+
+## Auth
+
+### 2026-04-19 — Tres vías de entrada: magic link · password · Google
+Magic link sigue siendo la puerta por defecto (menos fricción, más segura que password débil). Password clásico añadido en `/login` como tab alternativa y en `/registro` como flujo formal de alta. Google OAuth habilitado como atajo. Implementación en `src/app/login/LoginForm.tsx` y `src/app/registro/RegistroForm.tsx`.
+
+### 2026-04-19 — Registro mínimo: email + password + handle (sin domicilio)
+Decisión del usuario: pedir domicilio es más sensible que un email, y OCRE es una plataforma cívica, no un censo. El registro formal pide solo correo, contraseña de 8+ caracteres y un handle (minúsculas/números/guión bajo, 3-30). El barrio se setea opcionalmente después desde `/ajustes`. El trigger `handle_new_user` de Supabase lee `raw_user_meta_data->>'handle'` y crea la fila en `profiles` automáticamente.
+
+### 2026-04-19 — Gating: botones visibles pero inertes con microcopy "Entra para..."
+Patrón implementado en `src/components/CTAProtegido.tsx`. Un botón que requiere sesión: con usuario activo se comporta normal, sin usuario queda visible con etiqueta alternativa y al clicar muestra un tooltip que enlaza a `/login` y `/registro`. Aplicado ya en: "Subir video" (Bibliotheka) y "Proponer un barrio" (Navegador territorial). Cuando se añadan más acciones (crear hilo en Ágora, marcar pin en Polis, PEC) se usa el mismo componente.
+
+### 2026-04-19 — Banner flotante del avatar: solo con sesión activa
+Antes se pintaba siempre con `PERFIL_DEMO`. Ahora el banner solo se monta cuando `useSession()` devuelve un usuario. Pendiente: sustituir `PERFIL_DEMO` por una lectura real desde `profiles` + `contribuciones` del usuario actual cuando cableemos el cálculo de capital en servidor.
+
 ### 2026-04-19 — Cuarto eje opcional `oikonomia`
 Se decidió reducir a 3 ejes (koinonía/paideía/politeía). Si en iteraciones posteriores aparece una economía local productiva en OCRE, la interfaz `PesoPorEje` admite ampliarla sin romper contribuciones existentes.

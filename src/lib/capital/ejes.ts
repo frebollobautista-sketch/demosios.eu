@@ -18,8 +18,16 @@ import { SECCIONES } from "@/lib/pharos/secciones";
 
 export type EjeId = "koinonia" | "paideia" | "politeia";
 
+/**
+ * Códigos cortos en alfabeto latino — la versión abreviada de los
+ * nombres griegos, pensada para columnas SQL (cap_koi, cap_pai, cap_pol),
+ * parámetros de URL (?eje=KOI) y badges compactos.
+ */
+export type EjeCodigo = "KOI" | "PAI" | "POL";
+
 export type Eje = {
   id: EjeId;
+  codigo: EjeCodigo;
   nombre: string;
   nombreGriego: string;
   descripcion: string;
@@ -35,6 +43,7 @@ export type Eje = {
 export const EJES: Eje[] = [
   {
     id: "koinonia",
+    codigo: "KOI",
     nombre: "Capital social",
     nombreGriego: "Κοινωνία",
     descripcion:
@@ -47,6 +56,7 @@ export const EJES: Eje[] = [
   },
   {
     id: "paideia",
+    codigo: "PAI",
     nombre: "Capital cultural",
     nombreGriego: "Παιδεία",
     descripcion:
@@ -59,6 +69,7 @@ export const EJES: Eje[] = [
   },
   {
     id: "politeia",
+    codigo: "POL",
     nombre: "Capital político",
     nombreGriego: "Πολιτεία",
     descripcion:

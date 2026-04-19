@@ -11,6 +11,7 @@ import {
   IconClose,
   IconChevronDown,
 } from "./Icons";
+import { useSession } from "@/lib/auth/useSession";
 
 type Seccion = { href: string; label: string };
 
@@ -24,6 +25,7 @@ const SECCIONES: Seccion[] = [
 export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
   const pathname = usePathname();
   const [openMobile, setOpenMobile] = useState(false);
+  const { user, cargando } = useSession();
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -86,24 +88,48 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
           >
             <IconMail />
           </button>
-          <Link
-            href="/perfil"
-            aria-label="Tu perfil"
-            title="Perfil"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
-            style={{ color: "var(--color-piedra)" }}
-          >
-            <IconUser />
-          </Link>
-          <Link
-            href="/ajustes"
-            aria-label="Ajustes"
-            title="Ajustes"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
-            style={{ color: "var(--color-piedra)" }}
-          >
-            <IconSettings />
-          </Link>
+          {cargando || user ? (
+            <>
+              <Link
+                href="/perfil"
+                aria-label="Tu perfil"
+                title="Perfil"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
+                style={{ color: "var(--color-piedra)" }}
+              >
+                <IconUser />
+              </Link>
+              <Link
+                href="/ajustes"
+                aria-label="Ajustes"
+                title="Ajustes"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
+                style={{ color: "var(--color-piedra)" }}
+              >
+                <IconSettings />
+              </Link>
+            </>
+          ) : (
+            <div className="hidden sm:flex items-center gap-1.5 ml-1">
+              <Link
+                href="/login"
+                className="text-[0.88rem] font-medium px-3 py-1.5 rounded-md hover:bg-[var(--color-papiro-soft)]"
+                style={{ color: "var(--color-papiro-ink)" }}
+              >
+                Entrar
+              </Link>
+              <Link
+                href="/registro"
+                className="text-[0.88rem] font-semibold px-3 py-1.5 rounded-md"
+                style={{
+                  background: "var(--color-ocre-deep)",
+                  color: "var(--color-surface)",
+                }}
+              >
+                Crear cuenta
+              </Link>
+            </div>
+          )}
           <button
             onClick={() => setOpenMobile((v) => !v)}
             aria-label="Abrir menú"
@@ -140,6 +166,36 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
                 </Link>
               </li>
             ))}
+            {!cargando && !user && (
+              <>
+                <li
+                  className="mt-2 pt-2 border-t"
+                  style={{ borderColor: "var(--color-linea)" }}
+                >
+                  <Link
+                    href="/login"
+                    onClick={() => setOpenMobile(false)}
+                    className="block py-2 text-[0.95rem]"
+                    style={{ color: "var(--color-papiro-ink)", fontWeight: 500 }}
+                  >
+                    Entrar
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/registro"
+                    onClick={() => setOpenMobile(false)}
+                    className="block py-2 text-[0.95rem]"
+                    style={{
+                      color: "var(--color-ocre-deep)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Crear cuenta
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
       )}

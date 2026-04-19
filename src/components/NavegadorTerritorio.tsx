@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { CANARIAS, type Isla, type Municipio } from "@/lib/territorio/canarias";
 import { IconChevronRight } from "./Icons";
+import { CTAProtegido } from "./CTAProtegido";
 
 type Nivel = "isla" | "municipio" | "barrio";
 
@@ -205,15 +206,14 @@ export function NavegadorTerritorio() {
                 ¿Quieres ser <strong>oikonómos</strong> de un barrio y empezar su
                 mapeo?
               </p>
-              <button
-                className="mt-3 rounded-md px-3 py-1.5 text-[0.85rem] font-semibold"
-                style={{
-                  background: "var(--color-ocre-deep)",
-                  color: "var(--color-surface)",
-                }}
-              >
-                Proponer un barrio
-              </button>
+              <div className="mt-3 inline-block">
+                <CTAProtegido
+                  etiqueta="Proponer un barrio"
+                  etiquetaAnonimo="Entra para proponer barrio"
+                  razon="Proponer barrios no mapeados requiere una cuenta."
+                  tamano="sm"
+                />
+              </div>
             </div>
           ) : (
             <ul className="grid grid-cols-2 md:grid-cols-3 gap-2">

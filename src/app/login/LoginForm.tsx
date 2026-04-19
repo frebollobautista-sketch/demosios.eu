@@ -1,18 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
+type Metodo = "enlace" | "password";
+
 /**
- * Formulario de login. Se aísla de la page porque usa `useSearchParams`,
- * que obliga a vivir dentro de un `<Suspense>` en Next.js 16 durante
- * el prerender estático.
+ * Formulario de login con dos métodos:
+ * · "enlace" (magic link) — sin contraseña, Supabase envía un correo.
+ * · "password" — email + contraseña clásico.
+ *
+ * Se aísla de la page porque usa `useSearchParams`, que obliga a
+ * vivir dentro de un `<Suspense>` en Next.js 16 durante el prerender.
  */
 export function LoginForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/";
+
+  const [metodo, setMetodo] = useState<Metodo>("enlace");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [estado, setEstado] = useState<"idle" | "enviando" | "enviado" | "error">("idle");
   const [mensaje, setMensaje] = useState("");
 
@@ -30,6 +40,7 @@ export function LoginForm() {
       email,
       options: {
         emailRedirectTo: `${origin()}/auth/callback?redirect=${encodeURIComponent(redirect)}`,
+        shouldCreateUser: false,
       },
     });
     if (error) {
@@ -39,6 +50,22 @@ export function LoginForm() {
     }
     setEstado("enviado");
     setMensaje("Revisa tu correo y pulsa el enlace para entrar.");
+  };
+
+  const entrarConPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) return;
+    setEstado("enviando");
+    setMensaje("");
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      setEstado("error");
+      setMensaje(error.message);
+      return;
+    }
+    router.push(redirect);
+    router.refresh();
   };
 
   const entrarConGoogle = async () => {
@@ -53,40 +80,165 @@ export function LoginForm() {
 
   return (
     <>
-      <form onSubmit={enviarMagicLink} className="mt-6 space-y-3">
-        <label className="block">
-          <span className="eyebrow block mb-1">Correo electrónico</span>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={estado === "enviando" || estado === "enviado"}
-            placeholder="tu@correo.es"
-            className="w-full h-11 rounded-md px-3 text-[0.95rem] outline-none"
-            style={{
-              background: "var(--color-surface)",
-              border: "1px solid var(--color-linea)",
-              color: "var(--color-papiro-ink)",
-            }}
-          />
-        </label>
+      {/* Selector de método */}
+      <div
+        role="tablist"
+        className="mt-6 inline-flex rounded-lg p-1"
+        style={{
+          background: "var(--color-papiro-soft)",
+          border: "1px solid var(--color-linea)",
+        }}
+      >
         <button
-          type="submit"
-          disabled={!email || estado === "enviando" || estado === "enviado"}
-          className="w-full h-11 rounded-md font-semibold text-[0.95rem] transition-opacity disabled:opacity-60"
+          role="tab"
+          aria-selected={metodo === "enlace"}
+          onClick={() => {
+            setMetodo("enlace");
+            setEstado("idle");
+            setMensaje("");
+          }}
+          className="px-3 py-1.5 text-[0.86rem] rounded-md transition-colors"
           style={{
-            background: "var(--color-ocre-deep)",
-            color: "var(--color-surface)",
+            background: metodo === "enlace" ? "var(--color-surface)" : "transparent",
+            color:
+              metodo === "enlace"
+                ? "var(--color-papiro-ink)"
+                : "var(--color-piedra)",
+            fontWeight: metodo === "enlace" ? 600 : 500,
+            boxShadow: metodo === "enlace" ? "var(--shadow-sutil)" : "none",
           }}
         >
-          {estado === "enviando"
-            ? "Enviando..."
-            : estado === "enviado"
-            ? "Enlace enviado ✓"
-            : "Enviarme el enlace"}
+          Con enlace al correo
         </button>
-      </form>
+        <button
+          role="tab"
+          aria-selected={metodo === "password"}
+          onClick={() => {
+            setMetodo("password");
+            setEstado("idle");
+            setMensaje("");
+          }}
+          className="px-3 py-1.5 text-[0.86rem] rounded-md transition-colors"
+          style={{
+            background:
+              metodo === "password" ? "var(--color-surface)" : "transparent",
+            color:
+              metodo === "password"
+                ? "var(--color-papiro-ink)"
+                : "var(--color-piedra)",
+            fontWeight: metodo === "password" ? 600 : 500,
+            boxShadow: metodo === "password" ? "var(--shadow-sutil)" : "none",
+          }}
+        >
+          Con contraseña
+        </button>
+      </div>
+
+      {metodo === "enlace" ? (
+        <form onSubmit={enviarMagicLink} className="mt-4 space-y-3">
+          <label className="block">
+            <span className="eyebrow block mb-1">Correo electrónico</span>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={estado === "enviando" || estado === "enviado"}
+              placeholder="tu@correo.es"
+              className="w-full h-11 rounded-md px-3 text-[0.95rem] outline-none"
+              style={{
+                background: "var(--color-surface)",
+                border: "1px solid var(--color-linea)",
+                color: "var(--color-papiro-ink)",
+              }}
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={!email || estado === "enviando" || estado === "enviado"}
+            className="w-full h-11 rounded-md font-semibold text-[0.95rem] transition-opacity disabled:opacity-60"
+            style={{
+              background: "var(--color-ocre-deep)",
+              color: "var(--color-surface)",
+            }}
+          >
+            {estado === "enviando"
+              ? "Enviando..."
+              : estado === "enviado"
+              ? "Enlace enviado ✓"
+              : "Enviarme el enlace"}
+          </button>
+          <p
+            className="text-[0.78rem]"
+            style={{ color: "var(--color-piedra-clara)" }}
+          >
+            Sin contraseña. Te llega un enlace al correo, pulsas y entras.
+          </p>
+        </form>
+      ) : (
+        <form onSubmit={entrarConPassword} className="mt-4 space-y-3">
+          <label className="block">
+            <span className="eyebrow block mb-1">Correo electrónico</span>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={estado === "enviando"}
+              placeholder="tu@correo.es"
+              autoComplete="email"
+              className="w-full h-11 rounded-md px-3 text-[0.95rem] outline-none"
+              style={{
+                background: "var(--color-surface)",
+                border: "1px solid var(--color-linea)",
+                color: "var(--color-papiro-ink)",
+              }}
+            />
+          </label>
+          <label className="block">
+            <span className="eyebrow block mb-1">Contraseña</span>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={estado === "enviando"}
+              autoComplete="current-password"
+              className="w-full h-11 rounded-md px-3 text-[0.95rem] outline-none"
+              style={{
+                background: "var(--color-surface)",
+                border: "1px solid var(--color-linea)",
+                color: "var(--color-papiro-ink)",
+              }}
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={!email || !password || estado === "enviando"}
+            className="w-full h-11 rounded-md font-semibold text-[0.95rem] transition-opacity disabled:opacity-60"
+            style={{
+              background: "var(--color-ocre-deep)",
+              color: "var(--color-surface)",
+            }}
+          >
+            {estado === "enviando" ? "Entrando..." : "Entrar"}
+          </button>
+          <p
+            className="text-[0.78rem]"
+            style={{ color: "var(--color-piedra-clara)" }}
+          >
+            ¿No tienes cuenta todavía?{" "}
+            <Link
+              href="/registro"
+              className="underline"
+              style={{ color: "var(--color-ocre-deep)" }}
+            >
+              Créala en un minuto
+            </Link>
+            .
+          </p>
+        </form>
+      )}
 
       {mensaje && (
         <p

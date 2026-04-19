@@ -39,6 +39,9 @@ Comprado en DonDominio. Decisión: mantener el registro en DonDominio (precio EU
 ### 2026-04-19 — Conectores MCP sugeridos: Supabase y Vercel
 Ambos servicios tienen MCP oficial. Conectarlos desde Cowork significa que Claude puede listar proyectos, aplicar migraciones, consultar logs de despliegue y cambiar variables de entorno sin pedir tokens sueltos ni tocar el navegador. GitHub no tiene MCP oficial (sí GitLab / Codeberg); alternativa: `gh auth login` en el sandbox por sesión, o token PAT en `.env.local`.
 
+### 2026-04-19 — Vercel "Install Coding Agent Plugin" — NO hace falta en Cowork
+Vercel ofrece un plugin instalable para Claude Code (CLI), Cursor y Codex que les da acceso a su API. Aquí usamos Cowork y ya tenemos el MCP oficial de Vercel conectado, que cubre exactamente las mismas capacidades. Instalar el plugin duplicaría y ensuciaría el entorno local. Solo relevante si algún día se usa Claude Code directamente desde la terminal del Mac.
+
 ### 2026-04-19 — Auth y BBDD: Supabase nuevo proyecto para OCRE
 Reutilizamos el patrón de KOINOS (`@supabase/ssr`), pero proyecto Supabase separado para no entremezclar datos con KOINOS mientras iteramos. Auth: magic link + Google OAuth como mínimo. Password clásico evitado. Apple OAuth cuando haya app móvil.
 

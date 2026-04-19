@@ -2,9 +2,7 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import { Header } from "./Header";
-import { BannerAvatar } from "./BannerAvatar";
 import { BannerSuscripcion } from "./BannerSuscripcion";
-import { PERFIL_DEMO } from "@/lib/perfil/mock";
 import { useSession } from "@/lib/auth/useSession";
 
 const STORAGE_KEY = "ocre.suscripcion.cerrada";
@@ -66,17 +64,18 @@ export function Shell({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Banner flotante del avatar solo cuando hay sesión. Cuando conectemos
-  // las contribuciones reales, sustituimos PERFIL_DEMO por una lectura
-  // de profiles + contribuciones del usuario actual.
-  const mostrarAvatar = !cargando && user !== null;
+  // Boletín solo para usuarios registrados: anónimos no ven la suscripción.
+  // Banner flotante del avatar retirado de momento — se reactivará cuando
+  // haya datos reales de capital y el nivel tenga sentido mostrar.
+  const mostrarSuscripcion = !cargando && user !== null;
 
   return (
     <>
       <Header onOpenSubscribe={abrir} />
       <main className="flex-1 w-full">{children}</main>
-      <BannerSuscripcion abierto={!cerrada} onAbrir={abrir} onCerrar={cerrar} />
-      {mostrarAvatar && <BannerAvatar perfil={PERFIL_DEMO} />}
+      {mostrarSuscripcion && (
+        <BannerSuscripcion abierto={!cerrada} onAbrir={abrir} onCerrar={cerrar} />
+      )}
     </>
   );
 }

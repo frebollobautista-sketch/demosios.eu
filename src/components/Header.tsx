@@ -79,15 +79,17 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
-          <button
-            onClick={onOpenSubscribe}
-            aria-label="Suscribirse al correo"
-            title="Suscribirse"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
-            style={{ color: "var(--color-piedra)" }}
-          >
-            <IconMail />
-          </button>
+          {user && (
+            <button
+              onClick={onOpenSubscribe}
+              aria-label="Suscribirse al correo"
+              title="Suscribirse"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
+              style={{ color: "var(--color-piedra)" }}
+            >
+              <IconMail />
+            </button>
+          )}
           {cargando || user ? (
             <>
               <Link

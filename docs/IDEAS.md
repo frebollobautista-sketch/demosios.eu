@@ -109,5 +109,21 @@ Patrón implementado en `src/components/CTAProtegido.tsx`. Un botón que requier
 ### 2026-04-19 — Banner flotante del avatar: solo con sesión activa
 Antes se pintaba siempre con `PERFIL_DEMO`. Ahora el banner solo se monta cuando `useSession()` devuelve un usuario. Pendiente: sustituir `PERFIL_DEMO` por una lectura real desde `profiles` + `contribuciones` del usuario actual cuando cableemos el cálculo de capital en servidor.
 
+### 2026-04-19 — Banner del avatar retirado de momento (demasiado pronto)
+Decisión del usuario: mostrar nivel + clase + puntos es prematuro con cero contribuciones reales. Se retira el banner flotante completamente (incluso para usuarios autenticados) hasta que el cálculo de capital se alimente de contribuciones reales. El componente `BannerAvatar.tsx` se mantiene en el repo para reactivación inmediata cuando llegue el momento.
+
+### 2026-04-19 — Boletín solo para usuarios registrados
+El banner de suscripción y el icono de correo del header solo aparecen cuando hay sesión activa. Razón: los anónimos no están aún en el perímetro de la comunidad; pedirles email para newsletter antes de que hayan explorado la plataforma es invasivo. El boletín se concibe como comunicación interna a quien ya forma parte del común.
+
+## Mapa / Tablero
+
+### 2026-04-19 — Tablero hexagonal de barrios — MVP con LPGC
+Primer tablero interactivo en `/polis`: 10 barrios de Las Palmas de Gran Canaria como hexágonos flat-top en un SVG de 500×560. Cada barrio tiene `composicionCapital` mock (% por tipo de bloque) y se colorea por el tipo dominante. Click → modal `BarrioModal` con composición completa + 3 CTAs protegidos (abrir hilo, publicar recurso, marcar bloque). Barrios candidatos a recuperación (>30 % rentista+corporativo) llevan borde punteado y una marca roja.
+
+Pendiente: (1) extender a las otras capitales insulares cuando tengamos la data, (2) sustituir la cuadrícula hex por geometría real de bloques (pipeline Blender GIS + catastro + OSM descrito en `KOINOS/POLIS_digitalizador_urbano.md`), (3) permitir cambiar de isla/municipio desde selector dentro de `/polis`, (4) capa de landmarks superpuesta.
+
+### 2026-04-19 — Datos mock de composición de capital por barrio
+Valores provisionales con lógica editorial (La Isleta mayoritariamente residente, Vegueta alta proporción de común por su patrimonio cultural, Jinámar con 35% corporativo como candidato natural). Sirven para validar UX hasta que haya datos reales. Fuentes reales previstas: Catastro INSPIRE para titularidad registrada, CNMV para identificar SOCIMIs, reportes del Ministerio de Vivienda para grandes tenedores.
+
 ### 2026-04-19 — Cuarto eje opcional `oikonomia`
 Se decidió reducir a 3 ejes (koinonía/paideía/politeía). Si en iteraciones posteriores aparece una economía local productiva en OCRE, la interfaz `PesoPorEje` admite ampliarla sin romper contribuciones existentes.

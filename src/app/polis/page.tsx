@@ -1,4 +1,6 @@
 import { IconMap } from "@/components/Icons";
+import { MapaBarrios } from "@/components/MapaBarrios";
+import { CANARIAS } from "@/lib/territorio/canarias";
 
 type TipoBloque = {
   id: string;
@@ -59,6 +61,13 @@ const TIPOS: TipoBloque[] = [
 ];
 
 export default function PolisPage() {
+  // Por ahora el tablero arranca en Las Palmas de Gran Canaria.
+  // Cuando tengamos datos para más municipios, añadimos un selector.
+  const isla = CANARIAS.find((i) => i.id === "gran-canaria")!;
+  const municipio = isla.municipios.find(
+    (m) => m.id === "las-palmas-de-gran-canaria",
+  )!;
+
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 pb-40">
       <div className="eyebrow">Πόλις</div>
@@ -79,6 +88,37 @@ export default function PolisPage() {
 
       <div className="divisor my-8" />
 
+      <section aria-labelledby="tablero">
+        <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
+          <h2
+            id="tablero"
+            className="display text-[1.15rem]"
+            style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
+          >
+            Tablero de {municipio.nombre}
+          </h2>
+          <span
+            className="eyebrow"
+            style={{ color: "var(--color-piedra-clara)" }}
+          >
+            {isla.emoji} {isla.nombre} · {municipio.barrios.length} barrios
+          </span>
+        </div>
+        <p
+          className="text-[0.9rem] mb-4 max-w-2xl"
+          style={{ color: "var(--color-piedra)" }}
+        >
+          Cada hexágono es un barrio, coloreado por el tipo de capital
+          dominante en él. Los barrios con borde punteado y marca roja son
+          <strong> candidatos a recuperación</strong> (&gt;30 % en manos
+          rentistas o corporativas). Pulsa cualquier barrio para ver su
+          composición completa y abrir acciones.
+        </p>
+        <MapaBarrios isla={isla} municipio={municipio} />
+      </section>
+
+      <div className="divisor my-12" />
+
       <section>
         <h2
           className="display text-[1.1rem] mb-3"
@@ -86,7 +126,7 @@ export default function PolisPage() {
         >
           Tipología de bloques
         </h2>
-        <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 list-none p-0 m-0">
           {TIPOS.map((t) => (
             <li
               key={t.id}
@@ -149,7 +189,10 @@ export default function PolisPage() {
       >
         <div
           className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full"
-          style={{ background: "var(--color-surface)", color: "var(--color-ocre-deep)" }}
+          style={{
+            background: "var(--color-surface)",
+            color: "var(--color-ocre-deep)",
+          }}
         >
           <IconMap />
         </div>
@@ -157,12 +200,13 @@ export default function PolisPage() {
           className="display italic mt-3 text-[1rem]"
           style={{ color: "var(--color-papiro-ink)" }}
         >
-          El mapa interactivo aterrizará aquí.
+          El mapa geográfico real aterrizará aquí.
         </p>
         <p className="mt-2 max-w-xl mx-auto text-[0.9rem]">
-          Se apoyará en el digitalizador urbano pixel art de KOINOS (POLIS) y
-          en las fuentes abiertas de catastro y OSM. Las piezas técnicas
-          existen; queda el ensamblaje.
+          Por ahora el tablero es estilizado (hexágonos por barrio).
+          Cuando acabemos de cablear el pipeline de Blender GIS + catastro
+          + OSM documentado en KOINOS, sustituimos los hexágonos por la
+          geometría real de bloques y parcelas.
         </p>
       </section>
     </div>

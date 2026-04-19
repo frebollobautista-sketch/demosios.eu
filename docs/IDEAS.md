@@ -66,6 +66,18 @@ Hoy solo hay barrios mapeados para las capitales insulares y algunos municipios 
 
 ## Gamificación / Cursus
 
+### 2026-04-19 — Producción de vídeo del cursus: iPad + Procreate Dreams
+Tres rutas ordenadas de menor a mayor coste por pieza: (1) kinetic typography + grabado fijo en PNG exportado desde Procreate y compuesto en Dreams con keyframes de posición/opacidad; (2) motion comic con capas separadas (cabeza/cuerpo/fondo) performadas con el dedo en Dreams; (3) cutout articulado con rig. Decisión: arrancar por (1), fija la gramática visual que heredan las otras dos. Antes de tocar Procreate: fijar encuadre único (1080x1920 o 1920x1080, no mezclar), paleta cerrada a los 7 colores del cursus + blanco/negro (cada vídeo vive en el color del grado o eje que explica), y bumper reutilizable de 3 s (logo OCRE → griego → latino → castellano). Pipeline: `docs/guiones/NN-titulo.md` → storyboard → PNGs en `public/cursus/NN/` → Dreams → MP4 → contribución `video` del eje `paideía`.
+
+### 2026-04-19 — Pivote editorial: primero la serie "Circunstancia canaria", luego el cursus
+Decisión del usuario: arrancar la producción de vídeo con una serie previa al cursus que explique el porqué del proyecto. Tono Ortega ("yo soy yo y mi circunstancia"), marco civico-territorial. Arco propuesto de 5-6 episodios: (00) Canarias, circunstancia — marco general; (01) La tierra que fue común — heredamientos, suelo comunal, dehesas; (02) Cómo se privatizó el archipiélago — turismo, vivienda vacacional, grandes patrimonios, costa; (03) Qué sigue siendo común — inventario de comunes vivos; (04) Organizarse: por qué ahora — precariedad, éxodo, resistencias; (05) OCRE: para qué existe — puente al mecanismo (cursus, Polis, Ágora, Bibliotheka) como respuesta a los cuatro anteriores. Se mantiene ruta 1 de producción (kinetic typography + grabado fijo) y el pipeline, solo cambian los assets: `public/series/circunstancia/mapa-canarias.svg`, grabados de oficios canarios (gofio, salinas, aljibes, molinos), y fotografía doc ilustrada. Fuentes de datos a tener abiertas desde el guion 00: ISTAC, INE, datos.canarias.es, Ministerio de Vivienda, reportes de impacto turístico. Pendiente: redactar guion del ep 00 en `docs/guiones/00-circunstancia-canaria.md`.
+
+### 2026-04-19 — El grabado romano sobrio puede debutar en vídeo antes que en UI
+La exploración pendiente de sustituir los símbolos tipográficos del cursus (○⬡◆✦❖✶♁) por ilustraciones de grabado romano puede probarse primero en el formato vídeo (ruta 1 de la producción). Ahí el coste es bajo y, si funciona, migra a la UI con aval visual real.
+
+### 2026-04-19 — Track `poietés` nace del propio trabajo de animación
+Si el admin/autor anima el cursus en Procreate Dreams, se convierte en el primer `poietés` del sistema. El track paralelo artístico (mencionado como variante futura en `CURSUS_HONORUM.md`) puede arrancar con este caso de uso concreto: animar vídeos del cursus entrena el hueco del grado.
+
 ### 2026-04-19 — Insignias laterales no lineales
 Idea: "custodio/a del agua", "guardián/ana de la biblioteca del barrio", etc. Insignias que cruzan el cursus y aportan reconocimiento lateral sin escalar niveles.
 

@@ -2,13 +2,14 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
- * Middleware de sesión Supabase. Refresca cookies de auth en cada request
- * y protege las rutas que requieren usuario.
+ * Proxy de sesión Supabase (antes "middleware" — renombrado en Next.js 16).
+ * Refresca cookies de auth en cada request y protege las rutas que requieren
+ * usuario.
  *
  * Rutas públicas: /, /agora, /bibliotheka, /polis, /login, /auth, /api/**
  * Rutas protegidas: /perfil, /ajustes (y cualquier ruta futura fuera de la lista).
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(

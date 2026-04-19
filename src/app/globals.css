@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* ─── OCRE tokens ──────────────────────────────────────────────── */
+/* Paleta sobria ocre: papiro, tierra, terracota, carbón. */
+
+:root {
+  /* superficies — variante blanca (v1) */
+  --color-papiro: #FFFFFF;      /* fondo principal: blanco puro */
+  --color-papiro-soft: #F5F2EA; /* bandas y divisores: crema muy sutil */
+  --color-papiro-ink: #1A1714;  /* tinta oscura para contraste alto */
+  --color-surface: #FFFFFF;     /* tarjetas: mismo blanco, se distinguen por borde */
+
+  /* tierras — se mantienen como acento cálido */
+  --color-ocre: #B4832E;
+  --color-ocre-deep: #8A5E1F;
+  --color-siena: #A14B2A;
+  --color-sangre: #6E2A1E;
+
+  /* neutros — línea un punto más marcada para que las tarjetas blancas
+     recorten bien sobre fondo blanco */
+  --color-carbon: #1C1915;
+  --color-piedra: #6D6458;
+  --color-piedra-clara: #9C9283;
+  --color-linea: #E5E1D6;
+
+  /* semánticos ligeros */
+  --color-oliva: #5B7A3E;
+  --color-ambar: #C98A1A;
+
+  /* sombras */
+  --shadow-sutil: 0 1px 2px rgba(28, 25, 21, 0.05);
+  --shadow-carta: 0 6px 24px -8px rgba(28, 25, 21, 0.14);
+}
+
+@theme inline {
+  --color-papiro: var(--color-papiro);
+  --color-papiro-soft: var(--color-papiro-soft);
+  --color-papiro-ink: var(--color-papiro-ink);
+  --color-surface: var(--color-surface);
+  --color-ocre: var(--color-ocre);
+  --color-ocre-deep: var(--color-ocre-deep);
+  --color-siena: var(--color-siena);
+  --color-sangre: var(--color-sangre);
+  --color-carbon: var(--color-carbon);
+  --color-piedra: var(--color-piedra);
+  --color-piedra-clara: var(--color-piedra-clara);
+  --color-linea: var(--color-linea);
+  --color-oliva: var(--color-oliva);
+  --color-ambar: var(--color-ambar);
+
+  --font-serif: var(--font-serif-stack);
+  --font-sans: var(--font-sans-stack);
+  --font-mono: var(--font-mono-stack);
+}
+
+:root {
+  --font-serif-stack: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --font-sans-stack: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html,
+body {
+  background: var(--color-papiro);
+  color: var(--color-papiro-ink);
+  font-family: var(--font-sans-stack);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100svh;
+}
+
+/* Tipografía display — romana sobria para rótulos */
+.display {
+  font-family: var(--font-serif-stack);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-piedra);
+}
+
+/* Divisor estilo grabado */
+.divisor {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-linea) 20%,
+    var(--color-linea) 80%,
+    transparent 100%
+  );
+}
+
+/* Textura: desactivada en la variante blanca para mantener el fondo limpio.
+   Dejamos la clase vacía por compatibilidad con el layout. */
+.papiro-grano { background-image: none; }
+
+/* Utilidades para el banner flotante de avatar */
+.flotante-sombra {
+  box-shadow: var(--shadow-carta);
+}
+
+/* Scroll sin romper el header sticky */
+html {
+  scroll-padding-top: 4.5rem;
+}
+
+/* Ocultar el banner de suscripción cuando está colapsado — animación suave */
+.suscripcion-colapsada {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

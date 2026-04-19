@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OCRE — Preview</title>
+<style>
+  :root{
+    --color-papiro:#FFFFFF;
+    --color-papiro-soft:#F5F2EA;
+    --color-papiro-ink:#1A1714;
+    --color-surface:#FFFFFF;
+    --color-ocre:#B4832E;
+    --color-ocre-deep:#8A5E1F;
+    --color-siena:#A14B2A;
+    --color-sangre:#6E2A1E;
+    --color-carbon:#1C1915;
+    --color-piedra:#6D6458;
+    --color-piedra-clara:#9C9283;
+    --color-linea:#E5E1D6;
+    --color-oliva:#5B7A3E;
+    --color-ambar:#C98A1A;
+    --shadow-sutil:0 1px 2px rgba(28,25,21,.05);
+    --shadow-carta:0 6px 24px -8px rgba(28,25,21,.14);
+    --font-serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+    --font-sans:ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--color-papiro);color:var(--color-papiro-ink);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{min-height:100svh;display:flex;flex-direction:column}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;border:0;background:transparent;cursor:pointer}
+  .display{font-family:var(--font-serif);font-weight:500;letter-spacing:.01em}
+  .italic{font-style:italic}
+  .eyebrow{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--color-piedra)}
+  .divisor{height:1px;background:linear-gradient(90deg,transparent 0%,var(--color-linea) 20%,var(--color-linea) 80%,transparent 100%);margin:2.5rem 0}
+  .flotante-sombra{box-shadow:var(--shadow-carta)}
+
+  /* header */
+  header.top{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--color-linea);background:linear-gradient(180deg,var(--color-surface) 0%,var(--color-papiro) 100%);backdrop-filter:saturate(1.1)}
+  header.top .wrap{max-width:72rem;margin:0 auto;display:flex;align-items:center;gap:1rem;padding:0 1rem;height:4rem}
+  @media(min-width:640px){header.top .wrap{padding:0 1.5rem}}
+  .logo{display:inline-flex;align-items:center;gap:.625rem;color:var(--color-ocre-deep)}
+  .logo svg{flex-shrink:0}
+  .logo .name{font-family:var(--font-serif);font-size:1.05rem;letter-spacing:.22em;font-weight:600;color:var(--color-papiro-ink)}
+  nav.main{margin-left:1.5rem;display:none;align-items:center;gap:.25rem}
+  @media(min-width:768px){nav.main{display:flex}}
+  nav.main button{position:relative;padding:.5rem .75rem;font-size:.93rem;border-radius:.375rem;color:var(--color-piedra);transition:color .15s}
+  nav.main button:hover{background:var(--color-papiro-soft)}
+  nav.main button.active{color:var(--color-papiro-ink);font-weight:600}
+  nav.main button.active::after{content:"";position:absolute;left:.75rem;right:.75rem;bottom:-17px;height:2px;background:var(--color-ocre-deep)}
+  .right-icons{margin-left:auto;display:flex;align-items:center;gap:.375rem}
+  .iconbtn{display:inline-flex;width:2.25rem;height:2.25rem;align-items:center;justify-content:center;border-radius:.375rem;color:var(--color-piedra)}
+  .iconbtn:hover{background:var(--color-papiro-soft)}
+  nav.mobile{display:none;border-top:1px solid var(--color-linea)}
+  nav.mobile.open{display:block}
+  @media(min-width:768px){nav.mobile,nav.mobile.open{display:none}}
+  nav.mobile .ml{max-width:72rem;margin:0 auto;padding:.5rem 1rem}
+  nav.mobile button{display:block;padding:.5rem 0;font-size:.95rem;color:var(--color-papiro-ink);font-weight:500;width:100%;text-align:left}
+  nav.mobile button.active{color:var(--color-ocre-deep);font-weight:600}
+
+  main.app{flex:1;width:100%}
+  .container{max-width:72rem;margin:0 auto;padding:2.5rem 1rem 10rem}
+  @media(min-width:640px){.container{padding:2.5rem 1.5rem 10rem}}
+  .h1-hero{font-family:var(--font-serif);font-weight:600;color:var(--color-papiro-ink);line-height:1.1;font-size:clamp(1.8rem,4.2vw,2.8rem);margin:.5rem 0 0}
+  .h2{font-family:var(--font-serif);font-weight:600;color:var(--color-papiro-ink);font-size:1.25rem;margin:0}
+  .p-intro{max-width:42rem;font-size:1rem;color:var(--color-piedra);margin:1rem 0 0}
+  .p-intro strong{color:var(--color-ocre-deep);font-weight:600}
+
+  /* cards genéricas */
+  .card{background:var(--color-surface);border:1px solid var(--color-linea);border-radius:.75rem;padding:1.25rem;transition:background .15s}
+  .card:hover{background:var(--color-papiro-soft)}
+  .card.flat:hover{background:var(--color-surface)}
+
+  /* navegador territorio */
+  .crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem;font-size:.82rem;color:var(--color-piedra);margin-bottom:1rem}
+  .crumbs button{color:var(--color-ocre-deep);font-weight:600}
+  .crumbs button.active{color:var(--color-papiro-ink)}
+  .crumbs .sep{display:inline-flex;opacity:.5}
+  .grid-islas{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+  @media(min-width:768px){.grid-islas{grid-template-columns:repeat(4,1fr)}}
+  .isla-card{padding:1rem;text-align:left}
+  .isla-card .top{display:flex;justify-content:space-between;align-items:flex-start}
+  .isla-card .emoji{font-size:1.5rem}
+  .isla-card .name{font-family:var(--font-serif);font-weight:600;font-size:1.05rem;color:var(--color-papiro-ink);margin-top:.5rem}
+  .isla-card .sub{font-size:.78rem;color:var(--color-piedra);margin-top:.125rem}
+  .grid-munis{display:grid;grid-template-columns:1fr;gap:.5rem}
+  @media(min-width:768px){.grid-munis{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1024px){.grid-munis{grid-template-columns:repeat(3,1fr)}}
+  .muni-card{display:flex;align-items:center;justify-content:space-between;padding:.75rem;text-align:left}
+  .muni-card .name{font-weight:600;color:var(--color-papiro-ink);font-size:.92rem}
+  .muni-card .sub{font-size:.76rem;color:var(--color-piedra)}
+  .grid-barrios{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem}
+  @media(min-width:768px){.grid-barrios{grid-template-columns:repeat(3,1fr)}}
+  .barrio-card{padding:.75rem;text-align:left;font-size:.88rem;color:var(--color-papiro-ink);font-weight:600}
+  .barrio-card.active{background:var(--color-papiro-soft)}
+  .barrio-detalle{margin-top:1rem;padding:1rem;background:var(--color-surface);border:1px solid var(--color-linea);border-radius:.5rem}
+  .vacio{padding:1.5rem;border:1px dashed var(--color-linea);border-radius:.5rem;text-align:center;background:var(--color-surface);color:var(--color-piedra)}
+
+  /* ejes */
+  .grid-ejes{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1.5rem}
+  @media(min-width:768px){.grid-ejes{grid-template-columns:repeat(3,1fr)}}
+  .eje-card{padding:1.25rem;border-radius:.75rem;border:1px solid var(--color-linea)}
+  .eje-grc{font-family:var(--font-serif);font-style:italic;font-size:1.4rem;font-weight:600}
+  .eje-lbl{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;opacity:.75;margin-top:.15rem}
+  .eje-desc{margin-top:.75rem;font-size:.92rem;color:var(--color-papiro-ink)}
+
+  /* puertas */
+  .grid-puertas{display:grid;grid-template-columns:1fr;gap:.75rem;margin-top:1rem}
+  @media(min-width:768px){.grid-puertas{grid-template-columns:repeat(3,1fr)}}
+  .puerta{padding:1.25rem;border-radius:.75rem;background:var(--color-surface);border:1px solid var(--color-linea);cursor:pointer;text-align:left}
+  .puerta:hover{background:var(--color-papiro-soft)}
+  .puerta-grc{font-family:var(--font-serif);font-style:italic;font-size:.9rem;color:var(--color-ocre-deep)}
+  .puerta-tit{font-family:var(--font-serif);font-weight:600;font-size:1.25rem;color:var(--color-papiro-ink);margin-top:.125rem}
+  .puerta-p{margin-top:.5rem;font-size:.9rem;color:var(--color-piedra)}
+
+  /* ágora */
+  .grid-secciones{display:grid;grid-template-columns:1fr;gap:.75rem}
+  @media(min-width:768px){.grid-secciones{grid-template-columns:repeat(2,1fr)}}
+  .sec-card{padding:1.25rem;border-radius:.75rem;border:1px solid var(--color-linea)}
+  .sec-top{display:flex;gap:.75rem;align-items:flex-start}
+  .sec-icono{font-size:1.25rem;flex-shrink:0}
+  .sec-titulo{font-family:var(--font-serif);font-weight:600;font-size:1.02rem}
+  .sec-desc{margin-top:.25rem;font-size:.88rem;color:var(--color-papiro-ink)}
+  .sec-meta{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--color-piedra-clara);margin-top:.75rem}
+
+  /* tabs */
+  .tabs{display:inline-flex;gap:.25rem;padding:.25rem;background:var(--color-papiro-soft);border:1px solid var(--color-linea);border-radius:.5rem;margin-top:2rem}
+  .tab-btn{padding:.5rem 1rem;font-size:.9rem;border-radius:.375rem;color:var(--color-piedra);display:inline-flex;align-items:center;gap:.5rem;font-weight:500}
+  .tab-btn.active{background:var(--color-surface);color:var(--color-papiro-ink);font-weight:600;box-shadow:var(--shadow-sutil)}
+  .tab-btn span.italic{font-family:var(--font-serif);font-style:italic}
+
+  /* cursus */
+  .grado{padding:1.25rem;border-radius:.75rem;background:var(--color-surface);border:1px solid var(--color-linea);margin-bottom:.75rem}
+  .grado.lborder{border-left-width:3px;border-left-style:solid}
+  .grado .row{display:flex;gap:1rem;align-items:flex-start}
+  .atributo{width:2.75rem;height:2.75rem;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;background:var(--color-papiro-soft);border-radius:.625rem;font-family:var(--font-serif);font-size:1.4rem;font-weight:700}
+  .grado-head{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap}
+  .grado-nombre{font-family:var(--font-serif);font-size:1.15rem;color:var(--color-papiro-ink);font-weight:600}
+  .grado-badge{margin-left:auto;font-size:.78rem;background:var(--color-papiro-soft);color:var(--color-piedra);border-radius:999px;padding:.125rem .5rem}
+  .grado-lema{margin-top:.25rem;font-family:var(--font-serif);font-style:italic;font-size:.95rem}
+  .grado-body p{margin:.5rem 0 0;font-size:.92rem}
+  .grado-chips{margin-top:.75rem;display:flex;flex-wrap:wrap;gap:.375rem}
+  .chip{font-size:.76rem;color:var(--color-piedra);background:var(--color-papiro-soft);border:1px solid var(--color-linea);border-radius:999px;padding:.125rem .5rem}
+  .cta{margin-top:2rem;padding:1.25rem;border-radius:.75rem;background:var(--color-papiro-soft);border:1px dashed var(--color-linea);display:flex;align-items:center;gap:1rem}
+  .cta-play{display:none;width:3rem;height:3rem;align-items:center;justify-content:center;border-radius:999px;background:var(--color-surface);color:var(--color-ocre-deep)}
+  @media(min-width:640px){.cta-play{display:inline-flex}}
+  .btn-primary{background:var(--color-ocre-deep);color:var(--color-surface);font-weight:600;border-radius:.375rem;padding:.5rem .75rem;font-size:.88rem;flex-shrink:0}
+
+  /* polis */
+  .grid-tipos{display:grid;grid-template-columns:1fr;gap:.75rem}
+  @media(min-width:768px){.grid-tipos{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1024px){.grid-tipos{grid-template-columns:repeat(3,1fr)}}
+  .tipo-card{padding:1rem;border-radius:.75rem;background:var(--color-surface);border:1px solid var(--color-linea);border-left-width:3px;border-left-style:solid}
+  .tipo-top{display:flex;justify-content:space-between;align-items:center}
+  .tipo-nombre{font-family:var(--font-serif);font-weight:600;font-size:1rem}
+  .tipo-desc{margin-top:.5rem;font-size:.88rem;color:var(--color-papiro-ink)}
+  .badge-candidato{background:var(--color-sangre);color:var(--color-surface);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;border-radius:999px;padding:.125rem .5rem}
+  .badge-comun{background:var(--color-papiro-soft);color:var(--color-piedra);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;border-radius:999px;padding:.125rem .5rem}
+  .polis-mapa{margin-top:3rem;padding:1.5rem;border-radius:.75rem;background:var(--color-papiro-soft);border:1px dashed var(--color-linea);text-align:center;color:var(--color-piedra)}
+  .polis-mapa .circle{margin:0 auto;display:inline-flex;width:3rem;height:3rem;align-items:center;justify-content:center;border-radius:999px;background:var(--color-surface);color:var(--color-ocre-deep)}
+
+  /* perfil */
+  .perfil-head{display:flex;gap:1.25rem;align-items:flex-start}
+  .avatar{position:relative;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font-weight:600;color:var(--color-surface);user-select:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 1px 2px rgba(0,0,0,.12)}
+  .avatar .grade-badge{position:absolute;bottom:-4px;right:-4px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--color-surface);border:1px solid var(--color-linea);font-family:var(--font-serif);font-weight:700;line-height:1}
+  .perfil-nombre{font-family:var(--font-serif);font-size:clamp(1.5rem,3.2vw,2rem);color:var(--color-papiro-ink);font-weight:600;margin:.25rem 0 0}
+  .perfil-handle{font-family:var(--font-serif);font-style:italic;font-weight:400;color:var(--color-piedra)}
+  .perfil-lema{font-family:var(--font-serif);font-style:italic;font-size:1rem;margin-top:.25rem}
+  .perfil-loc{font-size:.88rem;color:var(--color-piedra);margin-top:.5rem}
+  .grid-capital{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1rem}
+  @media(min-width:768px){.grid-capital{grid-template-columns:repeat(3,1fr)}}
+  .cap-card{padding:1.25rem;border-radius:.75rem;border:1px solid var(--color-linea)}
+  .cap-card.dom{}
+  .cap-top{display:flex;justify-content:space-between;align-items:baseline}
+  .cap-grc{font-family:var(--font-serif);font-style:italic;font-size:1.3rem;font-weight:600}
+  .cap-val{font-family:var(--font-serif);font-weight:600;font-size:1.6rem;font-variant-numeric:tabular-nums}
+  .cap-pct{font-size:.8rem;color:var(--color-piedra)}
+  .barra{height:4px;border-radius:999px;margin-top:.5rem}
+  .barra .fill{height:100%;border-radius:999px}
+  .cap-desc{margin-top:.75rem;font-size:.82rem;color:var(--color-piedra)}
+  .badge-dom{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;border-radius:999px;padding:.125rem .5rem;color:var(--color-surface)}
+  .cursus-list{padding:1.25rem;background:var(--color-surface);border:1px solid var(--color-linea);border-radius:.75rem}
+  .cursus-item{display:flex;gap:1rem;align-items:center;padding:.5rem 0}
+  .cursus-item .att{width:2.125rem;height:2.125rem;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;border-radius:.5rem;background:var(--color-papiro-soft);font-family:var(--font-serif);font-weight:700;font-size:1.1rem;border:1px solid var(--color-linea)}
+  .cursus-item .att.actual{border-width:2px}
+  .cursus-txt{flex:1;min-width:0}
+  .cursus-txt .n{font-family:var(--font-serif);font-size:.98rem;font-weight:600;color:var(--color-papiro-ink)}
+  .cursus-txt .tr{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--color-piedra-clara);margin-left:.25rem}
+  .cursus-txt .fn{font-size:.82rem;color:var(--color-piedra);margin-top:.15rem}
+  .cursus-item.locked{opacity:.5}
+  .avance{width:7rem;flex-shrink:0}
+  .avance .l{font-size:.72rem;color:var(--color-piedra);margin-bottom:.25rem}
+
+  /* banners fixed */
+  .banner-avatar{position:fixed;right:1rem;bottom:1rem;z-index:40;width:280px;border-radius:1rem;background:var(--color-surface);border:1px solid var(--color-linea);box-shadow:var(--shadow-carta)}
+  .banner-avatar .hd{display:flex;gap:.75rem;align-items:center;padding:.75rem}
+  .ba-side{display:flex;flex-direction:column;gap:.25rem}
+  .ba-btn{width:1.5rem;height:1.5rem;display:inline-flex;align-items:center;justify-content:center;border-radius:.375rem;color:var(--color-piedra)}
+  .ba-meta{min-width:0;flex:1}
+  .ba-meta .eb{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase}
+  .ba-meta .nm{font-size:.9rem;font-weight:500;color:var(--color-papiro-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ba-stats{padding:0 .75rem .5rem}
+  .ba-stat{font-size:.72rem;color:var(--color-piedra);margin-bottom:.375rem}
+  .ba-stat .row{display:flex;justify-content:space-between;align-items:baseline}
+  .ba-stat .grc{font-family:var(--font-serif);font-style:italic}
+  .ba-stat .bar{height:4px;border-radius:999px;margin-top:.125rem}
+  .ba-stat .bar .fill{height:100%;border-radius:999px}
+  .ba-foot{padding:.5rem .75rem .75rem;border-top:1px solid var(--color-linea)}
+  .ba-clase-row{display:flex;justify-content:space-between;align-items:baseline;font-size:.72rem}
+  .ba-rumbo{margin-top:.5rem;font-size:.72rem}
+  .ba-perfil-link{margin-top:.75rem;display:block;width:100%;text-align:center;border:1px solid var(--color-linea);border-radius:.375rem;padding:.375rem;font-size:.8rem;font-weight:600;color:var(--color-ocre-deep)}
+  .banner-avatar-min{position:fixed;right:1rem;bottom:1rem;z-index:40;padding:4px;background:var(--color-surface);border-radius:999px;box-shadow:var(--shadow-carta)}
+  .banner-suscrip{position:fixed;inset-inline:0;bottom:0;z-index:30}
+  @media(min-width:768px){.banner-suscrip{inset-inline:auto;left:1rem;bottom:1rem;width:360px}}
+  .banner-suscrip .wrap{margin:0 auto;max-width:36rem;border:1px solid var(--color-linea);border-bottom:0;border-top-left-radius:1rem;border-top-right-radius:1rem;background:var(--color-surface);box-shadow:var(--shadow-carta)}
+  @media(min-width:768px){.banner-suscrip .wrap{max-width:none;border-radius:1rem;border:1px solid var(--color-linea)}}
+  .banner-suscrip .top{display:flex;gap:.75rem;align-items:flex-start;padding:.75rem}
+  @media(min-width:768px){.banner-suscrip .top{padding:1rem}}
+  .banner-suscrip .logo-ball{margin-top:.125rem;display:inline-flex;width:2rem;height:2rem;align-items:center;justify-content:center;border-radius:999px;background:var(--color-papiro-soft);color:var(--color-ocre-deep);flex-shrink:0}
+  .banner-suscrip h4{margin:0;font-family:var(--font-serif);font-size:.98rem;color:var(--color-papiro-ink);font-weight:600}
+  .banner-suscrip p{margin:0;font-size:.82rem;color:var(--color-piedra)}
+  .banner-suscrip form{display:flex;gap:.5rem;padding:0 .75rem .75rem}
+  @media(min-width:768px){.banner-suscrip form{padding:0 1rem 1rem}}
+  .banner-suscrip input{flex:1;height:2.5rem;padding:0 .75rem;background:var(--color-papiro);border:1px solid var(--color-linea);border-radius:.375rem;font-size:.9rem;outline:none;color:var(--color-papiro-ink)}
+  .banner-suscrip .btn{height:2.5rem;padding:0 .75rem;background:var(--color-ocre-deep);color:var(--color-surface);font-size:.85rem;font-weight:600;border-radius:.375rem}
+  .banner-suscrip .ft{padding:0 .75rem .75rem;font-size:.72rem;color:var(--color-piedra-clara)}
+  @media(min-width:768px){.banner-suscrip .ft{padding:0 1rem .75rem}}
+  .banner-suscrip-min{position:fixed;left:1rem;bottom:1rem;z-index:30;width:2.75rem;height:2.75rem;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--color-surface);border:1px solid var(--color-linea);color:var(--color-ocre-deep);box-shadow:var(--shadow-carta)}
+
+  /* Ajustes dropdown */
+  .ajustes-wrap{position:relative}
+  .ajustes-menu{position:absolute;right:0;top:calc(100% + .5rem);width:280px;background:var(--color-surface);border:1px solid var(--color-linea);border-radius:.75rem;box-shadow:var(--shadow-carta);z-index:40;overflow:hidden}
+  .ajustes-menu .hd{padding:.75rem .875rem;border-bottom:1px solid var(--color-linea)}
+  .ajustes-menu .hd .t{font-family:var(--font-serif);font-weight:600;font-size:.95rem;color:var(--color-papiro-ink)}
+  .ajustes-menu .hd .s{font-size:.76rem;color:var(--color-piedra);margin-top:.125rem}
+  .ajustes-row{display:flex;align-items:center;gap:.75rem;padding:.75rem .875rem;width:100%;text-align:left;transition:background .15s}
+  .ajustes-row:hover{background:var(--color-papiro-soft)}
+  .ajustes-row .ic{flex-shrink:0;width:2rem;height:2rem;display:inline-flex;align-items:center;justify-content:center;border-radius:.375rem;background:var(--color-papiro-soft)}
+  .ajustes-row.privado .ic{background:#F0DED3;color:var(--color-siena)}
+  .ajustes-row.publico .ic{background:#DEE6D0;color:var(--color-oliva)}
+  .ajustes-row .tx{flex:1;min-width:0}
+  .ajustes-row .tx .lbl{font-size:.88rem;font-weight:600;color:var(--color-papiro-ink)}
+  .ajustes-row .tx .sub{font-size:.76rem;color:var(--color-piedra);margin-top:.125rem}
+  .toggle{position:relative;flex-shrink:0;width:2.25rem;height:1.25rem;border-radius:999px;background:var(--color-papiro-soft);border:1px solid var(--color-linea);transition:background .2s}
+  .toggle::after{content:"";position:absolute;top:1px;left:1px;width:1rem;height:1rem;border-radius:999px;background:var(--color-surface);box-shadow:0 1px 2px rgba(0,0,0,.15);transition:left .2s}
+  .toggle.on{background:var(--color-oliva)}
+  .toggle.on::after{left:calc(100% - 1.0625rem - 1px)}
+  .ajustes-sep{height:1px;background:var(--color-linea)}
+  .ajustes-ft{padding:.625rem .875rem;font-size:.72rem;color:var(--color-piedra-clara)}
+
+  /* Privacidad: candado en avatar */
+  .privacy-lock{position:absolute;top:-4px;left:-4px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--color-surface);color:var(--color-siena);border:1px solid var(--color-linea)}
+  .privacy-chip{display:inline-flex;align-items:center;gap:.25rem;padding:.125rem .5rem;border-radius:999px;background:#F0DED3;color:var(--color-siena);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" onclick="go('inicio')" href="#">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 4h16"/><path d="M8 7h12"/>
+        <path d="M10 7v14"/><path d="M14 7v14"/><path d="M18 7v14"/>
+        <path d="M7 21h14"/><path d="M5 24h18"/>
+      </svg>
+      <span class="name">OCRE</span>
+    </a>
+    <nav class="main" id="nav-main">
+      <button data-seccion="inicio">Inicio</button>
+      <button data-seccion="agora">Ágora</button>
+      <button data-seccion="bibliotheka">Bibliotheka</button>
+      <button data-seccion="polis">Polis</button>
+    </nav>
+    <div class="right-icons">
+      <button class="iconbtn" id="btn-mail" title="Suscribirse">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </button>
+      <button class="iconbtn" data-seccion="perfil" title="Perfil">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg>
+      </button>
+      <div class="ajustes-wrap">
+        <button class="iconbtn" id="btn-ajustes" title="Ajustes" aria-haspopup="true" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.7 1.7 0 00-1-1.5 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H3a2 2 0 010-4h.1a1.7 1.7 0 001.5-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 012.8-2.8l.1.1a1.7 1.7 0 001.9.3h0a1.7 1.7 0 001-1.5V3a2 2 0 014 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9v0a1.7 1.7 0 001.5 1H21a2 2 0 010 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
+        </button>
+        <div id="ajustes-menu"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="app">
+  <div class="container" id="container"></div>
+</main>
+
+<div id="banner-avatar"></div>
+<div id="banner-suscrip"></div>
+
+<script>
+/* ─── Datos ──────────────────────────────────────────────────────── */
+
+const SECCIONES_PHAROS = [
+  {id:"salud-servicios-sociales",nombre:"Salud, servicios sociales y economía reproductiva",descripcion:"Sanidad pública, cuidados, dependencia, sistemas de protección social y economía del cuidado.",icono:"🏥",color:"#FFF1F2",colorTexto:"#BE123C"},
+  {id:"cambio-climatico",nombre:"Cambio climático y autonomía estratégica",descripcion:"Crisis climática, soberanía energética, adaptación territorial y resiliencia urbana.",icono:"🌍",color:"#ECFDF5",colorTexto:"#047857"},
+  {id:"el-comun",nombre:"El común",descripcion:"Bienes comunes, gobernanza compartida, espacios colectivos y gestión comunitaria.",icono:"🤝",color:"#FFFBEB",colorTexto:"#B45309"},
+  {id:"migracion-cooperacion",nombre:"Migración y cooperación al desarrollo",descripcion:"Flujos migratorios, políticas de acogida, cooperación internacional y desarrollo sostenible.",icono:"🌐",color:"#EFF6FF",colorTexto:"#1D4ED8"},
+  {id:"defensa-geopolitica",nombre:"Defensa, geopolítica y seguridad ciudadana",descripcion:"Seguridad, defensa, relaciones internacionales y convivencia urbana.",icono:"🛡️",color:"#F8FAFC",colorTexto:"#334155"},
+  {id:"medios-desinformacion",nombre:"Medios de comunicación y desinformación post-moderna",descripcion:"Medios, fake news, alfabetización mediática, narrativas y pensamiento crítico.",icono:"📡",color:"#FAF5FF",colorTexto:"#7E22CE"},
+  {id:"industria-energia",nombre:"Industria, energía y transición sostenible",descripcion:"Política industrial, transición energética, economía circular y modelos productivos.",icono:"⚡",color:"#FEFCE8",colorTexto:"#A16207"},
+  {id:"trabajo-4ri",nombre:"Cartera de trabajo de la 4ª Revolución Industrial",descripcion:"Futuro del trabajo, automatización, inteligencia artificial, formación y nuevas competencias.",icono:"🤖",color:"#ECFEFF",colorTexto:"#0E7490"},
+];
+
+const EJES = [
+  {id:"koinonia",nombre:"Capital social",grc:"Κοινωνία",desc:"Vínculos, cuidado mutuo, asociacionismo, convivencia. Crece cuando aparecen otras personas como respaldo (PEC) de lo que haces.",color:"var(--color-siena)",colorTenue:"#F0DED3",icono:"🤝"},
+  {id:"paideia",nombre:"Capital cultural",grc:"Παιδεία",desc:"Formación, obra, memoria del común. Crece al publicar recursos, videos o hilos que otros usan para aprender.",color:"var(--color-ocre-deep)",colorTenue:"#EFE2C1",icono:"📜"},
+  {id:"politeia",nombre:"Capital político",grc:"Πολιτεία",desc:"Res publica: gobernanza, deliberación, recuperación de espacios. Crece al proponer, votar y sostener decisiones comunes.",color:"var(--color-oliva)",colorTenue:"#DEE6D0",icono:"⚖️"},
+];
+
+const CURSUS = [
+  {nivel:0,id:"polites",nombre:"Polítes",latino:"POLITES",tr:"ciudadano/a",lema:"Te inscribes, participas, aprendes.",fn:"Acceso básico al Ágora y a la Bibliotheka. Puede PEC a otras aportaciones y marcar pines en Polis.",prof:"cualquier persona empadronada",att:"○",color:"#8A5E1F",cual:[]},
+  {nivel:1,id:"oikonomos",nombre:"Oikonómos",latino:"OIKONOMOS",tr:"gestor/a del hogar",lema:"Pone oficio y cuidado al servicio del común.",fn:"Publica recursos en Koiná (guías, plantillas, servicios de proximidad) y ofrece servicios verificados dentro del barrio.",prof:"autónomos/as, artesanos/as, oficios del cuidado, pequeño comercio de barrio",att:"⬡",color:"#A14B2A",cual:["3 recursos publicados en Koiná","5 PECs recibidos"]},
+  {nivel:2,id:"ergates",nombre:"Ergátes",latino:"ERGATES",tr:"trabajador/a cualificado/a",lema:"Convierte su oficio en formación pública.",fn:"Abre una serie propia en el Cursus honorum (canal de videos) y modera hilos de su sección en el Ágora.",prof:"técnicos/as, profesionales cualificados/as, PYMEs de servicios especializados, cooperativas pequeñas",att:"◆",color:"#B4832E",cual:["5 videos publicados en el cursus","15 PECs recibidos"]},
+  {nivel:3,id:"didaskalos",nombre:"Didáskalos",latino:"DIDASKALOS",tr:"maestro/a",lema:"Enseña y sostiene el hilo de una disciplina.",fn:"Fija un hilo de referencia en Ágora, propone currículos en Bibliotheka y valida series de otros ergátai.",prof:"formadores/as, educadores/as, divulgadores/as, cooperativas de conocimiento",att:"✦",color:"#C98A1A",cual:["10 videos publicados","50 PECs recibidos","1 hilo pedagógico fijado en Ágora"]},
+  {nivel:4,id:"bouleutes",nombre:"Bouleutés",latino:"BOULEUTES",tr:"consejero/a del barrio",lema:"Representa la voz del barrio en el común.",fn:"Propone acciones en Polis, convoca votaciones de barrio y acredita espacios como candidatos a recuperación.",prof:"tejido asociativo vecinal, representantes de AMPAs, cooperativas de consumo, delegados/as de PYMEs locales",att:"❖",color:"#5B7A3E",cual:["participación activa en 3 barrios","50 PECs totales"]},
+  {nivel:5,id:"strategos",nombre:"Strategós",latino:"STRATEGOS",tr:"estratega",lema:"Lidera campañas de recuperación de espacio.",fn:"Abre procesos formales de recuperación de bloques en Polis y coordina cooperativas de intervención con varios oikonómoi y ergátai.",prof:"gestores/as culturales, promotores/as de economía social, directores/as de cooperativa, coordinadores/as de barrio",att:"✶",color:"#6E2A1E",cual:["1 espacio recuperado con éxito","100 PECs totales"]},
+  {nivel:6,id:"archon",nombre:"Árchon",latino:"ARCHON",tr:"arconte",lema:"Custodia el común durante un mandato.",fn:"Convoca asambleas abiertas, veta aprobaciones y custodia el inventario de Koiná. Cargo rotatorio y revocable.",prof:"referentes comunitarios electos, miembros de consejos rectores, cargos cívicos rotatorios",att:"♁",color:"#2B241B",cual:["elección democrática anual"]},
+];
+
+const CANARIAS = [
+  {id:"gran-canaria",nombre:"Gran Canaria",emoji:"🌋",municipios:[
+    {id:"lpgc",nombre:"Las Palmas de Gran Canaria",pob:381847,barrios:[{id:"vegueta",nombre:"Vegueta"},{id:"triana",nombre:"Triana"},{id:"arenales",nombre:"Arenales"},{id:"isleta",nombre:"La Isleta"},{id:"guanarteme",nombre:"Guanarteme"},{id:"alcaravaneras",nombre:"Alcaravaneras"},{id:"schamann",nombre:"Schamann"},{id:"san-cristobal",nombre:"San Cristóbal"},{id:"tamaraceite",nombre:"Tamaraceite"},{id:"jinamar",nombre:"Jinámar"}]},
+    {id:"telde",nombre:"Telde",pob:103781,barrios:[{id:"san-juan",nombre:"San Juan"},{id:"san-gregorio",nombre:"San Gregorio"}]},
+    {id:"stl-tirajana",nombre:"Santa Lucía de Tirajana",pob:76419,barrios:[{id:"vecindario",nombre:"Vecindario"},{id:"sardina",nombre:"Sardina del Sur"}]},
+    {id:"sbt-tirajana",nombre:"San Bartolomé de Tirajana",pob:52792,barrios:[{id:"maspalomas",nombre:"Maspalomas"},{id:"playa-ingles",nombre:"Playa del Inglés"},{id:"tunte",nombre:"Tunte"}]},
+    {id:"arucas",nombre:"Arucas",pob:37889,barrios:[]},
+    {id:"aguimes",nombre:"Agüimes",pob:32158,barrios:[]},
+    {id:"ingenio",nombre:"Ingenio",pob:31517,barrios:[]},
+    {id:"galdar",nombre:"Gáldar",pob:24238,barrios:[]},
+    {id:"mogan",nombre:"Mogán",pob:21120,barrios:[]},
+    {id:"sta-brigida",nombre:"Santa Brígida",pob:18659,barrios:[]},
+  ]},
+  {id:"tenerife",nombre:"Tenerife",emoji:"🗻",municipios:[
+    {id:"sct",nombre:"Santa Cruz de Tenerife",pob:209048,barrios:[{id:"centro-ifara",nombre:"Centro-Ifara"},{id:"salud",nombre:"La Salud"},{id:"ofra",nombre:"Ofra-Costa Sur"},{id:"anaga",nombre:"Anaga"},{id:"suroeste",nombre:"Suroeste"}]},
+    {id:"la-laguna",nombre:"San Cristóbal de La Laguna",pob:159654,barrios:[{id:"centro",nombre:"Centro"},{id:"taco",nombre:"Taco"},{id:"tejina",nombre:"Tejina"}]},
+    {id:"arona",nombre:"Arona",pob:84212,barrios:[]},
+    {id:"granadilla",nombre:"Granadilla de Abona",pob:54878,barrios:[]},
+    {id:"adeje",nombre:"Adeje",pob:48213,barrios:[]},
+    {id:"la-orotava",nombre:"La Orotava",pob:42170,barrios:[]},
+    {id:"puerto-cruz",nombre:"Puerto de la Cruz",pob:30952,barrios:[]},
+    {id:"realejos",nombre:"Los Realejos",pob:37909,barrios:[]},
+    {id:"icod",nombre:"Icod de los Vinos",pob:22376,barrios:[]},
+  ]},
+  {id:"lanzarote",nombre:"Lanzarote",emoji:"🏝️",municipios:[
+    {id:"arrecife",nombre:"Arrecife",pob:64542,barrios:[{id:"altavista",nombre:"Altavista"},{id:"valterra",nombre:"Valterra"},{id:"titerroy",nombre:"Titerroy"}]},
+    {id:"teguise",nombre:"Teguise",pob:21843,barrios:[]},{id:"tias",nombre:"Tías",pob:20514,barrios:[]},
+    {id:"sb",nombre:"San Bartolomé",pob:18762,barrios:[]},{id:"yaiza",nombre:"Yaiza",pob:17112,barrios:[]},
+    {id:"tinajo",nombre:"Tinajo",pob:6472,barrios:[]},{id:"haria",nombre:"Haría",pob:5389,barrios:[]},
+  ]},
+  {id:"fuerteventura",nombre:"Fuerteventura",emoji:"🏜️",municipios:[
+    {id:"pdr",nombre:"Puerto del Rosario",pob:41828,barrios:[{id:"el-charco",nombre:"El Charco"},{id:"risco-prieto",nombre:"Risco Prieto"}]},
+    {id:"la-oliva",nombre:"La Oliva",pob:27648,barrios:[]},{id:"pajara",nombre:"Pájara",pob:20864,barrios:[]},
+    {id:"tuineje",nombre:"Tuineje",pob:15003,barrios:[]},{id:"antigua",nombre:"Antigua",pob:13026,barrios:[]},
+    {id:"betancuria",nombre:"Betancuria",pob:797,barrios:[]},
+  ]},
+  {id:"la-palma",nombre:"La Palma",emoji:"🌿",municipios:[
+    {id:"scp",nombre:"Santa Cruz de La Palma",pob:15711,barrios:[{id:"centro-scp",nombre:"Centro"},{id:"velhoco",nombre:"Velhoco"}]},
+    {id:"llanos",nombre:"Los Llanos de Aridane",pob:20442,barrios:[]},{id:"el-paso",nombre:"El Paso",pob:7592,barrios:[]},
+    {id:"brena-alta",nombre:"Breña Alta",pob:7124,barrios:[]},{id:"brena-baja",nombre:"Breña Baja",pob:5554,barrios:[]},
+    {id:"tazacorte",nombre:"Tazacorte",pob:4580,barrios:[]},{id:"garafia",nombre:"Garafía",pob:1558,barrios:[]},
+  ]},
+  {id:"la-gomera",nombre:"La Gomera",emoji:"🌳",municipios:[
+    {id:"ssg",nombre:"San Sebastián de La Gomera",pob:8960,barrios:[]},
+    {id:"vgr",nombre:"Valle Gran Rey",pob:4371,barrios:[]},{id:"vallehermoso",nombre:"Vallehermoso",pob:2632,barrios:[]},
+    {id:"alajero",nombre:"Alajeró",pob:1999,barrios:[]},{id:"hermigua",nombre:"Hermigua",pob:1929,barrios:[]},{id:"agulo",nombre:"Agulo",pob:1151,barrios:[]},
+  ]},
+  {id:"el-hierro",nombre:"El Hierro",emoji:"🪨",municipios:[
+    {id:"valverde",nombre:"Valverde",pob:4998,barrios:[]},{id:"frontera",nombre:"Frontera",pob:4124,barrios:[]},
+    {id:"el-pinar",nombre:"El Pinar",pob:1833,barrios:[]},
+  ]},
+  {id:"la-graciosa",nombre:"La Graciosa",emoji:"🐚",municipios:[
+    {id:"caleta",nombre:"Caleta de Sebo",pob:750,barrios:[]}
+  ]},
+];
+
+const TIPOS_BLOQUE = [
+  {id:"comun",label:"Común",color:"var(--color-oliva)",desc:"Propiedad cooperativa, comunal, pública de uso o cesión de uso.",candidato:false},
+  {id:"residente",label:"Residente",color:"var(--color-ocre)",desc:"Propiedad de pequeños tenedores que la habitan o la alquilan a residentes estables.",candidato:false},
+  {id:"autonomo",label:"Autónomo / PYME local",color:"var(--color-ambar)",desc:"Local u oficina de actividad productiva arraigada en el barrio.",candidato:false},
+  {id:"rentista",label:"Rentista difuso",color:"var(--color-siena)",desc:"Gran tenedor persona física con cartera de inmuebles en alquiler turístico u ocioso.",candidato:true},
+  {id:"corporativo",label:"Privado-corporativo",color:"var(--color-sangre)",desc:"Fondos buitre, SOCIMI, fondos de inversión, filiales de plataformas vacacionales.",candidato:true},
+];
+
+/* Perfil demo — replica el mock de src/lib/perfil/mock.ts */
+const PERFIL = {
+  handle:"panxo93", nombre:"Pancho", inicial:"P", avatarColor:"#A14B2A",
+  isla:"gran-canaria", muni:"lpgc", barrio:"vegueta",
+  /* Capital precomputado con la misma lógica de lib/capital/contribuciones.ts */
+  puntos:{ koinonia:87, paideia:96, politeia:58 },
+};
+
+/* ─── Derivados ──────────────────────────────────────────────────── */
+
+function gradoActual(p){
+  const total=p.koinonia+p.paideia+p.politeia;
+  const req=[{},{koinonia:20,total:40},{paideia:60,total:120},{paideia:160,total:300},{politeia:120,total:400},{politeia:300,total:800},{total:1600}];
+  let idx=0;
+  for(let i=0;i<CURSUS.length;i++){
+    const r=req[i];
+    const ok=(total>=(r.total||0))&&(p.koinonia>=(r.koinonia||0))&&(p.paideia>=(r.paideia||0))&&(p.politeia>=(r.politeia||0));
+    if(ok) idx=i;
+  }
+  return {grado:CURSUS[idx], req, total};
+}
+
+function proximoGrado(i){return CURSUS[i+1]||null}
+
+function avance(p, nv){
+  const reqBase=[0,40,120,300,400,800,1600];
+  const total=p.koinonia+p.paideia+p.politeia;
+  const bt=reqBase[nv]||0;
+  const dt=reqBase[nv+1];
+  if(!dt) return 1;
+  return Math.max(0,Math.min(1,(total-bt)/(dt-bt)));
+}
+
+function ejeDominante(p){
+  let d="koinonia",m=p.koinonia;
+  if(p.paideia>m){d="paideia";m=p.paideia}
+  if(p.politeia>m){d="politeia"}
+  return d;
+}
+
+/* ─── Estado app ────────────────────────────────────────────────── */
+
+const state = {
+  seccion:"inicio",
+  territorio:{isla:null, muni:null, barrio:null},
+  tabBib:"cursus",
+  bannerAvatar:"abierto",   // abierto | minimizado | oculto
+  bannerSuscrip: localStorage.getItem("ocre-preview.suscripcion.cerrada")==="1" ? "cerrado" : "abierto",
+  ajustesAbierto:false,
+  perfilPrivado: localStorage.getItem("ocre-preview.perfil.privado")==="1",
+};
+
+/* ─── Iconos reutilizables ──────────────────────────────────────── */
+
+function svgLockClosed(size){
+  size=size||14;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>`;
+}
+function svgLockOpen(size){
+  size=size||14;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 017.5-2"/></svg>`;
+}
+
+/* ─── Render ────────────────────────────────────────────────────── */
+
+function go(sec){
+  state.seccion=sec;
+  render();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+
+function render(){
+  /* Nav activo */
+  document.querySelectorAll("#nav-main button").forEach(b=>{
+    b.classList.toggle("active", b.dataset.seccion===state.seccion);
+  });
+  /* Contenedor */
+  const c=document.getElementById("container");
+  if(state.seccion==="inicio") c.innerHTML=renderInicio();
+  else if(state.seccion==="agora") c.innerHTML=renderAgora();
+  else if(state.seccion==="bibliotheka") c.innerHTML=renderBibliotheka();
+  else if(state.seccion==="polis") c.innerHTML=renderPolis();
+  else if(state.seccion==="perfil") c.innerHTML=renderPerfil();
+  bindContainer();
+  renderBannerAvatar();
+  renderBannerSuscripcion();
+  renderAjustesMenu();
+}
+
+/* ─── Inicio ────────────────────────────────────────────────────── */
+
+function renderInicio(){
+  return `
+    <section>
+      <div class="eyebrow">Organización Canaria para la Recuperación de Espacios</div>
+      <h1 class="h1-hero">Una ventanilla única del común, por isla y por barrio.</h1>
+      <p class="p-intro">
+        OCRE recupera virtualmente el espacio antes de reclamarlo en la calle. Mapeamos qué bloques están en manos del interés
+        privado-corporativo y cuáles pueden volver al común. Entras por donde vives: isla, municipio, barrio.
+        Te acompaña un perfil con <strong>tres formas de capital</strong> que crece con lo que aportas.
+      </p>
+    </section>
+    <div class="divisor"></div>
+    <section>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.75rem">
+        <h2 class="h2">Entrar por tu territorio</h2>
+        <span class="eyebrow" style="color:var(--color-piedra-clara)">Isla · Municipio · Barrio</span>
+      </div>
+      ${renderNavegador()}
+    </section>
+    <div class="divisor"></div>
+    <section>
+      <h2 class="h2">Tres formas de capital ciudadano</h2>
+      <p class="p-intro" style="margin-bottom:1.5rem">Heredadas de PHAROS. No confundir con capital económico: aquí se mide lo que sostiene el común.</p>
+      <ul class="grid-ejes" style="list-style:none;padding:0;margin:0">
+        ${EJES.map(e=>`
+          <li class="eje-card" style="background:${e.colorTenue}">
+            <div class="eje-grc" style="color:${e.color}">${e.grc}</div>
+            <div class="eje-lbl" style="color:${e.color}">${e.nombre}</div>
+            <p class="eje-desc">${e.desc}</p>
+          </li>
+        `).join("")}
+      </ul>
+    </section>
+    <div class="divisor"></div>
+    <section>
+      <h2 class="h2">Las tres puertas de OCRE</h2>
+      <div class="grid-puertas">
+        <button class="puerta" data-seccion="agora"><div class="puerta-grc">Ἀγορά</div><div class="puerta-tit">Ágora</div><p class="puerta-p">Deliberación pública, hilos por sección. Aquí se acuerda qué hacer.</p></button>
+        <button class="puerta" data-seccion="bibliotheka"><div class="puerta-grc">Βιβλιοθήκη</div><div class="puerta-tit">Bibliotheka</div><p class="puerta-p">Cursus honorum de videos ciudadanos y τὰ Κοινά: recursos del común.</p></button>
+        <button class="puerta" data-seccion="polis"><div class="puerta-grc">Πόλις</div><div class="puerta-tit">Polis</div><p class="puerta-p">Mapa de espacios, tipo de capital por bloque, candidatos a recuperación.</p></button>
+      </div>
+    </section>
+  `;
+}
+
+function renderNavegador(){
+  const t=state.territorio;
+  const isla=t.isla? CANARIAS.find(i=>i.id===t.isla):null;
+  const muni=t.muni && isla? isla.municipios.find(m=>m.id===t.muni):null;
+  const barrio=t.barrio && muni? muni.barrios.find(b=>b.id===t.barrio):null;
+
+  const crumbs = `
+    <div class="crumbs">
+      <button data-terr="root" class="${!isla?'active':''}">Canarias</button>
+      ${isla?`<span class="sep">›</span><button data-terr="isla" class="${!muni?'active':''}">${isla.nombre}</button>`:""}
+      ${muni?`<span class="sep">›</span><button data-terr="muni">${muni.nombre}</button>`:""}
+      ${barrio?`<span class="sep">›</span><span style="color:var(--color-papiro-ink);font-weight:600">${barrio.nombre}</span>`:""}
+    </div>
+  `;
+
+  let body="";
+  if(!isla){
+    const orden = [...CANARIAS].sort((a,b)=>pobIsla(b)-pobIsla(a));
+    body = `<ul class="grid-islas" style="list-style:none;padding:0;margin:0">
+      ${orden.map(i=>`
+        <li>
+          <button class="card isla-card" data-elegir-isla="${i.id}">
+            <div class="top">
+              <span class="emoji">${i.emoji}</span>
+              <span class="eyebrow" style="color:var(--color-piedra-clara)">${i.municipios.length} mun.</span>
+            </div>
+            <div class="name">${i.nombre}</div>
+            <div class="sub">${pobIsla(i).toLocaleString("es-ES")} habitantes</div>
+          </button>
+        </li>
+      `).join("")}
+    </ul>`;
+  } else if(!muni){
+    const ord = [...isla.municipios].sort((a,b)=>(b.pob||0)-(a.pob||0));
+    body = `<ul class="grid-munis" style="list-style:none;padding:0;margin:0">
+      ${ord.map(m=>`
+        <li>
+          <button class="card muni-card" data-elegir-muni="${m.id}">
+            <div>
+              <div class="name">${m.nombre}</div>
+              <div class="sub">${m.pob?m.pob.toLocaleString("es-ES")+" hab.":"—"} · ${m.barrios.length>0?m.barrios.length+" barrios mapeados":"barrios sin mapear"}</div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </li>
+      `).join("")}
+    </ul>`;
+  } else {
+    if(muni.barrios.length===0){
+      body = `<div class="vacio">
+        <p class="display italic" style="margin:0">Este municipio aún no tiene barrios mapeados en OCRE.</p>
+        <p style="font-size:.85rem;margin:.5rem 0 0">¿Quieres ser <strong>oikonómos</strong> de un barrio y empezar su mapeo?</p>
+        <button class="btn-primary" style="margin-top:.75rem">Proponer un barrio</button>
+      </div>`;
+    } else {
+      body = `<ul class="grid-barrios" style="list-style:none;padding:0;margin:0">
+        ${muni.barrios.map(b=>`<li><button class="card barrio-card ${t.barrio===b.id?'active':''}" data-elegir-barrio="${b.id}">${b.nombre}</button></li>`).join("")}
+      </ul>
+      ${barrio?`
+        <div class="barrio-detalle">
+          <div class="eyebrow">Foro del barrio</div>
+          <div class="display" style="font-size:1.1rem;font-weight:600;margin-top:.25rem">${barrio.nombre}</div>
+          <p style="font-size:.88rem;margin:.25rem 0 0;color:var(--color-piedra)">Aquí vivirán los hilos del Ágora, los recursos de Koiná y el mapa de Polis filtrados por este barrio. Próximamente.</p>
+        </div>
+      `:""}`;
+    }
+  }
+
+  return crumbs+body;
+}
+
+function pobIsla(i){return i.municipios.reduce((s,m)=>s+(m.pob||0),0)}
+
+/* ─── Ágora ─────────────────────────────────────────────────────── */
+
+function renderAgora(){
+  return `
+    <div class="eyebrow">Ἀγορά</div>
+    <h1 class="h1-hero" style="font-size:clamp(1.6rem,3.5vw,2.2rem)">Ágora</h1>
+    <p class="p-intro">Plaza de deliberación. Los hilos se organizan por las 8 secciones temáticas heredadas de PHAROS. Por ahora la estructura; los hilos llegarán con la primera cohorte.</p>
+    <div class="divisor"></div>
+    <ul class="grid-secciones" style="list-style:none;padding:0;margin:0">
+      ${SECCIONES_PHAROS.map(s=>`
+        <li class="sec-card" style="background:${s.color}">
+          <div class="sec-top">
+            <span class="sec-icono">${s.icono}</span>
+            <div style="min-width:0">
+              <div class="sec-titulo" style="color:${s.colorTexto}">${s.nombre}</div>
+              <p class="sec-desc">${s.descripcion}</p>
+              <div class="sec-meta">0 hilos · primera cohorte pendiente</div>
+            </div>
+          </div>
+        </li>
+      `).join("")}
+    </ul>
+  `;
+}
+
+/* ─── Bibliotheka ───────────────────────────────────────────────── */
+
+function renderBibliotheka(){
+  const t=state.tabBib;
+  return `
+    <div class="eyebrow">Βιβλιοθήκη</div>
+    <h1 class="h1-hero" style="font-size:clamp(1.6rem,3.5vw,2.2rem)">Bibliotheka</h1>
+    <p class="p-intro">Dos alas. El <em class="display italic">Cursus honorum</em> gradua el contenido ciudadano en vídeo y abre carreras cívicas reales. <em class="display italic">τὰ Κοινά</em> (tà koiná) recoge recursos del común: guías, plantillas, servicios vecinales.</p>
+    <div class="tabs">
+      <button class="tab-btn ${t==='cursus'?'active':''}" data-tab="cursus">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5l12 7-12 7z" fill="currentColor"/></svg>
+        <span class="italic">Cursus honorum</span>
+      </button>
+      <button class="tab-btn ${t==='koina'?'active':''}" data-tab="koina">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h10a2 2 0 012 2v3H8z"/><path d="M8 8v11a2 2 0 002 2h8a2 2 0 01-2-2V8"/><path d="M4 7a2 2 0 002 2h2V5a2 2 0 10-4 0z"/></svg>
+        <span class="italic">τὰ Κοινά</span>
+        <span style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--color-piedra-clara)">· Koiná</span>
+      </button>
+    </div>
+    <div class="divisor"></div>
+    ${t==='cursus'? renderCursus() : renderKoina()}
+  `;
+}
+
+function renderCursus(){
+  return `
+    <p class="p-intro" style="margin:0 0 1.5rem;font-size:.94rem">
+      Siete grados. Cada uno habilita una función cívica real dentro de OCRE y se corresponde con roles profesionales contemporáneos,
+      de modo que mañana esta escalera pueda articular una red profesional concreta (autónomos, cooperativas, asociaciones, cargos electos).
+    </p>
+    <ol style="list-style:none;padding:0;margin:0">
+      ${CURSUS.map(g=>`
+        <li class="grado lborder" style="border-left-color:${g.color}">
+          <div class="row">
+            <span class="atributo" style="color:${g.color}" title="${g.lema}">${g.att}</span>
+            <div style="min-width:0;flex:1">
+              <div class="grado-head">
+                <span class="grado-nombre">${g.nombre}</span>
+                <span class="eyebrow" style="color:var(--color-piedra-clara)">${g.latino} · ${g.tr}</span>
+                <span class="grado-badge">Nivel ${g.nivel}</span>
+              </div>
+              <p class="grado-lema" style="color:${g.color};margin:.25rem 0 0">«${g.lema}»</p>
+              <div class="grado-body">
+                <p><strong class="eyebrow" style="color:var(--color-piedra)">Función cívica:</strong> ${g.fn}</p>
+                <p style="color:var(--color-piedra);font-size:.88rem"><strong class="eyebrow" style="color:var(--color-piedra)">Correspondencia profesional:</strong> ${g.prof}.</p>
+                ${g.cual.length?`<ul class="grado-chips" style="list-style:none;padding:0">${g.cual.map(c=>`<li class="chip">${c}</li>`).join("")}</ul>`:""}
+              </div>
+            </div>
+          </div>
+        </li>
+      `).join("")}
+    </ol>
+    <div class="cta">
+      <div class="cta-play">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M8 5l12 7-12 7z" fill="currentColor"/></svg>
+      </div>
+      <div style="min-width:0;flex:1">
+        <div class="display" style="font-size:1.02rem;font-weight:600">¿Listo para subir tu primer video?</div>
+        <p style="font-size:.88rem;margin:0;color:var(--color-piedra)">Aportar 5 vídeos y recibir 15 PECs te hace pasar de oikonómos a ergátes. Cada pieza suma a paideía.</p>
+      </div>
+      <button class="btn-primary">Subir video</button>
+    </div>
+  `;
+}
+
+function renderKoina(){
+  return `
+    <p class="p-intro" style="margin:0 0 1.5rem;font-size:.94rem">
+      <em class="display italic">τὰ κοινά</em> — «las cosas comunes». Recursos que pertenecen a quien los necesite: guías prácticas, plantillas, mapas,
+      servicios de proximidad. Clasificados por las mismas 8 secciones que ordenan el Ágora.
+    </p>
+    <ul class="grid-secciones" style="list-style:none;padding:0;margin:0">
+      ${SECCIONES_PHAROS.map(s=>`
+        <li class="card">
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <span style="flex-shrink:0;display:inline-flex;width:2.25rem;height:2.25rem;align-items:center;justify-content:center;border-radius:.5rem;background:${s.color};color:${s.colorTexto};font-size:1.1rem">${s.icono}</span>
+            <div style="min-width:0;flex:1">
+              <div class="display" style="font-size:.98rem;font-weight:600">${s.nombre}</div>
+              <p style="font-size:.84rem;margin:.25rem 0 0;color:var(--color-piedra)">${s.descripcion}</p>
+              <div class="eyebrow" style="margin-top:.75rem;color:var(--color-piedra-clara);display:flex;align-items:center;gap:.25rem">0 recursos públicos ›</div>
+            </div>
+          </div>
+        </li>
+      `).join("")}
+    </ul>
+  `;
+}
+
+/* ─── Polis ────────────────────────────────────────────────────── */
+
+function renderPolis(){
+  return `
+    <div class="eyebrow">Πόλις</div>
+    <h1 class="h1-hero" style="font-size:clamp(1.6rem,3.5vw,2.2rem)">Polis</h1>
+    <p class="p-intro">Mapa de la ciudad según la composición de capital de cada bloque. Recuperamos virtualmente lo que aún puede volver al común: los bloques cuyo capital mayoritario es privado-corporativo.</p>
+    <div class="divisor"></div>
+    <h2 class="h2" style="margin-bottom:.75rem">Tipología de bloques</h2>
+    <ul class="grid-tipos" style="list-style:none;padding:0;margin:0">
+      ${TIPOS_BLOQUE.map(t=>`
+        <li class="tipo-card" style="border-left-color:${t.color}">
+          <div class="tipo-top">
+            <div class="tipo-nombre" style="color:${t.color}">${t.label}</div>
+            ${t.candidato?'<span class="badge-candidato">Candidato</span>':'<span class="badge-comun">En común</span>'}
+          </div>
+          <p class="tipo-desc">${t.desc}</p>
+        </li>
+      `).join("")}
+    </ul>
+    <div class="divisor"></div>
+    <div class="polis-mapa">
+      <div class="circle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3L3 6v15l6-3 6 3 6-3V3l-6 3z"/><path d="M9 3v15"/><path d="M15 6v15"/></svg>
+      </div>
+      <p class="display italic" style="color:var(--color-papiro-ink);margin:.75rem 0 0;font-size:1rem">El mapa interactivo aterrizará aquí.</p>
+      <p style="margin:.5rem auto 0;max-width:36rem;font-size:.9rem">Se apoyará en el digitalizador urbano pixel art de KOINOS (POLIS) y en las fuentes abiertas de catastro y OSM. Las piezas técnicas existen; queda el ensamblaje.</p>
+    </div>
+  `;
+}
+
+/* ─── Perfil ───────────────────────────────────────────────────── */
+
+function renderPerfil(){
+  const p=PERFIL.puntos;
+  const total=p.koinonia+p.paideia+p.politeia;
+  const {grado,}=gradoActual(p);
+  const dom=ejeDominante(p);
+  const prox=proximoGrado(grado.nivel);
+  const pctAv=Math.round(avance(p,grado.nivel)*100);
+  const isla=CANARIAS.find(i=>i.id===PERFIL.isla);
+  const muni=isla?.municipios.find(m=>m.id===PERFIL.muni);
+  const barrio=muni?.barrios.find(b=>b.id===PERFIL.barrio);
+
+  const avatarBig = avatarHTML(PERFIL.inicial,PERFIL.avatarColor,grado,96);
+
+  return `
+    <section class="perfil-head">
+      ${avatarBig}
+      <div style="min-width:0;flex:1">
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+          <div class="eyebrow" style="color:${grado.color}">${grado.latino} · ${grado.tr}</div>
+          ${state.perfilPrivado?`<span class="privacy-chip">${svgLockClosed(11)} Perfil privado</span>`:""}
+        </div>
+        <h1 class="perfil-nombre">${PERFIL.nombre} <span class="perfil-handle">@${PERFIL.handle}</span></h1>
+        <p class="perfil-lema" style="color:${grado.color};margin:.25rem 0 0">«${grado.lema}»</p>
+        ${barrio?`<p class="perfil-loc">Vecina/o de ${barrio.nombre} · ${muni.nombre} · ${isla.nombre}</p>`:""}
+      </div>
+    </section>
+    <div class="divisor"></div>
+    <section>
+      <h2 class="h2" style="margin-bottom:1rem">Capital acumulado</h2>
+      <ul class="grid-capital" style="list-style:none;padding:0;margin:0">
+        ${EJES.map(e=>{
+          const v=p[e.id]; const pct=Math.min(100,Math.round((v/Math.max(total,1))*100));
+          const esD=dom===e.id;
+          return `<li class="cap-card" style="background:${esD?e.colorTenue:'var(--color-surface)'};border-color:${esD?e.color:'var(--color-linea)'}">
+            <div class="cap-top">
+              <div class="cap-grc" style="color:${e.color}">${e.grc}</div>
+              ${esD?`<span class="badge-dom" style="background:${e.color}">Dominante</span>`:""}
+            </div>
+            <div class="eye" style="font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;opacity:.8;color:${e.color}">${e.nombre}</div>
+            <div class="cap-top" style="margin-top:1rem">
+              <span class="cap-val">${v}</span>
+              <span class="cap-pct">${pct}% del total</span>
+            </div>
+            <div class="barra" style="background:${e.colorTenue}"><div class="fill" style="width:${pct}%;background:${e.color}"></div></div>
+            <p class="cap-desc">${e.desc}</p>
+          </li>`;
+        }).join("")}
+      </ul>
+    </section>
+    <div class="divisor"></div>
+    <section>
+      <h2 class="h2" style="margin-bottom:1rem">Cursus honorum</h2>
+      <ol class="cursus-list" style="list-style:none;padding:1.25rem;margin:0">
+        ${CURSUS.map(g=>{
+          const alc=g.nivel<=grado.nivel;
+          const esA=g.nivel===grado.nivel;
+          return `<li class="cursus-item ${alc?'':'locked'}">
+            <span class="att ${esA?'actual':''}" style="color:${g.color};${esA?`border-color:${g.color}`:''}">${g.att}</span>
+            <div class="cursus-txt">
+              <div class="n" style="${esA?'font-weight:700':''}">${g.nombre}<span class="tr">${g.tr}</span></div>
+              <p class="fn">${g.fn}</p>
+            </div>
+            ${esA&&prox?`<div class="avance">
+              <div class="l">Avance: ${pctAv}%</div>
+              <div class="barra" style="background:var(--color-papiro-soft)"><div class="fill" style="width:${pctAv}%;background:${prox.color}"></div></div>
+            </div>`:""}
+          </li>`;
+        }).join("")}
+      </ol>
+    </section>
+  `;
+}
+
+/* ─── Avatar helper ─────────────────────────────────────────────── */
+
+function avatarHTML(ini,col,grado,size){
+  const fs=Math.round(size*.42);
+  const bs=Math.round(size*.42);
+  const bfs=Math.round(size*.24);
+  const lockSize=Math.round(size*.42);
+  const lockIcon=Math.round(size*.22);
+  const priv=state.perfilPrivado;
+  return `<span class="avatar" style="width:${size}px;height:${size}px;background:${col};font-size:${fs}px">
+    ${ini}
+    ${grado?`<span class="grade-badge" style="width:${bs}px;height:${bs}px;color:${grado.color};font-size:${bfs}px" title="${grado.nombre} — ${grado.tr}">${grado.att}</span>`:""}
+    ${priv?`<span class="privacy-lock" style="width:${lockSize}px;height:${lockSize}px" title="Perfil privado">${svgLockClosed(lockIcon)}</span>`:""}
+  </span>`;
+}
+
+/* ─── Banner flotante de avatar ─────────────────────────────────── */
+
+function renderBannerAvatar(){
+  const el=document.getElementById("banner-avatar");
+  if(state.bannerAvatar==="oculto"){el.innerHTML="";return}
+  const p=PERFIL.puntos;
+  const total=p.koinonia+p.paideia+p.politeia;
+  const {grado}=gradoActual(p);
+  const dom=ejeDominante(p); const ejeDom=EJES.find(e=>e.id===dom);
+  const prox=proximoGrado(grado.nivel);
+  const pct=Math.round(avance(p,grado.nivel)*100);
+
+  if(state.bannerAvatar==="minimizado"){
+    el.innerHTML=`<button class="banner-avatar-min" id="ba-max" aria-label="Abrir banner">
+      ${avatarHTML(PERFIL.inicial,PERFIL.avatarColor,grado,48)}
+    </button>`;
+    document.getElementById("ba-max").onclick=()=>{state.bannerAvatar="abierto";renderBannerAvatar()};
+    return;
+  }
+  el.innerHTML=`
+    <aside class="banner-avatar">
+      <div class="hd">
+        ${avatarHTML(PERFIL.inicial,PERFIL.avatarColor,grado,48)}
+        <div class="ba-meta">
+          <div class="eb eyebrow" style="color:${grado.color}" title="${grado.tr}">${grado.nombre}</div>
+          <div class="nm">${PERFIL.nombre}</div>
+        </div>
+        <div class="ba-side">
+          <button class="ba-btn" id="ba-min" title="Minimizar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="ba-btn" id="ba-hide" title="Ocultar" style="color:var(--color-piedra-clara)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="ba-stats">
+        ${EJES.map(e=>{
+          const v=p[e.id]; const pc=Math.min(100,Math.round((v/Math.max(total,1))*100));
+          const esD=dom===e.id;
+          return `<div class="ba-stat">
+            <div class="row">
+              <span class="grc" style="color:${esD?'var(--color-papiro-ink)':'var(--color-piedra)'};font-weight:${esD?600:500}">${e.grc}</span>
+              <span style="font-variant-numeric:tabular-nums">${v}</span>
+            </div>
+            <div class="bar" style="background:${e.colorTenue}"><div class="fill" style="width:${pc}%;background:${e.color}"></div></div>
+          </div>`;
+        }).join("")}
+      </div>
+      <div class="ba-foot">
+        <div class="ba-clase-row">
+          <span class="eyebrow">Clase</span>
+          <span class="display" style="color:${ejeDom.color};font-weight:600">${ejeDom.icono} ${ejeDom.nombre}</span>
+        </div>
+        ${prox?`<div class="ba-rumbo">
+          <div style="display:flex;justify-content:space-between;color:var(--color-piedra)">
+            <span>Rumbo a <span class="display italic" style="color:${prox.color}">${prox.nombre}</span></span>
+            <span style="font-variant-numeric:tabular-nums">${pct}%</span>
+          </div>
+          <div class="bar" style="background:var(--color-papiro-soft);height:3px;margin-top:.25rem"><div class="fill" style="width:${pct}%;background:${prox.color};height:100%;border-radius:999px"></div></div>
+        </div>`:`<div class="ba-rumbo display italic" style="color:${grado.color}">Custodia actual del común.</div>`}
+        <button class="ba-perfil-link" data-seccion="perfil">Ver perfil completo</button>
+      </div>
+    </aside>
+  `;
+  document.getElementById("ba-min").onclick=()=>{state.bannerAvatar="minimizado";renderBannerAvatar()};
+  document.getElementById("ba-hide").onclick=()=>{state.bannerAvatar="oculto";renderBannerAvatar()};
+  el.querySelector("[data-seccion]").onclick=()=>go("perfil");
+}
+
+/* ─── Banner suscripción ────────────────────────────────────────── */
+
+function renderBannerSuscripcion(){
+  const el=document.getElementById("banner-suscrip");
+  if(state.bannerSuscrip==="cerrado"){
+    el.innerHTML=`<button class="banner-suscrip-min" id="bs-open" title="Suscribirse">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    </button>`;
+    document.getElementById("bs-open").onclick=abrirSuscrip;
+    return;
+  }
+  el.innerHTML=`
+    <div class="banner-suscrip"><div class="wrap">
+      <div class="top">
+        <span class="logo-ball">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </span>
+        <div style="min-width:0;flex:1">
+          <h4>Boletín de OCRE</h4>
+          <p>Espacios recuperados, nuevas cohortes del cursus, convocatorias de asamblea.</p>
+        </div>
+        <button class="iconbtn" id="bs-close" style="width:2rem;height:2rem" title="Cerrar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <form id="bs-form">
+        <input type="email" placeholder="tu@correo.es" required id="bs-email" />
+        <button type="submit" class="btn">Suscribirme</button>
+      </form>
+      <p class="ft">Sin cesión a terceros. Darte de baja en cualquier momento.</p>
+    </div></div>
+  `;
+  document.getElementById("bs-close").onclick=cerrarSuscrip;
+  document.getElementById("bs-form").onsubmit=(e)=>{
+    e.preventDefault();
+    const b=e.target.querySelector("button");
+    b.textContent="Gracias ✓";
+    setTimeout(cerrarSuscrip,1400);
+  };
+}
+
+function abrirSuscrip(){state.bannerSuscrip="abierto";localStorage.removeItem("ocre-preview.suscripcion.cerrada");renderBannerSuscripcion()}
+function cerrarSuscrip(){state.bannerSuscrip="cerrado";localStorage.setItem("ocre-preview.suscripcion.cerrada","1");renderBannerSuscripcion()}
+
+/* ─── Dropdown de Ajustes ───────────────────────────────────────── */
+
+function renderAjustesMenu(){
+  const el=document.getElementById("ajustes-menu");
+  const btn=document.getElementById("btn-ajustes");
+  btn.setAttribute("aria-expanded", state.ajustesAbierto?"true":"false");
+  if(!state.ajustesAbierto){el.innerHTML="";return}
+  const privado=state.perfilPrivado;
+  el.innerHTML=`
+    <div class="ajustes-menu" role="menu">
+      <div class="hd">
+        <div class="t">Ajustes rápidos</div>
+        <div class="s">Configuración completa en la sección de ajustes.</div>
+      </div>
+      <button class="ajustes-row ${privado?'privado':'publico'}" id="toggle-privacidad" role="menuitemcheckbox" aria-checked="${privado}">
+        <span class="ic">${privado?svgLockClosed(16):svgLockOpen(16)}</span>
+        <span class="tx">
+          <span class="lbl">Perfil ${privado?'privado':'público'}</span>
+          <span class="sub">${privado?'Solo te ven quienes tú aceptes.':'Visible en Ágora, Bibliotheka y Polis.'}</span>
+        </span>
+        <span class="toggle ${privado?'':'on'}" aria-hidden="true"></span>
+      </button>
+      <div class="ajustes-sep"></div>
+      <div class="ajustes-ft">Cuando cambies a privado, tu avatar mostrará un candado al lado.</div>
+    </div>
+  `;
+  document.getElementById("toggle-privacidad").onclick=togglePrivacidad;
+}
+
+function abrirAjustes(){state.ajustesAbierto=true;renderAjustesMenu()}
+function cerrarAjustes(){if(state.ajustesAbierto){state.ajustesAbierto=false;renderAjustesMenu()}}
+
+function togglePrivacidad(){
+  state.perfilPrivado=!state.perfilPrivado;
+  if(state.perfilPrivado) localStorage.setItem("ocre-preview.perfil.privado","1");
+  else localStorage.removeItem("ocre-preview.perfil.privado");
+  renderAjustesMenu();
+  renderBannerAvatar();
+  if(state.seccion==="perfil") render();
+}
+
+/* Cerrar el dropdown al hacer clic fuera */
+document.addEventListener("click",(e)=>{
+  if(!state.ajustesAbierto) return;
+  if(e.target.closest(".ajustes-wrap")) return;
+  cerrarAjustes();
+});
+
+/* ─── Bindings ──────────────────────────────────────────────────── */
+
+function bindContainer(){
+  const c=document.getElementById("container");
+  c.querySelectorAll("[data-seccion]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.seccion)));
+  c.querySelectorAll("[data-elegir-isla]").forEach(b=>b.addEventListener("click",()=>{state.territorio={isla:b.dataset.elegirIsla,muni:null,barrio:null};render()}));
+  c.querySelectorAll("[data-elegir-muni]").forEach(b=>b.addEventListener("click",()=>{state.territorio.muni=b.dataset.elegirMuni;state.territorio.barrio=null;render()}));
+  c.querySelectorAll("[data-elegir-barrio]").forEach(b=>b.addEventListener("click",()=>{state.territorio.barrio=b.dataset.elegirBarrio;render()}));
+  c.querySelectorAll("[data-terr]").forEach(b=>b.addEventListener("click",()=>{
+    const w=b.dataset.terr;
+    if(w==="root") state.territorio={isla:null,muni:null,barrio:null};
+    else if(w==="isla") state.territorio={isla:state.territorio.isla,muni:null,barrio:null};
+    else if(w==="muni") state.territorio={isla:state.territorio.isla,muni:state.territorio.muni,barrio:null};
+    render();
+  }));
+  c.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{state.tabBib=b.dataset.tab;render()}));
+}
+
+document.querySelectorAll("#nav-main button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.seccion)));
+document.querySelectorAll(".right-icons [data-seccion]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.seccion)));
+document.getElementById("btn-mail").addEventListener("click",abrirSuscrip);
+document.getElementById("btn-ajustes").addEventListener("click",(e)=>{
+  e.stopPropagation();
+  state.ajustesAbierto?cerrarAjustes():abrirAjustes();
+});
+
+render();
+</script>
+</body>
+</html>

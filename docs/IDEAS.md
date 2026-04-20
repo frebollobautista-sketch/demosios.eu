@@ -125,5 +125,20 @@ Pendiente: (1) extender a las otras capitales insulares cuando tengamos la data,
 ### 2026-04-19 — Datos mock de composición de capital por barrio
 Valores provisionales con lógica editorial (La Isleta mayoritariamente residente, Vegueta alta proporción de común por su patrimonio cultural, Jinámar con 35% corporativo como candidato natural). Sirven para validar UX hasta que haya datos reales. Fuentes reales previstas: Catastro INSPIRE para titularidad registrada, CNMV para identificar SOCIMIs, reportes del Ministerio de Vivienda para grandes tenedores.
 
+### 2026-04-19 — Vectores reales de barrios (chat paralelo "CAMBIAR EL MAPA POLIS")
+Decisión del usuario: los hexágonos son MVP; el objetivo es usar contornos reales de barrios para que el ciudadano se reconozca en SU barrio y no en un símbolo. Infraestructura ya preparada:
+
+- El tipo `GeometriaBarrio` en `src/lib/territorio/barrios-juego.ts` acepta dos modos mutuamente excluyentes: `{ modo: "hex", cx, cy }` (actual) o `{ modo: "vector", d, cx, cy }` donde `d` es un path SVG ya proyectado al viewBox 500×560.
+- `MapaBarrios` renderiza polígono real cuando `modo === "vector"` y hexágono cuando `modo === "hex"`. Mismo click/hover/modal para ambos.
+- Nuevo helper en `src/lib/territorio/geo.ts`: `ajustarProyeccion`, `featureToPath`, `centroideAprox`. Permite convertir un FeatureCollection GeoJSON (WGS84) a paths SVG en coordenadas del viewBox. Proyección equirectangular, con padding, respeta proporciones.
+
+Flujo esperado para integrar los vectores cuando lleguen:
+1. Reunir los 10 polígonos de barrios LPGC en un FeatureCollection GeoJSON (un archivo `.geojson`).
+2. Colocar el archivo en `src/lib/territorio/data/lpgc.geojson` (no existe aún la carpeta).
+3. Ejecutar el helper una vez en build-time o a mano (un pequeño script) para generar los `d` y centroides, y pegarlos en `BARRIOS_LPGC` (o cargar dinámicamente).
+4. Cambiar `modo: "hex"` por `modo: "vector"` en cada entrada.
+
+Fuentes viables para los polígonos: OSM Overpass (gratis, a veces barrios oficiales faltan), INE secciones censales (agregables a barrios si hay cruce oficial), Ayuntamiento de LPGC open data (geoportal), o dibujo manual en Figma/Inkscape exportando SVG.
+
 ### 2026-04-19 — Cuarto eje opcional `oikonomia`
 Se decidió reducir a 3 ejes (koinonía/paideía/politeía). Si en iteraciones posteriores aparece una economía local productiva en OCRE, la interfaz `PesoPorEje` admite ampliarla sin romper contribuciones existentes.

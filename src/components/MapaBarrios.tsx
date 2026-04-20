@@ -21,7 +21,7 @@ const COLOR_POR_TIPO: Record<TipoBloque, { base: string; tenue: string; borde: s
   corporativo: { base: "var(--color-sangre)", tenue: "#E8D1CD", borde: "#4E1B13" },
 };
 
-const R = 42; // radio del hexágono
+const R = 42; // radio del hexágono (modo hex)
 
 /** Puntos de un hexágono flat-top centrado en (cx, cy). */
 function hexPoints(cx: number, cy: number, r: number): string {
@@ -45,9 +45,10 @@ export type BarrioSeleccionado = {
 };
 
 /**
- * Mapa-tablero de un municipio. Por ahora solo Las Palmas de Gran Canaria.
- * Cada barrio se dibuja como un hexágono coloreado por el tipo de capital
- * dominante. Click → resalta + abre modal.
+ * Mapa-tablero de un municipio. Renderiza cada barrio como hexágono
+ * (modo fallback) o como polígono vectorial real si el barrio trae un
+ * path SVG en `geometria.modo === "vector"`. Mismo click/hover/modal
+ * para ambos modos.
  */
 export function MapaBarrios({
   isla,
@@ -59,7 +60,6 @@ export function MapaBarrios({
   const [seleccionadoId, setSeleccionadoId] = useState<string | null>(null);
   const [hover, setHover] = useState<string | null>(null);
 
-  // Emparejamos los barrios oficiales del territorio con los datos de juego.
   const entradas = useMemo(() => {
     return BARRIOS_LPGC.map((bj) => {
       const datos = municipio.barrios.find((b) => b.id === bj.id);
@@ -131,32 +131,22 @@ export function MapaBarrios({
           </defs>
           <rect width="500" height="560" fill="url(#grid-tablero)" />
 
-          {/* Sombra / halo del hexágono seleccionado, renderizado primero. */}
-          {seleccionado && (
-            <polygon
-              points={hexPoints(
-                seleccionado.juego.posicion.cx,
-                seleccionado.juego.posicion.cy,
-                R + 8,
-              )}
-              fill={COLOR_POR_TIPO[seleccionado.dominante].base}
-              opacity="0.18"
-            />
-          )}
-
           {entradas.map((e) => {
             const { juego, datos, dominante, candidato } = e;
             const color = COLOR_POR_TIPO[dominante];
             const activo = seleccionadoId === juego.id;
             const sobre = hover === juego.id;
-            const escala = activo ? 1.06 : sobre ? 1.02 : 1;
+            const escala = activo ? 1.05 : sobre ? 1.02 : 1;
+            const cx = juego.geometria.cx;
+            const cy = juego.geometria.cy;
             return (
               <g
                 key={juego.id}
-                transform={`translate(${juego.posicion.cx}, ${juego.posicion.cy}) scale(${escala}) translate(${-juego.posicion.cx}, ${-juego.posicion.cy})`}
+                transform={`translate(${cx}, ${cy}) scale(${escala}) translate(${-cx}, ${-cy})`}
                 style={{
                   transition: "transform 0.18s ease",
                   cursor: "pointer",
+                  transformOrigin: `${cx}px ${cy}px`,
                 }}
                 onClick={() => setSeleccionadoId(juego.id)}
                 onMouseEnter={() => setHover(juego.id)}
@@ -172,21 +162,52 @@ export function MapaBarrios({
                 aria-label={`${datos.nombre} — capital dominante: ${dominante}${candidato ? ", candidato a recuperación" : ""}`}
                 aria-pressed={activo}
               >
-                <polygon
-                  points={hexPoints(
-                    juego.posicion.cx,
-                    juego.posicion.cy,
-                    R,
-                  )}
-                  fill={activo ? color.base : color.tenue}
-                  stroke={color.borde}
-                  strokeWidth={activo ? 3 : candidato ? 2 : 1.2}
-                  strokeDasharray={candidato && !activo ? "4 3" : "none"}
-                  style={{ transition: "fill 0.18s ease, stroke-width 0.18s ease" }}
-                />
+                {/* Halo del barrio seleccionado (detrás). */}
+                {activo && juego.geometria.modo === "vector" && (
+                  <path
+                    d={juego.geometria.d}
+                    fill={color.base}
+                    opacity="0.2"
+                    style={{ filter: "blur(3px)" }}
+                  />
+                )}
+                {activo && juego.geometria.modo === "hex" && (
+                  <polygon
+                    points={hexPoints(cx, cy, R + 6)}
+                    fill={color.base}
+                    opacity="0.18"
+                  />
+                )}
+
+                {/* Cuerpo del barrio. */}
+                {juego.geometria.modo === "vector" ? (
+                  <path
+                    d={juego.geometria.d}
+                    fill={activo ? color.base : color.tenue}
+                    stroke={color.borde}
+                    strokeWidth={activo ? 2.4 : candidato ? 1.8 : 1.1}
+                    strokeDasharray={candidato && !activo ? "4 3" : "none"}
+                    strokeLinejoin="round"
+                    style={{
+                      transition: "fill 0.18s ease, stroke-width 0.18s ease",
+                    }}
+                  />
+                ) : (
+                  <polygon
+                    points={hexPoints(cx, cy, R)}
+                    fill={activo ? color.base : color.tenue}
+                    stroke={color.borde}
+                    strokeWidth={activo ? 3 : candidato ? 2 : 1.2}
+                    strokeDasharray={candidato && !activo ? "4 3" : "none"}
+                    style={{
+                      transition: "fill 0.18s ease, stroke-width 0.18s ease",
+                    }}
+                  />
+                )}
+
                 <text
-                  x={juego.posicion.cx}
-                  y={juego.posicion.cy + 4}
+                  x={cx}
+                  y={cy + 4}
                   textAnchor="middle"
                   fontSize="11"
                   fontWeight={activo ? 700 : 600}
@@ -195,18 +216,31 @@ export function MapaBarrios({
                     pointerEvents: "none",
                     fontFamily: "var(--font-serif-stack)",
                     letterSpacing: "0.01em",
+                    // Halo blanco ligero para que el nombre se lea sobre fondos oscuros.
+                    paintOrder: "stroke fill",
+                    stroke: activo ? "transparent" : "rgba(255,255,255,0.55)",
+                    strokeWidth: activo ? 0 : 3,
                   }}
                 >
                   {datos.nombre}
                 </text>
                 {candidato && (
                   <circle
-                    cx={juego.posicion.cx + R - 10}
-                    cy={juego.posicion.cy - R / 2 - 4}
+                    cx={
+                      juego.geometria.modo === "hex"
+                        ? cx + R - 10
+                        : cx + 14
+                    }
+                    cy={
+                      juego.geometria.modo === "hex"
+                        ? cy - R / 2 - 4
+                        : cy - 18
+                    }
                     r={5}
                     fill={activo ? "#FBF7EC" : color.borde}
                     stroke={activo ? color.borde : "#FBF7EC"}
                     strokeWidth={1.5}
+                    style={{ pointerEvents: "none" }}
                   >
                     <title>Candidato a recuperación</title>
                   </circle>

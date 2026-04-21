@@ -7,6 +7,8 @@ Todo lo que se dice en el chat y no se acaba operando en el mismo turno vive aqu
 Contexto de una línea. Decisión pendiente o siguiente paso.
 ```
 
+**Nota:** para la vista accionable y priorizada de estas ideas, ver [`ROADMAP.md`](./ROADMAP.md). Este fichero es el log cronológico sin filtrar.
+
 ---
 
 ## Marca e identidad
@@ -59,6 +61,18 @@ Propuesta del usuario: activar opcionalmente nomenclatura latina para toda la pl
 | Cursus honorum | (ya es latino) |
 
 Toggle todavía no cableado en UI — vivirá en `/ajustes` como "Nomenclatura: griego / latino". Las rutas no cambian, solo las etiquetas. Previsualización inmediata en el explorador de `/nosotros`.
+
+## Bibliotheka — escribanía / articulos largos
+
+### 2026-04-20 — Tercera ala de Bibliotheka: editor de artículos P2P
+Propuesta del usuario: añadir en la Bibliotheka un editor para publicar artículos largos peer-to-peer, como manera de expresar ideas que no caben en el formato hilo del Ágora. Queda como pieza de la plataforma pensada como OS cívico — lo que en la calle sería el panfleto, el ensayo, la carta abierta. Sub-decisiones abiertas:
+
+- **Nombre**: Grapheion (griego γραφεῖον) / Escribanía (castellano) / Imprenta / Kalamotheka (caja de cálamos). Recomendación: Grapheion por coherencia con el resto de secciones griegas, con Scriptorium como latino del modo aventura.
+- **Estructura**: tercera pestaña dentro de Bibliotheka (recomendado, respeta la arquitectura actual) o cuarta sección propia en el header.
+- **Editor**: Markdown simple con preview en vivo (MVP, 1-2 h) / WYSIWYG tipo Tiptap (4-6 h, 200 KB extra) / híbrido con toolbar sobre markdown (compromiso).
+- **Campos**: título · copete/entradilla · sección PHAROS · barrio/isla opcional · etiquetas libres · pull quote para compartir. Usuario a definir cuáles son obligatorios.
+
+Pendiente de respuesta del usuario para fijar nombre/estructura/editor antes de construir.
 
 ## Sin clasificar
 

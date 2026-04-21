@@ -108,9 +108,19 @@ body {
   box-shadow: var(--shadow-carta);
 }
 
-/* Scroll sin romper el header sticky */
+/* Scroll sin romper el header sticky. El header ahora tiene dos filas
+   (logo+acciones + nav de secciones), así que reservamos más. */
 html {
-  scroll-padding-top: 4.5rem;
+  scroll-padding-top: 7rem;
+}
+
+/* Oculta la barra de scroll (útil en la nav horizontal del header). */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Ocultar el banner de suscripción cuando está colapsado — animación suave */

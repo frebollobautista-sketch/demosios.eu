@@ -2,15 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { LogoOCRE } from "./LogoOCRE";
-import {
-  IconMail,
-  IconUser,
-  IconSettings,
-  IconClose,
-  IconChevronDown,
-} from "./Icons";
+import { IconMail, IconUser, IconSettings } from "./Icons";
 import { useSession } from "@/lib/auth/useSession";
 
 type Seccion = { href: string; label: string };
@@ -23,9 +16,18 @@ const SECCIONES: Seccion[] = [
   { href: "/nosotros", label: "Nosotros" },
 ];
 
+/**
+ * Header en dos filas:
+ *   · Fila 1 (siempre visible): logo del faro + nombre + iconos/acciones a la derecha.
+ *   · Fila 2 (siempre visible): secciones principales como botones.
+ *
+ * En móvil la nav no se esconde detrás de un hamburguesa — queda visible
+ * debajo, con scroll horizontal si hace falta. Así las funcionalidades
+ * están siempre a un tap de distancia, incluso cuando los botones de
+ * Entrar/Crear cuenta ocupan el lado derecho de la primera fila.
+ */
 export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
   const pathname = usePathname();
-  const [openMobile, setOpenMobile] = useState(false);
   const { user, cargando } = useSession();
 
   const isActive = (href: string) =>
@@ -41,43 +43,15 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
         backdropFilter: "saturate(1.1)",
       }}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
+      {/* Fila 1: logo + acciones usuario */}
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6">
         <Link
           href="/"
           className="flex items-center gap-2 shrink-0"
-          aria-label="OCRE — inicio"
+          aria-label="Demos iOS — inicio"
         >
-          <LogoOCRE />
+          <LogoOCRE size={26} />
         </Link>
-
-        {/* Nav desktop */}
-        <nav
-          className="ml-6 hidden md:flex items-center gap-1"
-          aria-label="Secciones principales"
-        >
-          {SECCIONES.map((s) => (
-            <Link
-              key={s.href}
-              href={s.href}
-              className="relative px-3 py-2 text-[0.93rem] rounded-md transition-colors"
-              style={{
-                color: isActive(s.href)
-                  ? "var(--color-papiro-ink)"
-                  : "var(--color-piedra)",
-                fontWeight: isActive(s.href) ? 600 : 500,
-              }}
-            >
-              {s.label}
-              {isActive(s.href) && (
-                <span
-                  aria-hidden
-                  className="absolute inset-x-3 -bottom-[17px] h-[2px]"
-                  style={{ background: "var(--color-ocre-deep)" }}
-                />
-              )}
-            </Link>
-          ))}
-        </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
           {user && (
@@ -113,17 +87,17 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
               </Link>
             </>
           ) : (
-            <div className="hidden sm:flex items-center gap-1.5 ml-1">
+            <div className="flex items-center gap-1.5">
               <Link
                 href="/login"
-                className="text-[0.88rem] font-medium px-3 py-1.5 rounded-md hover:bg-[var(--color-papiro-soft)]"
+                className="text-[0.85rem] font-medium px-2.5 py-1.5 rounded-md hover:bg-[var(--color-papiro-soft)]"
                 style={{ color: "var(--color-papiro-ink)" }}
               >
                 Entrar
               </Link>
               <Link
                 href="/registro"
-                className="text-[0.88rem] font-semibold px-3 py-1.5 rounded-md"
+                className="text-[0.85rem] font-semibold px-2.5 py-1.5 rounded-md"
                 style={{
                   background: "var(--color-ocre-deep)",
                   color: "var(--color-surface)",
@@ -133,75 +107,52 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
               </Link>
             </div>
           )}
-          <button
-            onClick={() => setOpenMobile((v) => !v)}
-            aria-label="Abrir menú"
-            aria-expanded={openMobile}
-            className="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
-            style={{ color: "var(--color-piedra)" }}
-          >
-            {openMobile ? <IconClose /> : <IconChevronDown />}
-          </button>
         </div>
       </div>
 
-      {/* Nav mobile colapsable */}
-      {openMobile && (
-        <nav
-          className="md:hidden border-t"
-          style={{ borderColor: "var(--color-linea)" }}
-        >
-          <ul className="max-w-6xl mx-auto px-4 py-2">
-            {SECCIONES.map((s) => (
-              <li key={s.href}>
-                <Link
-                  href={s.href}
-                  onClick={() => setOpenMobile(false)}
-                  className="block py-2 text-[0.95rem]"
-                  style={{
-                    color: isActive(s.href)
-                      ? "var(--color-ocre-deep)"
-                      : "var(--color-papiro-ink)",
-                    fontWeight: isActive(s.href) ? 600 : 500,
-                  }}
-                >
-                  {s.label}
-                </Link>
-              </li>
-            ))}
-            {!cargando && !user && (
-              <>
-                <li
-                  className="mt-2 pt-2 border-t"
-                  style={{ borderColor: "var(--color-linea)" }}
-                >
+      {/* Fila 2: secciones como botones — siempre visible, scroll horizontal en móvil */}
+      <nav
+        aria-label="Secciones principales"
+        className="border-t"
+        style={{ borderColor: "var(--color-linea)" }}
+      >
+        <div className="mx-auto max-w-6xl px-2 sm:px-4">
+          <ul
+            className="flex items-center gap-1 overflow-x-auto no-scrollbar"
+            style={{
+              scrollbarWidth: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
+            {SECCIONES.map((s) => {
+              const activo = isActive(s.href);
+              return (
+                <li key={s.href} className="shrink-0">
                   <Link
-                    href="/login"
-                    onClick={() => setOpenMobile(false)}
-                    className="block py-2 text-[0.95rem]"
-                    style={{ color: "var(--color-papiro-ink)", fontWeight: 500 }}
-                  >
-                    Entrar
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/registro"
-                    onClick={() => setOpenMobile(false)}
-                    className="block py-2 text-[0.95rem]"
+                    href={s.href}
+                    className="relative inline-block px-3 py-2.5 text-[0.9rem] rounded-md transition-colors whitespace-nowrap"
                     style={{
-                      color: "var(--color-ocre-deep)",
-                      fontWeight: 600,
+                      color: activo
+                        ? "var(--color-papiro-ink)"
+                        : "var(--color-piedra)",
+                      fontWeight: activo ? 600 : 500,
                     }}
                   >
-                    Crear cuenta
+                    {s.label}
+                    {activo && (
+                      <span
+                        aria-hidden
+                        className="absolute inset-x-3 -bottom-px h-[2px]"
+                        style={{ background: "var(--color-ocre-deep)" }}
+                      />
+                    )}
                   </Link>
                 </li>
-              </>
-            )}
+              );
+            })}
           </ul>
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 }

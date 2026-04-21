@@ -3,29 +3,41 @@ import { SECCIONES_SKIN, EJES_SKIN, KOINA_LATINO } from "@/lib/skins/nombres";
 export const metadata = {
   title: "Nosotros",
   description:
-    "OCRE — Organización Canaria para la Recuperación de Espacios. Misión, visión, valores y equipo detrás de Demosios.",
+    "OCRE — Organización Canaria para la Recuperación de Espacios. Misión, visión, valores y equipo detrás de Demos iOS.",
 };
 
 export default function NosotrosPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 pb-40">
-      <div className="eyebrow">Sobre Demosios by OCRE</div>
+      <div className="eyebrow">Sobre Demos iOS by OCRE</div>
       <h1
         className="display mt-1 text-[clamp(1.8rem,3.6vw,2.4rem)]"
         style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
       >
-        El proyecto y la organización
+        Un sistema operativo para el demos
       </h1>
       <p
         className="mt-4 max-w-2xl"
         style={{ color: "var(--color-piedra)" }}
       >
-        <strong style={{ color: "var(--color-ocre-deep)" }}>Demosios</strong>{" "}
-        (del griego <em className="display italic">δημόσιος</em>, «público») es
-        la plataforma cívica que estás usando. La construye y sostiene{" "}
+        <strong style={{ color: "var(--color-ocre-deep)" }}>Demos iOS</strong>{" "}
+        se lee de dos maneras y ambas conviven a propósito. Quien conoce el
+        griego reconoce <em className="display italic">δημόσιος</em> —
+        «público», el adjetivo que en Atenas distinguía lo de todos de lo
+        privado. Quien no, lee <em className="display italic">Demos iOS</em>:
+        un sistema operativo del <em className="display italic">demos</em>, del
+        pueblo. La plataforma se piensa exactamente así: no como una red
+        social, sino como infraestructura cívica — un OS donde el ciudadano
+        tiene funciones, capas y permisos, no un muro donde publicar.
+      </p>
+      <p
+        className="mt-4 max-w-2xl"
+        style={{ color: "var(--color-piedra)" }}
+      >
+        La construye y sostiene{" "}
         <strong style={{ color: "var(--color-ocre-deep)" }}>OCRE</strong>, la
-        Organización Canaria para la Recuperación de Espacios. La plataforma
-        lleva el nombre de lo que quiere proteger. La organización lleva el
+        Organización Canaria para la Recuperación de Espacios. El proyecto
+        lleva el nombre de lo que quiere servir; la organización lleva el
         nombre de lo que quiere hacer.
       </p>
 
@@ -100,7 +112,7 @@ export default function NosotrosPage() {
           <MiembroEquipo
             nombre="Pancho"
             cargo="Fundador · Dirección"
-            descripcion="Origen de OCRE, del proyecto Demosios y de la tesis de las tres capas (Ágora · Bibliotheka · Polis). Pendiente de redactar bio más completa."
+            descripcion="Origen de OCRE, del proyecto Demos iOS y de la tesis de las tres capas (Ágora · Bibliotheka · Polis). Pendiente de redactar bio más completa."
           />
         </ul>
       </section>
@@ -121,7 +133,7 @@ export default function NosotrosPage() {
           className="mt-3 text-[0.95rem]"
           style={{ color: "var(--color-piedra)" }}
         >
-          Demosios usa por defecto nomenclatura griega clásica
+          Demos iOS usa por defecto nomenclatura griega clásica
           (Ágora, Bibliotheka, Polis). Un futuro <em>modo aventura</em> permitirá
           conmutar toda la plataforma a nomenclatura latina — cambiando
           únicamente las etiquetas visibles, no las rutas ni el código. El

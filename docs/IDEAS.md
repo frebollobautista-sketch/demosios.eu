@@ -11,8 +11,26 @@ Contexto de una línea. Decisión pendiente o siguiente paso.
 
 ## Marca e identidad
 
-### 2026-04-19 — Distinción Demosios (proyecto) vs OCRE (organización)
-Decisión del usuario: el sitio se firma como **Demosios by OCRE**. Demosios (δημόσιος = "público") es la plataforma cívica; OCRE es la organización que la construye. Visible en el logo del header (Demosios en mayúscula, "by OCRE" como tagline), en los metadatos y en `/nosotros`. La carpeta del repo se queda como `OCRE` (es el código de la organización); el dominio es `demosios.eu` (lo que la gente usa).
+### 2026-04-19 — Nombre del proyecto: **Demos iOS** (lectura doble intencional)
+Decisión del usuario: el proyecto no se llama "Demosios" sino **Demos iOS** — escrito con espacio y con la grafía clásica de iOS (i minúscula + OS mayúscula). Doble lectura deliberada:
+
+- Para quien lee griego: δημόσιος ("público") → nombre clásico que justifica el dominio `demosios.eu`.
+- Para cualquiera: "Demos iOS" → sistema operativo del demos (del pueblo). La plataforma se piensa como OS cívico, no como red social.
+
+Visualmente en el logo: "Demos" en tipografía serif del proyecto + "iOS" en sans sistema (SF Pro / ui-sans-serif) ligeramente más pequeño, evocando la marca de Apple sin copiar su tipografía. "by OCRE" en tagline italic debajo. Dominio `demosios.eu` sin cambios.
+
+### 2026-04-19 — Icono de la marca: faro
+El logo anterior (columna jónica) se cambia por un **faro**. Razones que se apilan:
+1. Referencia directa a PHAROS (la torre de Alejandría dio nombre a todos los faros), que es el legado del proyecto anterior de Pancho del que OCRE hereda las 8 secciones temáticas.
+2. El faro es símbolo canario primordial — archipiélago de faros por identidad geográfica.
+3. Semánticamente funciona: una baliza civil que marca el camino encaja perfectamente con un "sistema operativo del demos". Se alinea con la tesis: no un muro, una luz.
+
+### 2026-04-19 — Header rediseñado: nav siempre visible, sin hamburguesa
+Decisión del usuario: las funcionalidades deben estar siempre visibles como botones, no escondidas tras un hamburguesa en móvil. Rediseño en dos filas:
+- Fila 1 (h-14): logo del faro a la izquierda, acciones de usuario a la derecha (Entrar/Crear cuenta o perfil/ajustes).
+- Fila 2 (h-11): las 5 secciones como botones con indicador activo. Scroll horizontal con `no-scrollbar` cuando no quepan en móvil.
+
+`scroll-padding-top` subido a 7rem para que los anchors respeten el header doble.
 
 ### 2026-04-19 — Página /nosotros (About Us)
 Creada con cuatro bloques: Misión · Visión · Valores (placeholders editables por el usuario), Equipo (de momento solo Pancho — "Fundador · Dirección"), y un Explorador de Nomenclatura griego/latino. Los placeholders llevan corchetes y texto en itálica gris para que sea obvio qué falta redactar.

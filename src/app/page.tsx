@@ -5,7 +5,7 @@ export default function InicioPage() {
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-12 pb-40">
       {/* Hero */}
       <section className="relative">
-        <div className="eyebrow">Demosios by OCRE</div>
+        <div className="eyebrow">Demos iOS by OCRE</div>
         <h1
           className="display mt-2 text-[clamp(2rem,4.8vw,3rem)]"
           style={{ color: "var(--color-papiro-ink)", lineHeight: 1.05 }}
@@ -16,7 +16,7 @@ export default function InicioPage() {
           className="mt-5 text-[1.05rem]"
           style={{ color: "var(--color-piedra)" }}
         >
-          Demosios es el lugar donde la{" "}
+          Demos iOS es el lugar donde la{" "}
           <Link
             href="/nosotros"
             className="underline"

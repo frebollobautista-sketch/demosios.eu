@@ -1,5 +1,5 @@
 // ─── Skins de nomenclatura ──────────────────────────────────────
-// Demosios soporta dos registros de nombres:
+// Demos iOS soporta dos registros de nombres:
 //
 //   · "griego"  — registro por defecto. Las secciones se llaman por
 //     su nombre clásico: Ágora, Bibliotheka, Polis. Los ejes de capital

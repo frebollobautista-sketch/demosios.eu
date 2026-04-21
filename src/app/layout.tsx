@@ -7,15 +7,15 @@ const SITE_URL = "https://demosios.eu";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Demosios — plataforma cívica de OCRE",
-    template: "%s · Demosios",
+    default: "Demos iOS — plataforma cívica de OCRE",
+    template: "%s · Demos iOS",
   },
   description:
-    "Demosios es la plataforma cívica de la Organización Canaria para la Recuperación de Espacios (OCRE). Ágora, Bibliotheka y Polis al servicio del común.",
-  applicationName: "Demosios",
+    "Demos iOS es la plataforma cívica de la Organización Canaria para la Recuperación de Espacios (OCRE). Ágora, Bibliotheka y Polis al servicio del común.",
+  applicationName: "Demos iOS",
   authors: [{ name: "OCRE — Organización Canaria para la Recuperación de Espacios" }],
   keywords: [
-    "Demosios",
+    "Demos iOS",
     "OCRE",
     "Canarias",
     "común",
@@ -32,14 +32,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
     url: SITE_URL,
-    siteName: "Demosios by OCRE",
-    title: "Demosios — plataforma cívica de OCRE",
+    siteName: "Demos iOS by OCRE",
+    title: "Demos iOS — plataforma cívica de OCRE",
     description:
       "Recuperamos virtualmente el espacio antes de reclamarlo en la calle. Ágora, Bibliotheka y Polis.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Demosios by OCRE",
+    title: "Demos iOS by OCRE",
     description:
       "Plataforma cívica de la Organización Canaria para la Recuperación de Espacios. Res publica, τὰ κοινά.",
   },

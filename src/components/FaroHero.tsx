@@ -61,20 +61,24 @@ export function FaroHero() {
         {/* Sombra del faro sobre el suelo. */}
         <ellipse cx="150" cy="415" rx="90" ry="8" fill="url(#faro-sombra)" />
 
-        {/* Haces de luz — rotan y pulsan juntos. */}
+        {/* Haces de luz — oscilan (no giran 360°) y pulsan juntos.
+            El pivote está en el centro exacto de la bombilla (150, 110)
+            gracias a `transform-box: view-box`. La oscilación se limita a
+            ±4°, de forma que la punta de cada haz nunca sube ni baja más
+            que la propia altura del bulbo — como pediste. */}
         <g
           className="faro-haces"
           style={{
-            transformBox: "fill-box",
+            transformBox: "view-box",
             transformOrigin: "150px 110px",
           }}
         >
           <polygon
-            points="150,110 360,55 360,165"
+            points="150,110 360,92 360,128"
             fill="url(#faro-haz)"
           />
           <polygon
-            points="150,110 -60,55 -60,165"
+            points="150,110 -60,92 -60,128"
             fill="url(#faro-haz)"
           />
         </g>

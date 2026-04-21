@@ -143,7 +143,7 @@ html {
 
 .faro-haces {
   animation:
-    faro-rotar 18s linear infinite,
+    faro-oscilar 5s ease-in-out infinite alternate,
     faro-encender 6s ease-in-out infinite;
 }
 
@@ -156,9 +156,13 @@ html {
   fill: #F0DCB6;
 }
 
-@keyframes faro-rotar {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* Oscilación limitada a ±4°: los haces nunca pasan por encima ni por
+   debajo de la altura del propio bulbo. El período (5 s) es distinto del
+   encendido (6 s), así se desacoplan un poco y el movimiento se lee como
+   orgánico en vez de mecánico. */
+@keyframes faro-oscilar {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate( 4deg); }
 }
 
 @keyframes faro-encender {

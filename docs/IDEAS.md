@@ -19,6 +19,15 @@ Decisión del usuario: el proyecto no se llama "Demosios" sino **Demos iOS** —
 
 Visualmente en el logo: "Demos" en tipografía serif del proyecto + "iOS" en sans sistema (SF Pro / ui-sans-serif) ligeramente más pequeño, evocando la marca de Apple sin copiar su tipografía. "by OCRE" en tagline italic debajo. Dominio `demosios.eu` sin cambios.
 
+### 2026-04-19 — Faro animado como hero de la home
+Decisión del usuario: la primera cosa que ve cualquier visitante es un **faro** encendiéndose. Es lo que da clase y memorabilidad al proyecto antes de leer una sola línea. Implementado en `src/components/FaroHero.tsx` con SVG vectorial completo:
+
+- **Estructura por pisos** (grupos `<g id="piso-base">`, `piso-medio`, `piso-alto`, `galeria`, `linterna`, `cupula`, `pinaculo`) para poder convertirlos en anchors clicables a secciones más adelante.
+- **Animación**: los haces de luz rotan 18 s por vuelta (continuo) + encienden/apagan en ciclo de 6 s (0.3 s fade-in, 2.4 s pleno, 0.3 s fade-out, 3 s apagado). La bombilla central cambia de tono entre estados. El halo alrededor de la linterna pulsa al ritmo de los haces.
+- **CSS en `globals.css`** (no styled-jsx), para que el componente pueda ser server-rendered.
+- Respeta `prefers-reduced-motion`: sin animación, luces a opacidad fija.
+- Posible siguiente paso cuando el usuario lo decida: convertir cada piso en un `<Link>` que lleve a su sección (piso base → Inicio, piso medio → Ágora, piso alto → Bibliotheka, galería → Nosotros, linterna → Polis). Hoy solo visual.
+
 ### 2026-04-19 — Icono de la marca: faro
 El logo anterior (columna jónica) se cambia por un **faro**. Razones que se apilan:
 1. Referencia directa a PHAROS (la torre de Alejandría dio nombre a todos los faros), que es el legado del proyecto anterior de Pancho del que OCRE hereda las 8 secciones temáticas.

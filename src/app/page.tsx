@@ -1,19 +1,25 @@
 import Link from "next/link";
+import { FaroHero } from "@/components/FaroHero";
 
 export default function InicioPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-12 pb-40">
-      {/* Hero */}
-      <section className="relative">
-        <div className="eyebrow">Demos iOS by OCRE</div>
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8 pb-40">
+      {/* Hero: el faro como emblema. Se enciende 3 s cada 6. */}
+      <section className="relative flex flex-col items-center text-center pt-4 pb-2">
+        <FaroHero />
+        <div className="eyebrow mt-6">Demos iOS by OCRE</div>
         <h1
-          className="display mt-2 text-[clamp(2rem,4.8vw,3rem)]"
-          style={{ color: "var(--color-papiro-ink)", lineHeight: 1.05 }}
+          className="display mt-2 text-[clamp(2rem,4.8vw,2.8rem)]"
+          style={{
+            color: "var(--color-papiro-ink)",
+            lineHeight: 1.05,
+            maxWidth: "32ch",
+          }}
         >
           Una plataforma cívica canaria, por isla y por barrio.
         </h1>
         <p
-          className="mt-5 text-[1.05rem]"
+          className="mt-5 text-[1.05rem] max-w-2xl"
           style={{ color: "var(--color-piedra)" }}
         >
           Demos iOS es el lugar donde la{" "}

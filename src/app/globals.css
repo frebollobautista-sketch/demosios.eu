@@ -136,3 +136,53 @@ html {
     animation: none !important;
   }
 }
+
+/* ─── Faro hero (animación) ──────────────────────────────────── */
+/* Ciclo total 6 s — 3 s encendido, 3 s apagado. Los haces rotan 18 s
+   por vuelta para que, cuando iluminan, se note que giran. */
+
+.faro-haces {
+  animation:
+    faro-rotar 18s linear infinite,
+    faro-encender 6s ease-in-out infinite;
+}
+
+.faro-halo {
+  animation: faro-encender 6s ease-in-out infinite;
+}
+
+.faro-bombilla {
+  animation: faro-bombilla 6s ease-in-out infinite;
+  fill: #F0DCB6;
+}
+
+@keyframes faro-rotar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes faro-encender {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  45%  { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes faro-bombilla {
+  0%, 50%, 100% { fill: #F0DCB6; }
+  5%, 45%      { fill: #FFE3A8; }
+  25%          { fill: #FFF2C9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faro-haces,
+  .faro-halo {
+    animation: none;
+    opacity: 0.6;
+  }
+  .faro-bombilla {
+    animation: none;
+    fill: #FFE3A8;
+  }
+}

@@ -1,181 +1,208 @@
 import Link from "next/link";
-import { NavegadorTerritorio } from "@/components/NavegadorTerritorio";
-import { EJES } from "@/lib/capital/ejes";
 
 export default function InicioPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 pb-40">
-      {/* hero sobrio */}
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-12 pb-40">
+      {/* Hero */}
       <section className="relative">
-        <div className="eyebrow">Organización Canaria para la Recuperación de Espacios</div>
+        <div className="eyebrow">Demosios by OCRE</div>
         <h1
-          className="display mt-2 text-[clamp(1.8rem,4.2vw,2.8rem)]"
-          style={{ color: "var(--color-papiro-ink)", lineHeight: 1.1 }}
+          className="display mt-2 text-[clamp(2rem,4.8vw,3rem)]"
+          style={{ color: "var(--color-papiro-ink)", lineHeight: 1.05 }}
         >
-          Una ventanilla única del común, por isla y por barrio.
+          Una plataforma cívica canaria, por isla y por barrio.
         </h1>
         <p
-          className="mt-4 max-w-2xl text-[1rem] md:text-[1.05rem]"
+          className="mt-5 text-[1.05rem]"
           style={{ color: "var(--color-piedra)" }}
         >
-          OCRE recupera virtualmente el espacio antes de reclamarlo en la
-          calle. Mapeamos qué bloques están en manos del interés
-          privado-corporativo y cuáles podrían volver al común. Entras por
-          donde vives: isla, municipio, barrio. Te acompaña un perfil con
-          <span style={{ color: "var(--color-ocre-deep)", fontWeight: 600 }}>
-            {" "}tres formas de capital
-          </span>{" "}
-          que crece con lo que aportas.
+          Demosios es el lugar donde la{" "}
+          <Link
+            href="/nosotros"
+            className="underline"
+            style={{ color: "var(--color-ocre-deep)" }}
+          >
+            Organización Canaria para la Recuperación de Espacios
+          </Link>{" "}
+          articula tres funciones básicas de toda comunidad política:
+          deliberar, acumular conocimiento, y cuidar el espacio que compartimos.
+          Tres secciones, una por función.
         </p>
       </section>
 
       <div className="divisor my-10" />
 
-      {/* Navegador territorial */}
-      <section aria-labelledby="territorio">
-        <div className="flex items-baseline justify-between mb-3">
-          <h2
-            id="territorio"
-            className="display text-[1.25rem]"
-            style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-          >
-            Entrar por tu territorio
-          </h2>
-          <span
-            className="eyebrow"
-            style={{ color: "var(--color-piedra-clara)" }}
-          >
-            Isla · Municipio · Barrio
-          </span>
-        </div>
-        <NavegadorTerritorio />
-      </section>
-
-      <div className="divisor my-12" />
-
-      {/* Tres ejes como presentación */}
-      <section aria-labelledby="ejes">
+      {/* Thread simple sobre las tres secciones */}
+      <section aria-labelledby="secciones">
         <h2
-          id="ejes"
-          className="display text-[1.25rem] mb-2"
+          id="secciones"
+          className="display text-[1.3rem] mb-2"
           style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
         >
-          Tres formas de capital ciudadano
+          Cómo está organizado
         </h2>
+
+        <ol
+          className="mt-5 space-y-6 list-none p-0 m-0"
+          style={{ counterReset: "seccion" }}
+        >
+          <BloqueSeccion
+            indice={1}
+            href="/agora"
+            griego="Ἀγορά"
+            titulo="Ágora"
+            lema="Donde se habla"
+          >
+            La plaza pública digital. Ocho secciones temáticas heredadas de
+            PHAROS (vivienda, trabajo, cambio climático, medios, común…) en
+            las que los miembros abren hilos, responden, y se avalan entre
+            sí. No hay algoritmo de engagement ni scroll infinito: se entra a
+            hablar de algo concreto y se sale cuando se ha dicho.
+          </BloqueSeccion>
+
+          <BloqueSeccion
+            indice={2}
+            href="/bibliotheka"
+            griego="Βιβλιοθήκη"
+            titulo="Bibliotheka"
+            lema="Donde queda registrado"
+          >
+            La memoria de lo dicho y lo hecho, en dos alas. El{" "}
+            <em className="display italic">Cursus honorum</em> es un canal de
+            vídeos ciudadanos graduado por siete niveles cívicos con
+            correspondencia profesional real. <em className="display italic">τὰ Κοινά</em>{" "}
+            — «las cosas comunes» — es el repositorio de recursos del común:
+            guías, plantillas, servicios vecinales, clasificados por las
+            mismas ocho secciones del Ágora.
+          </BloqueSeccion>
+
+          <BloqueSeccion
+            indice={3}
+            href="/polis"
+            griego="Πόλις"
+            titulo="Polis"
+            lema="Donde se actúa sobre el territorio"
+          >
+            El mapa-tablero del municipio. Cada barrio aparece coloreado por
+            el tipo de capital que lo posee — común, residente, autónomo,
+            rentista difuso, privado-corporativo. Los barrios con capital
+            mayoritariamente corporativo quedan marcados como{" "}
+            <strong>candidatos a recuperación</strong>. Pulsas cualquier
+            barrio, ves su composición y actúas: abres hilo, publicas
+            recurso, marcas bloque.
+          </BloqueSeccion>
+        </ol>
+      </section>
+
+      <div className="divisor my-10" />
+
+      {/* CTA cerrar con enlace a nosotros */}
+      <section
+        className="rounded-xl p-6 text-center"
+        style={{
+          background: "var(--color-surface)",
+          border: "1px solid var(--color-linea)",
+        }}
+      >
         <p
-          className="max-w-2xl text-[0.95rem] mb-6"
+          className="display italic text-[1rem]"
+          style={{ color: "var(--color-papiro-ink)" }}
+        >
+          Por dentro todavía somos pocos; por fuera, el archipiélago entero.
+        </p>
+        <p
+          className="mt-3 text-[0.9rem]"
           style={{ color: "var(--color-piedra)" }}
         >
-          Heredadas de PHAROS. No confundir con capital económico: aquí se mide
-          lo que sostiene el común.
+          Si quieres entender quién está detrás, hacia dónde va el proyecto y
+          cómo se entiende «lo público» aquí, pasa por{" "}
+          <Link
+            href="/nosotros"
+            className="underline"
+            style={{ color: "var(--color-ocre-deep)", fontWeight: 600 }}
+          >
+            Nosotros
+          </Link>
+          .
         </p>
-        <ul className="grid md:grid-cols-3 gap-4">
-          {EJES.map((e) => (
-            <li
-              key={e.id}
-              className="rounded-xl p-5"
-              style={{
-                background: e.colorTenue,
-                border: "1px solid var(--color-linea)",
-              }}
-            >
-              <div
-                className="display italic text-[1.4rem]"
-                style={{ color: e.color, fontWeight: 600 }}
-              >
-                {e.nombreGriego}
-              </div>
-              <div
-                className="eyebrow mt-0.5"
-                style={{ color: e.color, opacity: 0.75 }}
-              >
-                {e.nombre}
-              </div>
-              <p
-                className="mt-3 text-[0.92rem]"
-                style={{ color: "var(--color-papiro-ink)" }}
-              >
-                {e.descripcion}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <div className="divisor my-12" />
-
-      {/* Puertas de entrada rápidas a las 3 secciones */}
-      <section aria-labelledby="puertas">
-        <h2
-          id="puertas"
-          className="display text-[1.25rem] mb-4"
-          style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-        >
-          Las tres puertas de OCRE
-        </h2>
-        <div className="grid md:grid-cols-3 gap-3">
-          <Puerta
-            href="/agora"
-            eyebrow="Ἀγορά"
-            titulo="Ágora"
-            texto="Deliberación pública, hilos por sección. Aquí se acuerda qué hacer."
-          />
-          <Puerta
-            href="/bibliotheka"
-            eyebrow="Βιβλιοθήκη"
-            titulo="Bibliotheka"
-            texto="Cursus honorum de videos ciudadanos y τὰ Κοινά: recursos del común."
-          />
-          <Puerta
-            href="/polis"
-            eyebrow="Πόλις"
-            titulo="Polis"
-            texto="Mapa de espacios, tipo de capital por bloque, candidatos a recuperación."
-          />
-        </div>
       </section>
     </div>
   );
 }
 
-function Puerta({
+function BloqueSeccion({
+  indice,
   href,
-  eyebrow,
+  griego,
   titulo,
-  texto,
+  lema,
+  children,
 }: {
+  indice: number;
   href: string;
-  eyebrow: string;
+  griego: string;
   titulo: string;
-  texto: string;
+  lema: string;
+  children: React.ReactNode;
 }) {
   return (
-    <Link
-      href={href}
-      className="block rounded-xl p-5 transition-colors"
+    <li
+      className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1"
       style={{
-        background: "var(--color-surface)",
-        border: "1px solid var(--color-linea)",
+        borderLeft: "2px solid var(--color-linea)",
+        paddingLeft: "1.25rem",
       }}
     >
-      <div
-        className="display italic text-[0.9rem]"
-        style={{ color: "var(--color-ocre-deep)" }}
+      <span
+        aria-hidden
+        className="display italic"
+        style={{
+          color: "var(--color-ocre-deep)",
+          fontSize: "1rem",
+          fontWeight: 600,
+          gridRow: "1 / span 2",
+          marginTop: "0.1rem",
+        }}
       >
-        {eyebrow}
-      </div>
-      <div
-        className="display mt-0.5 text-[1.25rem]"
-        style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-      >
-        {titulo}
+        {indice}.
+      </span>
+      <div className="flex items-baseline gap-3 flex-wrap">
+        <Link
+          href={href}
+          className="display hover:underline"
+          style={{
+            color: "var(--color-papiro-ink)",
+            fontSize: "1.35rem",
+            fontWeight: 600,
+          }}
+        >
+          {titulo}
+        </Link>
+        <span
+          className="display italic"
+          style={{
+            color: "var(--color-ocre-deep)",
+            fontSize: "0.95rem",
+          }}
+        >
+          {griego}
+        </span>
+        <span
+          className="eyebrow"
+          style={{ color: "var(--color-piedra-clara)" }}
+        >
+          {lema}
+        </span>
       </div>
       <p
-        className="mt-2 text-[0.9rem]"
-        style={{ color: "var(--color-piedra)" }}
+        style={{
+          color: "var(--color-piedra)",
+          fontSize: "0.98rem",
+          lineHeight: 1.55,
+        }}
       >
-        {texto}
+        {children}
       </p>
-    </Link>
+    </li>
   );
 }

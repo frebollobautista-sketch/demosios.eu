@@ -20,6 +20,7 @@ const SECCIONES: Seccion[] = [
   { href: "/agora", label: "Ágora" },
   { href: "/bibliotheka", label: "Bibliotheka" },
   { href: "/polis", label: "Polis" },
+  { href: "/nosotros", label: "Nosotros" },
 ];
 
 export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {

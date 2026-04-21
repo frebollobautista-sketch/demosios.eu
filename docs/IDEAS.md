@@ -9,6 +9,30 @@ Contexto de una línea. Decisión pendiente o siguiente paso.
 
 ---
 
+## Marca e identidad
+
+### 2026-04-19 — Distinción Demosios (proyecto) vs OCRE (organización)
+Decisión del usuario: el sitio se firma como **Demosios by OCRE**. Demosios (δημόσιος = "público") es la plataforma cívica; OCRE es la organización que la construye. Visible en el logo del header (Demosios en mayúscula, "by OCRE" como tagline), en los metadatos y en `/nosotros`. La carpeta del repo se queda como `OCRE` (es el código de la organización); el dominio es `demosios.eu` (lo que la gente usa).
+
+### 2026-04-19 — Página /nosotros (About Us)
+Creada con cuatro bloques: Misión · Visión · Valores (placeholders editables por el usuario), Equipo (de momento solo Pancho — "Fundador · Dirección"), y un Explorador de Nomenclatura griego/latino. Los placeholders llevan corchetes y texto en itálica gris para que sea obvio qué falta redactar.
+
+### 2026-04-19 — Modo aventura: skin romana (nomenclatura latina)
+Propuesta del usuario: activar opcionalmente nomenclatura latina para toda la plataforma. Tabla de correspondencia implementada en `src/lib/skins/nombres.ts`:
+
+| Griego (actual) | Latino (aventura) |
+|---|---|
+| Ágora (Ἀγορά) | Forum |
+| Bibliotheka (Βιβλιοθήκη) | Bibliotheca |
+| Polis (Πόλις) | Civitas |
+| τὰ Κοινά | Res Communes |
+| Κοινωνία | Communitas |
+| Παιδεία | Eruditio |
+| Πολιτεία | Res Publica |
+| Cursus honorum | (ya es latino) |
+
+Toggle todavía no cableado en UI — vivirá en `/ajustes` como "Nomenclatura: griego / latino". Las rutas no cambian, solo las etiquetas. Previsualización inmediata en el explorador de `/nosotros`.
+
 ## Sin clasificar
 
 ### 2026-04-19 — Preview renderizable dentro de Cowork
@@ -18,6 +42,9 @@ El usuario pidió ver el proyecto en preview sin levantar `npm run dev`. Se gene
 Next.js 16 detecta `/Users/panch/package-lock.json` como workspace root. Se fijó `turbopack.root` en `next.config.ts` apuntando al directorio del proyecto. Si aparece en otro proyecto, aplicar el mismo patrón.
 
 ## UI / UX
+
+### 2026-04-19 — Home reescrita como thread narrativo
+Retirados los bloques que generaban confusión: navegador territorial (isla/municipio/barrio, que ahora vive implícito en /polis), showcase de los tres ejes de capital (prematuro sin contribuciones reales), y puertas tipo tarjeta. La home actual es un hilo narrativo en tres pasos — Ágora (donde se habla), Bibliotheka (donde queda registrado), Polis (donde se actúa sobre el territorio) — cada uno con lema corto y explicación real de lo que hace. Cierra con CTA a /nosotros.
 
 ### 2026-04-19 — Candado de privacidad en Ajustes (público/privado del perfil)
 En el menú del engranaje (icono superior derecho) añadir un toggle con candado que vuelva el perfil público o privado. Cuando esté privado, mostrar un candado pequeño junto al avatar (tanto en el banner flotante como en la cabecera del perfil) y, en la versión real, ocultar el perfil en Ágora/Polis a quienes no sigas. Implementado ya como prototipo en `ocre-preview.html`; pendiente de cablear en `src/app/ajustes/page.tsx` y en la tabla `profiles` cuando conectemos Supabase (columna `is_public boolean default true`).

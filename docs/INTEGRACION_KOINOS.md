@@ -313,7 +313,14 @@ Cada fase es una tanda de trabajo clara con su propio commit set. Estimaciones p
 - Tabla `diario_tareas` privada del usuario.
 - Se autoborran al marcarse completadas.
 
-## 7. Decisiones abiertas (bloquean la fase 1)
+## 7. Decisiones cerradas (2026-04-20)
+
+- **D1 · Marca**: todo bajo **Demos iOS**. KOINOS se absorbe como dos módulos — **FEED** y **TOUCH** — dentro del OS cívico. La marca KOINOS desaparece del producto final; sus ideas sobreviven como las dos capas sociales.
+- **D2 · FEED y Ágora coexisten**: Ágora es la versión cívica-seria (foro estructurado por sección PHAROS). FEED es el trípode de la parte red-social de KOINOS (microblog con 4 pieles, gestos y AlgoritmoPanel). Inicialmente ambas accesibles a la vez por el mismo usuario — no son excluyentes.
+- **D3 · TOUCH**: invite-only estricto con círculos de 3 niveles (íntimo · cercano · conocido). Modelo Vero/Close Friends llevado a límite máximo.
+- **D4 · Orden**: Fase 1 = FEED. La Escribanía de Bibliotheka espera.
+
+## 7bis. Historial de alternativas (para trazabilidad)
 
 ### D1. Nombre del conjunto
 

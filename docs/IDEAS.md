@@ -74,6 +74,14 @@ Plan completo documentado en [`docs/INTEGRACION_KOINOS.md`](./INTEGRACION_KOINOS
 
 Pendiente de respuesta del usuario a D1-D4 antes de iniciar fase 1.
 
+### 2026-04-20 — Decisiones D1-D4 cerradas
+- **D1**: todo bajo Demos iOS; KOINOS se absorbe como módulos FEED y TOUCH (la marca KOINOS desaparece como entidad externa).
+- **D2**: Ágora y FEED coexisten — Ágora versión cívica-seria, FEED parte del trípode social heredado de KOINOS. El usuario accede a las dos simultáneamente.
+- **D3**: TOUCH invite-only estricto con círculos de 3 niveles (íntimo/cercano/conocido).
+- **D4**: Fase 1 = FEED primero. Escribanía espera.
+
+Fase 1 desbloqueada. Empezaremos en la siguiente sesión cuando el usuario dé la orden.
+
 ## Bibliotheka — escribanía / articulos largos
 
 ### 2026-04-20 — Tercera ala de Bibliotheka: editor de artículos P2P
@@ -160,6 +168,18 @@ La exploración pendiente de sustituir los símbolos tipográficos del cursus (�
 
 ### 2026-04-19 — Track `poietés` nace del propio trabajo de animación
 Si el admin/autor anima el cursus en Procreate Dreams, se convierte en el primer `poietés` del sistema. El track paralelo artístico (mencionado como variante futura en `CURSUS_HONORUM.md`) puede arrancar con este caso de uso concreto: animar vídeos del cursus entrena el hueco del grado.
+
+### 2026-04-21 — Menú de automatización producción de vídeo (voz usuario + Claude aliado)
+Nueve rutas ordenadas de más simple a más ambiciosa: (1) voz en bruto → transcripción → guion estructurado con storyboard; (2) guion → timeline técnica con timecodes calculando 150-180 palabras/min; (3) guion → prompt pack para ilustraciones con estilo anclado (grabado romano, paleta OCRE) usable en Midjourney/FLUX; (4) datos → visualizaciones auto en SVG con d3 (ISTAC, INE, datos.canarias.es); (5) voz clonada con ElevenLabs desde muestra de 3 min (~5-22€/mes); (6) transcripción del MP4 final → SRT/VTT para accesibilidad + corte vertical 60 s para redes; (7) biblioteca viva de assets en `public/series/` mantenida por Claude; (8) bucle de auditoría post-publicación (qué beat rindió, qué cifra se entendió); (9) DSL markdown guion→Dreams timeline-skeleton (solo vale si >20 eps/año). Combinación mínima recomendada para arrancar: 1 + 2 + 4.
+
+### 2026-04-21 — Matiz al ranking de coste de producción
+Corrección al ranking previo (kinetic typography < motion comic < cutout articulado): contadores de cifras son casi gratis (dos keyframes, Dreams interpola); el ranking depende de cuándo mides — para el primer vídeo tipografía kinética es más barata, pero para una serie entera un personaje riggeado amortiza y puede salir más barato del segundo vídeo en adelante. Con el pivote a stick figure hecho a mano (entrada siguiente), este debate se disuelve: el stick figure combina coste bajo por pieza con amortización de personaje consistente, y además enseña los principios de animación mientras se produce.
+
+### 2026-04-21 — Pivote técnico: stick figure como narrador de la serie
+Decisión del usuario tras confrontar la curva de aprendizaje de animación: arrancar con stick figure + contenido escrito a mano, en lugar de ilustración compleja o personaje con rig. Razones: (a) sidesteps uncanny valley, que era la preocupación real con cualquier aproximación a reconocimiento facial; (b) el stick figure es precisamente cómo los animadores bloquean el movimiento antes de dibujar cualquier cosa encima — aprender a animarlo ES aprender animación; (c) tradición política-popular (xkcd, RSA Animate, pizarra con voz en off, Alan Becker, pizarrones de Errejón); (d) evita exponerse en cámara sin perder voz; (e) el trazo hecho a mano lee como coherencia con un proyecto sobre lo común. Currículo de entrada en 5 principios en este orden: squash and stretch (pelota bota) → arcs (todo movimiento natural es curvo, nunca recto) → anticipation (windup antes de la acción grande) → slow in / slow out (easing, Dreams lo trae incorporado) → timing / spacing (dibujos separados = rápido, juntos = lento). Recurso: serie "12 Principles of Animation" de Alan Becker en YouTube, explicada literalmente con un stick figure. Los otros 7 principios se aprenden por accidente una vez interiorizados estos 5. Sobre reconocimiento facial: descartado por uncanny valley — solo caben (a) totalmente simbólico o (b) hiperestilizado; nunca mitad-y-mitad.
+
+### 2026-04-21 — Narrador-stick-figure que crece en el cursus a lo largo de la serie (propuesta, pendiente aceptación)
+El monigote narrador de la serie "Circunstancia canaria" podría encarnar el cursus honorum: empieza el ep 00 como polítes (stick simple), gana atributo al avanzar los episodios — jarra en oikonómos cuando explique heredamientos, símbolo técnico en ergátes cuando cite datos, togada mínima en bouleutés al convocar organización, laurel en strategós para el ep 05 (puente a OCRE). Sube un grado por episodio. Beneficio narrativo: el cursus deja de ser abstracto — el espectador ha visto la escalera subiendo durante 5 episodios antes de que OCRE la explique. Cada cambio de grado es micro-ritual: cambia atributo, color del lema, punto cívico. Nombre propuesto para el narrador: Demos, alineado con `demosios.eu` y con la doble lectura "Demos iOS". Pendiente: decidir si aceptar esta integración narrativa o dejar que el narrador sea neutro a lo largo de la serie.
 
 ### 2026-04-19 — Insignias laterales no lineales
 Idea: "custodio/a del agua", "guardián/ana de la biblioteca del barrio", etc. Insignias que cruzan el cursus y aportan reconocimiento lateral sin escalar niveles.

@@ -62,6 +62,18 @@ Propuesta del usuario: activar opcionalmente nomenclatura latina para toda la pl
 
 Toggle todavía no cableado en UI — vivirá en `/ajustes` como "Nomenclatura: griego / latino". Las rutas no cambian, solo las etiquetas. Previsualización inmediata en el explorador de `/nosotros`.
 
+## Integración KOINOS
+
+### 2026-04-20 — Trasladar todo KOINOS a Demos iOS como capas de un mismo OS cívico
+Decisión estratégica del usuario: unificar KOINOS (red social, TOUCH+FEED) y OCRE (cívico, Ágora+Bibliotheka+Polis) bajo el paraguas Demos iOS. Objetivos:
+- **Atraer al público serio** (OCRE formal) **y al usuario de red social canario cansado del odio** (KOINOS social) en una misma plataforma.
+- **Ofrecer los módulos por separado o juntos** — cada usuario decide qué capas habita desde `/ajustes`.
+- Una identidad, un Supabase, un sistema de capital compartido.
+
+Plan completo documentado en [`docs/INTEGRACION_KOINOS.md`](./INTEGRACION_KOINOS.md) con: tesis, arquitectura unificada (tabla `publicaciones` con enum `modo`, tabla `reacciones` con 5 tipos, círculos para TOUCH, RLS por visibilidad), siete fases de migración estimadas, cuatro decisiones estratégicas abiertas (nombre del conjunto, coexistencia FEED/Ágora, visibilidad TOUCH, orden de fases) y riesgos con mitigación.
+
+Pendiente de respuesta del usuario a D1-D4 antes de iniciar fase 1.
+
 ## Bibliotheka — escribanía / articulos largos
 
 ### 2026-04-20 — Tercera ala de Bibliotheka: editor de artículos P2P

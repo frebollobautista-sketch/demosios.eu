@@ -88,6 +88,65 @@ export default function PolisPage() {
 
       <div className="divisor my-8" />
 
+      {/* Mapa vectorial real — v16, jerarquía administrativa LPGC.
+          Distritos (5) · Secciones censales (274) · Edificios (19 481)
+          sobre imagen satélite Esri. Servido como HTML estático en /public
+          y embebido aquí como iframe para no comprometer el App Router. */}
+      <section aria-labelledby="mapa-real" className="mb-12">
+        <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
+          <h2
+            id="mapa-real"
+            className="display text-[1.15rem]"
+            style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
+          >
+            Mapa administrativo real — v16
+          </h2>
+          <a
+            href="/polis-v16.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="eyebrow"
+            style={{ color: "var(--color-ocre-deep)" }}
+          >
+            Abrir a pantalla completa ↗
+          </a>
+        </div>
+        <p
+          className="text-[0.9rem] mb-4 max-w-2xl"
+          style={{ color: "var(--color-piedra)" }}
+        >
+          Navegación jerárquica <strong>Municipio → Distrito → Sección censal → Edificios</strong> sobre imagen satélite real. Cinco distritos de Las Palmas de Gran Canaria, 274 secciones censales, 19 481 edificios. Es la base cartográfica sobre la que iremos pintando la composición de capital por bloque.
+        </p>
+        <div
+          className="rounded-xl overflow-hidden"
+          style={{
+            border: "1px solid var(--color-linea)",
+            background: "#0a0a0a",
+          }}
+        >
+          <iframe
+            src="/polis-v16.html"
+            title="Mapa jerárquico administrativo de Las Palmas de Gran Canaria"
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "75vh",
+              minHeight: 500,
+              border: 0,
+              display: "block",
+            }}
+          />
+        </div>
+        <p
+          className="text-[0.78rem] mt-2"
+          style={{ color: "var(--color-piedra-clara)" }}
+        >
+          Fuente: INE (secciones censales 2024) + catastro · Imagen base: Esri World Imagery · Etiquetas: Carto.
+        </p>
+      </section>
+
+      <div className="divisor my-8" />
+
       <section aria-labelledby="tablero">
         <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
           <h2

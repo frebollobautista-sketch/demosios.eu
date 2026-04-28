@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import type { Isla, Municipio, Barrio } from "@/lib/territorio/canarias";
 import {
-  BARRIOS_LPGC,
+  BARRIOS_POR_MUNICIPIO,
   type BarrioJuego,
   type ComposicionCapital,
   type TipoBloque,
@@ -61,13 +61,16 @@ export function MapaBarrios({
   const [hover, setHover] = useState<string | null>(null);
 
   const entradas = useMemo(() => {
-    return BARRIOS_LPGC.map((bj) => {
-      const datos = municipio.barrios.find((b) => b.id === bj.id);
-      if (!datos) return null;
-      const dominante = tipoDominante(bj.composicionCapital);
-      const candidato = esCandidatoRecuperacion(bj.composicionCapital);
-      return { juego: bj, datos, dominante, candidato };
-    }).filter((x): x is NonNullable<typeof x> => x !== null);
+    const barriosDelMunicipio = BARRIOS_POR_MUNICIPIO[municipio.id] ?? [];
+    return barriosDelMunicipio
+      .map((bj) => {
+        const datos = municipio.barrios.find((b) => b.id === bj.id);
+        if (!datos) return null;
+        const dominante = tipoDominante(bj.composicionCapital);
+        const candidato = esCandidatoRecuperacion(bj.composicionCapital);
+        return { juego: bj, datos, dominante, candidato };
+      })
+      .filter((x): x is NonNullable<typeof x> => x !== null);
   }, [municipio]);
 
   const seleccionado: BarrioSeleccionado | null = useMemo(() => {

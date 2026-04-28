@@ -58,10 +58,13 @@ export type BarrioJuego = {
 };
 
 /**
- * Barrios del municipio `las-palmas-de-gran-canaria`. Los ids deben
- * coincidir con los definidos en `src/lib/territorio/canarias.ts`.
+ * Diccionario de barrios mock por municipio. Las claves coinciden con
+ * `Municipio.id` definido en `src/lib/territorio/canarias.ts`. Cuando el
+ * mapa Supabase-driven (#16) esté vivo, esta tabla se reemplaza por una
+ * lectura RPC contra `secciones` agrupadas por barrio.
  */
-export const BARRIOS_LPGC: BarrioJuego[] = [
+
+const BARRIOS_LPGC: BarrioJuego[] = [
   {
     id: "isleta",
     geometria: { modo: "hex", cx: 250, cy: 70 },
@@ -123,6 +126,116 @@ export const BARRIOS_LPGC: BarrioJuego[] = [
     nota: "Valle sur. Presencia significativa de grandes tenedores corporativos — candidato natural a recuperación.",
   },
 ];
+
+/** Santa Cruz de Tenerife — 5 distritos amplios. */
+const BARRIOS_SCT: BarrioJuego[] = [
+  {
+    id: "anaga",
+    geometria: { modo: "hex", cx: 380, cy: 130 },
+    composicionCapital: { comun: 38, residente: 45, autonomo: 12, rentista: 4, corporativo: 1 },
+    nota: "Macizo de Anaga. Parque rural protegido — la presencia del común es alta porque el suelo no se urbaniza.",
+  },
+  {
+    id: "centro-ifara",
+    geometria: { modo: "hex", cx: 250, cy: 220 },
+    composicionCapital: { comun: 10, residente: 38, autonomo: 28, rentista: 18, corporativo: 6 },
+    nota: "Centro histórico + Ifara. Comercio de barrio y tejido urbano consolidado, con presión rentista creciente.",
+  },
+  {
+    id: "salud",
+    geometria: { modo: "hex", cx: 130, cy: 290 },
+    composicionCapital: { comun: 9, residente: 70, autonomo: 14, rentista: 5, corporativo: 2 },
+    nota: "La Salud. Barrio popular con alta proporción residente y vida vecinal densa.",
+  },
+  {
+    id: "ofra",
+    geometria: { modo: "hex", cx: 250, cy: 360 },
+    composicionCapital: { comun: 7, residente: 48, autonomo: 18, rentista: 19, corporativo: 8 },
+    nota: "Ofra–Costa Sur. Mezcla residente con presión rentista por proximidad al mar.",
+  },
+  {
+    id: "suroeste",
+    geometria: { modo: "hex", cx: 130, cy: 430 },
+    composicionCapital: { comun: 6, residente: 42, autonomo: 14, rentista: 16, corporativo: 22 },
+    nota: "Suroeste. Capital corporativo creciendo — fondos desplazándose desde el norte vacacional.",
+  },
+];
+
+/** San Cristóbal de La Laguna — patrimonio UNESCO + barrios populares. */
+const BARRIOS_LAGUNA: BarrioJuego[] = [
+  {
+    id: "centro-laguna",
+    geometria: { modo: "hex", cx: 250, cy: 200 },
+    composicionCapital: { comun: 32, residente: 30, autonomo: 24, rentista: 11, corporativo: 3 },
+    nota: "Centro histórico (UNESCO). La Universidad de La Laguna y el patrimonio público elevan el común; los autónomos se concentran en hostelería y oficios.",
+  },
+  {
+    id: "taco",
+    geometria: { modo: "hex", cx: 140, cy: 320 },
+    composicionCapital: { comun: 11, residente: 68, autonomo: 16, rentista: 4, corporativo: 1 },
+    nota: "Taco. Periferia residencial popular, tejido cooperativo emergente.",
+  },
+  {
+    id: "tejina",
+    geometria: { modo: "hex", cx: 360, cy: 320 },
+    composicionCapital: { comun: 22, residente: 56, autonomo: 16, rentista: 5, corporativo: 1 },
+    nota: "Tejina. Costa norte de Tegueste. Identidad rural-marinera viva, agricultura residual.",
+  },
+];
+
+/** Arrecife — capital de Lanzarote, ciudad pequeña con presión vacacional. */
+const BARRIOS_ARRECIFE: BarrioJuego[] = [
+  {
+    id: "altavista",
+    geometria: { modo: "hex", cx: 180, cy: 200 },
+    composicionCapital: { comun: 8, residente: 64, autonomo: 18, rentista: 8, corporativo: 2 },
+    nota: "Altavista. Barrio residente con comercio de proximidad.",
+  },
+  {
+    id: "valterra",
+    geometria: { modo: "hex", cx: 320, cy: 280 },
+    composicionCapital: { comun: 18, residente: 58, autonomo: 18, rentista: 5, corporativo: 1 },
+    nota: "Valterra. Asociacionismo vecinal histórico, fuerte presencia del común gestionado.",
+  },
+  {
+    id: "titerroy",
+    geometria: { modo: "hex", cx: 180, cy: 380 },
+    composicionCapital: { comun: 5, residente: 38, autonomo: 14, rentista: 28, corporativo: 15 },
+    nota: "Titerroy. Próximo a puerto y aeropuerto: presión vacacional alta, capital rentista creciente.",
+  },
+];
+
+/** Puerto del Rosario — capital de Fuerteventura. */
+const BARRIOS_PDR: BarrioJuego[] = [
+  {
+    id: "el-charco",
+    geometria: { modo: "hex", cx: 210, cy: 240 },
+    composicionCapital: { comun: 12, residente: 60, autonomo: 18, rentista: 8, corporativo: 2 },
+    nota: "El Charco. Casco histórico de pescadores. Identidad residente fuerte.",
+  },
+  {
+    id: "risco-prieto",
+    geometria: { modo: "hex", cx: 290, cy: 340 },
+    composicionCapital: { comun: 4, residente: 38, autonomo: 12, rentista: 18, corporativo: 28 },
+    nota: "Risco Prieto. Urbanizaciones recientes con alta proporción de capital corporativo y rentista — candidato.",
+  },
+];
+
+/**
+ * Diccionario público: dado un `Municipio.id` devuelve sus barrios de juego.
+ * Los municipios sin entrada en el diccionario muestran un estado vacío
+ * en el tablero ("este municipio aún no tiene barrios mapeados").
+ */
+export const BARRIOS_POR_MUNICIPIO: Record<string, BarrioJuego[]> = {
+  "las-palmas-de-gran-canaria": BARRIOS_LPGC,
+  "santa-cruz-de-tenerife": BARRIOS_SCT,
+  "la-laguna": BARRIOS_LAGUNA,
+  "arrecife": BARRIOS_ARRECIFE,
+  "puerto-del-rosario": BARRIOS_PDR,
+};
+
+/** Compatibilidad: alias antiguo `BARRIOS_LPGC` para no romper imports existentes. */
+export { BARRIOS_LPGC };
 
 /** Computa el tipo dominante de un barrio a partir de su composición. */
 export function tipoDominante(c: ComposicionCapital): TipoBloque {

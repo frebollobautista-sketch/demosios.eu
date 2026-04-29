@@ -62,6 +62,17 @@ Propuesta del usuario: activar opcionalmente nomenclatura latina para toda la pl
 
 Toggle todavía no cableado en UI — vivirá en `/ajustes` como "Nomenclatura: griego / latino". Las rutas no cambian, solo las etiquetas. Previsualización inmediata en el explorador de `/nosotros`.
 
+## Polis — UI del mapa
+
+### 2026-04-29 — Nombres reales en regiones, no códigos
+Decisión del usuario: las regiones del mapa nunca deben mostrar códigos crudos (CUSEC tipo `3501601003`, etiquetas tipo `Sec 003`). Si una unidad administrativa se llama oficialmente "San Lorenzo 3", ese es el nombre que se usa, números ordinales incluidos. La regla es: **nombre humano siempre, código nunca para el usuario final**. Hoy v16 ya muestra `barrio` cuando existe pero falla a "Sec 003" cuando no — hay que rellenar el catálogo y normalizar el fallback. Tarea #21.
+
+### 2026-04-29 — Popup emergente con el nombre al clicar región
+Al pulsar sobre un polígono (sección, distrito, barrio), debe emerger un label/popup centrado sobre la región con el nombre — no solo aparecer en el panel lateral como hace v16 ahora. Estilo `bindTooltip` o `bindPopup` de Leaflet. La identificación debe ser visualmente inmediata, sin necesidad de mirar a otro lado. Tarea #21.
+
+### 2026-04-29 — Mapear zonas no-vivienda cuando todo sea polígono real
+Cuando la UI deje los hexágonos mock y pase a polígonos vectoriales completos, hay que decidir cómo se tratan las zonas que NO son vivienda: espacios públicos (plazas, parques, costa), equipamientos (escuelas, hospitales, ayuntamientos), comercio (mercados, ejes comerciales), patrimonio, industria/logística, infraestructura, suelo natural. La tipología actual de capital (común / residente / autónomo / rentista / corporativo) está pensada para titularidad — no es suficiente para usos del suelo. Tres alternativas: añadir eje paralelo `uso_suelo` ortogonal a `titularidad`; ignorar las no-vivienda y colorear solo bloques residenciales; mostrarlas con tratamiento visual diferenciado (tramas, opacidad, desaturación). Decisión bloquea diseño del mapa dinámico (#16). Tarea #22.
+
 ## Patrimonio NODOS
 
 ### 2026-04-29 — Patrimonio metodológico de NODOS Culturales absorbido en KOINOS

@@ -62,7 +62,22 @@ Propuesta del usuario: activar opcionalmente nomenclatura latina para toda la pl
 
 Toggle todavía no cableado en UI — vivirá en `/ajustes` como "Nomenclatura: griego / latino". Las rutas no cambian, solo las etiquetas. Previsualización inmediata en el explorador de `/nosotros`.
 
-## Integración KOINOS
+## Patrimonio NODOS
+
+### 2026-04-29 — Patrimonio metodológico de NODOS Culturales absorbido en KOINOS
+Decisión del usuario: NODOS Culturales (Lima, 2021-2026) tiene un marco metodológico construido en 5 años de trabajo sociológico de campo. Independientemente de que el proyecto se integre o no con Demos iOS, **se recoge como patrimonio institucional del ecosistema KOINOS** para acumular experiencia.
+
+Dos documentos generados:
+
+- [`docs/ANALISIS_NODOS.md`](./ANALISIS_NODOS.md) — análisis estratégico del expediente: qué tiene, qué les falta, dónde Demos iOS encaja como alternativa al MVP que iban a contratar (Casanova/WordPress), tres escenarios de colaboración con sus pros y contras, preguntas pendientes para el usuario.
+- [`docs/METODO_NODOS.md`](./METODO_NODOS.md) — distilación metodológica pura: tesis política del mapeo (Harley, Freire, De Sousa Santos), tres ontologías (espacios + agentes + prácticas), cuatro ejes de caracterización, cuatro métodos de captura, distinción Duxbury inventario/humanístico, glosario regional, marco teórico citado, ocho lecciones operativas absorbibles a KOINOS, bibliografía mínima.
+
+Lecciones más importantes para KOINOS / Demos iOS aunque no se implementen ya:
+1. Las prácticas (eventos itinerantes con frecuencia, estacionalidad, agentes organizadores) son tan importantes como los espacios — pieza completamente ausente hoy.
+2. Provenance en `contribuciones`: distinguir presencial / virtual / itinerante / redes-web cambia la confiabilidad del dato.
+3. Cohortes cartográficas como entidades de primera clase: un taller de mapeo es una comunidad con identidad propia.
+4. Doctrina humanística (Duxbury): la modal del barrio debe contar memorias y relaciones, no ser un directorio.
+5. Diccionario regional: el vocabulario vivo cambia de Vegueta a Anaga; la plataforma debería respetar el habla.
 
 ### 2026-04-20 — Trasladar todo KOINOS a Demos iOS como capas de un mismo OS cívico
 Decisión estratégica del usuario: unificar KOINOS (red social, TOUCH+FEED) y OCRE (cívico, Ágora+Bibliotheka+Polis) bajo el paraguas Demos iOS. Objetivos:

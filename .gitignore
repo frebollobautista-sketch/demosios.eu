@@ -25,3 +25,22 @@ yarn-error.log*
 .vscode/
 .idea/
 .DS_Store
+
+# POLIS heavy data (serve from CDN or generate locally)
+/public/buildings/
+/public/osm-gc/
+/public/osm/
+/public/gc-secciones.json
+/public/gc-municipios.json
+/public/polis-data.json
+/public/polis-v16.html
+/public/data/
+
+# Catastro / Geofabrik source data
+/catastro_data/
+/A.ES.SDGC.BU.*/
+*.osm.pbf
+/GEOFABRIK/
+/KOINOS duplicado/
+/scripts/renta_debug.csv
+/scripts/renta_raw.csv

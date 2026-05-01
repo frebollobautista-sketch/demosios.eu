@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOINOS POLIS — Provincia de Las Palmas</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"/>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif}
+#map{width:100%;height:100vh}
+
+/* ===== ISLAND NAV — top center, outline only ===== */
+.island-nav{
+  position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:10;
+  pointer-events:none;
+}
+.island-nav svg{display:block;pointer-events:all}
+.island-nav path{
+  fill:none;stroke:rgba(180,160,110,0.18);stroke-width:0.6;
+  cursor:pointer;transition:fill .2s,stroke .2s,stroke-width .2s;
+}
+.island-nav path.active{stroke:rgba(212,196,160,0.35);stroke-width:0.7}
+.island-nav path:hover{fill:rgba(212,196,160,0.12);stroke:rgba(212,196,160,0.55);stroke-width:0.9}
+.island-nav path.current{fill:rgba(212,196,160,0.1);stroke:rgba(212,196,160,0.7);stroke-width:1.1}
+.island-nav .island-tooltip{
+  position:absolute;top:-18px;left:50%;transform:translateX(-50%);
+  font-size:9px;color:rgba(212,196,160,0.7);white-space:nowrap;
+  pointer-events:none;opacity:0;transition:opacity .15s;
+  font-family:system-ui,sans-serif;letter-spacing:0.5px;
+}
+.island-nav.show-tip .island-tooltip{opacity:1}
+
+/* ===== NOTEBOOK PANEL ===== */
+.notebook{
+  position:fixed;top:10px;left:10px;z-index:10;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+}
+
+/* Cover (closed state) */
+.notebook-cover{
+  width:44px;height:140px;
+  background:linear-gradient(135deg,#1a1610 0%,#15120e 50%,#1a1610 100%);
+  border:1px solid #2a2520;border-radius:3px 8px 8px 3px;
+  cursor:pointer;position:relative;overflow:hidden;
+  box-shadow:2px 2px 12px rgba(0,0,0,0.5);
+  transition:all .25s;
+}
+.notebook-cover:hover{border-color:#3a3530;box-shadow:2px 2px 16px rgba(0,0,0,0.6)}
+/* Spine line */
+.notebook-cover::before{
+  content:'';position:absolute;left:4px;top:8px;bottom:8px;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(212,196,160,0.12),rgba(212,196,160,0.15),rgba(212,196,160,0.12),transparent);
+}
+/* Embossed title */
+.notebook-cover .cover-title{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(-90deg);
+  white-space:nowrap;font-size:8px;letter-spacing:2px;
+  color:rgba(212,196,160,0.25);font-weight:700;
+  text-transform:uppercase;
+}
+
+/* Open state */
+.notebook.open .notebook-cover{display:none}
+.notebook-page{
+  display:none;width:300px;
+  background:linear-gradient(135deg,#141210 0%,#121010 40%,#151311 100%);
+  border:1px solid #2a2520;border-radius:3px 10px 10px 3px;
+  position:relative;overflow:hidden;
+  box-shadow:3px 3px 20px rgba(0,0,0,0.5);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.notebook.open .notebook-page{display:block}
+/* Spine */
+.notebook-page::before{
+  content:'';position:absolute;left:6px;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(212,196,160,0.08),rgba(212,196,160,0.1),rgba(212,196,160,0.08),transparent);
+}
+.notebook-page-inner{
+  padding:14px 14px 14px 18px;
+  background:linear-gradient(180deg,rgba(20,18,14,0.3) 0%,transparent 30%);
+}
+
+/* Close button */
+.notebook-close{
+  position:absolute;top:6px;right:8px;z-index:2;
+  background:none;border:none;color:rgba(212,196,160,0.3);font-size:14px;
+  cursor:pointer;transition:color .15s;line-height:1;
+}
+.notebook-close:hover{color:rgba(212,196,160,0.6)}
+
+.notebook h1{font-size:14px;color:#d4c4a0;letter-spacing:1px;margin-bottom:2px;font-weight:700}
+.notebook .sub{color:#555;font-size:9px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+
+.breadcrumb{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:8px}
+.breadcrumb span{
+  background:#1a1a1a;padding:3px 8px;border-radius:4px;font-size:10px;
+  cursor:pointer;border:1px solid #222;transition:all .15s;color:#888;
+}
+.breadcrumb span:hover{background:#222;border-color:#444;color:#ddd}
+.breadcrumb span.active{background:#d4c4a0;color:#111;font-weight:600;border-color:#d4c4a0;cursor:default}
+.breadcrumb span.sep{background:none;border:none;color:#444;cursor:default;padding:3px 2px}
+
+.stats{font-size:10px;color:#777;line-height:1.7;margin-top:6px}
+.stats b{color:#d4c4a0}
+
+.mun-list{margin-top:6px;max-height:300px;overflow-y:auto}
+.mun-item{
+  padding:5px 8px;border-radius:5px;font-size:10px;cursor:pointer;
+  display:flex;align-items:center;gap:6px;margin-bottom:1px;
+  background:transparent;border:1px solid transparent;transition:all .12s;
+}
+.mun-item:hover{background:#1a1a1a;border-color:#2a2a2a}
+.mun-item.active{background:#1a1a1a;border-color:#d4c4a0}
+.mun-item .name{color:#aaa;flex:1}
+.mun-item .count{color:#444;font-size:9px}
+
+/* ===== ALL BUILDINGS TOGGLE ===== */
+.all-buildings-toggle{
+  margin-top:8px;padding:6px 10px;border-radius:6px;
+  background:#1a1a1a;border:1px solid #2a2520;
+  cursor:pointer;display:none;align-items:center;gap:8px;
+  font-size:10px;color:#888;transition:all .15s;
+}
+.all-buildings-toggle:hover{background:#222;border-color:#444;color:#ccc}
+.all-buildings-toggle.active{border-color:#d4c4a0;color:#d4c4a0}
+.all-buildings-toggle .toggle-switch{
+  width:28px;height:14px;border-radius:7px;
+  background:#333;position:relative;transition:background .2s;flex-shrink:0;
+}
+.all-buildings-toggle.active .toggle-switch{background:#5a5040}
+.all-buildings-toggle .toggle-switch::after{
+  content:'';position:absolute;top:2px;left:2px;
+  width:10px;height:10px;border-radius:50%;
+  background:#888;transition:all .2s;
+}
+.all-buildings-toggle.active .toggle-switch::after{left:16px;background:#d4c4a0}
+
+.loading{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;
+  background:rgba(10,10,10,0.94);color:#d4c4a0;padding:6px 14px;border-radius:8px;
+  font-size:10px;font-weight:600;display:none;border:1px solid rgba(212,196,160,0.15);
+}
+.loading.on{display:block}
+
+.maplibregl-popup-content{
+  background:rgba(12,12,12,0.97)!important;border:1px solid rgba(212,196,160,0.15)!important;
+  border-radius:10px!important;color:#e0e0e0!important;padding:0!important;
+  backdrop-filter:blur(10px)!important;box-shadow:0 8px 32px rgba(0,0,0,0.5)!important;
+}
+.maplibregl-popup-tip{border-top-color:rgba(12,12,12,0.97)!important}
+.maplibregl-popup-close-button{color:#888!important;font-size:16px!important}
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<!-- Island navigator — top center -->
+<div class="island-nav" id="island-nav">
+  <div class="island-tooltip" id="island-tooltip"></div>
+  <svg id="island-svg" viewBox="0 0 500 195" width="420" height="80" xmlns="http://www.w3.org/2000/svg">
+  </svg>
+</div>
+
+<!-- Notebook panel -->
+<div class="notebook" id="notebook">
+  <div class="notebook-cover" id="notebook-cover" onclick="toggleNotebook()">
+    <span class="cover-title">K0IN0S POLIS</span>
+  </div>
+  <div class="notebook-page">
+    <button class="notebook-close" onclick="toggleNotebook()">&times;</button>
+    <div class="notebook-page-inner">
+      <h1>K0IN0S POLIS</h1>
+      <div class="sub">Provincia de Las Palmas</div>
+      <div class="breadcrumb" id="bc"></div>
+      <div class="stats" id="stats"></div>
+      <div class="all-buildings-toggle" id="all-buildings-toggle" onclick="toggleAllBuildings()">
+        <div class="toggle-switch"></div>
+        <span>Todos los edificios</span>
+      </div>
+      <div class="mun-list" id="mun-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" id="loading">Cargando...</div>
+
+<script>
+// ===== CONFIG =====
+var PROVINCE_CENTER = [-14.8, 28.4];
+var PROVINCE_ZOOM = 8;
+var GC_CENTER = [-15.45, 28.0];
+var GC_ZOOM = 10;
+
+// Islands by municipality code
+var ISLANDS = {
+  'Gran Canaria': ['001','002','005','006','008','009','011','012','013','016','019','020','021','022','023','025','026','027','031','032','033'],
+  'Fuerteventura': ['003','007','014','015','017','030'],
+  'Lanzarote': ['004','010','018','024','028','029','034']
+};
+
+var ISLAND_FOR_MUN = {};
+Object.keys(ISLANDS).forEach(function(island){
+  ISLANDS[island].forEach(function(m){ ISLAND_FOR_MUN[m] = island; });
+});
+
+// Island silhouettes for navigator (simplified coastlines from OSM)
+var ISLAND_NAV = [
+  {name:'El Hierro', active:false, center:[-18.0,27.76], zoom:12,
+   d:'M36.3,171.1L36.1,171.3L36.7,171.1L37.3,170.5L37.0,168.2L37.5,167.4L37.5,166.9L37.8,166.4L38.3,166.2L38.2,165.0L38.5,163.5L39.3,162.6L40.0,162.4L40.5,162.7L41.5,162.3L41.7,162.0L41.5,161.8L41.8,160.8L43.1,159.1L42.7,158.5L43.2,158.2L43.9,157.0L44.0,157.5L44.1,156.9L44.5,156.8L45.2,155.7L45.7,155.4L45.7,154.4L45.4,153.9L44.5,153.3L44.9,153.1L44.7,152.6L44.2,152.5L44.2,152.1L43.8,152.0L43.9,151.6L43.5,151.7L43.4,151.5L42.6,151.5L42.5,151.0L41.4,150.9L41.2,151.1L40.7,150.9L40.0,151.2L39.6,151.8L38.4,151.6L38.2,151.9L37.9,151.9L37.8,152.2L37.1,153.0L36.0,153.2L35.5,153.6L35.0,153.5L35.7,154.7L35.3,155.8L34.5,156.6L34.1,156.6L32.8,157.3L32.5,158.0L31.5,158.6L30.7,159.4L28.8,159.7L27.5,160.2L26.3,160.2L23.1,159.7L22.5,159.2L22.4,158.7L21.4,158.5L20.9,159.0L20.5,159.0L20.5,159.4L20.2,159.3L19.9,159.6L19.4,159.5L19.6,159.8L19.1,160.2L19.1,160.5L19.4,160.7L19.4,162.3L19.3,162.5L18.7,162.6L18.5,163.8L18.9,164.3L19.8,164.9L20.8,165.1L22.1,164.9L23.8,165.3L24.6,165.3L29.4,166.1L31.5,167.4L31.5,168.1L32.3,168.6L32.5,169.3L33.3,170.4L34.5,170.6L34.7,171.1L35.2,171.3L36.0,171.4L35.9,171.2L36.3,171.1Z'},
+  {name:'La Palma', active:false, center:[-17.84,28.68], zoom:11,
+   d:'M43.4,52.9L42.7,52.8L42.5,53.2L42.2,52.8L41.6,53.2L41.9,53.5L41.5,53.9L40.4,54.4L39.6,54.3L38.7,55.4L37.5,55.8L37.3,56.8L36.7,57.3L36.4,57.1L36.6,57.6L36.2,58.2L35.5,58.8L34.8,58.8L34.5,59.5L33.7,59.8L33.9,62.0L33.6,62.5L35.0,64.0L35.4,64.9L36.1,65.3L36.2,66.4L36.9,67.1L36.8,67.7L37.7,69.9L37.5,70.0L37.9,70.5L37.8,71.2L39.5,72.9L39.7,74.1L39.8,73.4L40.3,73.9L40.8,75.4L41.6,76.3L41.3,76.7L41.8,77.6L41.6,78.2L43.0,79.2L43.4,80.2L44.2,80.6L45.0,82.3L45.7,82.8L45.8,83.5L46.1,83.8L46.1,85.2L46.6,85.4L46.5,88.1L47.3,89.1L47.0,89.4L47.2,90.2L48.3,91.5L49.9,92.1L50.7,91.7L52.3,88.1L53.0,87.4L53.9,85.8L54.3,85.7L55.2,83.3L57.8,80.8L57.7,79.7L58.4,78.6L58.1,76.7L58.8,75.5L58.0,74.0L58.2,73.3L57.6,72.5L57.7,71.8L57.1,71.2L57.0,70.3L57.3,70.2L57.5,70.9L57.3,70.1L57.9,69.7L57.9,68.4L59.2,66.9L60.5,66.2L61.4,63.9L60.8,63.8L60.5,62.7L59.5,62.1L58.7,60.9L58.4,59.7L58.0,59.6L57.9,58.0L56.9,56.5L57.0,55.9L56.4,55.8L56.6,55.3L56.3,55.2L56.2,54.5L53.0,54.0L53.0,54.3L52.5,54.6L48.2,55.2L47.8,54.9L46.0,54.7L45.5,54.1L45.4,54.5L44.5,54.2L43.6,53.7L43.8,53.3L43.4,52.9Z'},
+  {name:'La Gomera', active:false, center:[-17.23,28.12], zoom:12,
+   d:'M109.2,116.4L108.4,116.7L108.2,116.3L107.6,116.5L107.5,115.9L106.9,115.5L106.8,115.0L105.8,114.9L105.6,115.4L105.3,115.0L104.7,115.7L104.1,115.5L103.4,116.1L102.9,115.8L102.4,116.4L101.1,116.4L100.7,117.0L100.8,117.5L100.2,117.8L99.3,119.3L99.5,120.4L98.4,121.4L98.9,123.5L98.2,124.7L98.1,126.6L98.9,127.1L99.6,128.5L99.9,128.6L99.9,128.1L100.9,128.8L101.1,130.5L101.3,130.4L102.0,131.2L103.8,131.6L104.0,132.5L105.6,132.7L105.8,133.7L107.5,133.7L108.4,134.3L110.0,133.6L112.9,133.9L113.0,133.5L114.2,133.3L114.7,132.5L115.3,132.4L115.9,132.7L115.9,132.0L116.4,132.0L117.4,130.9L118.1,131.0L118.4,130.0L119.7,129.0L120.8,128.8L121.4,127.7L121.9,127.6L121.6,128.2L122.7,126.9L122.0,125.4L122.5,125.1L122.2,125.1L122.0,124.2L122.3,123.8L121.3,123.2L121.5,122.4L120.8,122.1L120.7,121.3L120.0,121.4L118.9,120.6L117.4,120.2L117.0,119.8L117.2,119.4L116.2,119.5L116.3,118.8L115.9,118.6L115.1,119.0L114.4,118.7L114.2,117.9L113.1,116.8L112.1,117.0L111.7,116.6L109.5,116.7L109.2,116.4Z'},
+  {name:'Tenerife', active:false, center:[-16.55,28.27], zoom:10,
+   d:'M211.3,87.6L215.1,85.3L216.4,85.5L217.2,84.3L218.1,84.4L217.7,84.0L218.6,81.8L217.3,80.4L217.5,79.7L214.9,78.9L208.4,81.2L203.6,80.0L203.2,80.7L202.5,80.2L201.4,80.9L199.4,80.7L198.6,79.9L197.6,80.6L197.6,81.9L194.5,83.2L192.5,83.1L190.1,84.9L189.0,85.8L188.3,88.6L186.8,90.1L186.1,89.8L185.7,91.5L183.9,91.9L183.6,93.3L181.7,93.5L180.2,95.4L176.0,95.4L171.2,97.9L164.3,97.1L163.6,98.2L162.4,97.7L161.7,98.9L159.9,98.5L159.3,99.5L158.4,99.0L156.7,100.1L151.2,99.6L148.7,98.0L143.4,100.7L140.4,101.1L139.6,102.9L142.5,103.9L145.9,108.2L146.2,109.5L147.9,110.5L147.5,113.0L148.3,116.1L150.0,118.6L151.3,119.3L151.6,120.8L154.0,124.5L158.0,127.8L158.1,130.9L160.7,131.6L161.3,135.6L163.1,136.4L165.3,135.3L167.3,135.8L172.0,133.4L175.7,133.2L176.9,133.8L177.4,132.1L181.0,128.8L182.0,129.4L181.7,128.7L182.6,128.7L182.1,129.9L182.7,128.7L182.4,127.5L188.6,121.7L187.8,120.9L188.7,119.9L188.2,119.3L188.7,116.3L192.5,110.4L192.7,108.5L194.9,106.6L194.1,101.8L195.0,99.3L200.9,95.9L203.9,92.7L206.0,91.9L206.6,90.7L206.2,91.8L207.2,88.9L208.8,88.6L208.3,89.1L211.3,87.6Z'},
+  {name:'Gran Canaria', active:true, center:[-15.54,28.0], zoom:10.5,
+   d:'M267.1,120.3L266.0,119.5L263.0,120.8L261.7,120.5L261.5,119.6L258.8,120.2L260.2,121.4L258.5,126.4L259.1,127.5L256.0,131.0L253.3,131.7L251.9,133.8L247.7,134.9L248.3,135.7L246.6,138.9L247.3,141.4L246.7,144.5L251.3,152.3L259.8,158.5L260.8,158.5L261.2,160.0L262.8,160.7L262.7,160.2L263.8,159.9L266.8,161.0L267.6,160.6L269.7,162.0L271.7,161.9L272.6,161.6L273.2,159.5L277.3,157.6L280.6,156.4L286.0,155.7L287.0,154.6L287.6,151.4L288.8,150.9L289.3,151.6L289.3,150.2L290.7,150.1L291.1,148.3L289.8,146.9L290.8,143.4L291.7,142.5L292.9,143.2L293.3,142.6L291.2,141.3L290.8,139.4L292.5,137.2L291.7,136.4L291.9,135.3L290.7,134.7L290.5,133.4L287.7,131.8L287.4,130.4L288.1,126.4L286.4,122.8L287.3,122.9L286.5,121.9L287.5,121.9L287.5,123.8L288.0,123.8L287.6,121.8L288.5,120.8L288.7,124.7L288.5,121.8L289.4,120.5L288.5,118.9L287.0,118.6L285.4,119.8L286.1,122.1L284.7,123.4L282.6,124.0L276.8,121.1L274.9,122.0L269.6,122.2L268.3,121.9L267.1,120.3Z'},
+  {name:'Fuerteventura', active:true, center:[-14.0,28.4], zoom:10,
+   d:'M392.0,131.4L393.6,131.9L394.9,131.4L400.2,125.8L401.8,124.9L405.1,120.1L407.1,119.3L410.9,119.1L413.0,117.9L415.7,117.8L419.3,116.6L422.3,116.6L424.2,115.9L424.1,116.3L424.7,115.7L425.2,116.0L427.7,114.0L431.8,113.9L434.6,111.7L435.3,109.6L436.1,109.5L436.5,108.7L436.0,106.9L436.9,105.7L436.8,104.7L437.6,104.6L438.6,102.5L438.4,101.7L439.2,100.8L440.2,98.0L440.9,98.1L441.2,97.2L441.2,95.3L440.4,94.9L439.9,93.7L440.5,93.0L440.5,91.3L439.4,89.4L440.4,87.7L440.7,88.4L440.7,87.7L441.9,87.2L441.8,86.4L442.6,85.1L442.3,83.8L443.5,82.2L443.1,80.2L443.9,78.5L442.7,70.5L443.0,68.7L442.0,65.6L439.6,64.8L439.6,64.1L440.1,64.2L439.6,63.5L438.8,63.9L438.8,63.3L437.4,62.6L435.5,63.5L433.7,63.0L432.5,64.3L432.2,63.6L430.7,64.7L429.2,65.1L428.7,64.7L428.3,65.5L426.6,65.8L426.0,67.0L424.9,66.6L424.6,68.6L425.2,68.9L425.6,70.4L422.6,76.4L423.2,78.5L420.9,81.2L420.8,82.1L419.9,82.6L420.2,83.4L419.7,83.6L416.7,90.0L412.1,93.5L411.8,95.3L411.0,96.1L411.2,97.8L410.5,98.3L410.6,100.3L409.6,101.0L409.1,102.5L406.5,104.3L405.9,106.1L406.2,106.8L405.5,108.2L406.1,110.9L405.4,114.2L404.6,115.3L396.3,121.7L390.3,124.7L383.1,126.5L381.8,126.0L379.3,126.5L378.3,125.5L377.5,126.4L378.1,126.9L378.2,128.0L376.5,129.6L379.6,128.6L386.4,130.5L390.4,131.0L391.1,131.6L392.0,131.4Z'},
+  {name:'Lanzarote', active:true, center:[-13.63,29.05], zoom:11,
+   d:'M443.7,37.4L442.7,40.0L443.2,41.2L442.6,41.8L443.0,42.8L442.6,44.8L443.2,45.7L441.4,47.2L440.4,48.9L438.8,49.2L438.0,50.1L438.7,50.9L438.4,52.2L438.9,53.0L440.8,52.3L442.2,53.0L443.2,52.2L445.0,53.0L445.9,52.6L446.9,53.4L447.4,54.7L451.1,51.1L451.6,48.9L452.4,48.0L456.8,46.7L461.4,46.8L464.7,45.3L466.0,43.9L472.1,42.6L472.2,42.0L471.3,42.6L472.5,41.5L472.5,42.1L472.9,41.6L472.5,42.7L473.1,41.2L473.5,41.4L476.0,39.6L476.9,39.6L476.6,39.1L477.5,38.8L477.8,37.6L478.9,37.1L478.5,35.6L479.1,34.4L478.7,33.6L480.6,30.3L480.5,29.1L479.0,27.7L478.9,26.5L480.8,24.6L482.5,23.7L483.3,19.3L480.2,16.8L480.3,17.3L478.8,16.8L478.4,15.5L477.6,16.7L475.8,17.7L475.7,18.8L474.9,19.4L474.1,21.6L473.3,22.5L473.1,25.1L471.1,27.2L469.7,27.6L467.3,25.9L466.0,25.7L463.5,26.6L462.5,27.6L461.8,27.5L461.6,26.9L460.0,26.9L459.5,27.4L460.1,27.9L457.7,28.8L457.1,30.0L455.7,30.2L455.2,31.1L453.6,30.6L450.4,31.3L449.9,32.4L448.1,32.9L444.5,35.7L443.7,37.4Z'},
+  {name:'La Graciosa', active:true, center:[-13.51,29.26], zoom:13,
+   d:'M475.8,16.0L476.2,15.5L476.2,15.2L476.6,15.2L476.6,14.3L476.8,14.0L477.4,13.5L477.6,13.6L478.0,13.2L478.1,13.2L478.1,12.7L477.3,11.8L476.0,11.8L475.6,11.3L475.3,11.3L475.4,11.2L474.8,10.7L474.6,10.6L474.5,10.8L474.4,10.6L474.1,11.1L474.0,11.1L473.9,12.1L473.4,12.6L473.3,13.4L473.5,13.7L473.1,14.2L472.6,14.4L472.9,14.6L472.7,14.7L472.9,15.4L472.4,15.6L472.2,15.9L471.8,16.0L471.0,16.3L470.7,16.8L470.8,17.3L471.3,17.7L471.3,17.4L471.9,17.4L472.0,17.8L472.2,17.8L472.6,17.4L473.2,17.6L474.0,16.9L475.0,17.0L475.0,16.8L475.3,16.8L475.0,16.8L475.1,16.5L475.3,16.5L475.4,16.8L475.4,16.3L475.8,16.0Z'}
+];
+
+// Build island nav SVG
+(function(){
+  var svg = document.getElementById('island-svg');
+  var tooltip = document.getElementById('island-tooltip');
+  var navContainer = document.getElementById('island-nav');
+
+  ISLAND_NAV.forEach(function(isl){
+    var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', isl.d);
+    path.setAttribute('data-island', isl.name);
+    if(isl.active) path.classList.add('active');
+
+    path.addEventListener('mouseenter', function(){
+      tooltip.textContent = isl.name;
+      navContainer.classList.add('show-tip');
+    });
+    path.addEventListener('mouseleave', function(){
+      navContainer.classList.remove('show-tip');
+    });
+
+    path.addEventListener('click', function(){
+      // Fly to island — no showProvincia, just smooth fly
+      map.flyTo({center:isl.center, zoom:isl.zoom, pitch:0, bearing:0, duration:1200, essential:true});
+      // Update current highlight
+      svg.querySelectorAll('path').forEach(function(p){p.classList.remove('current');});
+      path.classList.add('current');
+    });
+    svg.appendChild(path);
+  });
+})();
+
+// Notebook toggle
+function toggleNotebook() {
+  var nb = document.getElementById('notebook');
+  nb.classList.toggle('open');
+}
+
+// State
+var level = 'provincia'; // provincia -> municipio -> seccion
+var activeMun = null;
+var activeSec = null;
+var SECCIONES = null;
+var MUNICIPIOS = null;
+
+// All-buildings state
+var allBuildingsOn = false;
+var allBuildingsLoaded = [];
+
+// Data layers (keep for OSM loading, removed future layers)
+var DATA_LAYERS = [
+  {id:'osm-roads', name:'Carreteras', color:'#5a5040', file:'osm-gc/roads.json', fallback:'osm/roads.json', coverage:'?', loaded:false, data:null},
+  {id:'osm-parks', name:'Parques', color:'#2a5a18', file:'osm-gc/parks.json', fallback:'osm/parks.json', coverage:'?', loaded:false, data:null},
+  {id:'osm-coast', name:'Costa', color:'#2a6a9a', file:'osm-gc/coastline.json', fallback:'osm/coastline.json', coverage:'?', loaded:false, data:null},
+  {id:'osm-water', name:'Agua', color:'#1a4a6a', file:'osm-gc/water.json', fallback:'osm/water.json', coverage:'?', loaded:false, data:null},
+  {id:'osm-pois', name:'POIs', color:'#d4c4a0', file:'osm-gc/pois.json', fallback:'osm/pois.json', coverage:'?', loaded:false, data:null},
+  {id:'buildings-3d', name:'Edificios 3D', color:'#c8b898', file:null, coverage:'Prov. 35 (690 secciones)', loaded:false, data:null},
+  {id:'hillshade', name:'Terreno', color:'#8a7a5a', file:null, coverage:'Global', loaded:true, data:null},
+  {id:'renta', name:'Renta media', color:'#9a5aaa', file:'data/renta-seccion.json', coverage:'?', loaded:false, data:null}
+];
+
+// ===== MAP =====
+var map = new maplibregl.Map({
+  container: 'map',
+  style: {
+    version: 8,
+    sources: {
+      'esri-satellite': {
+        type:'raster',
+        tiles:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+        tileSize:256, attribution:'Esri'
+      },
+      'carto-labels': {
+        type:'raster',
+        tiles:['https://basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png'],
+        tileSize:256, attribution:'CARTO'
+      }
+    },
+    layers: [
+      {id:'satellite',type:'raster',source:'esri-satellite',minzoom:0,maxzoom:19,
+       paint:{'raster-opacity':0.85,'raster-saturation':-0.1}},
+      {id:'labels',type:'raster',source:'carto-labels',minzoom:12,maxzoom:19,
+       paint:{'raster-opacity':0.7}}
+    ],
+    light: {
+      anchor:'viewport', color:'#ffe8c0', intensity:0.6,
+      position:[1.5, 210, 30]
+    }
+  },
+  center: PROVINCE_CENTER, zoom: PROVINCE_ZOOM, pitch:0, bearing:0,
+  antialias: true
+});
+
+map.addControl(new maplibregl.NavigationControl({showCompass:true}), 'bottom-right');
+
+// ===== BOOT =====
+map.on('load', function() {
+  // Terrain hillshade
+  map.addSource('terrain-dem', {
+    type:'raster-dem',
+    tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+    tileSize:256, encoding:'terrarium', maxzoom:15
+  });
+  map.addLayer({
+    id:'hillshade', type:'hillshade', source:'terrain-dem',
+    paint:{
+      'hillshade-exaggeration':0.35,
+      'hillshade-shadow-color':'#1a1008',
+      'hillshade-highlight-color':'#ffe8c0',
+      'hillshade-illumination-direction':315
+    }
+  }, 'labels');
+
+  // Load boundary data
+  showLoading('Cargando secciones censales...');
+  Promise.all([
+    fetch('gc-secciones-lite.json').then(function(r){return r.json();}),
+    fetch('gc-municipios-lite.json').then(function(r){return r.json();})
+  ]).then(function(res) {
+    SECCIONES = res[0];
+    MUNICIPIOS = res[1];
+    setupSeccionesLayer();
+    setupMunicipioLabels();
+    showProvincia();
+    hideLoading();
+
+    // Load OSM layers in background
+    loadOSMLayers();
+  });
+});
+
+// Renta data store
+var RENTA_DATA = null;
+var rentaVisible = false;
+
+// ===== OSM DATA LOADING =====
+function loadOSMLayers() {
+  var fileLayers = DATA_LAYERS.filter(function(l){return l.file;});
+  fileLayers.forEach(function(layer) {
+    fetchWithFallback(layer.file, layer.fallback).then(function(result) {
+      layer.data = result.data;
+      layer.loaded = true;
+      layer.coverage = result.source === layer.file ? 'Prov. 35' : 'LPGC';
+
+      if (layer.id === 'renta') {
+        RENTA_DATA = result.data;
+        layer.coverage = Object.keys(result.data).length + ' secciones';
+        console.log('Renta loaded: ' + Object.keys(result.data).length + ' sections');
+      } else {
+        setupOSMLayer(layer, result.data);
+        console.log('Loaded ' + layer.id + ' (' + layer.coverage + '): ' + (result.data.features ? result.data.features.length : '?') + ' features');
+      }
+    }).catch(function(e) {
+      console.warn('Could not load ' + layer.id + ':', e.message);
+    });
+  });
+}
+
+function fetchWithFallback(primary, fallback) {
+  return fetch(primary).then(function(r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.json().then(function(data) { return {data:data, source:primary}; });
+  }).catch(function() {
+    if (!fallback) throw new Error('No fallback');
+    return fetch(fallback).then(function(r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json().then(function(data) { return {data:data, source:fallback}; });
+    });
+  });
+}
+
+function setupOSMLayer(layer, data) {
+  var id = layer.id;
+  if (map.getSource(id)) return;
+
+  if (id === 'osm-roads') {
+    map.addSource(id, {type:'geojson', data:data});
+    map.addLayer({
+      id:id, type:'line', source:id,
+      paint:{
+        'line-color':['match',['get','highway'],'primary','#5a5040','secondary','#4a4030','#3a3528'],
+        'line-width':['interpolate',['linear'],['zoom'],
+          12,['match',['get','highway'],'primary',1.5,'secondary',1,0],
+          14,['match',['get','highway'],'primary',3,'secondary',2.2,'tertiary',1.5,'residential',0.8,0.5],
+          17,['match',['get','highway'],'primary',5,'secondary',3.5,'tertiary',2.5,'residential',1.2,0.6]
+        ],
+        'line-opacity':['interpolate',['linear'],['zoom'],12,0.3,14,0.5,16,0.6]
+      },
+      minzoom:12
+    }, 'labels');
+  } else if (id === 'osm-parks') {
+    var polys = {type:'FeatureCollection',features:data.features.filter(function(f){return f.geometry.type==='Polygon';})};
+    map.addSource(id, {type:'geojson', data:polys});
+    map.addLayer({
+      id:id, type:'fill', source:id,
+      paint:{'fill-color':'#2a5a18','fill-opacity':['interpolate',['linear'],['zoom'],12,0.25,16,0.5]},
+      minzoom:12
+    }, 'labels');
+  } else if (id === 'osm-coast') {
+    map.addSource(id, {type:'geojson', data:data});
+    map.addLayer({
+      id:id, type:'line', source:id,
+      paint:{'line-color':'#2a6a9a','line-width':['interpolate',['linear'],['zoom'],11,1.5,16,3],'line-opacity':0.6},
+      minzoom:11
+    }, 'labels');
+  } else if (id === 'osm-water') {
+    var polys = {type:'FeatureCollection',features:data.features.filter(function(f){return f.geometry.type==='Polygon';})};
+    map.addSource(id, {type:'geojson', data:polys});
+    map.addLayer({
+      id:id, type:'fill', source:id,
+      paint:{'fill-color':'#1a4a6a','fill-opacity':['interpolate',['linear'],['zoom'],13,0.3,16,0.5]},
+      minzoom:13
+    }, 'labels');
+  } else if (id === 'osm-pois') {
+    var pts = {type:'FeatureCollection',features:data.features.filter(function(f){return f.geometry.type==='Point'&&f.properties.name;})};
+    map.addSource(id, {type:'geojson', data:pts});
+    map.addLayer({
+      id:id, type:'circle', source:id,
+      paint:{'circle-radius':['interpolate',['linear'],['zoom'],14,1.5,16,3],'circle-color':'#d4c4a0','circle-opacity':0.6,'circle-stroke-width':0.5,'circle-stroke-color':'#0a0a0a'},
+      minzoom:14
+    });
+    map.addLayer({
+      id:id+'-label', type:'symbol', source:id,
+      layout:{'text-field':['get','name'],'text-size':9,'text-offset':[0.8,0],'text-anchor':'left','text-allow-overlap':false},
+      paint:{'text-color':'#b0a080','text-halo-color':'rgba(0,0,0,0.7)','text-halo-width':1},
+      minzoom:15
+    });
+  }
+}
+
+// ===== SECCIONES LAYER =====
+function setupSeccionesLayer() {
+  SECCIONES.features.forEach(function(f,i){ f.id = i; });
+  map.addSource('secciones', {type:'geojson', data:SECCIONES});
+
+  map.addLayer({
+    id:'secciones-fill', type:'fill', source:'secciones',
+    paint:{
+      'fill-color':'#d4c4a0',
+      'fill-opacity':['case',['boolean',['feature-state','hover'],false],0.2,0]
+    }
+  });
+  map.addLayer({
+    id:'secciones-line', type:'line', source:'secciones',
+    paint:{
+      'line-color':'#d4c4a0',
+      'line-width':['case',['boolean',['feature-state','hover'],false],1.5,0.3],
+      'line-opacity':['case',['boolean',['feature-state','hover'],false],0.6,0]
+    }
+  });
+
+  var hovId = null;
+  var rentaPopup = null;
+  map.on('mousemove','secciones-fill',function(e){
+    if(!e.features.length) return;
+    map.getCanvas().style.cursor = 'pointer';
+    if(hovId !== null) map.setFeatureState({source:'secciones',id:hovId},{hover:false});
+    hovId = e.features[0].id;
+    map.setFeatureState({source:'secciones',id:hovId},{hover:true});
+    // Renta tooltip
+    if(rentaVisible && RENTA_DATA) {
+      var cusec = e.features[0].properties.cusec;
+      var r = RENTA_DATA[cusec];
+      if(r) {
+        var html = '<div style="padding:6px 10px;font-size:11px"><b style="color:#d4c4a0">'+e.features[0].properties.nmun+'</b> S'+cusec.slice(-3)+'<br><span style="color:#ccc;font-size:13px;font-weight:700">'+r.renta.toLocaleString('es')+'€</span> <span style="color:#666">renta media/persona</span></div>';
+        if(!rentaPopup) rentaPopup = new maplibregl.Popup({closeButton:false,closeOnClick:false,maxWidth:'200px',offset:10});
+        rentaPopup.setLngLat(e.lngLat).setHTML(html).addTo(map);
+      } else if(rentaPopup) { rentaPopup.remove(); rentaPopup=null; }
+    }
+  });
+  map.on('mouseleave','secciones-fill',function(){
+    map.getCanvas().style.cursor = '';
+    if(hovId !== null){map.setFeatureState({source:'secciones',id:hovId},{hover:false});hovId=null;}
+    if(rentaPopup){rentaPopup.remove();rentaPopup=null;}
+  });
+
+  map.on('click','secciones-fill',function(e){
+    if(!e.features.length) return;
+    var p = e.features[0].properties;
+    if(level === 'provincia') {
+      enterMunicipio(p.mun);
+    } else if(level === 'municipio') {
+      enterSeccion(p.cusec, p.mun);
+    } else if(level === 'seccion' && p.cusec !== activeSec) {
+      enterSeccion(p.cusec, p.mun);
+    }
+  });
+}
+
+function setupMunicipioLabels() {
+  map.addSource('mun-labels', {type:'geojson', data:MUNICIPIOS});
+  map.addLayer({
+    id:'mun-labels', type:'symbol', source:'mun-labels',
+    layout:{
+      'text-field':['get','nmun'],
+      'text-size':['interpolate',['linear'],['zoom'],8,9,12,12],
+      'text-font':['Open Sans Bold','Arial Unicode MS Bold'],
+      'text-allow-overlap':false
+    },
+    paint:{
+      'text-color':'#d4c4a0',
+      'text-halo-color':'rgba(0,0,0,0.85)',
+      'text-halo-width':2,
+      'text-opacity':['interpolate',['linear'],['zoom'],8,0.5,10,0.8,14,0]
+    },
+    minzoom:8, maxzoom:14
+  });
+}
+
+// ===== RENTA LAYER =====
+function toggleRenta() {
+  if (!RENTA_DATA) return;
+  rentaVisible = !rentaVisible;
+
+  if (rentaVisible) {
+    var rentas = Object.values(RENTA_DATA).map(function(r){return r.renta;}).sort(function(a,b){return a-b;});
+    var p20 = rentas[Math.floor(rentas.length*0.2)] || 7000;
+    var p50 = rentas[Math.floor(rentas.length*0.5)] || 10000;
+    var p80 = rentas[Math.floor(rentas.length*0.8)] || 14000;
+    window._rentaBreaks = {p20:p20, p50:p50, p80:p80};
+
+    SECCIONES.features.forEach(function(f) {
+      var cusec = f.properties.cusec;
+      var r = RENTA_DATA[cusec];
+      if (r) {
+        map.setFeatureState({source:'secciones', id:f.id}, {renta: r.renta, hasRenta: true});
+      }
+    });
+
+    map.setPaintProperty('secciones-fill','fill-color',[
+      'case',
+      ['boolean',['feature-state','hasRenta'],false],
+      ['interpolate',['linear'],['feature-state','renta'],
+        p20, '#c45a4a',
+        p50, '#d4c44a',
+        p80, '#4aaa5a'
+      ],
+      'rgba(0,0,0,0)'
+    ]);
+    map.setPaintProperty('secciones-fill','fill-opacity',[
+      'case',
+      ['boolean',['feature-state','hasRenta'],false], 0.5,
+      ['boolean',['feature-state','hover'],false], 0.15,
+      0
+    ]);
+    map.setPaintProperty('secciones-line','line-opacity',0.2);
+
+    showRentaLegend(true, p20, p50, p80);
+  } else {
+    map.setPaintProperty('secciones-fill','fill-color','#d4c4a0');
+    map.setPaintProperty('secciones-fill','fill-opacity',['case',['boolean',['feature-state','hover'],false],0.15,0]);
+    map.setPaintProperty('secciones-line','line-opacity',['case',['boolean',['feature-state','hover'],false],0.6,0]);
+    showRentaLegend(false);
+  }
+}
+
+function showRentaLegend(show, p20, p50, p80) {
+  var el = document.getElementById('renta-legend');
+  if (!show) { if(el) el.style.display='none'; return; }
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'renta-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:8px;backdrop-filter:blur(12px)';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span style="color:#c45a4a">&#9632;</span> &lt;'+Math.round(p20/1000)+'k&euro;' +
+    ' <span style="background:linear-gradient(90deg,#c45a4a,#d4c44a,#4aaa5a);width:60px;height:8px;border-radius:2px;display:inline-block"></span> ' +
+    '<span style="color:#4aaa5a">&#9632;</span> &gt;'+Math.round(p80/1000)+'k&euro;' +
+    ' <span style="color:#555;margin-left:4px">Renta media/persona (INE)</span>';
+}
+
+// ===== LEVELS =====
+function showProvincia() {
+  level = 'provincia'; activeMun = null; activeSec = null;
+  map.setFilter('secciones-fill', null);
+  map.setFilter('secciones-line', null);
+
+  if (rentaVisible) {
+    // Keep renta colors active
+  } else {
+    map.setPaintProperty('secciones-fill','fill-color','#d4c4a0');
+    map.setPaintProperty('secciones-line','line-opacity',['case',['boolean',['feature-state','hover'],false],0.6,0]);
+    map.setPaintProperty('secciones-fill','fill-opacity',['case',['boolean',['feature-state','hover'],false],0.15,0]);
+  }
+  if(map.getLayer('mun-labels')) map.setLayoutProperty('mun-labels','visibility','visible');
+  removeBuildings();
+  removeAllBuildings();
+  removeMunHighlight();
+
+  map.flyTo({center:PROVINCE_CENTER, zoom:PROVINCE_ZOOM, pitch:0, bearing:0, duration:1000, essential:true});
+  updateUI();
+}
+
+function enterMunicipio(mun) {
+  level = 'municipio'; activeMun = mun; activeSec = null;
+  removeBuildings();
+  removeAllBuildings();
+
+  map.setFilter('secciones-fill', ['==',['get','mun'], mun]);
+  map.setFilter('secciones-line', ['==',['get','mun'], mun]);
+  map.setPaintProperty('secciones-line','line-opacity',['case',['boolean',['feature-state','hover'],false],0.6,0.25]);
+  map.setPaintProperty('secciones-fill','fill-opacity',['case',['boolean',['feature-state','hover'],false],0.25,0.05]);
+  if(map.getLayer('mun-labels')) map.setLayoutProperty('mun-labels','visibility','none');
+
+  var munSecs = SECCIONES.features.filter(function(f){return f.properties.mun === mun;});
+  showMunHighlight(munSecs);
+
+  var munInfo = MUNICIPIOS.features.find(function(f){return f.properties.mun === mun;});
+  if(munInfo) {
+    var c = munInfo.properties.center;
+    var zoom = munSecs.length > 50 ? 13 : munSecs.length > 20 ? 12.5 : 12;
+    map.flyTo({center:c, zoom:zoom, pitch:0, duration:1200, essential:true});
+  }
+  updateUI();
+}
+
+function enterSeccion(cusec, mun) {
+  level = 'seccion'; activeSec = cusec; activeMun = mun;
+
+  map.setFilter('secciones-fill', ['==',['get','mun'], mun]);
+  map.setFilter('secciones-line', ['==',['get','mun'], mun]);
+  map.setPaintProperty('secciones-fill','fill-opacity',['case',
+    ['==',['get','cusec'],cusec],0,
+    ['boolean',['feature-state','hover'],false],0.2,0.03]);
+  map.setPaintProperty('secciones-line','line-opacity',['case',
+    ['==',['get','cusec'],cusec],0,
+    ['boolean',['feature-state','hover'],false],0.5,0.12]);
+
+  // If all-buildings mode is on, don't load single section
+  if (!allBuildingsOn) {
+    var secFile = 'buildings/' + cusec + '.json';
+    showLoading('Cargando edificios...');
+
+    fetch(secFile).then(function(r){
+      if(!r.ok) throw new Error('No buildings');
+      return r.json();
+    }).then(function(raw) {
+      hideLoading();
+      var features = raw.map(function(b, i) {
+        return {
+          type:'Feature', id:i,
+          geometry:{type:'Polygon',coordinates:[b[0]]},
+          properties:{_h:b[1],'building:levels':b.length>2?b[2]:0,_id:i,_cusec:cusec}
+        };
+      });
+      renderBuildings(features);
+    }).catch(function() {
+      hideLoading();
+      console.log('No building data for section ' + cusec);
+    });
+  }
+
+  // Fly to section
+  var secFeat = SECCIONES.features.find(function(f){return f.properties.cusec === cusec;});
+  if(secFeat) {
+    var b = getBounds(secFeat.geometry);
+    var c = [(b[0][0]+b[1][0])/2, (b[0][1]+b[1][1])/2];
+    map.flyTo({center:c, zoom:17, pitch:55, bearing:map.getBearing(), duration:1200, essential:true});
+  }
+
+  // Highlight section
+  if(secFeat) {
+    if(!map.getSource('sec-hl')) map.addSource('sec-hl',{type:'geojson',data:{type:'FeatureCollection',features:[secFeat]}});
+    else map.getSource('sec-hl').setData({type:'FeatureCollection',features:[secFeat]});
+    if(!map.getLayer('sec-hl-line')) map.addLayer({id:'sec-hl-line',type:'line',source:'sec-hl',paint:{'line-color':'#e0d0b0','line-width':1,'line-opacity':0.5}});
+  }
+
+  updateUI();
+}
+
+// ===== BUILDINGS =====
+function renderBuildings(features) {
+  removeBuildings();
+  var data = {type:'FeatureCollection',features:features};
+
+  // Shadow layer
+  var shadows = features.map(function(f){
+    var h = f.properties._h || 8;
+    var coords = f.geometry.coordinates[0].map(function(c){
+      return [c[0] + h*0.000004, c[1] - h*0.000003];
+    });
+    return {type:'Feature',geometry:{type:'Polygon',coordinates:[coords]},properties:{_h:h}};
+  });
+  if(!map.getSource('bld-shadow')) map.addSource('bld-shadow',{type:'geojson',data:{type:'FeatureCollection',features:shadows}});
+  else map.getSource('bld-shadow').setData({type:'FeatureCollection',features:shadows});
+  map.addLayer({
+    id:'bld-shadow',type:'fill',source:'bld-shadow',
+    paint:{'fill-color':'#000','fill-opacity':['interpolate',['linear'],['get','_h'],3,0.10,8,0.18,15,0.28,25,0.35]}
+  });
+
+  if(!map.getSource('buildings')) map.addSource('buildings',{type:'geojson',data:data});
+  else map.getSource('buildings').setData(data);
+  map.addLayer({
+    id:'buildings-3d',type:'fill-extrusion',source:'buildings',
+    paint:{
+      'fill-extrusion-color':['case',['boolean',['feature-state','hover'],false],'#f0e0c0','#c8b898'],
+      'fill-extrusion-height':['get','_h'],
+      'fill-extrusion-base':0,
+      'fill-extrusion-opacity':0.92,
+      'fill-extrusion-vertical-gradient':true
+    }
+  });
+
+  // Hover
+  var bHov = null;
+  map.on('mousemove','buildings-3d',function(e){
+    if(!e.features.length) return;
+    map.getCanvas().style.cursor='pointer';
+    if(bHov!==null) map.setFeatureState({source:'buildings',id:bHov},{hover:false});
+    bHov = e.features[0].id;
+    map.setFeatureState({source:'buildings',id:bHov},{hover:true});
+  });
+  map.on('mouseleave','buildings-3d',function(){
+    map.getCanvas().style.cursor='';
+    if(bHov!==null){map.setFeatureState({source:'buildings',id:bHov},{hover:false});bHov=null;}
+  });
+  map.on('click','buildings-3d',function(e){
+    if(!e.features||!e.features.length) return;
+    var p = e.features[0].properties;
+    var h = parseFloat(p._h)||8;
+    var floors = Math.round(h/3);
+    var html = '<div style="padding:10px;font-size:11px">';
+    html += '<div style="font-size:13px;font-weight:700;color:#d4c4a0;margin-bottom:4px">Edificio</div>';
+    html += '<div style="color:#666;margin-bottom:2px">Altura: <span style="color:#ccc">'+Math.round(h)+'m</span> &middot; Plantas: <span style="color:#ccc">'+floors+'</span></div>';
+    html += '<div style="color:#666">Secci&oacute;n: <span style="color:#ccc">'+(p._cusec||'—')+'</span></div>';
+    html += '</div>';
+    new maplibregl.Popup({maxWidth:'250px'}).setLngLat(e.lngLat).setHTML(html).addTo(map);
+  });
+}
+
+function removeBuildings() {
+  ['bld-shadow','buildings-3d','sec-hl-line'].forEach(function(id){
+    if(map.getLayer(id)) map.removeLayer(id);
+  });
+}
+
+// ===== ALL BUILDINGS TOGGLE =====
+function toggleAllBuildings() {
+  allBuildingsOn = !allBuildingsOn;
+  var btn = document.getElementById('all-buildings-toggle');
+  btn.classList.toggle('active', allBuildingsOn);
+
+  if (allBuildingsOn) {
+    loadAllBuildingsForMun(activeMun);
+  } else {
+    removeAllBuildings();
+    // If we're at seccion level, reload single section buildings
+    if (level === 'seccion' && activeSec) {
+      var secFile = 'buildings/' + activeSec + '.json';
+      fetch(secFile).then(function(r){
+        if(!r.ok) throw new Error('No buildings');
+        return r.json();
+      }).then(function(raw){
+        var features = raw.map(function(b,i){
+          return {
+            type:'Feature',id:i,
+            geometry:{type:'Polygon',coordinates:[b[0]]},
+            properties:{_h:b[1],'building:levels':b.length>2?b[2]:0,_id:i,_cusec:activeSec}
+          };
+        });
+        renderBuildings(features);
+      }).catch(function(){});
+    }
+  }
+}
+
+function loadAllBuildingsForMun(mun) {
+  if (!mun || !SECCIONES) return;
+  removeBuildings();
+  removeAllBuildings();
+
+  var munSecs = SECCIONES.features.filter(function(f){return f.properties.mun === mun;});
+  var cusecs = munSecs.map(function(f){return f.properties.cusec;});
+
+  showLoading('Cargando todos los edificios (' + cusecs.length + ' secciones)...');
+
+  var allFeatures = [];
+  var loaded = 0;
+  var total = cusecs.length;
+  var featureIdCounter = 0;
+
+  cusecs.forEach(function(cusec) {
+    fetch('buildings/' + cusec + '.json').then(function(r){
+      if(!r.ok) throw new Error('skip');
+      return r.json();
+    }).then(function(raw){
+      raw.forEach(function(b){
+        allFeatures.push({
+          type:'Feature', id:featureIdCounter++,
+          geometry:{type:'Polygon',coordinates:[b[0]]},
+          properties:{_h:b[1],'building:levels':b.length>2?b[2]:0,_cusec:cusec}
+        });
+      });
+    }).catch(function(){
+      // Section has no buildings, skip
+    }).finally(function(){
+      loaded++;
+      if (loaded === total) {
+        hideLoading();
+        if (allFeatures.length > 0 && allBuildingsOn) {
+          renderAllBuildings(allFeatures);
+        }
+      }
+    });
+  });
+}
+
+function renderAllBuildings(features) {
+  var data = {type:'FeatureCollection',features:features};
+
+  // Shadow layer
+  var shadows = features.map(function(f){
+    var h = f.properties._h || 8;
+    var coords = f.geometry.coordinates[0].map(function(c){
+      return [c[0] + h*0.000004, c[1] - h*0.000003];
+    });
+    return {type:'Feature',geometry:{type:'Polygon',coordinates:[coords]},properties:{_h:h}};
+  });
+
+  if(!map.getSource('all-bld-shadow')) map.addSource('all-bld-shadow',{type:'geojson',data:{type:'FeatureCollection',features:shadows}});
+  else map.getSource('all-bld-shadow').setData({type:'FeatureCollection',features:shadows});
+  map.addLayer({
+    id:'all-bld-shadow',type:'fill',source:'all-bld-shadow',
+    paint:{'fill-color':'#000','fill-opacity':['interpolate',['linear'],['get','_h'],3,0.08,8,0.14,15,0.22,25,0.30]}
+  });
+
+  if(!map.getSource('all-buildings')) map.addSource('all-buildings',{type:'geojson',data:data});
+  else map.getSource('all-buildings').setData(data);
+  map.addLayer({
+    id:'all-buildings-3d',type:'fill-extrusion',source:'all-buildings',
+    paint:{
+      'fill-extrusion-color':'#c8b898',
+      'fill-extrusion-height':['get','_h'],
+      'fill-extrusion-base':0,
+      'fill-extrusion-opacity':0.88,
+      'fill-extrusion-vertical-gradient':true
+    }
+  });
+
+  allBuildingsLoaded = features;
+  console.log('Rendered ' + features.length + ' buildings for municipality');
+}
+
+function removeAllBuildings() {
+  ['all-bld-shadow','all-buildings-3d'].forEach(function(id){
+    if(map.getLayer(id)) map.removeLayer(id);
+  });
+  allBuildingsLoaded = [];
+}
+
+function showMunHighlight(secs) {
+  removeMunHighlight();
+  var data = {type:'FeatureCollection',features:secs};
+  if(!map.getSource('mun-hl')) map.addSource('mun-hl',{type:'geojson',data:data});
+  else map.getSource('mun-hl').setData(data);
+  map.addLayer({
+    id:'mun-hl',type:'line',source:'mun-hl',
+    paint:{'line-color':'#d4c4a0','line-width':1.5,'line-opacity':0.3,'line-dasharray':[4,2]}
+  });
+}
+function removeMunHighlight(){
+  if(map.getLayer('mun-hl')) map.removeLayer('mun-hl');
+}
+
+// ===== UI =====
+function updateUI() {
+  updateBreadcrumb();
+  updateStats();
+  updateMunList();
+  updateAllBuildingsToggleVisibility();
+}
+
+function updateBreadcrumb() {
+  var bc = document.getElementById('bc');
+  var parts = [];
+  if(level === 'provincia') {
+    parts.push('<span class="active">Las Palmas</span>');
+  } else {
+    parts.push('<span onclick="showProvincia()">Las Palmas</span>');
+    parts.push('<span class="sep">&#8250;</span>');
+  }
+  if(level === 'municipio') {
+    var nm = getMunName(activeMun);
+    parts.push('<span class="active">'+nm+'</span>');
+  } else if(level === 'seccion') {
+    var nm = getMunName(activeMun);
+    parts.push('<span onclick="enterMunicipio(\''+activeMun+'\')">'+nm+'</span>');
+    parts.push('<span class="sep">&#8250;</span>');
+    parts.push('<span class="active">S'+activeSec.slice(-3)+'</span>');
+  }
+  bc.innerHTML = parts.join('');
+}
+
+function updateStats() {
+  var el = document.getElementById('stats');
+  if(level === 'provincia') {
+    el.innerHTML = '<b>3</b> islas &middot; <b>34</b> municipios &middot; <b>709</b> secciones censales<br>Prov. 35 &middot; <b>3 islas</b>';
+  } else if(level === 'municipio') {
+    var secs = SECCIONES.features.filter(function(f){return f.properties.mun===activeMun;});
+    var island = ISLAND_FOR_MUN[activeMun] || '?';
+    el.innerHTML = '<b>'+secs.length+'</b> secciones &middot; '+island+'<br>Click en secci&oacute;n para ver edificios';
+  } else if(level === 'seccion') {
+    el.innerHTML = 'Secci&oacute;n <b>'+activeSec+'</b><br>Municipio: <b>'+getMunName(activeMun)+'</b>';
+  }
+}
+
+function updateMunList() {
+  var el = document.getElementById('mun-list');
+  if(level === 'seccion') { el.innerHTML = ''; return; }
+
+  var muns = MUNICIPIOS.features.slice().sort(function(a,b){
+    return a.properties.nmun.localeCompare(b.properties.nmun);
+  });
+
+  var html = '';
+  ['Gran Canaria','Fuerteventura','Lanzarote'].forEach(function(island) {
+    html += '<div style="font-size:8px;color:#444;margin:6px 0 2px;text-transform:uppercase;letter-spacing:1px">'+island+'</div>';
+    muns.forEach(function(f) {
+      var p = f.properties;
+      if(ISLAND_FOR_MUN[p.mun] !== island) return;
+      var isActive = p.mun === activeMun;
+      html += '<div class="mun-item'+(isActive?' active':'')+'" onclick="enterMunicipio(\''+p.mun+'\')">';
+      html += '<span class="name">'+p.nmun+'</span>';
+      html += '<span class="count">'+p.sections+'</span>';
+      html += '</div>';
+    });
+  });
+  el.innerHTML = html;
+}
+
+function updateAllBuildingsToggleVisibility() {
+  var btn = document.getElementById('all-buildings-toggle');
+  if (level === 'municipio' || level === 'seccion') {
+    btn.style.display = 'flex';
+  } else {
+    btn.style.display = 'none';
+    // Reset if going back to provincia
+    if (allBuildingsOn) {
+      allBuildingsOn = false;
+      btn.classList.remove('active');
+      removeAllBuildings();
+    }
+  }
+}
+
+function getMunName(mun) {
+  var f = MUNICIPIOS.features.find(function(f){return f.properties.mun === mun;});
+  return f ? f.properties.nmun : mun;
+}
+
+// ===== NAV =====
+function goUp() {
+  if(level === 'seccion' && activeMun) enterMunicipio(activeMun);
+  else if(level === 'municipio') showProvincia();
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') goUp();
+});
+
+// ===== HELPERS =====
+function getBounds(geom){
+  var minLng=180,maxLng=-180,minLat=90,maxLat=-90;
+  function scan(c){
+    if(typeof c[0]==='number'){
+      if(c[0]<minLng)minLng=c[0];if(c[0]>maxLng)maxLng=c[0];
+      if(c[1]<minLat)minLat=c[1];if(c[1]>maxLat)maxLat=c[1];
+    }else{for(var i=0;i<c.length;i++)scan(c[i]);}
+  }
+  scan(geom.coordinates);
+  return[[minLng,minLat],[maxLng,maxLat]];
+}
+function showLoading(msg){var l=document.getElementById('loading');l.textContent=msg;l.classList.add('on');}
+function hideLoading(){document.getElementById('loading').classList.remove('on');}
+</script>
+</body>
+</html>

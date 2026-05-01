@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>POLIS · Tablero vectorial</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<style>
+  html,body{margin:0;height:100%;background:#1a1816;color:#e8dcc0;font-family:Georgia,serif;overflow:hidden}
+  #stage{width:100vw;height:100vh;display:block;background:
+    radial-gradient(ellipse at 30% 30%, #2a2620 0%, #120f0c 80%);}
+  #ui{position:fixed;top:12px;left:12px;background:rgba(20,18,14,.92);
+      padding:12px 14px;border:1px solid #4a3a22;border-radius:4px;
+      font:13px/1.4 Georgia,serif;color:#e8dcc0;max-width:280px;z-index:10}
+  #ui h1{margin:0 0 6px;font-size:15px;color:#d9c9a3;font-weight:normal;
+         letter-spacing:.1em}
+  #ui .row{margin:6px 0;display:flex;gap:6px;flex-wrap:wrap}
+  #ui button{background:#3a2e1c;border:1px solid #6a5233;color:#e8dcc0;
+             padding:5px 10px;font:12px Georgia,serif;cursor:pointer;border-radius:3px}
+  #ui button.on{background:#8a6a3a;border-color:#c9a96a;color:#fff}
+  #ui button:hover{background:#5a4428}
+  #ui .hint{font-size:11px;color:#a49a86;margin-top:6px}
+  #info{position:fixed;bottom:12px;right:12px;background:rgba(20,18,14,.92);
+        padding:10px 14px;border:1px solid #4a3a22;border-radius:4px;
+        font:12px/1.4 Georgia,serif;max-width:320px;min-height:44px;z-index:10;
+        color:#c9bc9e}
+  #info b{color:#e8dcc0}
+  #stage svg{width:100%;height:100%;display:block;cursor:grab}
+  #stage svg:active{cursor:grabbing}
+</style>
+</head>
+<body>
+<div id="ui">
+  <h1>POLIS · Las Palmas GC</h1>
+  <div class="row">
+    <button data-layer="municipio" class="on">Municipio</button>
+    <button data-layer="distritos">Distritos</button>
+    <button data-layer="secciones">Secciones</button>
+    <button data-layer="edificios">Edificios</button>
+  </div>
+  <div class="row">
+    <button id="home">⌂ Isla</button>
+    <button id="zoomin">＋</button>
+    <button id="zoomout">−</button>
+  </div>
+  <div class="hint">Rueda = zoom · Arrastrar = mover · Click pieza = info</div>
+</div>
+<div id="info"><b>Tablero vectorial</b> — todas las piezas son SVG, zoom infinito sin degradarse.</div>
+<div id="stage"></div>
+
+<script>
+const STAGE = document.getElementById('stage');
+const INFO  = document.getElementById('info');
+const LAYER_STATE = { municipio:true, distritos:false, secciones:false, edificios:false };
+
+let MANIFEST = null;
+let SVG = null;
+let vb = null; // [x,y,w,h] actual del viewBox
+
+async function init(){
+  MANIFEST = await (await fetch('MANIFEST.json')).json();
+  const mun = MANIFEST.municipios['35016'];
+  const [mnx,mny,mxx,mxy] = mun.bbox;
+  const pad = 200;
+  vb = [mnx-pad, mny-pad, (mxx-mnx)+pad*2, (mxy-mny)+pad*2];
+
+  SVG = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  SVG.setAttribute('viewBox', vb.join(' '));
+  SVG.setAttribute('preserveAspectRatio','xMidYMid meet');
+  SVG.style.background = '#0e0c0a';
+
+  // grupos por capa
+  for (const k of ['municipio','distritos','secciones','edificios']){
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('data-layer', k);
+    g.setAttribute('pointer-events','auto');
+    g.style.display = LAYER_STATE[k] ? 'block' : 'none';
+    SVG.appendChild(g);
+  }
+  STAGE.appendChild(SVG);
+  attachPieces(mun);
+  attachInput();
+}
+
+function addPiece(layer, href, bbox, meta){
+  const [x0,y0,x1,y1] = bbox;
+  const g = SVG.querySelector(`g[data-layer="${layer}"]`);
+  const img = document.createElementNS('http://www.w3.org/2000/svg','image');
+  img.setAttributeNS('http://www.w3.org/1999/xlink','href', href);
+  img.setAttribute('href', href);
+  img.setAttribute('x', x0); img.setAttribute('y', y0);
+  img.setAttribute('width', x1-x0); img.setAttribute('height', y1-y0);
+  img.setAttribute('preserveAspectRatio','none');
+  img.style.cursor = 'pointer';
+  img.dataset.meta = JSON.stringify(meta);
+  img.addEventListener('click', e=>{
+    e.stopPropagation();
+    showInfo(meta);
+  });
+  g.appendChild(img);
+}
+
+function attachPieces(mun){
+  addPiece('municipio', mun.svg, mun.bbox,
+    {tipo:'Municipio', nombre:mun.nombre, codigo:mun.codigo_ine, bbox:mun.bbox});
+  for (const [dc, d] of Object.entries(mun.distritos)){
+    addPiece('distritos', d.svg, d.bbox,
+      {tipo:'Distrito', nombre:d.nombre, codigo:`${mun.codigo_ine}-${dc}`,
+       n_secciones:d.n_secciones, bbox:d.bbox});
+    for (const [cusec, s] of Object.entries(d.secciones)){
+      addPiece('secciones', s.svg_contorno, s.bbox,
+        {tipo:'Sección censal', codigo:cusec, distrito:dc, seccion:s.seccion,
+         barrio:s.barrio, n_edificios:s.n_edificios, bbox:s.bbox});
+      addPiece('edificios', s.svg_edificios, s.bbox,
+        {tipo:'Edificios', codigo:cusec, barrio:s.barrio,
+         n_edificios:s.n_edificios, bbox:s.bbox});
+    }
+  }
+}
+
+function showInfo(m){
+  INFO.innerHTML = `<b>${m.tipo}</b> — ${m.nombre || m.codigo}<br>`+
+    Object.entries(m).filter(([k])=>!['tipo','nombre','bbox'].includes(k))
+      .map(([k,v])=>`${k}: <b>${Array.isArray(v)?v.map(n=>(+n).toFixed(0)).join(', '):v}</b>`).join(' · ');
+}
+
+function setViewBox(){
+  SVG.setAttribute('viewBox', vb.map(v=>v.toFixed(2)).join(' '));
+}
+
+function attachInput(){
+  // layer toggles
+  document.querySelectorAll('#ui button[data-layer]').forEach(b=>{
+    b.onclick = ()=>{
+      const k = b.dataset.layer;
+      LAYER_STATE[k] = !LAYER_STATE[k];
+      b.classList.toggle('on', LAYER_STATE[k]);
+      SVG.querySelector(`g[data-layer="${k}"]`).style.display =
+        LAYER_STATE[k] ? 'block' : 'none';
+    };
+  });
+  document.getElementById('home').onclick = init_home;
+  document.getElementById('zoomin').onclick = ()=>zoom(0.8, null);
+  document.getElementById('zoomout').onclick = ()=>zoom(1.25, null);
+
+  // wheel zoom (centrado en cursor)
+  STAGE.addEventListener('wheel', e=>{
+    e.preventDefault();
+    const f = e.deltaY > 0 ? 1.15 : 1/1.15;
+    zoom(f, e);
+  }, {passive:false});
+
+  // drag pan
+  let drag=null;
+  STAGE.addEventListener('mousedown', e=>{
+    drag = {x:e.clientX, y:e.clientY, vb:[...vb]};
+  });
+  window.addEventListener('mousemove', e=>{
+    if(!drag) return;
+    const r = STAGE.getBoundingClientRect();
+    const sx = drag.vb[2]/r.width, sy = drag.vb[3]/r.height;
+    vb[0] = drag.vb[0] - (e.clientX - drag.x) * sx;
+    vb[1] = drag.vb[1] - (e.clientY - drag.y) * sy;
+    setViewBox();
+  });
+  window.addEventListener('mouseup', ()=>{drag=null;});
+
+  // touch
+  let touch=null;
+  STAGE.addEventListener('touchstart', e=>{
+    if(e.touches.length===1){
+      touch={x:e.touches[0].clientX, y:e.touches[0].clientY, vb:[...vb]};
+    }
+  });
+  STAGE.addEventListener('touchmove', e=>{
+    if(!touch || e.touches.length!==1) return;
+    const r = STAGE.getBoundingClientRect();
+    const sx = touch.vb[2]/r.width, sy = touch.vb[3]/r.height;
+    vb[0] = touch.vb[0] - (e.touches[0].clientX - touch.x) * sx;
+    vb[1] = touch.vb[1] - (e.touches[0].clientY - touch.y) * sy;
+    setViewBox();
+  }, {passive:true});
+  STAGE.addEventListener('touchend', ()=>{touch=null;});
+}
+
+function zoom(factor, ev){
+  let cx, cy;
+  const r = STAGE.getBoundingClientRect();
+  if (ev){
+    const px = (ev.clientX - r.left) / r.width;
+    const py = (ev.clientY - r.top)  / r.height;
+    cx = vb[0] + vb[2]*px;
+    cy = vb[1] + vb[3]*py;
+  } else {
+    cx = vb[0]+vb[2]/2; cy = vb[1]+vb[3]/2;
+  }
+  const nw = vb[2]*factor, nh = vb[3]*factor;
+  vb[0] = cx - nw * ((cx - vb[0]) / vb[2]);
+  vb[1] = cy - nh * ((cy - vb[1]) / vb[3]);
+  vb[2] = nw; vb[3] = nh;
+  setViewBox();
+}
+
+function init_home(){
+  const mun = MANIFEST.municipios['35016'];
+  const [mnx,mny,mxx,mxy] = mun.bbox;
+  const pad = 200;
+  vb = [mnx-pad, mny-pad, (mxx-mnx)+pad*2, (mxy-mny)+pad*2];
+  setViewBox();
+}
+
+init();
+</script>
+</body>
+</html>

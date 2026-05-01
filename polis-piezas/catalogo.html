@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>POLIS · Catálogo de piezas</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<style>
+  body{margin:0;background:#f5eedd;color:#2a2212;font-family:Georgia,serif}
+  header{position:sticky;top:0;background:#2a2212;color:#e8dcc0;padding:14px 20px;
+         border-bottom:2px solid #7a5f2e;z-index:5}
+  header h1{margin:0;font-size:18px;letter-spacing:.08em;font-weight:normal}
+  header .sub{font-size:13px;color:#c9bc9e;margin-top:2px}
+  nav{margin:14px 20px;display:flex;gap:8px;flex-wrap:wrap}
+  nav a{color:#2a2212;text-decoration:none;padding:4px 10px;border:1px solid #7a5f2e;
+        background:#e8dcc0;font-size:13px;border-radius:3px}
+  nav a:hover{background:#c9a96a}
+  section{padding:10px 20px 30px}
+  section h2{border-bottom:1px solid #7a5f2e;padding-bottom:6px;font-weight:normal;
+             color:#4a3a22;font-size:16px;letter-spacing:.06em}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+        gap:10px}
+  .grid .card{background:#fff;border:1px solid #c9b894;padding:6px;border-radius:3px;
+              box-shadow:0 1px 2px rgba(0,0,0,.06);text-align:center;cursor:pointer;
+              transition:transform .1s;text-decoration:none;color:#2a2212}
+  .grid .card:hover{transform:translateY(-2px);box-shadow:0 3px 6px rgba(0,0,0,.15)}
+  .grid .card img{width:100%;height:110px;object-fit:contain;background:#f5eedd;
+                  border:1px solid #dccdb0}
+  .grid .card .name{font-size:11px;margin-top:4px;line-height:1.2;
+                    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .grid .card .code{font-size:10px;color:#8a7555;font-family:'Courier New',monospace}
+  .small{grid-template-columns:repeat(auto-fill,minmax(90px,1fr))}
+  .small .card img{height:72px}
+  #loading{padding:20px;color:#8a7555}
+</style>
+</head>
+<body>
+<header>
+  <h1>POLIS · Catálogo de piezas vectoriales</h1>
+  <div class="sub">Las Palmas de Gran Canaria (35016) — SVG para tablero, PNG preview</div>
+  <nav>
+    <a href="#municipio">1 Municipio</a>
+    <a href="#distritos">5 Distritos</a>
+    <a href="#secciones">274 Secciones</a>
+    <a href="#edificios">274 Edificios</a>
+    <a href="tablero.html" style="margin-left:auto;background:#7a5f2e;color:#fff">→ Tablero</a>
+  </nav>
+</header>
+<div id="loading">Cargando MANIFEST…</div>
+
+<script>
+async function init(){
+  const m = await (await fetch('MANIFEST.json')).json();
+  document.getElementById('loading').remove();
+  const mun = m.municipios['35016'];
+
+  const sections = [
+    {id:'municipio', title:'Municipio', items:[{
+      img:mun.png, svg:mun.svg, name:mun.nombre, code:mun.codigo_ine,
+    }], small:false},
+    {id:'distritos', title:'Distritos', items:
+      Object.values(mun.distritos).map(d=>({
+        img:d.png, svg:d.svg, name:d.nombre,
+        code:`${mun.codigo_ine}-${d.codigo} · ${d.n_secciones} sec`})),
+      small:false},
+    {id:'secciones', title:'Secciones censales', items:
+      Object.values(mun.distritos).flatMap(d=>
+        Object.values(d.secciones).map(s=>({
+          img:s.png_contorno, svg:s.svg_contorno,
+          name:s.barrio || '—', code:s.cusec}))
+      ), small:true},
+    {id:'edificios', title:'Edificios por sección', items:
+      Object.values(mun.distritos).flatMap(d=>
+        Object.values(d.secciones).map(s=>({
+          img:s.png_edificios, svg:s.svg_edificios,
+          name:`${s.barrio||'—'} · ${s.n_edificios} ed.`,
+          code:s.cusec}))
+      ), small:true},
+  ];
+
+  for (const sec of sections){
+    const h = document.createElement('section');
+    h.innerHTML = `<h2 id="${sec.id}">${sec.title} (${sec.items.length})</h2>`+
+      `<div class="grid${sec.small?' small':''}" id="g-${sec.id}"></div>`;
+    document.body.appendChild(h);
+    const g = h.querySelector('.grid');
+    for (const it of sec.items){
+      const a = document.createElement('a');
+      a.className='card';
+      a.href = it.svg;
+      a.target = '_blank';
+      a.innerHTML = `<img loading="lazy" src="${it.img}"><div class="name">${it.name}</div><div class="code">${it.code}</div>`;
+      g.appendChild(a);
+    }
+  }
+}
+init().catch(e=>{document.getElementById('loading').textContent='Error: '+e});
+</script>
+</body>
+</html>

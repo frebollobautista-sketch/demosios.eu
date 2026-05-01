@@ -266,5 +266,10 @@ Flujo esperado para integrar los vectores cuando lleguen:
 
 Fuentes viables para los polígonos: OSM Overpass (gratis, a veces barrios oficiales faltan), INE secciones censales (agregables a barrios si hay cruce oficial), Ayuntamiento de LPGC open data (geoportal), o dibujo manual en Figma/Inkscape exportando SVG.
 
+### 2026-04-29 — Vista 3D de edificios con MapLibre GL fill-extrusion
+Creado `public/polis-3d.html`: misma jerarquía administrativa (274 secciones, 5 distritos) pero al entrar en una sección los edificios se muestran extruidos en 3D. Altura calculada con `building:levels × 3m` para los 2 095 edificios que tienen el dato, y estimada por tipo de edificio para los 41 595 restantes. La cámara rota a pitch 55° con bearing -20° al entrar. Fallback seguro: `polis.html` (Leaflet 2D) sigue disponible e integrado en `/polis` como segunda sección.
+
+Próximos pasos: (1) enriquecer alturas con datos catastrales de plantas cuando estén en Supabase, (2) colorear por composición de capital en lugar de por distrito, (3) integrar modelos 3D reales de Blender (blosm) cuando estén seccionados por sección censal — Path B del plan original.
+
 ### 2026-04-19 — Cuarto eje opcional `oikonomia`
 Se decidió reducir a 3 ejes (koinonía/paideía/politeía). Si en iteraciones posteriores aparece una economía local productiva en OCRE, la interfaz `PesoPorEje` admite ampliarla sin romper contribuciones existentes.

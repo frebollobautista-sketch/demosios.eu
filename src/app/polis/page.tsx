@@ -1,240 +1,222 @@
-import { IconMap } from "@/components/Icons";
-import { SelectorTablero } from "@/components/SelectorTablero";
+"use client";
 
-type TipoBloque = {
-  id: string;
-  label: string;
-  color: string;
-  descripcion: string;
-  aptoRecuperacion: boolean;
-};
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
- * Tipología primaria del capital que posee un bloque. La distinción
- * clave de OCRE: los bloques mayoritariamente en capital privado-
- * corporativo (fondo buitre, SOCIMI, vacacional opaco) son candidatos
- * a recuperación. Los demás ya están, en algún grado, en manos del
- * común.
+ * Polis — visor cartográfico integrado en Next.js.
+ *
+ * Layout mobile-first:
+ *   · Móvil:  mapa ocupa toda la pantalla; panel como bottom-sheet
+ *             (arrastra hacia arriba para ver contenido futuro).
+ *   · Desktop (≥768px): sidebar 320px a la izquierda, mapa ocupa el resto.
+ *
+ * El mapa se carga como iframe de /polis-provincia.html (MapLibre GL JS).
+ * Shell Header se mantiene arriba; el contenido usa el alto restante.
  */
-const TIPOS: TipoBloque[] = [
-  {
-    id: "comun",
-    label: "Común",
-    color: "var(--color-oliva)",
-    descripcion:
-      "Propiedad cooperativa, comunal, pública de uso o cesión de uso.",
-    aptoRecuperacion: false,
-  },
-  {
-    id: "residente",
-    label: "Residente",
-    color: "var(--color-ocre)",
-    descripcion:
-      "Propiedad de pequeños tenedores que la habitan o la alquilan a residentes estables.",
-    aptoRecuperacion: false,
-  },
-  {
-    id: "autonomo",
-    label: "Autónomo / PYME local",
-    color: "var(--color-ambar)",
-    descripcion:
-      "Local u oficina de actividad productiva arraigada en el barrio.",
-    aptoRecuperacion: false,
-  },
-  {
-    id: "rentista",
-    label: "Rentista difuso",
-    color: "var(--color-siena)",
-    descripcion:
-      "Gran tenedor persona física con cartera de inmuebles en alquiler turístico u ocioso.",
-    aptoRecuperacion: true,
-  },
-  {
-    id: "corporativo",
-    label: "Privado-corporativo",
-    color: "var(--color-sangre)",
-    descripcion:
-      "Fondos buitre, SOCIMI, fondos de inversión, filiales de plataformas vacacionales.",
-    aptoRecuperacion: true,
-  },
-];
+
+/* ── Altura del header (h-14 + nav ≈ 96px). Si cambia Header, ajustar. ── */
+const HEADER_H = "96px";
+
+/* ── Bottom sheet snap points (móvil) ── */
+const SHEET_PEEK = 48;   // px visible cuando está cerrado
+const SHEET_MID  = 280;  // px cuando está a medio abrir
+const SHEET_FULL = 0.85; // fracción del viewport cuando está abierto
+
+type SheetSnap = "closed" | "mid" | "full";
 
 export default function PolisPage() {
+    /* ── Bottom sheet state (móvil) ── */
+  const [snap, setSnap] = useState<SheetSnap>("closed");
+    const sheetRef = useRef<HTMLDivElement>(null);
+    const dragStart = useRef<{ y: number; h: number } | null>(null);
+    const [sheetH, setSheetH] = useState(SHEET_PEEK);
+
+  /* Resolve snap → px */
+  const snapToPx = useCallback((s: SheetSnap) => {
+        if (s === "closed") return SHEET_PEEK;
+        if (s === "mid") return SHEET_MID;
+        return Math.round(window.innerHeight * SHEET_FULL);
+  }, []);
+
+  /* Animate to snap */
+  useEffect(() => {
+        setSheetH(snapToPx(snap));
+  }, [snap, snapToPx]);
+
+  /* ── Touch drag handlers ── */
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+        dragStart.current = { y: e.touches[0].clientY, h: sheetH };
+  }, [sheetH]);
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+        if (!dragStart.current) return;
+        const dy = dragStart.current.y - e.touches[0].clientY;
+        const next = Math.max(SHEET_PEEK, Math.min(
+                Math.round(window.innerHeight * SHEET_FULL),
+                dragStart.current.h + dy,
+              ));
+        setSheetH(next);
+  }, []);
+
+  const onTouchEnd = useCallback(() => {
+        if (!dragStart.current) return;
+        dragStart.current = null;
+        // Snap to nearest
+                                     const fullPx = Math.round(window.innerHeight * SHEET_FULL);
+        if (sheetH > (SHEET_MID + fullPx) / 2) setSnap("full");
+        else if (sheetH > (SHEET_PEEK + SHEET_MID) / 2) setSnap("mid");
+        else setSnap("closed");
+  }, [sheetH]);
+
+  /* Toggle on tap of handle */
+  const toggleSheet = useCallback(() => {
+        setSnap((prev) => (prev === "closed" ? "mid" : "closed"));
+  }, []);
+
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 pb-40">
-      <div className="eyebrow">Πόλις</div>
-      <h1
-        className="display mt-1 text-[clamp(1.6rem,3.5vw,2.2rem)]"
-        style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-      >
-        Polis
-      </h1>
-      <p
-        className="mt-3 max-w-2xl"
-        style={{ color: "var(--color-piedra)" }}
-      >
-        Mapa de la ciudad según la composición de capital de cada bloque.
-        Recuperamos virtualmente lo que aún puede volver al común: los
-        bloques cuyo capital mayoritario es privado-corporativo.
-      </p>
-
-      <div className="divisor my-8" />
-
-      {/* Mapa vectorial real — v16, jerarquía administrativa LPGC.
-          Distritos (5) · Secciones censales (274) · Edificios (19 481)
-          sobre imagen satélite Esri. Servido como HTML estático en /public
-          y embebido aquí como iframe para no comprometer el App Router. */}
-      <section aria-labelledby="mapa-real" className="mb-12">
-        <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
-          <h2
-            id="mapa-real"
-            className="display text-[1.15rem]"
-            style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-          >
-            Mapa administrativo real — v16
-          </h2>
-          <a
-            href="/polis-v16.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="eyebrow"
-            style={{ color: "var(--color-ocre-deep)" }}
-          >
-            Abrir a pantalla completa ↗
-          </a>
-        </div>
-        <p
-          className="text-[0.9rem] mb-4 max-w-2xl"
-          style={{ color: "var(--color-piedra)" }}
-        >
-          Navegación jerárquica <strong>Municipio → Distrito → Sección censal → Edificios</strong> sobre imagen satélite real. Cinco distritos de Las Palmas de Gran Canaria, 274 secciones censales, 19 481 edificios. Es la base cartográfica sobre la que iremos pintando la composición de capital por bloque.
-        </p>
         <div
-          className="rounded-xl overflow-hidden"
-          style={{
-            border: "1px solid var(--color-linea)",
-            background: "#0a0a0a",
-          }}
-        >
-          <iframe
-            src="/polis-v16.html"
-            title="Mapa jerárquico administrativo de Las Palmas de Gran Canaria"
-            loading="lazy"
-            style={{
-              width: "100%",
-              height: "75vh",
-              minHeight: 500,
-              border: 0,
-              display: "block",
-            }}
-          />
-        </div>
-        <p
-          className="text-[0.78rem] mt-2"
-          style={{ color: "var(--color-piedra-clara)" }}
-        >
-          Fuente: INE (secciones censales 2024) + catastro · Imagen base: Esri World Imagery · Etiquetas: Carto.
-        </p>
-      </section>
-
-      <div className="divisor my-8" />
-
-      <section aria-labelledby="tablero">
-        <SelectorTablero />
-      </section>
-
-      <div className="divisor my-12" />
-
-      <section>
-        <h2
-          className="display text-[1.1rem] mb-3"
-          style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-        >
-          Tipología de bloques
-        </h2>
-        <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 list-none p-0 m-0">
-          {TIPOS.map((t) => (
-            <li
-              key={t.id}
-              className="rounded-xl p-4"
-              style={{
-                background: "var(--color-surface)",
-                border: "1px solid var(--color-linea)",
-                borderLeft: `3px solid ${t.color}`,
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <div
-                  className="display text-[1rem]"
-                  style={{ color: t.color, fontWeight: 600 }}
-                >
-                  {t.label}
-                </div>
-                {t.aptoRecuperacion ? (
-                  <span
-                    className="eyebrow rounded-full px-2 py-0.5"
-                    style={{
-                      background: "var(--color-sangre)",
-                      color: "var(--color-surface)",
-                    }}
-                  >
-                    Candidato
-                  </span>
-                ) : (
-                  <span
-                    className="eyebrow rounded-full px-2 py-0.5"
-                    style={{
-                      background: "var(--color-papiro-soft)",
-                      color: "var(--color-piedra)",
-                    }}
-                  >
-                    En común
-                  </span>
-                )}
-              </div>
-              <p
-                className="mt-2 text-[0.88rem]"
-                style={{ color: "var(--color-papiro-ink)" }}
+                className="relative w-full overflow-hidden"
+                style={{ height: `calc(100vh - ${HEADER_H})`, background: "#0a0a0a" }}
               >
-                {t.descripcion}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <div className="divisor my-12" />
-
-      <section
-        className="rounded-xl p-6 text-center"
-        style={{
-          background: "var(--color-papiro-soft)",
-          border: "1px dashed var(--color-linea)",
-          color: "var(--color-piedra)",
-        }}
-      >
-        <div
-          className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full"
-          style={{
-            background: "var(--color-surface)",
-            color: "var(--color-ocre-deep)",
-          }}
-        >
-          <IconMap />
-        </div>
-        <p
-          className="display italic mt-3 text-[1rem]"
-          style={{ color: "var(--color-papiro-ink)" }}
-        >
-          El mapa geográfico real aterrizará aquí.
-        </p>
-        <p className="mt-2 max-w-xl mx-auto text-[0.9rem]">
-          Por ahora el tablero es estilizado (hexágonos por barrio).
-          Cuando acabemos de cablear el pipeline de Blender GIS + catastro
-          + OSM documentado en KOINOS, sustituimos los hexágonos por la
-          geometría real de bloques y parcelas.
-        </p>
-      </section>
-    </div>
-  );
+          {/* ── Desktop sidebar (≥768px) ── */}
+              <aside
+                        className="hidden md:flex flex-col absolute inset-y-0 left-0 z-10"
+                        style={{
+                                    width: 320,
+                                    background: "var(--color-surface)",
+                                    borderRight: "1px solid var(--color-linea)",
+                        }}
+                      >
+                {/* Sidebar header */}
+                      <div
+                                  className="flex items-center gap-2 px-4 shrink-0"
+                                  style={{
+                                                height: 52,
+                                                borderBottom: "1px solid var(--color-linea)",
+                                  }}
+                                >
+                                <span
+                                              className="display text-[1rem]"
+                                              style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
+                                            >
+                                            Polis
+                                </span>span>
+                                <span
+                                              className="eyebrow ml-auto"
+                                              style={{ color: "var(--color-piedra-clara)" }}
+                                            >
+                                            Provincia de Las Palmas
+                                </span>span>
+                      </div>div>
+              
+                {/* Sidebar body — placeholder for future menus */}
+                      <div className="flex-1 overflow-y-auto px-4 py-4">
+                                <p
+                                              className="text-[0.85rem]"
+                                              style={{ color: "var(--color-piedra)" }}
+                                            >
+                                            Navega el mapa: haz clic en una isla, luego en un municipio y en
+                                            una sección censal para ver sus edificios en 3D.
+                                </p>p>
+                      
+                                <div className="divisor my-4" />
+                      
+                                <p
+                                              className="text-[0.78rem]"
+                                              style={{ color: "var(--color-piedra-clara)" }}
+                                            >
+                                            709 secciones censales · 3 islas · Catastro + OSM · MapLibre GL
+                                </p>p>
+                      </div>div>
+              
+                {/* Sidebar footer */}
+                      <div
+                                  className="shrink-0 px-4 py-3 text-[0.75rem]"
+                                  style={{
+                                                borderTop: "1px solid var(--color-linea)",
+                                                color: "var(--color-piedra-clara)",
+                                  }}
+                                >
+                                <a
+                                              href="/polis-provincia.html"
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              className="eyebrow"
+                                              style={{ color: "var(--color-ocre-deep)" }}
+                                            >
+                                            Abrir pantalla completa ↗
+                                </a>a>
+                      </div>div>
+              </aside>aside>
+        
+          {/* ── Map iframe ── */}
+              <iframe
+                        src="/polis-provincia.html"
+                        title="Mapa KOINOS POLIS — Provincia de Las Palmas"
+                        className="absolute inset-0 h-full border-0 block
+                           w-full md:left-[320px] md:w-[calc(100%-320px)]"
+                      />
+        
+          {/* ── Mobile bottom sheet (< 768px) ── */}
+              <div
+                        ref={sheetRef}
+                        className="md:hidden fixed left-0 right-0 bottom-0 z-20"
+                        style={{
+                                    height: sheetH,
+                                    background: "var(--color-surface)",
+                                    borderTop: "1px solid var(--color-linea)",
+                                    borderRadius: "16px 16px 0 0",
+                                    boxShadow: "0 -4px 24px rgba(0,0,0,0.15)",
+                                    transition: dragStart.current ? "none" : "height 0.3s cubic-bezier(.4,0,.2,1)",
+                                    willChange: "height",
+                        }}
+                        onTouchStart={onTouchStart}
+                        onTouchMove={onTouchMove}
+                        onTouchEnd={onTouchEnd}
+                      >
+                {/* Drag handle */}
+                      <div
+                                  className="flex items-center justify-center py-2 cursor-grab"
+                                  onClick={toggleSheet}
+                                >
+                                <div
+                                              className="rounded-full"
+                                              style={{
+                                                              width: 36,
+                                                              height: 4,
+                                                              background: "var(--color-piedra-clara)",
+                                                              opacity: 0.5,
+                                              }}
+                                            />
+                      </div>div>
+              
+                {/* Sheet content */}
+                      <div className="px-4 pb-4 overflow-y-auto" style={{ height: "calc(100% - 28px)" }}>
+                                <p
+                                              className="display text-[0.95rem] mb-2"
+                                              style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
+                                            >
+                                            Polis
+                                </p>p>
+                                <p
+                                              className="text-[0.82rem]"
+                                              style={{ color: "var(--color-piedra)" }}
+                                            >
+                                            Navega el mapa: toca una isla, un municipio y una sección censal
+                                            para ver edificios en 3D.
+                                </p>p>
+                      
+                                <div className="divisor my-3" />
+                      
+                                <p
+                                              className="text-[0.75rem]"
+                                              style={{ color: "var(--color-piedra-clara)" }}
+                                            >
+                                            709 secciones · 3 islas · Catastro + OSM · MapLibre GL
+                                </p>p>
+                      </div>div>
+              </div>div>
+        </div>div>
+      );
 }
+</div>

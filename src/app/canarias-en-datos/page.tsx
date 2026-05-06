@@ -158,7 +158,7 @@ export default function CanariasEnDatosPage() {
           <Categoria
             titulo="Equipamientos"
             items={[
-              { name: "Centros educativos", source: "Consejería Educación Canarias", ready: false, color: "#5a90c0" },
+              { name: "Centros educativos", source: "Consejería Educación · datos.canarias.es", ready: true, color: "#5a90c0" },
               { name: "Centros de salud", source: "Servicio Canario de Salud", ready: false, color: "#c8d05a" },
             ]}
           />

@@ -1,206 +1,240 @@
 {
   "AGAETE": {
     "total": 6,
-    "publico": 0,
+    "publico": 6,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
-  "AGÃIMES": {
+  "AGÜIMES": {
     "total": 22,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 2
+    "publico": 20,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
   },
   "ANTIGUA": {
     "total": 5,
-    "publico": 0,
+    "publico": 5,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "ARRECIFE": {
     "total": 26,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 2
+    "publico": 24,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
   },
   "ARTENARA": {
     "total": 1,
-    "publico": 0,
+    "publico": 1,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "ARUCAS": {
     "total": 26,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 8
+    "publico": 18,
+    "concertado": 8,
+    "privado": 0,
+    "otro": 0
   },
   "FIRGAS": {
     "total": 4,
-    "publico": 0,
+    "publico": 4,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
-  "GÃLDAR": {
+  "GÁLDAR": {
     "total": 29,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 1
+    "publico": 28,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
   },
-  "HARÃA": {
+  "HARÍA": {
     "total": 6,
-    "publico": 0,
+    "publico": 6,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "INGENIO": {
     "total": 17,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 1
+    "publico": 16,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
   },
-  "MOGÃN": {
+  "MOGÁN": {
     "total": 14,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 1
+    "publico": 13,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
   },
   "MOYA": {
     "total": 10,
-    "publico": 0,
+    "publico": 10,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "LA OLIVA": {
     "total": 18,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 2
+    "publico": 16,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
   },
-  "PÃJARA": {
+  "PÁJARA": {
     "total": 13,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 1
+    "publico": 12,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
   },
   "LAS PALMAS DE GRAN CANARIA": {
     "total": 221,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 88
+    "publico": 133,
+    "concertado": 88,
+    "privado": 0,
+    "otro": 0
   },
   "PUERTO DEL ROSARIO": {
     "total": 32,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 2
+    "publico": 30,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
   },
-  "SAN BARTOLOMÃ": {
+  "SAN BARTOLOMÉ": {
     "total": 12,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 2
+    "publico": 10,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
   },
-  "SAN BARTOLOMÃ DE TIRAJANA": {
+  "SAN BARTOLOMÉ DE TIRAJANA": {
     "total": 32,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 9
+    "publico": 23,
+    "concertado": 9,
+    "privado": 0,
+    "otro": 0
   },
-  "LA ALDEA DE SAN NICOLÃS": {
+  "LA ALDEA DE SAN NICOLÁS": {
     "total": 10,
-    "publico": 0,
+    "publico": 10,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
-  "SANTA BRÃGIDA": {
+  "SANTA BRÍGIDA": {
     "total": 16,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 4
+    "publico": 12,
+    "concertado": 4,
+    "privado": 0,
+    "otro": 0
   },
-  "SANTA LUCÃA DE TIRAJANA": {
+  "SANTA LUCÍA DE TIRAJANA": {
     "total": 40,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 1
+    "publico": 39,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
   },
-  "SANTA MARÃA DE GUÃA DE GRAN CANARIA": {
+  "SANTA MARÍA DE GUÍA DE GRAN CANARIA": {
     "total": 18,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 1
+    "publico": 17,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
   },
   "TEGUISE": {
     "total": 17,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 2
+    "publico": 15,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
   },
   "TEJEDA": {
     "total": 1,
-    "publico": 0,
+    "publico": 1,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "TELDE": {
     "total": 72,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 12
+    "publico": 60,
+    "concertado": 12,
+    "privado": 0,
+    "otro": 0
   },
   "TEROR": {
     "total": 10,
-    "publico": 0,
+    "publico": 10,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
-  "TÃAS": {
+  "TÍAS": {
     "total": 10,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 3
+    "publico": 7,
+    "concertado": 3,
+    "privado": 0,
+    "otro": 0
   },
   "TINAJO": {
     "total": 5,
-    "publico": 0,
+    "publico": 5,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "TUINEJE": {
     "total": 16,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 2
+    "publico": 14,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
   },
   "VALSEQUILLO DE GRAN CANARIA": {
     "total": 10,
-    "publico": 0,
+    "publico": 10,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "VALLESECO": {
     "total": 2,
-    "publico": 0,
+    "publico": 2,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "VEGA DE SAN MATEO": {
     "total": 12,
-    "publico": 0,
+    "publico": 12,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   },
   "YAIZA": {
     "total": 12,
-    "publico": 0,
-    "concertado": 0,
-    "privado": 2
+    "publico": 10,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
   },
   "BETANCURIA": {
     "total": 2,
-    "publico": 0,
+    "publico": 2,
     "concertado": 0,
-    "privado": 0
+    "privado": 0,
+    "otro": 0
   }
 }

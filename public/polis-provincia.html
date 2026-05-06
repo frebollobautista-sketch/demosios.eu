@@ -1298,7 +1298,7 @@ var LAYER_CATALOG = [
     {id:'densidad', name:'Densidad demográfica (hab/km²)', dot:'#7aa5c0', source:'derivado población × área', status:'soon'}
   ]},
   {id:'equipamientos', label:'Equipamientos', layers:[
-    {id:'educacion', name:'Centros educativos', dot:'#5a90c0', source:'Consejería Educación Canarias', status:'soon'},
+    {id:'educacion', name:'Centros educativos', dot:'#5a90c0', source:'Consejería Educación · datos.canarias.es', status:'ready', toggle:'toggleEducacion'},
     {id:'salud', name:'Centros de salud', dot:'#c8d05a', source:'Servicio Canario de Salud', status:'soon'}
   ]}
 ];
@@ -1394,6 +1394,152 @@ function applyURLLayers(){
       window[entry.toggle]();
     }
   });
+}
+
+// ===========================================================
+//  CAPA CENTROS EDUCATIVOS
+//  Fuente: Consejería de Educación, FP, Actividad Física y Deportes,
+//  vía datos.canarias.es. ~750 centros prov 35 con coords.
+//  Categorías: público (azul), concertado (azul claro).
+// ===========================================================
+var educacionVisible = false;
+var educacionPopup = null;
+
+function setupEducacionLayer(data){
+  if(map.getSource('educacion')) return;
+  map.addSource('educacion', {
+    type:'geojson',
+    data:data,
+    cluster:true,
+    clusterMaxZoom:13,
+    clusterRadius:40
+  });
+
+  // Clusters
+  map.addLayer({
+    id:'educacion-clusters', type:'circle', source:'educacion',
+    filter:['has','point_count'],
+    paint:{
+      'circle-color':['step',['get','point_count'],
+        '#5a90c0',  10, '#3d7aa8',  50, '#2d5a85'
+      ],
+      'circle-radius':['step',['get','point_count'], 9, 10, 14, 50, 20],
+      'circle-opacity':0.8,
+      'circle-stroke-width':1.5,
+      'circle-stroke-color':'rgba(20,16,10,0.9)'
+    },
+    layout:{visibility:'none'}
+  });
+  map.addLayer({
+    id:'educacion-cluster-count', type:'symbol', source:'educacion',
+    filter:['has','point_count'],
+    layout:{
+      'text-field':['get','point_count_abbreviated'],
+      'text-font':['Noto Sans Regular'],
+      'text-size':['step',['get','point_count'], 11, 50, 13],
+      visibility:'none'
+    },
+    paint:{
+      'text-color':'#fff',
+      'text-halo-color':'rgba(0,0,0,0.5)',
+      'text-halo-width':1
+    }
+  });
+
+  // Puntos individuales (zoom alto). Color por categoría.
+  map.addLayer({
+    id:'educacion-points', type:'circle', source:'educacion',
+    filter:['!',['has','point_count']],
+    paint:{
+      'circle-color':['match',['get','categoria'],
+        'publico','#5a90c0',
+        'concertado','#9ec0d8',
+        'privado','#c08a5a',
+        '#888'
+      ],
+      'circle-radius':['interpolate',['linear'],['zoom'],13,4,17,8,19,11],
+      'circle-opacity':0.9,
+      'circle-stroke-width':1.2,
+      'circle-stroke-color':'rgba(15,12,10,0.9)'
+    },
+    layout:{visibility:'none'}
+  });
+
+  // Cluster click → zoom in
+  map.on('click','educacion-clusters', function(e){
+    var f = map.queryRenderedFeatures(e.point,{layers:['educacion-clusters']})[0];
+    if(!f) return;
+    var cid = f.properties.cluster_id;
+    map.getSource('educacion').getClusterExpansionZoom(cid).then(function(z){
+      map.flyTo({center:f.geometry.coordinates, zoom:Math.min(z,17), essential:true});
+    });
+  });
+  map.on('mouseenter','educacion-clusters',function(){map.getCanvas().style.cursor='pointer';});
+  map.on('mouseleave','educacion-clusters',function(){map.getCanvas().style.cursor='';});
+
+  // Punto individual click → popup
+  map.on('click','educacion-points', function(e){
+    if(!e.features.length) return;
+    var p = e.features[0].properties;
+    var color = p.categoria === 'publico' ? '#5a90c0' :
+                p.categoria === 'concertado' ? '#9ec0d8' :
+                p.categoria === 'privado' ? '#c08a5a' : '#888';
+    var html = '<div style="padding:8px 4px;font-size:11px;line-height:1.5;max-width:240px">'
+      + '<div style="font-size:9px;letter-spacing:1.5px;color:'+color+';text-transform:uppercase">'
+      + (p.etapa || 'Centro') + (p.categoria ? ' · ' + p.categoria : '') + '</div>'
+      + '<div style="color:#d4c4a0;font-weight:600;margin:3px 0">' + (p.nombre || '(sin nombre)') + '</div>'
+      + (p.etapa_desc ? '<div style="color:#a89c80;font-size:10px;margin-bottom:4px">' + p.etapa_desc + '</div>' : '')
+      + '<div style="color:#8a8070;font-size:10px">' + [p.direccion, p.localidad, p.municipio].filter(Boolean).join(' · ') + '</div>'
+      + (p.web ? '<div style="margin-top:6px"><a href="' + p.web + '" target="_blank" rel="noopener" style="color:#9ec0d8;font-size:10px">Web del centro ↗</a></div>' : '')
+      + '</div>';
+    if(educacionPopup) educacionPopup.remove();
+    educacionPopup = new maplibregl.Popup({closeButton:true,maxWidth:'280px',offset:8})
+      .setLngLat(e.features[0].geometry.coordinates).setHTML(html).addTo(map);
+  });
+  map.on('mouseenter','educacion-points',function(){map.getCanvas().style.cursor='pointer';});
+  map.on('mouseleave','educacion-points',function(){map.getCanvas().style.cursor='';});
+}
+
+function toggleEducacion(){
+  if(!map.getSource('educacion')){
+    fetch('data/centros-educativos-prov35.geojson').then(function(r){return r.json();}).then(function(data){
+      setupEducacionLayer(data);
+      educacionVisible = true;
+      ['educacion-clusters','educacion-cluster-count','educacion-points'].forEach(function(id){
+        if(map.getLayer(id)) map.setLayoutProperty(id,'visibility','visible');
+      });
+      syncActiveLayer('educacion', educacionVisible);
+      showEducacionLegend(true);
+    }).catch(function(e){
+      console.warn('Centros educativos no cargados:', e);
+    });
+    return;
+  }
+  educacionVisible = !educacionVisible;
+  var v = educacionVisible ? 'visible' : 'none';
+  ['educacion-clusters','educacion-cluster-count','educacion-points'].forEach(function(id){
+    if(map.getLayer(id)) map.setLayoutProperty(id,'visibility',v);
+  });
+  if(!educacionVisible && educacionPopup){educacionPopup.remove(); educacionPopup=null;}
+  syncActiveLayer('educacion', educacionVisible);
+  showEducacionLegend(educacionVisible);
+}
+
+function showEducacionLegend(show){
+  var el = document.getElementById('educacion-legend');
+  if(!show){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'educacion-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);max-width:90vw;flex-wrap:wrap;justify-content:center';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span><b style="color:#5a90c0">Centros educativos</b> · provincia 35</span>' +
+    '<span style="color:#555">|</span>' +
+    '<span style="background:#5a90c0;width:10px;height:10px;border-radius:50%;display:inline-block"></span><span style="color:#888">Público</span>' +
+    '<span style="background:#9ec0d8;width:10px;height:10px;border-radius:50%;display:inline-block"></span><span style="color:#888">Concertado</span>' +
+    '<span style="color:#444;margin-left:6px;font-size:8px">Consejería Educación Canarias · datos.canarias.es</span>';
 }
 
 // ===========================================================

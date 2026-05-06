@@ -72,13 +72,14 @@ export default function RecursosPage() {
           href="/polis"
           griego="Πόλις"
           titulo="POLIS — paseo por el barrio"
+          titulo="POLIS — el mapa que se traza"
           lema="Donde se mira"
         >
-          Un paseo gamificado por las calles de tu barrio. Te mueves con un
-          avatar entre los edificios reales en 3D y vas activando lugares,
-          datos y micro-historias. Es el contraplano cívico de un mapa
-          turístico: tu calle no como destino, sino como territorio que se
-          reconoce y se cuida.
+          El mapa de tu barrio en 2.5D, completado entre vecinos. Donde el
+          satélite tiene huecos — un edificio sin contorno, un parque sin
+          nombre — alguien lo traza y el mapa va creciendo. Es el
+          contraplano cívico de un mapa turístico: tu calle no como
+          destino, sino como territorio que se reconoce y se cuida.
         </Recurso>
       </ol>
 

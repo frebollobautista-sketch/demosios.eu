@@ -180,6 +180,10 @@ body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif}
         <div class="toggle-switch"></div>
         <span>Todos los edificios</span>
       </div>
+      <div class="all-buildings-toggle" id="vv-toggle" onclick="toggleVV()" style="margin-top:6px">
+        <div class="toggle-switch"></div>
+        <span>Vivienda vacacional</span>
+      </div>
       <div class="mun-list" id="mun-list"></div>
     </div>
   </div>
@@ -296,7 +300,8 @@ var DATA_LAYERS = [
   {id:'osm-pois', name:'POIs', color:'#d4c4a0', file:'osm-gc/pois.json', fallback:'osm/pois.json', coverage:'?', loaded:false, data:null},
   {id:'buildings-3d', name:'Edificios 3D', color:'#c8b898', file:null, coverage:'Prov. 35 (690 secciones)', loaded:false, data:null},
   {id:'hillshade', name:'Terreno', color:'#8a7a5a', file:null, coverage:'Global', loaded:true, data:null},
-  {id:'renta', name:'Renta media', color:'#9a5aaa', file:'data/renta-seccion.json', coverage:'?', loaded:false, data:null}
+  {id:'renta', name:'Renta media', color:'#9a5aaa', file:'data/renta-seccion.json', coverage:'?', loaded:false, data:null},
+  {id:'vv', name:'Vivienda vacacional', color:'#e07a3a', file:'data/vv-prov35.geojson', coverage:'?', loaded:false, data:null}
 ];
 
 // ===== MAP =====
@@ -386,6 +391,10 @@ function loadOSMLayers() {
         RENTA_DATA = result.data;
         layer.coverage = Object.keys(result.data).length + ' secciones';
         console.log('Renta loaded: ' + Object.keys(result.data).length + ' sections');
+      } else if (layer.id === 'vv') {
+        setupVVLayer(result.data);
+        layer.coverage = (result.data.features ? result.data.features.length : '?') + ' VV';
+        console.log('VV loaded: ' + (result.data.features ? result.data.features.length : '?') + ' establishments');
       } else {
         setupOSMLayer(layer, result.data);
         console.log('Loaded ' + layer.id + ' (' + layer.coverage + '): ' + (result.data.features ? result.data.features.length : '?') + ' features');
@@ -608,6 +617,140 @@ function showRentaLegend(show, p20, p50, p80) {
     ' <span style="background:linear-gradient(90deg,#c45a4a,#d4c44a,#4aaa5a);width:60px;height:8px;border-radius:2px;display:inline-block"></span> ' +
     '<span style="color:#4aaa5a">&#9632;</span> &gt;'+Math.round(p80/1000)+'k&euro;' +
     ' <span style="color:#555;margin-left:4px">Renta media/persona (INE)</span>';
+}
+
+// ===== VIVIENDA VACACIONAL LAYER =====
+var vvVisible = false;
+var vvPopup = null;
+
+function setupVVLayer(data) {
+  if (map.getSource('vv')) return;
+  map.addSource('vv', {
+    type:'geojson',
+    data:data,
+    cluster:true,
+    clusterMaxZoom:14,
+    clusterRadius:45,
+    clusterProperties:{
+      plazas_total:['+',['get','plazas']]
+    }
+  });
+
+  // Clusters (zoom bajo)
+  map.addLayer({
+    id:'vv-clusters', type:'circle', source:'vv',
+    filter:['has','point_count'],
+    paint:{
+      'circle-color':['step',['get','point_count'],
+        '#e07a3a',  10,
+        '#d4632a',  100,
+        '#b54a18',  500,
+        '#8a3a10'
+      ],
+      'circle-radius':['step',['get','point_count'],
+        10, 10,
+        16, 100,
+        24, 500,
+        32
+      ],
+      'circle-opacity':0.78,
+      'circle-stroke-width':1.5,
+      'circle-stroke-color':'rgba(20,16,10,0.9)'
+    },
+    layout:{visibility:'none'}
+  });
+
+  map.addLayer({
+    id:'vv-cluster-count', type:'symbol', source:'vv',
+    filter:['has','point_count'],
+    layout:{
+      'text-field':['get','point_count_abbreviated'],
+      'text-font':['Noto Sans Regular'],
+      'text-size':['step',['get','point_count'], 11, 100, 13, 500, 15],
+      visibility:'none'
+    },
+    paint:{
+      'text-color':'#fff',
+      'text-halo-color':'rgba(0,0,0,0.5)',
+      'text-halo-width':1
+    }
+  });
+
+  // Puntos individuales (zoom alto)
+  map.addLayer({
+    id:'vv-points', type:'circle', source:'vv',
+    filter:['!',['has','point_count']],
+    paint:{
+      'circle-color':'#e07a3a',
+      'circle-radius':['interpolate',['linear'],['zoom'],14,3,17,6,19,9],
+      'circle-opacity':0.85,
+      'circle-stroke-width':1,
+      'circle-stroke-color':'rgba(20,16,10,0.9)'
+    },
+    layout:{visibility:'none'}
+  });
+
+  // Click cluster → zoom in
+  map.on('click','vv-clusters',function(e){
+    var f = map.queryRenderedFeatures(e.point,{layers:['vv-clusters']})[0];
+    if(!f) return;
+    var cid = f.properties.cluster_id;
+    map.getSource('vv').getClusterExpansionZoom(cid).then(function(z){
+      map.flyTo({center:f.geometry.coordinates, zoom:Math.min(z,18), essential:true});
+    });
+  });
+  map.on('mouseenter','vv-clusters',function(){map.getCanvas().style.cursor='pointer';});
+  map.on('mouseleave','vv-clusters',function(){map.getCanvas().style.cursor='';});
+
+  // Click punto individual → popup
+  map.on('click','vv-points',function(e){
+    if(!e.features.length) return;
+    var p = e.features[0].properties;
+    var html = '<div style="padding:8px 10px;font-size:11px;line-height:1.5;max-width:220px">'
+      + '<b style="color:#e07a3a;font-size:12px">'+(p.nombre||'(sin nombre)')+'</b><br>'
+      + '<span style="color:#8a8070">'+(p.municipio||'')+(p.localidad?' · '+p.localidad:'')+'</span><br>'
+      + '<span style="color:#d4c4a0">'+(p.plazas||0)+' plazas</span> '
+      + '<span style="color:#666">· '+(p.modalidad||'')+'</span><br>'
+      + '<span style="color:#555;font-size:10px">id: '+(p.id||'')+'</span>'
+      + '</div>';
+    if(vvPopup) vvPopup.remove();
+    vvPopup = new maplibregl.Popup({closeButton:true,maxWidth:'260px',offset:8})
+      .setLngLat(e.features[0].geometry.coordinates).setHTML(html).addTo(map);
+  });
+  map.on('mouseenter','vv-points',function(){map.getCanvas().style.cursor='pointer';});
+  map.on('mouseleave','vv-points',function(){map.getCanvas().style.cursor='';});
+}
+
+function toggleVV() {
+  if (!map.getLayer('vv-clusters')) return;
+  vvVisible = !vvVisible;
+  var v = vvVisible ? 'visible' : 'none';
+  map.setLayoutProperty('vv-clusters','visibility',v);
+  map.setLayoutProperty('vv-cluster-count','visibility',v);
+  map.setLayoutProperty('vv-points','visibility',v);
+  var btn = document.getElementById('vv-toggle');
+  if(btn) btn.classList.toggle('active', vvVisible);
+  if(!vvVisible && vvPopup){vvPopup.remove();vvPopup=null;}
+  showVVLegend(vvVisible);
+}
+
+function showVVLegend(show) {
+  var el = document.getElementById('vv-legend');
+  if(!show){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'vv-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px)';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span style="color:#e07a3a;font-size:11px">&#9679;</span>' +
+    '<span><b style="color:#e07a3a">Vivienda vacacional</b> · Registro Gral. Turístico Canarias</span>' +
+    '<span style="color:#555">|</span>' +
+    '<span style="color:#888">10 →</span><span style="background:#e07a3a;width:14px;height:14px;border-radius:50%;display:inline-block"></span>' +
+    '<span style="color:#888">100 →</span><span style="background:#d4632a;width:18px;height:18px;border-radius:50%;display:inline-block"></span>' +
+    '<span style="color:#888">500+ →</span><span style="background:#8a3a10;width:22px;height:22px;border-radius:50%;display:inline-block"></span>' +
+    '<span style="color:#444;margin-left:6px;font-size:8px">datos.canarias.es · CC-BY</span>';
 }
 
 // ===== LEVELS =====

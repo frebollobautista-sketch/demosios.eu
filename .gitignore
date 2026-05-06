@@ -34,7 +34,10 @@ yarn-error.log*
 /public/gc-municipios.json
 /public/polis-data.json
 /public/polis-v16.html
-/public/data/
+
+# /public/data/ — capas de datos cívicos para el visor (Canarias en Datos).
+# SÍ se versiona. Mantén archivos individuales por debajo de 25 MB.
+# Si un dataset supera 25 MB → Vercel Blob, o reducir precisión/simplificar el geojson.
 
 # Catastro / Geofabrik source data
 /catastro_data/
@@ -44,3 +47,6 @@ yarn-error.log*
 /KOINOS duplicado/
 /scripts/renta_debug.csv
 /scripts/renta_raw.csv
+
+# Datos brutos descargados desde portales públicos (fuente, no versionar)
+/scripts/raw/

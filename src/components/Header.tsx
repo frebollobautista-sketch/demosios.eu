@@ -6,14 +6,27 @@ import { LogoOCRE } from "./LogoOCRE";
 import { IconMail, IconUser, IconSettings } from "./Icons";
 import { useSession } from "@/lib/auth/useSession";
 
-type Seccion = { href: string; label: string };
+type Seccion = {
+  href: string;
+  label: string;
+  // Rutas adicionales bajo las que esta sección debe marcarse activa
+  alsoActive?: string[];
+};
 
 const SECCIONES: Seccion[] = [
   { href: "/", label: "Inicio" },
-  { href: "/agora", label: "Ágora" },
-  { href: "/bibliotheka", label: "Bibliotheka" },
-  { href: "/polis", label: "Polis" },
-  { href: "/nosotros", label: "Nosotros" },
+  { href: "/consultorias", label: "Consultorías" },
+  { href: "/canarias-en-datos", label: "Canarias en Datos" },
+  {
+    href: "/recursos",
+    label: "Recursos",
+    alsoActive: ["/agora", "/bibliotheka", "/polis"],
+  },
+  {
+    href: "/sobre-ocre",
+    label: "Sobre OCRE",
+    alsoActive: ["/nosotros"],
+  },
 ];
 
 /**
@@ -30,8 +43,12 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
   const pathname = usePathname();
   const { user, cargando } = useSession();
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (s: Seccion) => {
+    if (s.href === "/") return pathname === "/";
+    if (pathname.startsWith(s.href)) return true;
+    if (s.alsoActive?.some((p) => pathname.startsWith(p))) return true;
+    return false;
+  };
 
   return (
     <header
@@ -125,7 +142,7 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
             }}
           >
             {SECCIONES.map((s) => {
-              const activo = isActive(s.href);
+              const activo = isActive(s);
               return (
                 <li key={s.href} className="shrink-0">
                   <Link

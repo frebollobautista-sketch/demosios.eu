@@ -1,108 +1,124 @@
 import Link from "next/link";
 import { FaroHero } from "@/components/FaroHero";
 
+/**
+ * Home — lobby social de OCRE.
+ *
+ * Decisión 2026-05-06 (con Panch): la home pivota desde "Demos iOS by OCRE"
+ * (producto delante) hacia "OCRE · Demos iOS" (organización delante). El
+ * objetivo es que esta página actúe como vestíbulo de la organización
+ * cívica — no como portada de un producto. Las cuatro puertas son las
+ * funciones reales que ofrece OCRE a residentes y entidades de Canarias.
+ */
 export default function InicioPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8 pb-40">
-      {/* Hero: el faro como emblema. Se enciende 3 s cada 6. */}
+      {/* Hero: el faro como emblema de OCRE */}
       <section className="relative flex flex-col items-center text-center pt-4 pb-2">
         <FaroHero />
-        <div className="eyebrow mt-6">Demos iOS by OCRE</div>
+        <div className="eyebrow mt-6">Lobby cívico canario</div>
         <h1
           className="display mt-2 text-[clamp(2rem,4.8vw,2.8rem)]"
           style={{
             color: "var(--color-papiro-ink)",
             lineHeight: 1.05,
-            maxWidth: "32ch",
+            maxWidth: "30ch",
           }}
         >
-          Una plataforma cívica canaria, por isla y por barrio.
+          OCRE
         </h1>
+        <p
+          className="display italic mt-2 text-[1.05rem]"
+          style={{ color: "var(--color-ocre-deep)" }}
+        >
+          Organización Canaria para la Recuperación de Espacios
+        </p>
         <p
           className="mt-5 text-[1.05rem] max-w-2xl"
           style={{ color: "var(--color-piedra)" }}
         >
-          Demos iOS es el lugar donde la{" "}
-          <Link
-            href="/nosotros"
-            className="underline"
-            style={{ color: "var(--color-ocre-deep)" }}
-          >
-            Organización Canaria para la Recuperación de Espacios
-          </Link>{" "}
-          articula tres funciones básicas de toda comunidad política:
-          deliberar, acumular conocimiento, y cuidar el espacio que compartimos.
-          Tres secciones, una por función.
+          Acompañamos a residentes, autónomos, PYMEs, asociaciones y
+          ayuntamientos canarios en el cuidado, defensa y recuperación de los
+          espacios que compartimos — físicos, simbólicos y de información
+          pública. Lo hacemos abriendo datos, dando consultoría asequible y
+          construyendo recursos cívicos en abierto.
         </p>
       </section>
 
       <div className="divisor my-10" />
 
-      {/* Thread simple sobre las tres secciones */}
-      <section aria-labelledby="secciones">
+      {/* Cuatro puertas — las secciones del header */}
+      <section aria-labelledby="puertas">
         <h2
-          id="secciones"
+          id="puertas"
           className="display text-[1.3rem] mb-2"
           style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
         >
-          Cómo está organizado
+          Por dónde entrar
         </h2>
+        <p
+          className="text-[0.95rem] mt-1 mb-6"
+          style={{ color: "var(--color-piedra)" }}
+        >
+          Cuatro puertas, una organización. Elige según lo que necesites.
+        </p>
 
         <ol
           className="mt-5 space-y-6 list-none p-0 m-0"
-          style={{ counterReset: "seccion" }}
+          style={{ counterReset: "puerta" }}
         >
-          <BloqueSeccion
+          <Puerta
             indice={1}
-            href="/agora"
-            griego="Ἀγορά"
-            titulo="Ágora"
-            lema="Donde se habla"
+            href="/consultorias"
+            titulo="Consultorías"
+            lema="Si necesitas que te acompañemos"
           >
-            La plaza pública digital. Ocho secciones temáticas heredadas de
-            PHAROS (vivienda, trabajo, cambio climático, medios, común…) en
-            las que los miembros abren hilos, responden, y se avalan entre
-            sí. No hay algoritmo de engagement ni scroll infinito: se entra a
-            hablar de algo concreto y se sale cuando se ha dicho.
-          </BloqueSeccion>
+            Asesoría para ayuntamientos, asociaciones y profesionales sobre
+            apertura de datos, urbanismo, vivienda turística y participación
+            ciudadana en Canarias. Sesiones cortas, informes citables, y
+            puentes con la administración cuando aplica.
+          </Puerta>
 
-          <BloqueSeccion
+          <Puerta
             indice={2}
-            href="/bibliotheka"
-            griego="Βιβλιοθήκη"
-            titulo="Bibliotheka"
-            lema="Donde queda registrado"
+            href="/canarias-en-datos"
+            titulo="Canarias en Datos"
+            lema="Si quieres ver el archipiélago"
           >
-            La memoria de lo dicho y lo hecho, en dos alas. El{" "}
-            <em className="display italic">Cursus honorum</em> es un canal de
-            vídeos ciudadanos graduado por siete niveles cívicos con
-            correspondencia profesional real. <em className="display italic">τὰ Κοινά</em>{" "}
-            — «las cosas comunes» — es el repositorio de recursos del común:
-            guías, plantillas, servicios vecinales, clasificados por las
-            mismas ocho secciones del Ágora.
-          </BloqueSeccion>
+            Visor abierto de la provincia 35 — Gran Canaria, Fuerteventura y
+            Lanzarote — con capas de viviendas vacacionales, edificios,
+            secciones censales y otros indicadores públicos. Filtra, descarga
+            y cita. Iremos sumando indicadores nuevos cada mes.
+          </Puerta>
 
-          <BloqueSeccion
+          <Puerta
             indice={3}
-            href="/polis"
-            griego="Πόλις"
-            titulo="Polis"
-            lema="Donde se actúa sobre el territorio"
+            href="/recursos"
+            titulo="Recursos"
+            lema="Si vienes a aportar y consumir comunidad"
           >
-            El mapa-tablero del municipio. Cada barrio aparece coloreado por
-            el tipo de capital que lo posee — común, residente, autónomo,
-            rentista difuso, privado-corporativo. Los barrios con capital
-            mayoritariamente corporativo quedan marcados como{" "}
-            <strong>candidatos a recuperación</strong>. Pulsas cualquier
-            barrio, ves su composición y actúas: abres hilo, publicas
-            recurso, marcas bloque.
-          </BloqueSeccion>
+            Tres espacios cívicos digitales: <em>Ágora</em> para deliberar,{" "}
+            <em>Bibliotheka</em> para documentar y aprender, y un{" "}
+            <em>paseo gamificado</em> por el barrio para mirar tu calle con
+            otros ojos. Se entra con cuenta y se sale habiendo aportado algo.
+          </Puerta>
+
+          <Puerta
+            indice={4}
+            href="/sobre-ocre"
+            titulo="Sobre OCRE"
+            lema="Si quieres saber quiénes somos"
+          >
+            Quiénes formamos la organización, cómo nos financiamos, cómo
+            entendemos la palabra «común» y por qué pensamos que recuperar el
+            espacio empieza por verlo bien. Transparencia, no marketing.
+          </Puerta>
         </ol>
       </section>
 
       <div className="divisor my-10" />
 
-      {/* CTA cerrar con enlace a nosotros */}
+      {/* Cierre */}
       <section
         className="rounded-xl p-6 text-center"
         style={{
@@ -114,20 +130,20 @@ export default function InicioPage() {
           className="display italic text-[1rem]"
           style={{ color: "var(--color-papiro-ink)" }}
         >
-          Por dentro todavía somos pocos; por fuera, el archipiélago entero.
+          Recuperamos virtualmente el espacio antes de reclamarlo en la calle.
         </p>
         <p
           className="mt-3 text-[0.9rem]"
           style={{ color: "var(--color-piedra)" }}
         >
-          Si quieres entender quién está detrás, hacia dónde va el proyecto y
-          cómo se entiende «lo público» aquí, pasa por{" "}
+          OCRE opera el dominio <code>demosios.eu</code> como plataforma cívica
+          de servicios. Si quieres entender la decisión, pásate por{" "}
           <Link
-            href="/nosotros"
+            href="/sobre-ocre"
             className="underline"
             style={{ color: "var(--color-ocre-deep)", fontWeight: 600 }}
           >
-            Nosotros
+            Sobre OCRE
           </Link>
           .
         </p>
@@ -136,17 +152,15 @@ export default function InicioPage() {
   );
 }
 
-function BloqueSeccion({
+function Puerta({
   indice,
   href,
-  griego,
   titulo,
   lema,
   children,
 }: {
   indice: number;
   href: string;
-  griego: string;
   titulo: string;
   lema: string;
   children: React.ReactNode;
@@ -184,15 +198,6 @@ function BloqueSeccion({
         >
           {titulo}
         </Link>
-        <span
-          className="display italic"
-          style={{
-            color: "var(--color-ocre-deep)",
-            fontSize: "0.95rem",
-          }}
-        >
-          {griego}
-        </span>
         <span
           className="eyebrow"
           style={{ color: "var(--color-piedra-clara)" }}

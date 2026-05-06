@@ -273,3 +273,34 @@ Próximos pasos: (1) enriquecer alturas con datos catastrales de plantas cuando 
 
 ### 2026-04-19 — Cuarto eje opcional `oikonomia`
 Se decidió reducir a 3 ejes (koinonía/paideía/politeía). Si en iteraciones posteriores aparece una economía local productiva en OCRE, la interfaz `PesoPorEje` admite ampliarla sin romper contribuciones existentes.
+
+### 2026-05-06 — POLIS-juego: cartografía colaborativa estilo Dorfromantik
+Minijuego dentro de POLIS donde los ciudadanos rellenan los huecos del mapa satélite trazando polígonos sobre las zonas sin geometría OSM/Catastro. Es el motor de entrada para mejorar el mapeo + uno de los canales de distribución de PHAROS (decisión pendiente: si es la única puerta de entrada o una de varias).
+
+**Mecánica núcleo (decidida):**
+1. El usuario ve un hueco en el satélite y traza un polígono con 4-8 vértices.
+2. Etiqueta el tipo: edificio, parque, plaza peatonal, paseo, bus stop, etc.
+3. Si es edificio → indica nº de plantas (1-15) → al cerrar el polígono se eleva a 3D con animación (`fill-extrusion-height` interpolado, easeOutCubic, ~800ms).
+4. Si NO es edificio → fade-in del relleno con color/patrón por tipo (verde para parque, gris claro para peatonal, etc.).
+5. El trazo queda **translúcido = pendiente de validar**. Esa visibilidad de "pendiente" es el motor social: ver un trazo translúcido invita a confirmar o disputar.
+
+**Paleta de estados:**
+- Validado: opaco, #c8b898 (mismo tono que el visor actual).
+- Pendiente de otros: translúcido azul polis #3DBBF0, opacidad 0.45, borde punteado animado.
+- Tu propio trazo pendiente: translúcido oro PHAROS #D4AF37 — para distinguirlo del de otros de un vistazo.
+
+**Motor de competición (híbrido velocidad + calidad):**
+Quien primero traza un hueco se lleva PHAROS *pendientes*. Cuando el trazo se valida (consenso de otros usuarios), los cobra + bonus por haber sido quien lo abrió. Así el incentivo es trazar rápido **y** trazar bien — el griefing no paga porque las recompensas se liberan en la validación, no en el acto.
+
+**Validación por consenso (mecánica detallada — pendiente para fase posterior):**
+N trazos sobre el mismo punto con IoU ≥ X% → polígono mediana entra al GeoJSON oficial. El umbral 10/80% funciona en zonas urbanas pero no en medianías ni pueblos pequeños — hay que diseñar fallbacks (contraste contra Catastro/OSM cuando exista, umbral adaptativo por densidad, validación asíncrona por admin). El usuario marcó esto como "problema posterior" — se cierra primero la mecánica de la pieza.
+
+**Reuso del catálogo existente:**
+Las 274 piezas SVG ya generadas en `polis-piezas/` siguen útiles como (a) referencia visual de cómo se ven manzanas reales en LPGC, (b) piezas pre-validadas que arrancan el sistema sin esperar al consenso de la comunidad.
+
+**Decisiones pendientes antes de prototipar:**
+- Si POLIS-juego es la principal puerta de entrada de PHAROS o una de varias (afecta a cómo se cuadra con Ágora/Bibliotheka).
+- Dónde vive el modo: archivo nuevo `public/polis-juego.html` reusando MapLibre del visor, vs modo dentro de `polis-provincia.html` con toggle. Probablemente archivo nuevo para iterar sin romper el visor.
+
+**Detalle técnico (animación de elevación):**
+~30 líneas de JS sin librería — `setPaintProperty('fill-extrusion-height', h)` dentro de un `requestAnimationFrame` con easing easeOutCubic, target = `plantas × 3m`.

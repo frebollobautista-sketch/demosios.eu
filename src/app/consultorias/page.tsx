@@ -1,18 +1,20 @@
 import Link from "next/link";
+import { ConsultoriaForm } from "./ConsultoriaForm";
 
 export const metadata = {
   title: "Consultorías",
   description:
-    "Asesoría cívica de OCRE para ayuntamientos, asociaciones y profesionales en Canarias: apertura de datos, urbanismo, vivienda turística, participación ciudadana.",
+    "OCRE — lobby social con base territorial en Canarias. Consultorías operativas y de dirección estratégica para instituciones, tercer sector, empresas y autónomos con compromiso social demostrable.",
 };
 
 /**
- * /consultorias — vitrina de servicios de consultoría de OCRE.
+ * /consultorias — vitrina de servicios + formulario de solicitud.
  *
- * Estado: placeholder estructural. Iremos añadiendo casos, tarifas
- * orientativas y formulario de contacto. La idea es que el header dé
- * acceso directo desde el primer momento aunque el contenido aún sea
- * incompleto, para reservar el espacio de marca.
+ * Decisión 2026-05-06 con Panch: definición pública de OCRE como "lobby
+ * social con base territorial en Canarias". El formulario persiste a
+ * Supabase (tabla `consultoria_solicitudes`, ver migración
+ * 20260506130000_consultorias.sql) y permite hasta 5 adjuntos por
+ * solicitud.
  */
 export default function ConsultoriasPage() {
   return (
@@ -22,17 +24,25 @@ export default function ConsultoriasPage() {
         className="display mt-2 text-[clamp(1.8rem,4vw,2.4rem)]"
         style={{ color: "var(--color-papiro-ink)", lineHeight: 1.05 }}
       >
-        Acompañamos a quien trabaja por lo común en Canarias.
+        Acompañamos a quienes trabajan por lo común en Canarias.
       </h1>
       <p
-        className="mt-5 text-[1.05rem] max-w-2xl"
-        style={{ color: "var(--color-piedra)" }}
+        className="mt-5 text-[1.05rem]"
+        style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
       >
-        OCRE ofrece consultoría asequible a ayuntamientos, cabildos,
-        asociaciones, autónomos y PYMEs canarios sobre los temas en los que
-        nuestro trabajo cívico se solapa con sus necesidades operativas. No
-        somos un despacho de servicios: somos una organización con red, datos
-        propios y posición pública.
+        OCRE es un <strong>lobby social con base territorial en Canarias</strong>.
+        Prestamos actualmente <em>consultorías operativas y de dirección
+        estratégica</em> para instituciones, entes del tercer sector, así como
+        empresas y autónomos con compromiso en valores sociales demostrable.
+      </p>
+      <p
+        className="mt-3 text-[1rem]"
+        style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
+      >
+        No somos un despacho de servicios genéricos: somos una organización con
+        red, datos propios y posición pública. Cuando intervenimos lo hacemos
+        cruzando lo técnico con lo cívico — y dejamos huella documental abierta
+        siempre que el cliente lo permite.
       </p>
 
       <div className="divisor my-10" />
@@ -73,64 +83,56 @@ export default function ConsultoriasPage() {
 
       <div className="divisor my-10" />
 
+      {/* Formulario */}
       <section
-        className="rounded-xl p-6 text-center"
+        aria-labelledby="formulario"
+        className="rounded-xl p-6 sm:p-8"
         style={{
           background: "var(--color-surface)",
           border: "1px solid var(--color-linea)",
         }}
       >
         <h2
-          className="display text-[1.15rem]"
+          id="formulario"
+          className="display text-[1.3rem]"
           style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
         >
           ¿Tu organización necesita acompañamiento?
         </h2>
         <p
-          className="mt-3 text-[0.95rem] max-w-2xl mx-auto"
-          style={{ color: "var(--color-piedra)" }}
+          className="mt-2 mb-6 text-[0.95rem]"
+          style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
         >
-          Cuéntanos qué hace falta y te respondemos con una propuesta de
-          alcance, calendario y coste orientativo. Primer contacto sin
-          compromiso.
+          Cuéntanos brevemente quién eres y qué necesitas. Te respondemos en
+          un máximo de 5 días laborables con una propuesta de alcance,
+          calendario y coste orientativo. Primer contacto sin compromiso.
         </p>
-        <p
-          className="mt-5 text-[0.85rem]"
-          style={{ color: "var(--color-piedra-clara)" }}
-        >
-          Mientras montamos el formulario directo, escríbenos a{" "}
-          <a
-            href="mailto:hola@demosios.eu"
-            className="underline"
-            style={{ color: "var(--color-ocre-deep)", fontWeight: 600 }}
-          >
-            hola@demosios.eu
-          </a>
-          .
-        </p>
-        <p
-          className="mt-3 text-[0.8rem]"
-          style={{ color: "var(--color-piedra-clara)" }}
-        >
-          ¿Aún explorando? Pasa por{" "}
-          <Link
-            href="/canarias-en-datos"
-            className="underline"
-            style={{ color: "var(--color-ocre-deep)" }}
-          >
-            Canarias en Datos
-          </Link>{" "}
-          o lee{" "}
-          <Link
-            href="/sobre-ocre"
-            className="underline"
-            style={{ color: "var(--color-ocre-deep)" }}
-          >
-            Sobre OCRE
-          </Link>
-          .
-        </p>
+
+        <ConsultoriaForm />
       </section>
+
+      <p
+        className="mt-6 text-[0.85rem] text-center"
+        style={{ color: "var(--color-piedra-clara)" }}
+      >
+        ¿Aún explorando? Pasa por{" "}
+        <Link
+          href="/canarias-en-datos"
+          className="underline"
+          style={{ color: "var(--color-ocre-deep)" }}
+        >
+          Canarias en Datos
+        </Link>{" "}
+        o lee{" "}
+        <Link
+          href="/sobre-ocre"
+          className="underline"
+          style={{ color: "var(--color-ocre-deep)" }}
+        >
+          Sobre OCRE
+        </Link>
+        .
+      </p>
     </div>
   );
 }

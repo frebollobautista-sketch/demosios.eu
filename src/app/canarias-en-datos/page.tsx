@@ -131,7 +131,7 @@ export default function CanariasEnDatosPage() {
             titulo="Vivienda y turismo"
             items={[
               { name: "Vivienda vacacional", source: "Registro Gral. Turístico · datos.canarias.es", ready: true, color: "#e07a3a" },
-              { name: "Renta familiar disponible", source: "ISTAC · municipio", ready: false, color: "#9a5aaa" },
+              { name: "Renta media por sección censal", source: "INE · Atlas de Distribución de Renta · 698 secciones prov 35", ready: true, color: "#9a5aaa" },
             ]}
           />
           <Categoria

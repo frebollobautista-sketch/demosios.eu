@@ -691,8 +691,12 @@ function setupMunicipioLabels() {
 
 // ===== RENTA LAYER =====
 function toggleRenta() {
-  if (!RENTA_DATA) return;
+  if (!RENTA_DATA) {
+    console.warn('Datos de renta aún no cargados');
+    return;
+  }
   rentaVisible = !rentaVisible;
+  if(typeof syncActiveLayer === 'function') syncActiveLayer('renta', rentaVisible);
 
   if (rentaVisible) {
     var rentas = Object.values(RENTA_DATA).map(function(r){return r.renta;}).sort(function(a,b){return a-b;});
@@ -1283,7 +1287,7 @@ function hideLoading(){document.getElementById('loading').classList.remove('on')
 var LAYER_CATALOG = [
   {id:'vivienda', label:'Vivienda y turismo', layers:[
     {id:'vv', name:'Vivienda vacacional', dot:'#e07a3a', source:'Registro Gral. Turístico · datos.canarias.es', status:'ready', toggle:'toggleVV'},
-    {id:'renta-mun', name:'Renta familiar disponible', dot:'#9a5aaa', source:'ISTAC · municipio', status:'soon'}
+    {id:'renta', name:'Renta media por sección', dot:'#9a5aaa', source:'INE · 698 secciones prov 35', status:'ready', toggle:'toggleRenta'}
   ]},
   {id:'patrimonio', label:'Patrimonio y cultura', layers:[
     {id:'bic', name:'BIC — Bienes de Interés Cultural', dot:'#c44a4a', source:'GRAFCAN · D.G. Patrimonio Cultural', status:'ready', toggle:'toggleBIC'},

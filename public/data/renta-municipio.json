@@ -1,0 +1,172 @@
+{
+  "35001": {
+    "nombre": "Agaete",
+    "renta": 9691,
+    "hogar": 25508
+  },
+  "35002": {
+    "nombre": "Agüimes",
+    "renta": 9314,
+    "hogar": 26296
+  },
+  "35003": {
+    "nombre": "Antigua",
+    "renta": 8182,
+    "hogar": 21319
+  },
+  "35004": {
+    "nombre": "Arrecife",
+    "renta": 8811,
+    "hogar": 25547
+  },
+  "35005": {
+    "nombre": "Artenara",
+    "renta": 11247,
+    "hogar": 28366
+  },
+  "35006": {
+    "nombre": "Arucas",
+    "renta": 9848,
+    "hogar": 27866
+  },
+  "35007": {
+    "nombre": "Betancuria",
+    "renta": 9898,
+    "hogar": 29964
+  },
+  "35008": {
+    "nombre": "Firgas",
+    "renta": 9378,
+    "hogar": 26907
+  },
+  "35009": {
+    "nombre": "Gáldar",
+    "renta": 9116,
+    "hogar": 25939
+  },
+  "35010": {
+    "nombre": "Haría",
+    "renta": 10745,
+    "hogar": 26942
+  },
+  "35011": {
+    "nombre": "Ingenio",
+    "renta": 9103,
+    "hogar": 26055
+  },
+  "35012": {
+    "nombre": "Mogán",
+    "renta": 8342,
+    "hogar": 22965
+  },
+  "35013": {
+    "nombre": "Moya",
+    "renta": 8987,
+    "hogar": 23889
+  },
+  "35014": {
+    "nombre": "Oliva, La",
+    "renta": 7372,
+    "hogar": 21408
+  },
+  "35015": {
+    "nombre": "Pájara",
+    "renta": 9746,
+    "hogar": 24657
+  },
+  "35016": {
+    "nombre": "Palmas de Gran Canaria, Las",
+    "renta": 10777,
+    "hogar": 30079
+  },
+  "35017": {
+    "nombre": "Puerto del Rosario",
+    "renta": 9891,
+    "hogar": 27637
+  },
+  "35018": {
+    "nombre": "San Bartolomé",
+    "renta": 9958,
+    "hogar": 27648
+  },
+  "35019": {
+    "nombre": "San Bartolomé de Tirajana",
+    "renta": 9520,
+    "hogar": 24341
+  },
+  "35020": {
+    "nombre": "Aldea de San Nicolás, La",
+    "renta": 7702,
+    "hogar": 21976
+  },
+  "35021": {
+    "nombre": "Santa Brígida",
+    "renta": 13994,
+    "hogar": 41255
+  },
+  "35022": {
+    "nombre": "Santa Lucía de Tirajana",
+    "renta": 8064,
+    "hogar": 23959
+  },
+  "35023": {
+    "nombre": "Santa María de Guía de Gran Canaria",
+    "renta": 9121,
+    "hogar": 24944
+  },
+  "35024": {
+    "nombre": "Teguise",
+    "renta": 10674,
+    "hogar": 30616
+  },
+  "35025": {
+    "nombre": "Tejeda",
+    "renta": 11319,
+    "hogar": 24471
+  },
+  "35026": {
+    "nombre": "Telde",
+    "renta": 9252,
+    "hogar": 25701
+  },
+  "35027": {
+    "nombre": "Teror",
+    "renta": 9678,
+    "hogar": 26455
+  },
+  "35028": {
+    "nombre": "Tías",
+    "renta": 9265,
+    "hogar": 25593
+  },
+  "35029": {
+    "nombre": "Tinajo",
+    "renta": 9431,
+    "hogar": 28569
+  },
+  "35030": {
+    "nombre": "Tuineje",
+    "renta": 9586,
+    "hogar": 28616
+  },
+  "35031": {
+    "nombre": "Valsequillo de Gran Canaria",
+    "renta": 9256,
+    "hogar": 26726
+  },
+  "35032": {
+    "nombre": "Valleseco",
+    "renta": 9941,
+    "hogar": 26659
+  },
+  "35033": {
+    "nombre": "Vega de San Mateo",
+    "renta": 9541,
+    "hogar": 24519
+  },
+  "35034": {
+    "nombre": "Yaiza",
+    "renta": 9080,
+    "hogar": 25069
+  }
+}

@@ -71,7 +71,6 @@ export default function RecursosPage() {
           indice={3}
           href="/polis"
           griego="Πόλις"
-          titulo="POLIS — paseo por el barrio"
           titulo="POLIS — el mapa que se traza"
           lema="Donde se mira"
         >

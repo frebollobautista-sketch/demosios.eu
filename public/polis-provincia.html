@@ -138,6 +138,120 @@ body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif}
 }
 .all-buildings-toggle.active .toggle-switch::after{left:16px;background:#d4c4a0}
 
+/* ===== LAYER PANEL ("Capas") ===== */
+.layer-btn{
+  position:fixed;top:10px;right:10px;z-index:11;
+  background:linear-gradient(135deg,#1a1610 0%,#15120e 100%);
+  border:1px solid #2a2520;border-radius:8px;
+  padding:9px 12px;color:#d4c4a0;font-size:12px;letter-spacing:1px;
+  font-family:system-ui,sans-serif;cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  box-shadow:2px 2px 12px rgba(0,0,0,0.45);
+  transition:border-color .2s, box-shadow .2s;
+  text-transform:uppercase;
+}
+.layer-btn:hover{border-color:#3a3530;box-shadow:2px 2px 16px rgba(0,0,0,0.55)}
+.layer-btn.has-active{border-color:#d4c4a0;color:#fff5d8}
+.layer-btn .layer-btn-count{
+  background:#d4c4a0;color:#15120e;font-weight:700;
+  border-radius:10px;padding:1px 6px;font-size:10px;letter-spacing:0;
+}
+.layer-btn .layer-btn-icon{font-size:14px;line-height:1}
+
+.layer-panel{
+  position:fixed;top:0;right:0;height:100vh;width:320px;z-index:13;
+  background:linear-gradient(180deg,#161310 0%,#100e0c 100%);
+  border-left:1px solid #2a2520;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+  box-shadow:-4px 0 20px rgba(0,0,0,0.5);
+}
+.layer-panel.open{transform:translateX(0)}
+.layer-panel-header{
+  padding:14px 16px 10px;border-bottom:1px solid #2a2520;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.layer-panel-header h2{
+  font-size:11px;letter-spacing:2px;color:#d4c4a0;
+  text-transform:uppercase;font-weight:500;
+}
+.layer-panel-header .close-btn{
+  background:none;border:none;color:#8a7a5a;cursor:pointer;
+  font-size:20px;line-height:1;padding:0 4px;
+}
+.layer-panel-header .close-btn:hover{color:#d4c4a0}
+.layer-panel-body{flex:1;overflow-y:auto;padding:8px 0}
+.layer-panel-body::-webkit-scrollbar{width:4px}
+.layer-panel-body::-webkit-scrollbar-thumb{background:#2a2520;border-radius:2px}
+
+.cat-group{border-bottom:1px solid #1f1c18}
+.cat-header{
+  padding:10px 16px;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;user-select:none;
+}
+.cat-header:hover{background:#1c1916}
+.cat-header .cat-title{
+  font-size:11px;letter-spacing:1.5px;color:#a89c80;
+  text-transform:uppercase;font-weight:500;
+}
+.cat-header .cat-arrow{font-size:9px;color:#5a5040;transition:transform .2s}
+.cat-group.open .cat-header .cat-arrow{transform:rotate(90deg)}
+.cat-body{display:none;padding:0 16px 8px}
+.cat-group.open .cat-body{display:block}
+
+.layer-row{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:8px 6px;border-radius:5px;cursor:pointer;
+  transition:background .15s;
+}
+.layer-row:hover{background:#1c1916}
+.layer-row.disabled{cursor:not-allowed;opacity:0.5}
+.layer-row.disabled:hover{background:transparent}
+.layer-checkbox{
+  width:16px;height:16px;border-radius:3px;border:1px solid #3a3530;
+  background:#0c0a08;flex-shrink:0;margin-top:1px;position:relative;
+  transition:all .15s;
+}
+.layer-row.active .layer-checkbox{
+  background:#d4c4a0;border-color:#d4c4a0;
+}
+.layer-row.active .layer-checkbox::after{
+  content:'✓';position:absolute;left:2px;top:-2px;
+  color:#15120e;font-size:13px;font-weight:700;
+}
+.layer-info{flex:1;min-width:0}
+.layer-info .layer-name{
+  font-size:12px;color:#d4c4a0;font-weight:500;
+  display:flex;align-items:center;gap:6px;
+}
+.layer-info .layer-dot{
+  width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;
+}
+.layer-info .layer-source{
+  font-size:9.5px;color:#5a5040;margin-top:2px;letter-spacing:0.3px;
+}
+.layer-soon{
+  background:#2a2520;color:#8a7a5a;
+  font-size:8.5px;padding:1px 5px;border-radius:3px;letter-spacing:1px;
+  margin-left:auto;flex-shrink:0;
+}
+.layer-panel-footer{
+  padding:10px 16px;border-top:1px solid #2a2520;
+  font-size:9px;color:#5a5040;letter-spacing:0.3px;line-height:1.5;
+}
+.layer-panel-footer a{color:#8a7a5a;text-decoration:underline}
+
+/* Mobile: bottom-sheet */
+@media (max-width:720px){
+  .layer-panel{
+    top:auto;bottom:0;width:100%;height:70vh;
+    border-left:none;border-top:1px solid #2a2520;
+    border-radius:14px 14px 0 0;
+    transform:translateY(100%);
+  }
+  .layer-panel.open{transform:translateY(0)}
+}
+
 .loading{
   position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;
   background:rgba(10,10,10,0.94);color:#d4c4a0;padding:6px 14px;border-radius:8px;
@@ -156,6 +270,29 @@ body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif}
 </head>
 <body>
 <div id="map"></div>
+
+<!-- Botón flotante "Capas" -->
+<button class="layer-btn" id="layer-btn" onclick="toggleLayerPanel()">
+  <span class="layer-btn-icon">🗂️</span>
+  <span>Capas</span>
+  <span class="layer-btn-count" id="layer-btn-count" style="display:none">0</span>
+</button>
+
+<!-- Panel "Capas" -->
+<aside class="layer-panel" id="layer-panel" aria-hidden="true">
+  <div class="layer-panel-header">
+    <h2>Capas activas</h2>
+    <button class="close-btn" onclick="toggleLayerPanel()" aria-label="Cerrar panel">×</button>
+  </div>
+  <div class="layer-panel-body" id="layer-panel-body">
+    <!-- Categorías inyectadas por JS desde LAYER_CATALOG -->
+  </div>
+  <div class="layer-panel-footer">
+    Las capas marcadas como <em>próximamente</em> se publicarán en las siguientes
+    semanas. Los datos se sirven desde sus fuentes originales y se citan en cada
+    capa. <a href="https://demosios.eu/canarias-en-datos" target="_top">Ver el plan</a>.
+  </div>
+</aside>
 
 <!-- Island navigator — top center -->
 <div class="island-nav" id="island-nav">
@@ -179,10 +316,6 @@ body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif}
       <div class="all-buildings-toggle" id="all-buildings-toggle" onclick="toggleAllBuildings()">
         <div class="toggle-switch"></div>
         <span>Todos los edificios</span>
-      </div>
-      <div class="all-buildings-toggle" id="vv-toggle" onclick="toggleVV()" style="margin-top:6px">
-        <div class="toggle-switch"></div>
-        <span>Vivienda vacacional</span>
       </div>
       <div class="mun-list" id="mun-list"></div>
     </div>
@@ -728,9 +861,8 @@ function toggleVV() {
   map.setLayoutProperty('vv-clusters','visibility',v);
   map.setLayoutProperty('vv-cluster-count','visibility',v);
   map.setLayoutProperty('vv-points','visibility',v);
-  var btn = document.getElementById('vv-toggle');
-  if(btn) btn.classList.toggle('active', vvVisible);
   if(!vvVisible && vvPopup){vvPopup.remove();vvPopup=null;}
+  syncActiveLayer('vv', vvVisible);
   showVVLegend(vvVisible);
 }
 
@@ -1141,6 +1273,282 @@ function getBounds(geom){
 }
 function showLoading(msg){var l=document.getElementById('loading');l.textContent=msg;l.classList.add('on');}
 function hideLoading(){document.getElementById('loading').classList.remove('on');}
+
+// ===========================================================
+//  PANEL "CAPAS" — Catálogo de indicadores cívicos
+//  Decisión 2026-05-06 con Panch: 5 categorías × 2 indicadores = 10 capas.
+//  Estructura escalable, persistencia en URL (?capas=vv,bic), y huecos
+//  marcados "próximamente" para mostrar el plan.
+// ===========================================================
+var LAYER_CATALOG = [
+  {id:'vivienda', label:'Vivienda y turismo', layers:[
+    {id:'vv', name:'Vivienda vacacional', dot:'#e07a3a', source:'Registro Gral. Turístico · datos.canarias.es', status:'ready', toggle:'toggleVV'},
+    {id:'renta-mun', name:'Renta familiar disponible', dot:'#9a5aaa', source:'ISTAC · municipio', status:'soon'}
+  ]},
+  {id:'patrimonio', label:'Patrimonio y cultura', layers:[
+    {id:'bic', name:'BIC — Bienes de Interés Cultural', dot:'#c44a4a', source:'GRAFCAN · D.G. Patrimonio Cultural', status:'ready', toggle:'toggleBIC'},
+    {id:'arqueo', name:'Yacimientos arqueológicos', dot:'#8a4a2a', source:'datos.canarias.es', status:'soon'}
+  ]},
+  {id:'movilidad', label:'Movilidad y transporte', layers:[
+    {id:'guaguas', name:'Guaguas Municipales LPGC: paradas + líneas', dot:'#3da06a', source:'GTFS Guaguas Municipales', status:'soon'},
+    {id:'cobertura', name:'Cobertura de transporte (300 m)', dot:'#5dc88a', source:'derivado de paradas', status:'soon'}
+  ]},
+  {id:'demografia', label:'Demografía', layers:[
+    {id:'poblacion', name:'Población por sección censal', dot:'#5a8aa8', source:'INE · Padrón continuo', status:'soon'},
+    {id:'densidad', name:'Densidad demográfica (hab/km²)', dot:'#7aa5c0', source:'derivado población × área', status:'soon'}
+  ]},
+  {id:'equipamientos', label:'Equipamientos', layers:[
+    {id:'educacion', name:'Centros educativos', dot:'#5a90c0', source:'Consejería Educación Canarias', status:'soon'},
+    {id:'salud', name:'Centros de salud', dot:'#c8d05a', source:'Servicio Canario de Salud', status:'soon'}
+  ]}
+];
+
+var ACTIVE_LAYERS = new Set();
+var LAYER_PANEL_OPEN = false;
+
+function renderLayerPanel(){
+  var body = document.getElementById('layer-panel-body');
+  if(!body) return;
+  body.innerHTML = '';
+  LAYER_CATALOG.forEach(function(cat, idx){
+    var open = idx === 0 || cat.layers.some(function(l){return ACTIVE_LAYERS.has(l.id);});
+    var group = document.createElement('div');
+    group.className = 'cat-group' + (open ? ' open' : '');
+    group.innerHTML =
+      '<div class="cat-header" onclick="this.parentElement.classList.toggle(\'open\')">' +
+        '<span class="cat-title">' + cat.label + '</span>' +
+        '<span class="cat-arrow">▶</span>' +
+      '</div>' +
+      '<div class="cat-body"></div>';
+    var catBody = group.querySelector('.cat-body');
+    cat.layers.forEach(function(l){
+      var row = document.createElement('div');
+      var isActive = ACTIVE_LAYERS.has(l.id);
+      var isReady = l.status === 'ready';
+      row.className = 'layer-row' + (isActive ? ' active' : '') + (!isReady ? ' disabled' : '');
+      if(isReady){
+        row.onclick = function(){ window[l.toggle](); };
+      }
+      row.innerHTML =
+        '<div class="layer-checkbox"></div>' +
+        '<div class="layer-info">' +
+          '<div class="layer-name">' +
+            '<span class="layer-dot" style="background:' + l.dot + '"></span>' +
+            l.name +
+            (!isReady ? '<span class="layer-soon">PRÓXIMAMENTE</span>' : '') +
+          '</div>' +
+          '<div class="layer-source">' + l.source + '</div>' +
+        '</div>';
+      catBody.appendChild(row);
+    });
+    body.appendChild(group);
+  });
+  updateLayerBtnCount();
+}
+
+function updateLayerBtnCount(){
+  var btn = document.getElementById('layer-btn');
+  var count = document.getElementById('layer-btn-count');
+  var n = ACTIVE_LAYERS.size;
+  if(n > 0){
+    count.style.display = '';
+    count.textContent = String(n);
+    btn.classList.add('has-active');
+  } else {
+    count.style.display = 'none';
+    btn.classList.remove('has-active');
+  }
+}
+
+function toggleLayerPanel(){
+  LAYER_PANEL_OPEN = !LAYER_PANEL_OPEN;
+  document.getElementById('layer-panel').classList.toggle('open', LAYER_PANEL_OPEN);
+  document.getElementById('layer-panel').setAttribute('aria-hidden', String(!LAYER_PANEL_OPEN));
+  if(LAYER_PANEL_OPEN) renderLayerPanel();
+}
+
+function syncActiveLayer(layerId, on){
+  if(on) ACTIVE_LAYERS.add(layerId); else ACTIVE_LAYERS.delete(layerId);
+  if(LAYER_PANEL_OPEN) renderLayerPanel(); else updateLayerBtnCount();
+  syncURL();
+}
+
+function syncURL(){
+  var params = new URLSearchParams(window.location.search);
+  if(ACTIVE_LAYERS.size){
+    params.set('capas', Array.from(ACTIVE_LAYERS).join(','));
+  } else {
+    params.delete('capas');
+  }
+  var newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+  window.history.replaceState({}, '', newUrl);
+}
+
+function applyURLLayers(){
+  var params = new URLSearchParams(window.location.search);
+  var capas = (params.get('capas') || '').split(',').filter(Boolean);
+  capas.forEach(function(id){
+    var entry = null;
+    LAYER_CATALOG.forEach(function(c){c.layers.forEach(function(l){if(l.id===id) entry=l;});});
+    if(entry && entry.status === 'ready' && window[entry.toggle]) {
+      window[entry.toggle]();
+    }
+  });
+}
+
+// ===========================================================
+//  CAPA BIC — Bienes de Interés Cultural
+//  Servida vía WMS de GRAFCAN (sin descarga; click → GetFeatureInfo).
+//  Fuente: https://idecan2.grafcan.es/ServicioWMS/BIC
+// ===========================================================
+var bicVisible = false;
+var bicPopup = null;
+var BIC_WMS_URL = 'https://idecan2.grafcan.es/ServicioWMS/BIC';
+var BIC_LAYERS_ALL = 'BIC_MN,BIC_CH,BIC_JH,BIC_SE,BIC_SH,BIC_ZA,BIC_ZP';
+var BIC_LAYER_NAMES = {
+  'BIC_MN':'Monumento','BIC_CH':'Conjunto histórico','BIC_JH':'Jardín histórico',
+  'BIC_SE':'Sitio etnológico','BIC_SH':'Sitio histórico',
+  'BIC_ZA':'Zona arqueológica','BIC_ZP':'Zona paleontológica'
+};
+
+function setupBICLayer(){
+  if(map.getSource('bic-wms')) return;
+  // Tiles WMS — MapLibre raster source
+  map.addSource('bic-wms', {
+    type:'raster',
+    tiles:[BIC_WMS_URL +
+      '?service=WMS&version=1.1.1&request=GetMap' +
+      '&layers=' + BIC_LAYERS_ALL +
+      '&bbox={bbox-epsg-3857}&width=256&height=256' +
+      '&srs=EPSG:3857&format=image/png&transparent=true'],
+    tileSize:256,
+    attribution:'BIC: GRAFCAN · D.G. Patrimonio Cultural'
+  });
+  map.addLayer({
+    id:'bic-wms', type:'raster', source:'bic-wms',
+    paint:{'raster-opacity':0.78},
+    layout:{visibility:'none'}
+  });
+}
+
+function toggleBIC(){
+  if(!map.getLayer('bic-wms')) setupBICLayer();
+  bicVisible = !bicVisible;
+  map.setLayoutProperty('bic-wms','visibility', bicVisible ? 'visible' : 'none');
+  if(!bicVisible && bicPopup){bicPopup.remove(); bicPopup=null;}
+  syncActiveLayer('bic', bicVisible);
+  showBICLegend(bicVisible);
+}
+
+// Click en el mapa → GetFeatureInfo si la capa BIC está activa.
+// Lo hacemos sobre el contenedor entero del mapa (no es vector, no hay
+// 'click' nativo en una capa raster).
+function bicMapClickHandler(e){
+  if(!bicVisible) return;
+  var canvas = map.getCanvas();
+  var rect = canvas.getBoundingClientRect();
+  var pixelW = canvas.width / (window.devicePixelRatio || 1);
+  var pixelH = canvas.height / (window.devicePixelRatio || 1);
+  var i = Math.round(e.point.x);
+  var j = Math.round(e.point.y);
+  var b = map.getBounds();
+  // WMS 1.1.1 espera bbox=minLng,minLat,maxLng,maxLat con SRS=EPSG:4326
+  var bbox = [b.getWest(),b.getSouth(),b.getEast(),b.getNorth()].join(',');
+  var url = BIC_WMS_URL +
+    '?service=WMS&version=1.1.1&request=GetFeatureInfo' +
+    '&layers=' + BIC_LAYERS_ALL +
+    '&query_layers=' + BIC_LAYERS_ALL +
+    '&srs=EPSG:4326&bbox=' + bbox +
+    '&width=' + Math.round(pixelW) + '&height=' + Math.round(pixelH) +
+    '&x=' + i + '&y=' + j +
+    '&info_format=application/vnd.ogc.gml';
+
+  fetch(url).then(function(r){return r.text();}).then(function(xml){
+    var info = parseBICGML(xml);
+    if(!info.length) return;
+    var html = info.map(function(f){
+      return '<div style="padding:8px 4px;font-size:11px;line-height:1.55;border-top:1px solid #2a2520;margin-top:6px">'
+        + '<div style="font-size:9px;letter-spacing:1px;color:#c44a4a;text-transform:uppercase">'
+        + (BIC_LAYER_NAMES[f.tipo] || f.tipo) + '</div>'
+        + '<div style="color:#d4c4a0;font-weight:600;margin:2px 0">'
+        + (f.deno_bic || 'Sin denominación') + '</div>'
+        + (f.fecha_decl ? '<div style="color:#8a8070;font-size:10px">Declarado ' + formatBICFecha(f.fecha_decl) + '</div>' : '')
+        + (f.descripcio ? '<div style="color:#a89c80;margin-top:6px;max-height:140px;overflow-y:auto">'
+            + escapeHtml(f.descripcio).slice(0,400) + (f.descripcio.length > 400 ? '…' : '') + '</div>' : '')
+        + '</div>';
+    }).join('');
+    if(bicPopup) bicPopup.remove();
+    bicPopup = new maplibregl.Popup({closeButton:true,maxWidth:'320px',offset:8})
+      .setLngLat(e.lngLat)
+      .setHTML('<div style="padding:0 6px 4px"><div style="font-size:9px;letter-spacing:1.5px;color:#888">PATRIMONIO BIC · ' + info.length + (info.length===1?' RESULTADO':' RESULTADOS') + '</div>' + html + '</div>')
+      .addTo(map);
+  }).catch(function(err){
+    console.warn('GetFeatureInfo BIC falló:', err);
+  });
+}
+
+function parseBICGML(xml){
+  var out = [];
+  var parser = new DOMParser();
+  var doc = parser.parseFromString(xml, 'text/xml');
+  var layers = doc.querySelectorAll('[*|name]');
+  // Recorremos cualquier *_feature dentro de cualquier *_layer
+  Array.from(doc.getElementsByTagName('*')).forEach(function(el){
+    if(/_feature$/.test(el.localName || el.tagName)){
+      var tipo = (el.parentNode.localName || el.parentNode.tagName).replace(/_layer$/,'');
+      var feat = {tipo:tipo};
+      Array.from(el.children).forEach(function(c){
+        var k = c.localName || c.tagName;
+        if(k === 'boundedBy' || k.indexOf(':') !== -1) return;
+        feat[k] = (c.textContent || '').trim();
+      });
+      if(feat.deno_bic || feat.descripcio) out.push(feat);
+    }
+  });
+  return out;
+}
+
+function formatBICFecha(s){
+  // entrada esperada: "1973/04/05" o "19730405"
+  if(/^\d{4}\/\d{2}\/\d{2}/.test(s)){
+    var p = s.split('/');
+    return p[2] + '/' + p[1] + '/' + p[0];
+  }
+  if(/^\d{8}/.test(s)){
+    return s.substr(6,2) + '/' + s.substr(4,2) + '/' + s.substr(0,4);
+  }
+  return s;
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+  });
+}
+
+function showBICLegend(show){
+  var el = document.getElementById('bic-legend');
+  if(!show){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'bic-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);max-width:90vw;flex-wrap:wrap;justify-content:center';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span style="color:#c44a4a;font-size:11px">▢</span>' +
+    '<span><b style="color:#c44a4a">BIC — Bienes de Interés Cultural</b> · click sobre el mapa para ver detalles</span>' +
+    '<span style="color:#444;margin-left:6px;font-size:8px">GRAFCAN · D.G. Patrimonio Cultural</span>';
+}
+
+// Hook al click — solo se activa si la capa BIC está visible.
+map.on('load', function(){
+  // Inicializar panel y URL
+  renderLayerPanel();
+  setTimeout(applyURLLayers, 250); // tras carga inicial de boundaries
+  // Click handler global para BIC GetFeatureInfo
+  map.on('click', bicMapClickHandler);
+});
 </script>
 </body>
 </html>

@@ -105,35 +105,63 @@ export default function CanariasEnDatosPage() {
 
       <div className="divisor my-10" />
 
-      <section className="grid gap-6 sm:grid-cols-2">
-        <Bloque titulo="Capas activas hoy">
+      <section className="space-y-6">
+        <Bloque titulo="Base territorial (siempre visible)">
           <ul
             className="text-[0.92rem] list-disc pl-5 space-y-1"
             style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
           >
-            <li>Edificios 3D (128.215 polígonos extruidos por altura)</li>
-            <li>Secciones censales (709, INE 2019)</li>
-            <li>Municipios (34, prov. 35)</li>
-            <li>OSM: carreteras, parques, agua, costa, POIs</li>
-            <li>
-              <strong>Vivienda vacacional</strong> · 24.884 establecimientos
-              registrados (Registro Gral. Turístico, datos.canarias.es)
-            </li>
+            <li>Edificios 3D — 128.215 polígonos extruidos por altura</li>
+            <li>Secciones censales — 709, INE 2019</li>
+            <li>Municipios — 34 de la provincia 35</li>
+            <li>OSM — carreteras, parques, agua, costa, POIs</li>
           </ul>
         </Bloque>
 
-        <Bloque titulo="Próximos indicadores">
-          <ul
-            className="text-[0.92rem] list-disc pl-5 space-y-1"
-            style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
+        <Bloque titulo="Indicadores cívicos — hoja de ruta de 10 capas">
+          <p
+            className="text-[0.88rem] mb-4"
+            style={{ color: "var(--color-piedra-clara)" }}
           >
-            <li>BIC — Bienes de Interés Cultural (patrimonio)</li>
-            <li>Renta media por sección censal (INE)</li>
-            <li>Calidad del aire en tiempo real (5 estaciones LPGC)</li>
-            <li>Guaguas: paradas, líneas y huella de cobertura (GTFS)</li>
-            <li>PGOU — zonificación urbanística (SITCAN)</li>
-            <li>Catastro enriquecido (año, superficie, uso)</li>
-          </ul>
+            Cinco categorías × dos indicadores. Activa los que necesites desde el
+            botón <em>🗂️ Capas</em> del visor. Las próximas se publican
+            progresivamente.
+          </p>
+          <Categoria
+            titulo="Vivienda y turismo"
+            items={[
+              { name: "Vivienda vacacional", source: "Registro Gral. Turístico · datos.canarias.es", ready: true, color: "#e07a3a" },
+              { name: "Renta familiar disponible", source: "ISTAC · municipio", ready: false, color: "#9a5aaa" },
+            ]}
+          />
+          <Categoria
+            titulo="Patrimonio y cultura"
+            items={[
+              { name: "BIC — Bienes de Interés Cultural", source: "GRAFCAN · D.G. Patrimonio Cultural", ready: true, color: "#c44a4a" },
+              { name: "Yacimientos arqueológicos", source: "datos.canarias.es", ready: false, color: "#8a4a2a" },
+            ]}
+          />
+          <Categoria
+            titulo="Movilidad y transporte"
+            items={[
+              { name: "Guaguas Municipales LPGC: paradas + líneas", source: "GTFS Guaguas Municipales", ready: false, color: "#3da06a" },
+              { name: "Cobertura de transporte (300 m)", source: "derivado de paradas", ready: false, color: "#5dc88a" },
+            ]}
+          />
+          <Categoria
+            titulo="Demografía"
+            items={[
+              { name: "Población por sección censal", source: "INE · Padrón continuo", ready: false, color: "#5a8aa8" },
+              { name: "Densidad demográfica (hab/km²)", source: "derivado población × área", ready: false, color: "#7aa5c0" },
+            ]}
+          />
+          <Categoria
+            titulo="Equipamientos"
+            items={[
+              { name: "Centros educativos", source: "Consejería Educación Canarias", ready: false, color: "#5a90c0" },
+              { name: "Centros de salud", source: "Servicio Canario de Salud", ready: false, color: "#c8d05a" },
+            ]}
+          />
         </Bloque>
       </section>
 
@@ -189,6 +217,73 @@ function Bloque({
         {titulo}
       </h3>
       {children}
+    </div>
+  );
+}
+
+function Categoria({
+  titulo,
+  items,
+}: {
+  titulo: string;
+  items: { name: string; source: string; ready: boolean; color: string }[];
+}) {
+  return (
+    <div className="mb-5 last:mb-0">
+      <div
+        className="eyebrow mb-2"
+        style={{ color: "var(--color-piedra-clara)" }}
+      >
+        {titulo}
+      </div>
+      <ul className="space-y-1.5 list-none p-0 m-0">
+        {items.map((it) => (
+          <li
+            key={it.name}
+            className="flex items-start gap-2.5 text-[0.9rem]"
+            style={{
+              color: it.ready
+                ? "var(--color-papiro-ink)"
+                : "var(--color-piedra-clara)",
+              lineHeight: 1.5,
+            }}
+          >
+            <span
+              aria-hidden
+              className="inline-block rounded-full mt-1.5 shrink-0"
+              style={{
+                width: 8,
+                height: 8,
+                background: it.color,
+                opacity: it.ready ? 1 : 0.4,
+              }}
+            />
+            <span className="flex-1">
+              <strong style={{ fontWeight: it.ready ? 600 : 500 }}>
+                {it.name}
+              </strong>
+              <span
+                className="text-[0.78rem] ml-2"
+                style={{ color: "var(--color-piedra-clara)" }}
+              >
+                {it.source}
+              </span>
+              {!it.ready && (
+                <span
+                  className="ml-2 text-[0.7rem] tracking-wider px-1.5 py-0.5 rounded"
+                  style={{
+                    background: "var(--color-papiro-soft)",
+                    color: "var(--color-piedra)",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Próximamente
+                </span>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

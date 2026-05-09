@@ -129,6 +129,7 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
                   setOpenMenu(openMenu === "buzon" ? null : "buzon")
                 }
                 onOpenSubscribe={onOpenSubscribe}
+                userId={user?.id}
               />
 
               {/* Tu cuenta 👤 — dropdown con perfil + ajustes + cerrar sesión */}
@@ -362,18 +363,77 @@ function DropdownDemosIos({
 
 /* ─────────── Buzón ✉️ ─────────── */
 
+type ConversacionMini = {
+  id: string;
+  titulo: string;
+  preview: string;
+  no_leidos: boolean;
+  fecha: string;
+};
+
 function BuzonDropdown({
   abierto,
   onToggle,
   onOpenSubscribe,
+  userId,
 }: {
   abierto: boolean;
   onToggle: () => void;
   onOpenSubscribe: () => void;
+  userId?: string;
 }) {
   const [tab, setTab] = useState<"mensajes" | "notificaciones" | "boletin">(
-    "notificaciones",
+    "mensajes",
   );
+  const [convs, setConvs] = useState<ConversacionMini[] | null>(null);
+  const [noLeidosCount, setNoLeidosCount] = useState(0);
+
+  // Cargar mensajes al abrir o cambiar a la pestaña Mensajes
+  useEffect(() => {
+    if (!userId || !abierto || tab !== "mensajes") return;
+    let activo = true;
+    (async () => {
+      const { createClient } = await import("@/lib/supabase/client");
+      const { getMisConversaciones } = await import("@/lib/mensajes/queries");
+      const supabase = createClient();
+      const lista = await getMisConversaciones(supabase, userId);
+      if (!activo) return;
+      const mini = lista.slice(0, 5).map((c) => ({
+        id: c.id,
+        titulo:
+          c.tipo === "grupo"
+            ? c.nombre || "Grupo"
+            : c.otro
+              ? `@${c.otro.handle}`
+              : "Conversación",
+        preview: c.ultimo_mensaje?.cuerpo || "(sin mensajes)",
+        no_leidos: c.no_leidos,
+        fecha: c.ultimo_mensaje_at,
+      }));
+      setConvs(mini);
+      setNoLeidosCount(lista.filter((c) => c.no_leidos).length);
+    })();
+    return () => {
+      activo = false;
+    };
+  }, [userId, abierto, tab]);
+
+  // Badge global: cuando se monta y al cambiar userId
+  useEffect(() => {
+    if (!userId) return;
+    let activo = true;
+    (async () => {
+      const { createClient } = await import("@/lib/supabase/client");
+      const { getNoLeidosCount } = await import("@/lib/mensajes/queries");
+      const supabase = createClient();
+      const n = await getNoLeidosCount(supabase, userId);
+      if (activo) setNoLeidosCount(n);
+    })();
+    return () => {
+      activo = false;
+    };
+  }, [userId]);
+
   return (
     <div className="relative">
       <button
@@ -381,12 +441,32 @@ function BuzonDropdown({
         onClick={onToggle}
         aria-expanded={abierto}
         aria-haspopup="true"
-        aria-label="Buzón"
+        aria-label={
+          noLeidosCount > 0
+            ? `Buzón (${noLeidosCount} sin leer)`
+            : "Buzón"
+        }
         title="Buzón"
-        className="inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
+        className="relative inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-papiro-soft)]"
         style={{ color: "var(--color-piedra)" }}
       >
         <IconMail />
+        {noLeidosCount > 0 && (
+          <span
+            aria-hidden
+            className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center rounded-full text-[0.6rem] font-bold tabular-nums"
+            style={{
+              minWidth: 16,
+              height: 16,
+              padding: "0 4px",
+              background: "var(--color-ocre-deep)",
+              color: "var(--color-surface)",
+              border: "1px solid var(--color-surface)",
+            }}
+          >
+            {noLeidosCount > 9 ? "9+" : noLeidosCount}
+          </span>
+        )}
       </button>
 
       {abierto && (
@@ -404,7 +484,7 @@ function BuzonDropdown({
             style={{ borderBottom: "1px solid var(--color-linea)" }}
           >
             <BuzonTab activo={tab === "mensajes"} onClick={() => setTab("mensajes")}>
-              Mensajes
+              Mensajes{noLeidosCount > 0 ? ` (${noLeidosCount})` : ""}
             </BuzonTab>
             <BuzonTab
               activo={tab === "notificaciones"}
@@ -418,21 +498,80 @@ function BuzonDropdown({
           </div>
 
           {/* Contenido */}
-          <div className="p-4 min-h-[120px]">
+          <div className="min-h-[120px]">
             {tab === "mensajes" && (
-              <BuzonVacio
-                texto="Aquí verás tus conversaciones privadas con otros usuarios."
-                badge="Próximamente"
-              />
+              <div>
+                {convs === null ? (
+                  <p
+                    className="text-center py-6 text-[0.85rem]"
+                    style={{ color: "var(--color-piedra-clara)" }}
+                  >
+                    Cargando…
+                  </p>
+                ) : convs.length === 0 ? (
+                  <BuzonVacio texto="Aún no tienes conversaciones." />
+                ) : (
+                  <ul>
+                    {convs.map((c) => (
+                      <li key={c.id}>
+                        <Link
+                          href={`/mensajes/${c.id}`}
+                          className="block px-3 py-2.5 hover:bg-[var(--color-papiro-soft)] transition-colors"
+                          style={{
+                            borderBottom: "1px solid var(--color-linea)",
+                          }}
+                        >
+                          <div className="flex items-baseline gap-2">
+                            <span
+                              className="text-[0.88rem] truncate flex-1"
+                              style={{
+                                color: "var(--color-papiro-ink)",
+                                fontWeight: c.no_leidos ? 700 : 600,
+                              }}
+                            >
+                              {c.titulo}
+                              {c.no_leidos && (
+                                <span
+                                  aria-hidden
+                                  className="inline-block w-1.5 h-1.5 rounded-full ml-1.5 align-middle"
+                                  style={{ background: "var(--color-ocre-deep)" }}
+                                />
+                              )}
+                            </span>
+                          </div>
+                          <p
+                            className="text-[0.78rem] truncate mt-0.5"
+                            style={{ color: "var(--color-piedra)" }}
+                          >
+                            {c.preview}
+                          </p>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <Link
+                  href="/mensajes"
+                  className="block text-center px-3 py-2.5 text-[0.82rem] hover:bg-[var(--color-papiro-soft)] transition-colors"
+                  style={{
+                    color: "var(--color-ocre-deep)",
+                    fontWeight: 600,
+                  }}
+                >
+                  Ver todas las conversaciones →
+                </Link>
+              </div>
             )}
             {tab === "notificaciones" && (
-              <BuzonVacio
-                texto="Aquí aparecerán las respuestas a tus hilos, los PEC que recibas y las menciones."
-                badge="Próximamente"
-              />
+              <div className="p-4">
+                <BuzonVacio
+                  texto="Aquí aparecerán las respuestas a tus hilos, los PEC que recibas y las menciones."
+                  badge="Próximamente"
+                />
+              </div>
             )}
             {tab === "boletin" && (
-              <div className="text-[0.88rem]">
+              <div className="p-4 text-[0.88rem]">
                 <p
                   className="mb-3"
                   style={{ color: "var(--color-piedra)", lineHeight: 1.5 }}

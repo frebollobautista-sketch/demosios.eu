@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogoOCRE } from "./LogoOCRE";
@@ -68,12 +69,16 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
   >(null);
   const navRef = useRef<HTMLElement>(null);
 
-  // Cerrar dropdown al click fuera
+  // Cerrar dropdown al click fuera (incluye dropdowns portalizados)
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setOpenMenu(null);
-      }
+      const target = e.target as Node;
+      if (navRef.current && navRef.current.contains(target)) return;
+      // El dropdown de Demos iOS vive en document.body via portal.
+      // Si el click cae dentro de él, no cerramos.
+      const portalEl = document.querySelector("[data-dropdown-demosios]");
+      if (portalEl && portalEl.contains(target)) return;
+      setOpenMenu(null);
     }
     if (openMenu) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -200,84 +205,15 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
               }
 
               return (
-                <li key={s.href} className="shrink-0 relative">
-                  <button
-                    type="button"
-                    onClick={() =>
+                <li key={s.href} className="shrink-0">
+                  <DropdownDemosIos
+                    seccion={s}
+                    activo={activo}
+                    abierto={abierto}
+                    onToggle={() =>
                       setOpenMenu(openMenu === "demosios" ? null : "demosios")
                     }
-                    aria-expanded={abierto}
-                    aria-haspopup="true"
-                    className="relative inline-flex items-center gap-1 px-3 py-2.5 text-[0.9rem] rounded-md transition-colors whitespace-nowrap"
-                    style={{
-                      color: activo
-                        ? "var(--color-papiro-ink)"
-                        : "var(--color-piedra)",
-                      fontWeight: activo ? 600 : 500,
-                    }}
-                  >
-                    {s.label}
-                    <span
-                      aria-hidden
-                      className="text-[0.7rem] transition-transform"
-                      style={{
-                        transform: abierto ? "rotate(180deg)" : "rotate(0)",
-                      }}
-                    >
-                      ▾
-                    </span>
-                    {activo && <ActiveBar />}
-                  </button>
-
-                  {abierto && (
-                    <div
-                      role="menu"
-                      className="absolute left-0 top-full mt-1 z-40 min-w-[260px] rounded-lg shadow-lg overflow-hidden"
-                      style={{
-                        background: "var(--color-surface)",
-                        border: "1px solid var(--color-linea)",
-                      }}
-                    >
-                      <Link
-                        href={s.href}
-                        role="menuitem"
-                        className="block px-4 py-3 text-[0.85rem] hover:bg-[var(--color-papiro-soft)] transition-colors"
-                        style={{
-                          color: "var(--color-papiro-ink)",
-                          fontWeight: 600,
-                          borderBottom: "1px solid var(--color-linea)",
-                        }}
-                      >
-                        Ver {s.label} completo →
-                      </Link>
-                      {s.children!.map((c) => (
-                        <Link
-                          key={c.href}
-                          href={c.href}
-                          role="menuitem"
-                          className="block px-4 py-3 hover:bg-[var(--color-papiro-soft)] transition-colors"
-                        >
-                          <div
-                            className="text-[0.92rem]"
-                            style={{
-                              color: "var(--color-papiro-ink)",
-                              fontWeight: 600,
-                            }}
-                          >
-                            {c.label}
-                          </div>
-                          {c.descripcion && (
-                            <div
-                              className="text-[0.78rem] mt-0.5"
-                              style={{ color: "var(--color-piedra)" }}
-                            >
-                              {c.descripcion}
-                            </div>
-                          )}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  />
                 </li>
               );
             })}
@@ -295,6 +231,132 @@ function ActiveBar() {
       className="absolute inset-x-3 -bottom-px h-[2px]"
       style={{ background: "var(--color-ocre-deep)" }}
     />
+  );
+}
+
+/* ─────────── Dropdown "Demos iOS" — usa portal ─────────── */
+
+/**
+ * El menú se renderiza con createPortal a document.body porque el <ul>
+ * padre tiene overflow-x: auto (scroll horizontal en móvil) que en CSS
+ * fuerza overflow-y: auto, clippeando cualquier dropdown absolute. El
+ * portal evita el clipping y posicionamos con getBoundingClientRect.
+ */
+function DropdownDemosIos({
+  seccion,
+  activo,
+  abierto,
+  onToggle,
+}: {
+  seccion: Seccion;
+  activo: boolean;
+  abierto: boolean;
+  onToggle: () => void;
+}) {
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+  const [montado, setMontado] = useState(false);
+
+  useEffect(() => {
+    setMontado(true);
+  }, []);
+
+  useEffect(() => {
+    if (!abierto || !btnRef.current) return;
+    const r = btnRef.current.getBoundingClientRect();
+    setPos({ top: r.bottom + 4, left: r.left });
+    // Si el usuario hace scroll, cerramos para no quedar desfasado.
+    const onScroll = () => onToggle();
+    window.addEventListener("scroll", onScroll, true);
+    return () => window.removeEventListener("scroll", onScroll, true);
+  }, [abierto, onToggle]);
+
+  return (
+    <>
+      <button
+        ref={btnRef}
+        type="button"
+        onClick={onToggle}
+        aria-expanded={abierto}
+        aria-haspopup="true"
+        className="relative inline-flex items-center gap-1 px-3 py-2.5 text-[0.9rem] rounded-md transition-colors whitespace-nowrap"
+        style={{
+          color: activo
+            ? "var(--color-papiro-ink)"
+            : "var(--color-piedra)",
+          fontWeight: activo ? 600 : 500,
+        }}
+      >
+        {seccion.label}
+        <span
+          aria-hidden
+          className="text-[0.7rem] transition-transform"
+          style={{
+            transform: abierto ? "rotate(180deg)" : "rotate(0)",
+            display: "inline-block",
+          }}
+        >
+          ▾
+        </span>
+        {activo && <ActiveBar />}
+      </button>
+
+      {abierto &&
+        montado &&
+        createPortal(
+          <div
+            role="menu"
+            data-dropdown-demosios
+            className="fixed z-[60] min-w-[260px] rounded-lg shadow-lg overflow-hidden"
+            style={{
+              top: pos.top,
+              left: pos.left,
+              background: "var(--color-surface)",
+              border: "1px solid var(--color-linea)",
+            }}
+          >
+            <Link
+              href={seccion.href}
+              role="menuitem"
+              className="block px-4 py-3 text-[0.85rem] hover:bg-[var(--color-papiro-soft)] transition-colors"
+              style={{
+                color: "var(--color-papiro-ink)",
+                fontWeight: 600,
+                borderBottom: "1px solid var(--color-linea)",
+              }}
+            >
+              Ver {seccion.label} completo →
+            </Link>
+            {seccion.children!.map((c) => (
+              <Link
+                key={c.href}
+                href={c.href}
+                role="menuitem"
+                className="block px-4 py-3 hover:bg-[var(--color-papiro-soft)] transition-colors"
+              >
+                <div
+                  className="text-[0.92rem]"
+                  style={{
+                    color: "var(--color-papiro-ink)",
+                    fontWeight: 600,
+                  }}
+                >
+                  {c.label}
+                </div>
+                {c.descripcion && (
+                  <div
+                    className="text-[0.78rem] mt-0.5"
+                    style={{ color: "var(--color-piedra)" }}
+                  >
+                    {c.descripcion}
+                  </div>
+                )}
+              </Link>
+            ))}
+          </div>,
+          document.body,
+        )}
+    </>
   );
 }
 

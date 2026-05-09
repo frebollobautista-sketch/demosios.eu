@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getHilosPorSeccion } from "@/lib/agora/queries";
-import { getSeccionPorId, fechaRelativa, nombreAutor } from "@/lib/agora/utils";
+import { getSeccionPorId, fechaRelativa } from "@/lib/agora/utils";
+import { AutorLink } from "@/components/AutorLink";
 
 type Params = { seccion: string };
 
@@ -173,7 +174,9 @@ export default async function SeccionAgoraPage({
                       style={{ color: "var(--color-piedra-clara)" }}
                     >
                       <span>
-                        @{nombreAutor(h.autor)} · {fechaRelativa(h.creado)}
+                        <AutorLink autor={h.autor} className="text-[0.78rem]" />
+                        {" · "}
+                        {fechaRelativa(h.creado)}
                       </span>
                       {h.comentario_count > 0 && (
                         <span>💬 {h.comentario_count}</span>

@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getHiloConComentarios, getMisPecs } from "@/lib/agora/queries";
-import { getSeccionPorId, fechaRelativa, nombreAutor } from "@/lib/agora/utils";
+import { getSeccionPorId, fechaRelativa } from "@/lib/agora/utils";
+import { AutorLink } from "@/components/AutorLink";
 import { PECButton } from "./PECButton";
 import { RespuestaForm } from "./RespuestaForm";
 
@@ -89,7 +90,9 @@ export default async function HiloDetallePage({
           className="text-[0.85rem] mb-4"
           style={{ color: "var(--color-piedra-clara)" }}
         >
-          @{nombreAutor(hilo.autor)} · {fechaRelativa(hilo.creado)}
+          <AutorLink autor={hilo.autor} className="text-[0.85rem]" />
+          {" · "}
+          {fechaRelativa(hilo.creado)}
         </div>
 
         <div
@@ -136,7 +139,9 @@ export default async function HiloDetallePage({
                 className="text-[0.82rem] mb-2"
                 style={{ color: "var(--color-piedra-clara)" }}
               >
-                @{nombreAutor(c.autor)} · {fechaRelativa(c.creado)}
+                <AutorLink autor={c.autor} className="text-[0.82rem]" />
+                {" · "}
+                {fechaRelativa(c.creado)}
               </div>
               <div
                 className="text-[0.95rem] whitespace-pre-wrap mb-3"

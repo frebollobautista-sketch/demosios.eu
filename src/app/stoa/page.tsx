@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getPosts } from "@/lib/stoa/queries";
-import { fechaRelativa, nombreAutor } from "@/lib/agora/utils";
+import { fechaRelativa } from "@/lib/agora/utils";
+import { AutorLink } from "@/components/AutorLink";
 import { Compose } from "./Compose";
 
 export const metadata = {
@@ -77,20 +78,11 @@ export default async function StoaPage() {
               }}
             >
               <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
-                <span
+                <AutorLink
+                  autor={p.autor}
+                  showDisplayName
                   className="text-[0.88rem]"
-                  style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-                >
-                  @{p.autor?.handle ?? "—"}
-                  {p.autor?.display_name && (
-                    <span
-                      className="ml-2 font-normal"
-                      style={{ color: "var(--color-piedra)" }}
-                    >
-                      · {p.autor.display_name}
-                    </span>
-                  )}
-                </span>
+                />
                 <span
                   className="text-[0.75rem] tabular-nums shrink-0"
                   style={{ color: "var(--color-piedra-clara)" }}

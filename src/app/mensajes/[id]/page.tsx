@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getConversacion, getMensajes } from "@/lib/mensajes/queries";
 import { fechaRelativa, nombreAutor } from "@/lib/agora/utils";
+import { AutorLink } from "@/components/AutorLink";
 import { MensajeForm } from "./MensajeForm";
 import { MarcarLeidoOnLoad } from "./MarcarLeidoOnLoad";
 
@@ -71,20 +72,36 @@ export default async function ConversacionPage({
           border: "1px solid var(--color-linea)",
         }}
       >
-        <h1
-          className="display text-[1.15rem]"
-          style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-        >
-          {titulo}
-        </h1>
-        {conversacion.tipo === "directa" && conversacion.otro && (
-          <p
-            className="text-[0.82rem] mt-0.5"
-            style={{ color: "var(--color-piedra-clara)" }}
+        {conversacion.tipo === "directa" && conversacion.otro ? (
+          <>
+            <h1
+              className="display text-[1.15rem]"
+              style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
+            >
+              <AutorLink
+                autor={{
+                  handle: conversacion.otro.handle,
+                  display_name: conversacion.otro.display_name,
+                }}
+                showDisplayName
+                className="text-[1.15rem]"
+              />
+            </h1>
+            <p
+              className="text-[0.82rem] mt-0.5"
+              style={{ color: "var(--color-piedra-clara)" }}
+            >
+              Conversación privada — solo tú y{" "}
+              {nombreAutor(conversacion.otro)} podéis ver los mensajes.
+            </p>
+          </>
+        ) : (
+          <h1
+            className="display text-[1.15rem]"
+            style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
           >
-            Conversación privada — solo tú y {nombreAutor(conversacion.otro)}{" "}
-            podéis ver los mensajes.
-          </p>
+            {titulo}
+          </h1>
         )}
       </header>
 

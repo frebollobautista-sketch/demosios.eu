@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>POLIS · Tablero de formas — Canarias</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<style>
+  html,body{margin:0;height:100%;background:#0e0c0a;color:#e8dcc0;
+    font-family:Georgia,serif;overflow:hidden}
+  #ui{position:fixed;top:14px;left:14px;background:rgba(20,18,14,.92);
+      padding:12px 16px;border:1px solid #4a3a22;border-radius:4px;
+      font:13px/1.5 Georgia,serif;color:#e8dcc0;max-width:380px;z-index:10}
+  #ui h1{margin:0 0 4px;font-size:14px;color:#d9c9a3;font-weight:normal;
+         letter-spacing:.12em;text-transform:uppercase}
+  #breadcrumb{font:13px Georgia,serif;color:#c9bc9e;margin:6px 0 0;line-height:1.4}
+  #breadcrumb .sep{color:#6a5233;margin:0 6px}
+  #breadcrumb .crumb{color:#e8dcc0}
+  #breadcrumb .crumb.link{cursor:pointer;border-bottom:1px dotted #6a5233}
+  #breadcrumb .crumb.link:hover{color:#fff;border-bottom-color:#c9a96a}
+  #ui .hint{font-size:11px;color:#8a7e6a;margin-top:8px;font-style:italic;line-height:1.5}
+  #ui kbd{font-family:Georgia,serif;color:#c9a96a;font-style:normal}
+  #info{position:fixed;bottom:14px;right:14px;background:rgba(20,18,14,.92);
+        padding:10px 14px;border:1px solid #4a3a22;border-radius:4px;
+        font:12px/1.5 Georgia,serif;max-width:340px;min-height:40px;z-index:10;
+        color:#c9bc9e}
+  #info b{color:#e8dcc0}
+  #info .label{color:#8a7e6a;font-style:italic}
+  #stage{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:default}
+  #stage .pieza{transition:fill .25s ease, opacity .35s ease}
+  #stage .pieza:hover{filter:brightness(1.18)}
+  #stage .pieza.atenuada{pointer-events:none}
+  #stage text.label{
+    paint-order:stroke;stroke-linejoin:round;
+    text-anchor:middle;dominant-baseline:central;
+    pointer-events:none;font-family:Georgia,serif;
+    transition:opacity .3s ease}
+  #stage text.isla{font-weight:700;font-style:italic;
+    fill:#fff;stroke:rgba(0,0,0,.8);letter-spacing:.06em;text-transform:uppercase}
+  #stage text.municipio{font-weight:600;font-style:italic;
+    fill:#fff;stroke:rgba(0,0,0,.75);letter-spacing:.04em}
+  #stage text.distrito{font-weight:600;font-style:italic;
+    fill:#fff;stroke:rgba(0,0,0,.7);letter-spacing:.03em}
+  #stage text.barrio{font-weight:600;
+    fill:#1a1816;stroke:#e8dcc0}
+  #stage text.label.oculto{opacity:0}
+</style>
+</head>
+<body>
+<div id="ui">
+  <h1>POLIS · Canarias</h1>
+  <div id="breadcrumb"></div>
+  <div class="hint">
+    <kbd>Click</kbd> baja un nivel · <kbd>Click derecho</kbd> sube · <kbd>Esc</kbd> también sube
+  </div>
+</div>
+<div id="info"><span class="label">Pasa el ratón por una pieza para ver su información</span></div>
+<svg id="stage"></svg>
+
+<script>
+const SVGNS = 'http://www.w3.org/2000/svg';
+const STAGE = document.getElementById('stage');
+const BREAD = document.getElementById('breadcrumb');
+const INFO  = document.getElementById('info');
+
+const PALETA = [
+  '#c19a6b','#8a9c6b','#6b8a9c','#9c6b8a','#c1786b','#a89968',
+  '#6b9c8a','#9c8a6b','#7a6b9c','#c1a86b','#6b7a9c','#9c6b6b'
+];
+// Colores específicos por isla (para nivel archipiélago)
+const COLOR_ISLA = {
+  'EH':'#c1786b', 'LP':'#a89968', 'LG':'#8a9c6b',
+  'TF':'#7a6b9c', 'GC':'#c19a6b', 'FV':'#9c8a6b', 'LZ':'#6b8a9c'
+};
+const COLOR_BASE = '#5a4e3a';
+const STROKE_BASE = '#1a1816';
+
+let DATA = null;
+let viewBox = [0,0,1,1];
+let animFrom = null, animTo = null, animT0 = 0, animMs = 700;
+let nivel = 'archipielago'; // 'archipielago'|'isla'|'municipio'|'distrito'|'seccion'
+let islaActiva = null;       // 'EH','LP',...
+let munActivo = null;        // cumun '35016'
+let distritoActivo = null;   // cumun-dis '35016-01'
+let seccionActiva = null;    // cusec '3501601001'
+
+let archi = null, islas = [], muns = [], dists = [], secs = [];
+let secsByMun = {};
+let secsByDist = {};
+let munsByIsla = {};
+let distsByMun = {};
+let colorPorDist = {};
+
+let layerSec = null, layerLblIsl = null, layerLblMun = null, layerLblDis = null, layerLblBar = null;
+
+async function init(){
+  DATA = await (await fetch('_data/formas-canarias.json')).json();
+  archi = DATA.archipielago;
+  islas = DATA.islas;
+  muns = DATA.municipios;
+  dists = DATA.distritos;
+  secs = DATA.secciones;
+
+  secs.forEach(s => {
+    secsByMun[s.cumun] = secsByMun[s.cumun] || [];
+    secsByMun[s.cumun].push(s);
+    const k = s.cumun+'-'+s.distrito;
+    secsByDist[k] = secsByDist[k] || [];
+    secsByDist[k].push(s);
+  });
+  muns.forEach(m => {
+    munsByIsla[m.isla] = munsByIsla[m.isla] || [];
+    munsByIsla[m.isla].push(m);
+  });
+  dists.forEach(d => {
+    distsByMun[d.cumun] = distsByMun[d.cumun] || [];
+    distsByMun[d.cumun].push(d);
+    colorPorDist[d.cumun+'-'+d.codigo] = PALETA[(parseInt(d.cumun)*7 + parseInt(d.codigo)) % PALETA.length];
+  });
+
+  viewBox = bboxConPad(archi.bbox, 12000);
+  STAGE.setAttribute('preserveAspectRatio','xMidYMid meet');
+  STAGE.setAttribute('viewBox', viewBox.map(v => v.toFixed(0)).join(' '));
+
+  layerSec    = el('g',{'data-layer':'secciones'});  STAGE.appendChild(layerSec);
+  layerLblIsl = el('g',{'data-layer':'lbl-isl'});    STAGE.appendChild(layerLblIsl);
+  layerLblMun = el('g',{'data-layer':'lbl-mun'});    STAGE.appendChild(layerLblMun);
+  layerLblDis = el('g',{'data-layer':'lbl-dis'});    STAGE.appendChild(layerLblDis);
+  layerLblBar = el('g',{'data-layer':'lbl-bar'});    STAGE.appendChild(layerLblBar);
+
+  // polígonos
+  secs.forEach(s => {
+    const poly = el('polygon', {
+      'class':'pieza',
+      'data-cusec': s.cusec,
+      'data-cumun': s.cumun,
+      'data-isla': s.isla,
+      'data-dist': s.cumun+'-'+s.distrito,
+      points: s.poly.map(p => p.join(',')).join(' '),
+      stroke: STROKE_BASE,
+      'stroke-width': 1,
+      'vector-effect': 'non-scaling-stroke',
+    });
+    poly.addEventListener('click', e => { e.stopPropagation(); onClickSeccion(s); });
+    poly.addEventListener('mouseenter', () => mostrarInfo(s));
+    poly.addEventListener('mouseleave', () => limpiarInfo());
+    layerSec.appendChild(poly);
+  });
+
+  // labels isla
+  islas.forEach(i => {
+    const ss = secs.filter(s => s.isla === i.cod);
+    if (!ss.length) return;
+    const cx = ss.reduce((a,s)=>a+s.centroide[0],0)/ss.length;
+    const cy = ss.reduce((a,s)=>a+s.centroide[1],0)/ss.length;
+    const t = el('text', {'class':'label isla','data-isla':i.cod, x:cx, y:cy});
+    t.textContent = i.nombre;
+    layerLblIsl.appendChild(t);
+  });
+
+  // labels municipio
+  muns.forEach(m => {
+    const ss = secsByMun[m.cumun] || [];
+    if (!ss.length) return;
+    const cx = ss.reduce((a,s)=>a+s.centroide[0],0)/ss.length;
+    const cy = ss.reduce((a,s)=>a+s.centroide[1],0)/ss.length;
+    const t = el('text', {'class':'label municipio','data-cumun':m.cumun,'data-isla':m.isla, x:cx, y:cy});
+    t.textContent = nombreCorto(m.nombre);
+    layerLblMun.appendChild(t);
+  });
+
+  // labels distrito
+  dists.forEach(d => {
+    const ss = secsByDist[d.cumun+'-'+d.codigo] || [];
+    if (!ss.length) return;
+    const cx = ss.reduce((a,s)=>a+s.centroide[0],0)/ss.length;
+    const cy = ss.reduce((a,s)=>a+s.centroide[1],0)/ss.length;
+    const t = el('text', {'class':'label distrito','data-dist':d.cumun+'-'+d.codigo,'data-cumun':d.cumun, x:cx, y:cy});
+    t.textContent = nombreCorto(d.nombre);
+    layerLblDis.appendChild(t);
+  });
+
+  // labels barrio
+  secs.forEach(s => {
+    if (!s.barrio) return;
+    const t = el('text', {'class':'label barrio','data-cusec':s.cusec,'data-cumun':s.cumun, x:s.centroide[0], y:s.centroide[1]});
+    t.textContent = s.barrio;
+    layerLblBar.appendChild(t);
+  });
+
+  aplicarNivel();
+  actualizarTamanosTexto(viewBox);
+  attachInput();
+}
+
+function el(tag, attrs){
+  const e = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+
+function bboxConPad(bb, pad){
+  return [bb[0]-pad, bb[1]-pad, (bb[2]-bb[0])+pad*2, (bb[3]-bb[1])+pad*2];
+}
+
+function nombreCorto(s){
+  return s.replace(/,\s*(La|El|Los|Las)\s*$/,'').replace(' de Gran Canaria','').replace(' de la Palma','').replace(' de Tenerife','');
+}
+
+function setViewBox(vb){
+  STAGE.setAttribute('viewBox', vb.map(v => v.toFixed(0)).join(' '));
+  actualizarTamanosTexto(vb);
+  actualizarVisibilidadLabels(vb[2]);
+}
+
+function actualizarTamanosTexto(vb){
+  if (!layerLblIsl) return;
+  const w_px = STAGE.getBoundingClientRect().width || window.innerWidth;
+  const m_per_px = vb[2] / w_px;
+  const fs = (px) => (px * m_per_px) + 'px';
+  Array.from(layerLblIsl.children).forEach(t => { t.style.fontSize = fs(28); t.style.strokeWidth = fs(3.5); });
+  Array.from(layerLblMun.children).forEach(t => { t.style.fontSize = fs(20); t.style.strokeWidth = fs(3); });
+  Array.from(layerLblDis.children).forEach(t => { t.style.fontSize = fs(15); t.style.strokeWidth = fs(2.5); });
+  Array.from(layerLblBar.children).forEach(t => { t.style.fontSize = fs(11); t.style.strokeWidth = fs(2); });
+}
+
+function aplicarNivel(){
+  Array.from(layerSec.children).forEach(p => {
+    const isla = p.getAttribute('data-isla');
+    const cumun = p.getAttribute('data-cumun');
+    const dist = p.getAttribute('data-dist');
+    const cusec = p.getAttribute('data-cusec');
+    let fill = COLOR_BASE, stroke = STROKE_BASE, sw = 1, op = 1, atenuada = false;
+
+    if (nivel === 'archipielago'){
+      fill = COLOR_ISLA[isla] || COLOR_BASE;
+      sw = 0.4;
+      op = 0.85;
+    } else if (nivel === 'isla'){
+      if (isla === islaActiva){
+        fill = COLOR_BASE; sw = 0.8;
+      } else {
+        fill = COLOR_ISLA[isla] || COLOR_BASE; op = 0.12; sw = 0.3; atenuada = true;
+      }
+    } else if (nivel === 'municipio'){
+      if (cumun === munActivo){
+        fill = colorPorDist[dist] || COLOR_BASE; sw = 1; op = 0.95;
+      } else if (isla === islaActiva){
+        fill = COLOR_BASE; op = 0.25; sw = 0.4; atenuada = true;
+      } else {
+        fill = COLOR_BASE; op = 0.06; sw = 0.3; atenuada = true;
+      }
+    } else if (nivel === 'distrito'){
+      if (dist === distritoActivo){
+        fill = colorPorDist[dist]; sw = 1.2;
+      } else if (cumun === munActivo){
+        fill = colorPorDist[dist] || COLOR_BASE; op = 0.45; sw = 0.6;
+      } else {
+        fill = COLOR_BASE; op = 0.06; sw = 0.3; atenuada = true;
+      }
+    } else if (nivel === 'seccion'){
+      if (cusec === seccionActiva){
+        fill = lighten(colorPorDist[dist] || COLOR_BASE, 0.18); sw = 1.6; stroke = '#fff';
+      } else if (dist === distritoActivo){
+        fill = colorPorDist[dist]; op = 0.55;
+      } else if (cumun === munActivo){
+        fill = colorPorDist[dist] || COLOR_BASE; op = 0.20; sw = 0.5;
+      } else {
+        fill = COLOR_BASE; op = 0.06; sw = 0.3; atenuada = true;
+      }
+    }
+    p.setAttribute('fill', fill);
+    p.setAttribute('stroke', stroke);
+    p.setAttribute('stroke-width', sw);
+    p.style.opacity = op;
+    p.classList.toggle('atenuada', atenuada);
+  });
+  actualizarVisibilidadLabels(viewBox[2]);
+  actualizarBreadcrumb();
+}
+
+function actualizarVisibilidadLabels(viewW){
+  if (!layerLblIsl) return;
+  const w_px = STAGE.getBoundingClientRect().width || window.innerWidth;
+  const m_per_px = viewW / w_px;
+
+  // Islas: solo en archipiélago
+  Array.from(layerLblIsl.children).forEach(t => {
+    const ok = (nivel === 'archipielago');
+    t.classList.toggle('oculto', !ok);
+  });
+
+  // Municipios: en isla activa
+  Array.from(layerLblMun.children).forEach(t => {
+    const i = t.getAttribute('data-isla');
+    let ok = false;
+    if (nivel === 'isla' && i === islaActiva) ok = true;
+    else if (nivel === 'municipio' && i === islaActiva && t.getAttribute('data-cumun') !== munActivo) ok = true;
+    t.classList.toggle('oculto', !ok);
+  });
+
+  // Distritos: en municipio activo (si tiene >1 distrito)
+  Array.from(layerLblDis.children).forEach(t => {
+    const cm = t.getAttribute('data-cumun');
+    let ok = false;
+    const numD = (distsByMun[cm] || []).length;
+    if (numD > 1){
+      if (nivel === 'municipio' && cm === munActivo) ok = true;
+      else if (nivel === 'distrito' && cm === munActivo && t.getAttribute('data-dist') !== distritoActivo) ok = true;
+    }
+    t.classList.toggle('oculto', !ok);
+  });
+
+  // Barrios: zoom alto + dentro del distrito o sección activos
+  const verBarrio = m_per_px < 6;
+  Array.from(layerLblBar.children).forEach(t => {
+    const cusec = t.getAttribute('data-cusec');
+    const cm = t.getAttribute('data-cumun');
+    let ok = verBarrio;
+    if (cm !== munActivo) ok = false;
+    if (nivel === 'distrito'){
+      const sec = secs.find(x => x.cusec === cusec);
+      if (sec && sec.cumun+'-'+sec.distrito !== distritoActivo) ok = false;
+    }
+    if (nivel === 'seccion' && cusec !== seccionActiva) ok = false;
+    if (nivel === 'archipielago' || nivel === 'isla') ok = false;
+    t.classList.toggle('oculto', !ok);
+  });
+}
+
+function actualizarBreadcrumb(){
+  const partes = [];
+  partes.push(`<span class="crumb${nivel!=='archipielago'?' link':''}" data-go="archipielago">${archi.nombre}</span>`);
+  if (islaActiva){
+    const i = islas.find(x => x.cod === islaActiva);
+    const lk = nivel !== 'isla' ? ' link' : '';
+    partes.push(`<span class="sep">›</span><span class="crumb${lk}" data-go="isla">${i ? i.nombre : islaActiva}</span>`);
+  }
+  if (munActivo){
+    const m = muns.find(x => x.cumun === munActivo);
+    const lk = nivel !== 'municipio' ? ' link' : '';
+    partes.push(`<span class="sep">›</span><span class="crumb${lk}" data-go="municipio">${nombreCorto(m.nombre)}</span>`);
+  }
+  if (distritoActivo){
+    const d = dists.find(x => x.cumun+'-'+x.codigo === distritoActivo);
+    const numD = d ? (distsByMun[d.cumun]||[]).length : 0;
+    if (numD > 1){
+      const lk = nivel !== 'distrito' ? ' link' : '';
+      partes.push(`<span class="sep">›</span><span class="crumb${lk}" data-go="distrito">${nombreCorto(d.nombre)}</span>`);
+    }
+  }
+  if (seccionActiva){
+    const s = secs.find(x => x.cusec === seccionActiva);
+    partes.push(`<span class="sep">›</span><span class="crumb">${s.barrio || 'Sección '+s.sec}</span>`);
+  }
+  BREAD.innerHTML = partes.join('');
+  BREAD.querySelectorAll('.crumb.link').forEach(n => {
+    n.onclick = () => navegarA(n.dataset.go);
+  });
+}
+
+// ============ NAVEGACIÓN ============
+function onClickSeccion(s){
+  if (nivel === 'archipielago'){
+    islaActiva = s.isla;
+    nivel = 'isla';
+    const i = islas.find(x => x.cod === s.isla);
+    animarA(bboxConPad(i.bbox, 3000));
+  } else if (nivel === 'isla'){
+    if (s.isla !== islaActiva){
+      islaActiva = s.isla;
+      const i = islas.find(x => x.cod === s.isla);
+      animarA(bboxConPad(i.bbox, 3000));
+    } else {
+      munActivo = s.cumun;
+      nivel = 'municipio';
+      const m = muns.find(x => x.cumun === s.cumun);
+      animarA(bboxConPad(m.bbox, 800));
+    }
+  } else if (nivel === 'municipio'){
+    if (s.cumun !== munActivo){
+      munActivo = s.cumun;
+      if (s.isla !== islaActiva) islaActiva = s.isla;
+      const m = muns.find(x => x.cumun === s.cumun);
+      animarA(bboxConPad(m.bbox, 800));
+    } else {
+      const numD = (distsByMun[s.cumun]||[]).length;
+      if (numD <= 1){
+        seccionActiva = s.cusec;
+        distritoActivo = s.cumun+'-'+s.distrito;
+        nivel = 'seccion';
+        animarA(bboxConPad(s.bbox, 80));
+      } else {
+        distritoActivo = s.cumun+'-'+s.distrito;
+        nivel = 'distrito';
+        const d = dists.find(x => x.cumun+'-'+x.codigo === distritoActivo);
+        animarA(bboxConPad(d.bbox, 250));
+      }
+    }
+  } else if (nivel === 'distrito'){
+    const newDist = s.cumun+'-'+s.distrito;
+    if (newDist !== distritoActivo){
+      distritoActivo = newDist;
+      if (s.cumun !== munActivo) munActivo = s.cumun;
+      if (s.isla !== islaActiva) islaActiva = s.isla;
+      const d = dists.find(x => x.cumun+'-'+x.codigo === newDist);
+      animarA(bboxConPad(d.bbox, 250));
+    } else {
+      seccionActiva = s.cusec;
+      nivel = 'seccion';
+      animarA(bboxConPad(s.bbox, 80));
+    }
+  } else if (nivel === 'seccion'){
+    if (s.cusec !== seccionActiva){
+      seccionActiva = s.cusec;
+      const newDist = s.cumun+'-'+s.distrito;
+      if (newDist !== distritoActivo) distritoActivo = newDist;
+      if (s.cumun !== munActivo) munActivo = s.cumun;
+      if (s.isla !== islaActiva) islaActiva = s.isla;
+      animarA(bboxConPad(s.bbox, 80));
+    }
+  }
+  aplicarNivel();
+}
+
+function navegarA(destino){
+  if (destino === 'archipielago'){
+    islaActiva = null; munActivo = null; distritoActivo = null; seccionActiva = null;
+    nivel = 'archipielago';
+    animarA(bboxConPad(archi.bbox, 12000));
+  } else if (destino === 'isla' && islaActiva){
+    munActivo = null; distritoActivo = null; seccionActiva = null;
+    nivel = 'isla';
+    const i = islas.find(x => x.cod === islaActiva);
+    animarA(bboxConPad(i.bbox, 3000));
+  } else if (destino === 'municipio' && munActivo){
+    distritoActivo = null; seccionActiva = null;
+    nivel = 'municipio';
+    const m = muns.find(x => x.cumun === munActivo);
+    animarA(bboxConPad(m.bbox, 800));
+  } else if (destino === 'distrito' && distritoActivo){
+    seccionActiva = null;
+    nivel = 'distrito';
+    const d = dists.find(x => x.cumun+'-'+x.codigo === distritoActivo);
+    animarA(bboxConPad(d.bbox, 250));
+  }
+  aplicarNivel();
+}
+
+function subirNivel(){
+  if (nivel === 'seccion'){
+    const numD = munActivo ? (distsByMun[munActivo]||[]).length : 0;
+    navegarA(numD > 1 ? 'distrito' : 'municipio');
+  }
+  else if (nivel === 'distrito') navegarA('municipio');
+  else if (nivel === 'municipio') navegarA('isla');
+  else if (nivel === 'isla') navegarA('archipielago');
+}
+
+// ============ ANIMACIÓN viewBox ============
+function animarA(target){
+  animFrom = [...viewBox];
+  animTo = [...target];
+  animT0 = performance.now();
+  requestAnimationFrame(stepAnim);
+}
+function stepAnim(t){
+  const dt = Math.min(1, (t - animT0) / animMs);
+  const e = easeInOutCubic(dt);
+  for (let i=0;i<4;i++) viewBox[i] = animFrom[i] + (animTo[i]-animFrom[i]) * e;
+  setViewBox(viewBox);
+  if (dt < 1) requestAnimationFrame(stepAnim);
+}
+function easeInOutCubic(x){ return x < 0.5 ? 4*x*x*x : 1 - Math.pow(-2*x+2, 3)/2; }
+
+// ============ INFO PANEL ============
+function mostrarInfo(s){
+  const m = muns.find(x => x.cumun === s.cumun);
+  const i = islas.find(x => x.cod === s.isla);
+  const d = dists.find(x => x.cumun === s.cumun && x.codigo === s.distrito);
+  const numD = (distsByMun[s.cumun]||[]).length;
+  INFO.innerHTML =
+    `<b>${s.barrio || 'Sección '+s.sec}</b> ` +
+    `<span class="label">· cusec ${s.cusec}</span><br>` +
+    `<span class="label">${i ? i.nombre : ''} · ${m ? nombreCorto(m.nombre) : s.cumun}</span>` +
+    (d && numD > 1 ? `<br><span class="label">Distrito:</span> ${nombreCorto(d.nombre)}` : '');
+}
+function limpiarInfo(){
+  INFO.innerHTML = `<span class="label">Pasa el ratón por una pieza para ver su información</span>`;
+}
+
+// ============ INPUT ============
+function attachInput(){
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') subirNivel(); });
+  STAGE.addEventListener('contextmenu', e => { e.preventDefault(); subirNivel(); });
+  STAGE.addEventListener('wheel', e => {
+    e.preventDefault();
+    const f = e.deltaY > 0 ? 1.12 : 1/1.12;
+    const r = STAGE.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top)  / r.height;
+    const cx = viewBox[0] + viewBox[2]*px;
+    const cy = viewBox[1] + viewBox[3]*py;
+    const nw = viewBox[2]*f, nh = viewBox[3]*f;
+    viewBox[0] = cx - nw * ((cx - viewBox[0]) / viewBox[2]);
+    viewBox[1] = cy - nh * ((cy - viewBox[1]) / viewBox[3]);
+    viewBox[2] = nw; viewBox[3] = nh;
+    setViewBox(viewBox);
+  }, {passive:false});
+}
+
+function lighten(hex, amt){
+  const n = parseInt(hex.slice(1), 16);
+  let r=(n>>16)&255, g=(n>>8)&255, b=n&255;
+  r = Math.round(r + (255-r)*amt);
+  g = Math.round(g + (255-g)*amt);
+  b = Math.round(b + (255-b)*amt);
+  return '#' + ((1<<24) + (r<<16) + (g<<8) + b).toString(16).slice(1);
+}
+
+init().catch(err => {
+  INFO.innerHTML = `<b style="color:#ff8a8a">Error</b> · ${err.message}`;
+  console.error(err);
+});
+</script>
+</body>
+</html>

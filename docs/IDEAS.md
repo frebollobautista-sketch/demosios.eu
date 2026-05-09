@@ -304,3 +304,40 @@ Las 274 piezas SVG ya generadas en `polis-piezas/` siguen útiles como (a) refer
 
 **Detalle técnico (animación de elevación):**
 ~30 líneas de JS sin librería — `setPaintProperty('fill-extrusion-height', h)` dentro de un `requestAnimationFrame` con easing easeOutCubic, target = `plantas × 3m`.
+
+### 2026-05-09 — POLIS-juego (motor base): tablero vectorial del archipiélago
+
+Sandbox vectorial puro sin satélite. Es **la base del motor de la versión gamificada de KOINOS** — no la mecánica de juego en sí, sino la capa de navegación territorial sobre la que se monta el resto.
+
+**Archivos:**
+- `polis-piezas/_data/formas-canarias.json` (1.87 MB) — 1.381 secciones censales, 88 municipios, 7 islas. Polígonos simplificados con shapely a 8 m de tolerancia (vértices reducidos al 14 % del original). Sistema de coordenadas: equirectangular cos lat, origen NW (-18.20, 29.35), 1 unidad SVG = 1 m.
+- `polis-piezas/tablero-formas.html` — visor con 5 niveles drill-down: **Archipiélago → Isla → Municipio → Distrito → Sección**.
+
+**Mecánicas de navegación (decididas y validadas):**
+- Click izquierdo = baja un nivel · Click derecho = sube un nivel · Esc = sube · Breadcrumb clicable = salta arbitrariamente arriba.
+- Drill-down "blando": las hermanas del nivel se atenúan (opacidad 0.10–0.45) en lugar de desaparecer del DOM, manteniendo contexto periférico.
+- Animación viewBox interpolada con easeInOutCubic ~700 ms.
+- Etiquetas con tamaño dinámico en función del viewBox (no escalan visualmente con el zoom). Visibilidad por nivel: islas en archipiélago, municipios en isla, distritos en municipio (si tiene > 1), barrios en distrito/sección.
+- Selección simple (un activo por nivel).
+
+**Conexión con el siguiente nivel — vista isométrica (en desarrollo, fuera de este sandbox):**
+La sección censal es el **punto de pivote** entre el tablero plano (este motor) y la vista isométrica donde ocurre la mecánica Dorfromantik (trazado de edificios/parques/peatonales del 2026-05-06).
+
+Conexión natural:
+1. Cuando el usuario llega al nivel `seccion` en el tablero plano → al hacer click siguiente, en lugar de quedarse en plano, **transición a vista isométrica** de esa sección con su `cusec` como entrada.
+2. Click derecho desde el isométrico → vuelve al nivel `seccion` del tablero plano (continuidad de la pila de niveles).
+
+**Identificadores y datos compartidos entre tablero plano e isométrico:**
+- `cusec` (10 dígitos) como clave universal de sección.
+- Misma proyección (1 m = 1 unidad). Geometrías reusables sin reproyectar.
+- Misma paleta de colores por distrito (cíclica de 12).
+- Misma jerarquía de breadcrumb (el isométrico añade un nivel más al final).
+
+**Decisiones pendientes para integrar tablero ↔ isométrico:**
+1. **¿Transición por click o por zoom progresivo?** Click es claro pero rompe la continuidad visual. Zoom progresivo (a partir de cierto viewBox.w aparece el isométrico) es más fluido pero técnicamente más complejo.
+2. **¿Alcance del isométrico?** ¿Una sección a la vez (más manejable, ~50–500 edificios), o un distrito (cientos de secciones)? Si la mecánica Dorfromantik se hace edificio a edificio, una sección parece la unidad correcta.
+3. **¿El isométrico vive como vista 2.5D dentro del mismo SVG/DOM, o como pantalla aparte?** Si comparte SVG, la transición es animable; si es pantalla aparte (Canvas/Godot/Three.js), hay que serializar/deserializar el estado.
+
+Estas tres decisiones son las que hay que cerrar **antes** de empezar a pegar el isométrico al tablero plano. Idealmente las decide el módulo isométrico, no este — el tablero plano es agnóstico mientras respete `cusec` como entrada/salida.
+
+**URL local:** `http://localhost:8091/polis-piezas/tablero-formas.html` (server `ocre-static` desde `/Users/panch/OCRE`).

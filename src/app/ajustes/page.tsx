@@ -2,8 +2,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { TogglePrivacidad } from "./TogglePrivacidad";
-import { ToggleDemo, RadioDemo } from "./PreferenciasPlaceholder";
+import { ToggleReal, RadioReal } from "./PreferenciasReal";
 import { LogoutButton } from "@/components/LogoutButton";
+import { getPreferencias } from "@/lib/ajustes/queries";
 
 export const metadata = {
   title: "Ajustes",
@@ -11,21 +12,21 @@ export const metadata = {
 };
 
 /**
- * /ajustes — pantalla completa con 5 secciones:
- *  · Notificaciones — qué quieres recibir
- *  · Privacidad — quién puede ver qué
- *  · Cuenta — credenciales y datos
- *  · Apariencia — tema y tipografía
- *  · Datos (RGPD) — descarga y eliminación
+ * /ajustes — pantalla con 5 secciones, todas conectadas a Supabase.
  *
- * Estado actual: las funcionalidades realmente persistidas en Supabase
- * son `Privacidad: perfil público`. El resto se almacena en localStorage
- * como demo de UX hasta que migremos a Supabase (columnas de profiles
- * o tabla preferencias).
+ * Las preferencias persisten en columnas de `profiles` añadidas en la
+ * migración 20260509000000_settings_messaging.sql:
+ *   notif_respuestas_agora, notif_pec, notif_mensajes (notificaciones)
+ *   boletin, barrio_quincenal (boletines)
+ *   mostrar_email, permitir_mensajes (privacidad)
+ *   tema, tipografia (apariencia)
+ *   is_public (ya existía, gestionada por TogglePrivacidad)
  *
- * Decisión 2026-05-09 con Panch: aunque algunas funciones todavía no
- * persistan en BD, mostrar TODAS las opciones para que el usuario pueda
- * "ver lo que tiene disponible" y validar el alcance del producto.
+ * Pendientes (acciones, no preferencias):
+ *  - Cambiar email/handle/contraseña → Supabase Auth + RLS
+ *  - Cerrar sesiones de otros dispositivos → admin de sesiones
+ *  - Descargar datos (RGPD) → edge function que junte tablas y firme zip
+ *  - Eliminar cuenta → soft delete + cascada
  */
 export default async function AjustesPage() {
   const supabase = await createClient();
@@ -35,11 +36,14 @@ export default async function AjustesPage() {
 
   if (!user) redirect("/login?redirect=/ajustes");
 
-  const { data: perfil } = await supabase
-    .from("profiles")
-    .select("is_public, handle, display_name")
-    .eq("id", user.id)
-    .single();
+  const [{ data: perfilBase }, prefs] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select("handle, display_name, is_public")
+      .eq("id", user.id)
+      .single(),
+    getPreferencias(supabase, user.id),
+  ]);
 
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 pb-40">
@@ -54,18 +58,8 @@ export default async function AjustesPage() {
         className="mt-3 max-w-2xl"
         style={{ color: "var(--color-piedra)" }}
       >
-        Configuración de tu cuenta y preferencias. Los toggles marcados como{" "}
-        <span
-          className="text-[0.7rem] tracking-wider px-1.5 py-0.5 rounded"
-          style={{
-            background: "var(--color-papiro-soft)",
-            color: "var(--color-piedra)",
-            textTransform: "uppercase",
-          }}
-        >
-          Próx.
-        </span>{" "}
-        muestran funcionalidades que llegarán pronto pero aún no están activas.
+        Tus preferencias se guardan al instante. Cada cambio se sincroniza
+        en todos tus dispositivos.
       </p>
 
       <div className="divisor my-8" />
@@ -75,39 +69,39 @@ export default async function AjustesPage() {
         titulo="Notificaciones"
         descripcion="Lo que recibes por correo. Sin notificaciones push: nunca te interrumpiremos en el móvil."
       >
-        <ToggleDemo
-          storageKey="ocre.notif.respuestas-agora"
+        <ToggleReal
+          userId={user.id}
+          campo="notif_respuestas_agora"
+          inicial={prefs.notif_respuestas_agora}
           label="Cuando alguien responde en mis hilos de Ágora"
           descripcion="Te avisamos por email para que puedas seguir la conversación."
-          defecto={true}
-          soon
         />
-        <ToggleDemo
-          storageKey="ocre.notif.pec-recibido"
+        <ToggleReal
+          userId={user.id}
+          campo="notif_pec"
+          inicial={prefs.notif_pec}
           label="Cuando recibo PEC en hilos o comentarios"
           descripcion="Resumen diario, no aviso por cada uno."
-          defecto={false}
-          soon
         />
-        <ToggleDemo
-          storageKey="ocre.notif.mensaje-privado"
+        <ToggleReal
+          userId={user.id}
+          campo="notif_mensajes"
+          inicial={prefs.notif_mensajes}
           label="Cuando recibo un mensaje privado"
-          defecto={true}
-          soon
         />
-        <ToggleDemo
-          storageKey="ocre.notif.boletin-semanal"
+        <ToggleReal
+          userId={user.id}
+          campo="boletin"
+          inicial={prefs.boletin}
           label="Boletín semanal de OCRE"
           descripcion="Resumen de Canarias en Datos, hilos destacados y novedades de Bibliotheka."
-          defecto={false}
-          soon
         />
-        <ToggleDemo
-          storageKey="ocre.notif.barrio-quincenal"
+        <ToggleReal
+          userId={user.id}
+          campo="barrio_quincenal"
+          inicial={prefs.barrio_quincenal}
           label="Resumen quincenal de actividad de mi barrio"
           descripcion="Lo que ha pasado cerca: hilos abiertos, nuevos recursos, cambios en POLIS."
-          defecto={false}
-          soon
         />
       </Seccion>
 
@@ -125,23 +119,23 @@ export default async function AjustesPage() {
         >
           <TogglePrivacidad
             userId={user.id}
-            inicial={perfil?.is_public ?? true}
+            inicial={perfilBase?.is_public ?? true}
           />
         </div>
         <div className="mt-2">
-          <ToggleDemo
-            storageKey="ocre.priv.mostrar-email"
+          <ToggleReal
+            userId={user.id}
+            campo="mostrar_email"
+            inicial={prefs.mostrar_email}
             label="Mostrar mi email en mi perfil público"
             descripcion="Solo otros usuarios registrados verán el email."
-            defecto={false}
-            soon
           />
-          <ToggleDemo
-            storageKey="ocre.priv.permitir-mensajes"
+          <ToggleReal
+            userId={user.id}
+            campo="permitir_mensajes"
+            inicial={prefs.permitir_mensajes}
             label="Permitir que cualquier usuario me escriba"
             descripcion="Si lo desactivas, solo te escribirán quienes tú sigas."
-            defecto={true}
-            soon
           />
         </div>
       </Seccion>
@@ -161,30 +155,22 @@ export default async function AjustesPage() {
           <CampoCuenta
             label="Email"
             valor={user.email || "—"}
-            accionLabel="Cambiar"
-            accionHref="/ajustes/cambiar-email"
-            soon
+            soonLabel="Cambiar"
           />
           <CampoCuenta
             label="Handle"
-            valor={`@${perfil?.handle ?? "—"}`}
-            accionLabel="Cambiar"
-            accionHref="/ajustes/cambiar-handle"
-            soon
+            valor={`@${perfilBase?.handle ?? "—"}`}
+            soonLabel="Cambiar"
           />
           <CampoCuenta
             label="Contraseña"
             valor="••••••••"
-            accionLabel="Cambiar"
-            accionHref="/ajustes/cambiar-password"
-            soon
+            soonLabel="Cambiar"
           />
           <CampoCuenta
             label="Sesiones activas"
             valor="1 dispositivo"
-            accionLabel="Cerrar las demás"
-            accionHref="/ajustes/sesiones"
-            soon
+            soonLabel="Gestionar"
           />
         </div>
 
@@ -202,29 +188,30 @@ export default async function AjustesPage() {
       {/* ─── Apariencia ─── */}
       <Seccion
         titulo="Apariencia"
-        descripcion="Cómo se ve OCRE en tu navegador. Se guarda solo en este dispositivo."
+        descripcion="Cómo se ve OCRE. Se sincroniza en todos tus dispositivos."
       >
-        <RadioDemo
-          storageKey="ocre.tema"
+        <RadioReal
+          userId={user.id}
+          campo="tema"
+          inicial={prefs.tema}
           label="Tema"
           opciones={[
-            { value: "auto", label: "Auto (sistema)" },
-            { value: "claro", label: "Claro" },
-            { value: "oscuro", label: "Oscuro" },
+            { value: "system", label: "Auto (sistema)" },
+            { value: "light", label: "Claro" },
+            { value: "dark", label: "Oscuro" },
           ]}
-          defecto="auto"
-          soon
         />
-        <RadioDemo
-          storageKey="ocre.tipografia"
-          label="Tamaño de tipografía"
+        <RadioReal
+          userId={user.id}
+          campo="tipografia"
+          inicial={prefs.tipografia}
+          label="Tipografía"
+          descripcion="Estilo de letra para textos largos."
           opciones={[
-            { value: "s", label: "Pequeña" },
-            { value: "m", label: "Media" },
-            { value: "l", label: "Grande" },
+            { value: "georgia", label: "Georgia (serif)" },
+            { value: "inter", label: "Inter (sans)" },
+            { value: "mono", label: "Mono" },
           ]}
-          defecto="m"
-          soon
         />
       </Seccion>
 
@@ -243,23 +230,17 @@ export default async function AjustesPage() {
           <Accion
             titulo="Descargar mis datos"
             descripcion="Recibirás un archivo JSON con todo lo que has publicado y aportado."
-            label="Solicitar descarga"
-            href="/ajustes/descargar-datos"
             soon
           />
           <Accion
             titulo="Eliminar mi historial de actividad"
             descripcion="Borra hilos, comentarios y reacciones que hayas hecho. Conserva tu cuenta."
-            label="Eliminar historial"
-            href="/ajustes/borrar-historial"
             soon
             destructiva
           />
           <Accion
             titulo="Eliminar mi cuenta entera"
             descripcion="Acción irreversible. Todo lo tuyo se borra y no se puede recuperar."
-            label="Eliminar cuenta"
-            href="/ajustes/eliminar-cuenta"
             soon
             destructiva
           />
@@ -284,7 +265,7 @@ export default async function AjustesPage() {
   );
 }
 
-/* ─────────── Helpers de presentación ─────────── */
+/* ─────────── Helpers ─────────── */
 
 function Seccion({
   titulo,
@@ -319,14 +300,11 @@ function Seccion({
 function CampoCuenta({
   label,
   valor,
-  accionLabel,
-  soon,
+  soonLabel,
 }: {
   label: string;
   valor: string;
-  accionLabel: string;
-  accionHref: string;
-  soon?: boolean;
+  soonLabel: string;
 }) {
   return (
     <div
@@ -347,14 +325,12 @@ function CampoCuenta({
           {valor}
         </div>
       </div>
-      {soon ? (
-        <span
-          className="text-[0.78rem] shrink-0"
-          style={{ color: "var(--color-piedra-clara)" }}
-        >
-          {accionLabel} <em className="italic">(próx.)</em>
-        </span>
-      ) : null}
+      <span
+        className="text-[0.78rem] shrink-0"
+        style={{ color: "var(--color-piedra-clara)" }}
+      >
+        {soonLabel} <em className="italic">(próx.)</em>
+      </span>
     </div>
   );
 }
@@ -367,8 +343,6 @@ function Accion({
 }: {
   titulo: string;
   descripcion: string;
-  label: string;
-  href: string;
   soon?: boolean;
   destructiva?: boolean;
 }) {
@@ -391,14 +365,14 @@ function Accion({
           {descripcion}
         </p>
       </div>
-      {soon ? (
+      {soon && (
         <span
           className="text-[0.78rem] shrink-0"
           style={{ color: "var(--color-piedra-clara)" }}
         >
           <em className="italic">próximamente</em>
         </span>
-      ) : null}
+      )}
     </div>
   );
 }

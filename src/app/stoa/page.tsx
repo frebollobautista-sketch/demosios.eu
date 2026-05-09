@@ -1,4 +1,8 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { getPosts } from "@/lib/stoa/queries";
+import { fechaRelativa, nombreAutor } from "@/lib/agora/utils";
+import { Compose } from "./Compose";
 
 export const metadata = {
   title: "STOA",
@@ -7,131 +11,145 @@ export const metadata = {
 };
 
 /**
- * /stoa — capa social ligera.
+ * /stoa — capa social ligera. Feed cronológico inverso de posts.
  *
- * Estado: hoja de ruta visible. La columna social la construimos en una
- * próxima iteración, sobre la tabla `posts` de la migración inicial. Esta
- * página existe ya para que la entrada del header esté viva (la gente la
- * descubre, ve qué será, decide si volverá).
- *
- * Decisión 2026-05-09 con Panch: STOA NO es Instagram. Es la columnata
- * cubierta de la polis griega — espacio de encuentro informal antes de
- * entrar al ágora. Posts cortos territoriales, sin algoritmo, sin
- * follower counts, sin DMs.
+ * Server Component: pre-fetcha posts en el servidor para que la primera
+ * carga tenga contenido. El compose y futuras interacciones (PEC,
+ * comentarios) van en Client Components.
  */
-export default function StoaPage() {
+export default async function StoaPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const posts = await getPosts(supabase, { limit: 30 });
+
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8 pb-24">
+    <div className="mx-auto max-w-2xl px-4 sm:px-6 py-8 pb-40">
       <div className="eyebrow">Στοά · Demos iOS</div>
       <h1
-        className="display mt-2 text-[clamp(1.8rem,4vw,2.4rem)]"
-        style={{ color: "var(--color-papiro-ink)", lineHeight: 1.05 }}
+        className="display mt-1 text-[clamp(1.6rem,3.2vw,2rem)]"
+        style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
       >
         STOA
       </h1>
       <p
-        className="display italic mt-2 text-[1.05rem]"
+        className="display italic mt-1 text-[0.95rem]"
         style={{ color: "var(--color-ocre-deep)" }}
       >
         El patio cívico — lo que pasa hoy en el barrio
       </p>
-      <p
-        className="mt-5 text-[1.05rem]"
-        style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
-      >
-        En la antigua Atenas, la <strong>Stoá</strong> era la columnata
-        cubierta donde la gente se encontraba antes de entrar al Ágora.
-        Aquí no hay algoritmo de engagement, ni scroll infinito, ni
-        contador público de seguidores. Hay posts cortos, ordenados por
-        cuándo se publicaron, etiquetados por barrio para que sepas dónde
-        está pasando cada cosa.
-      </p>
+
+      <div className="divisor my-6" />
+
+      <Compose authed={!!user} />
+
+      {posts.length === 0 ? (
+        <div
+          className="rounded-xl p-8 text-center"
+          style={{
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-linea)",
+          }}
+        >
+          <p
+            className="display italic text-[1rem] mb-2"
+            style={{ color: "var(--color-papiro-ink)" }}
+          >
+            La columnata está callada.
+          </p>
+          <p
+            className="text-[0.9rem]"
+            style={{ color: "var(--color-piedra)" }}
+          >
+            Aún no hay posts en STOA. {user ? "Sé el primero." : "Cuando entres con tu cuenta, podrás abrir el patio."}
+          </p>
+        </div>
+      ) : (
+        <ol className="space-y-3 list-none p-0 m-0">
+          {posts.map((p) => (
+            <li
+              key={p.id}
+              className="rounded-xl p-4"
+              style={{
+                background: "var(--color-surface)",
+                border: "1px solid var(--color-linea)",
+              }}
+            >
+              <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
+                <span
+                  className="text-[0.88rem]"
+                  style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
+                >
+                  @{p.autor?.handle ?? "—"}
+                  {p.autor?.display_name && (
+                    <span
+                      className="ml-2 font-normal"
+                      style={{ color: "var(--color-piedra)" }}
+                    >
+                      · {p.autor.display_name}
+                    </span>
+                  )}
+                </span>
+                <span
+                  className="text-[0.75rem] tabular-nums shrink-0"
+                  style={{ color: "var(--color-piedra-clara)" }}
+                >
+                  {fechaRelativa(p.created_at)}
+                </span>
+              </div>
+              <p
+                className="text-[0.95rem] whitespace-pre-wrap"
+                style={{ color: "var(--color-papiro-ink)", lineHeight: 1.55 }}
+              >
+                {p.text}
+              </p>
+              {p.image_url && (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={p.image_url}
+                  alt=""
+                  className="mt-3 rounded-lg w-full h-auto"
+                  style={{ maxHeight: 400, objectFit: "cover" }}
+                />
+              )}
+            </li>
+          ))}
+        </ol>
+      )}
 
       <div className="divisor my-10" />
 
-      <section
-        className="rounded-xl p-6"
-        style={{
-          background: "var(--color-surface)",
-          border: "1px solid var(--color-linea)",
-        }}
-      >
-        <h2
-          className="display text-[1.15rem] mb-4"
-          style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-        >
-          Qué será STOA cuando esté
-        </h2>
-
-        <ul
-          className="space-y-3 text-[0.95rem]"
-          style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
-        >
-          <li>
-            <strong>Feed cronológico inverso</strong> — sin algoritmo de
-            relevancia. Lo más reciente arriba, fin.
-          </li>
-          <li>
-            <strong>Posts cortos</strong> (~280 caracteres) con foto
-            opcional. Texto más largo va a Ágora.
-          </li>
-          <li>
-            <strong>Etiqueta territorial</strong> — cada post lleva su
-            barrio (LPGC, Vegueta, Telde…). Filtras por isla, municipio o
-            barrio.
-          </li>
-          <li>
-            <strong>PEC en lugar de like</strong> — el botón es 🤝
-            <em>«estoy de acuerdo»</em>, no un corazón vacío. Reacción
-            cualitativa.
-          </li>
-          <li>
-            <strong>Comentarios cortos inline</strong> — para hablar
-            despacio mejor abrir un hilo en Ágora.
-          </li>
-          <li>
-            <strong>Sin DMs</strong>. Las conversaciones privadas se
-            tienen por Telegram/Signal, no aquí. Esto es público o no es.
-          </li>
-          <li>
-            <strong>Cruce con los demás ejes</strong> — al ver el perfil
-            de alguien verás también sus hilos en Ágora, sus recursos en
-            Bibliotheka y sus trazos en POLIS.
-          </li>
-        </ul>
-      </section>
-
-      <div className="divisor my-10" />
-
+      {/* Bloque informativo: qué es STOA y qué falta */}
       <section
         className="rounded-xl p-5"
         style={{
           background: "var(--color-papiro-soft)",
           border: "1px solid var(--color-linea)",
+          fontSize: "0.85rem",
+          color: "var(--color-piedra)",
+          lineHeight: 1.55,
         }}
       >
-        <p
-          className="text-[0.92rem]"
-          style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
-        >
-          <strong>Mientras se construye STOA</strong>, ya puedes
-          participar en{" "}
+        <p className="mb-3">
+          <strong style={{ color: "var(--color-papiro-ink)" }}>
+            STOA es el patio cívico de OCRE.
+          </strong>{" "}
+          Posts cortos ordenados por cuándo se publicaron — sin algoritmo,
+          sin scroll infinito, sin contador público de seguidores.
+        </p>
+        <p className="text-[0.78rem]" style={{ color: "var(--color-piedra-clara)" }}>
+          <em>Próximamente:</em> etiqueta territorial por barrio, reacción
+          PEC 🤝 y comentarios cortos inline. Para deliberar más despacio
+          mejor abre un hilo en{" "}
           <Link
             href="/agora"
             className="underline"
-            style={{ color: "var(--color-ocre-deep)", fontWeight: 600 }}
+            style={{ color: "var(--color-ocre-deep)" }}
           >
             Ágora
-          </Link>{" "}
-          (deliberación formal por sección PHAROS) o pasarte por{" "}
-          <Link
-            href="/canarias-en-datos"
-            className="underline"
-            style={{ color: "var(--color-ocre-deep)", fontWeight: 600 }}
-          >
-            Canarias en Datos
-          </Link>{" "}
-          (visor abierto del archipiélago).
+          </Link>
+          .
         </p>
       </section>
     </div>

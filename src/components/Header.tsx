@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogoOCRE } from "./LogoOCRE";
@@ -9,18 +10,39 @@ import { useSession } from "@/lib/auth/useSession";
 type Seccion = {
   href: string;
   label: string;
-  // Rutas adicionales bajo las que esta sección debe marcarse activa
   alsoActive?: string[];
+  /** Si está presente, se renderiza como dropdown con sub-entradas. */
+  children?: { href: string; label: string; descripcion?: string }[];
 };
 
 const SECCIONES: Seccion[] = [
   { href: "/", label: "Inicio" },
-  { href: "/consultorias", label: "Consultorías" },
-  { href: "/canarias-en-datos", label: "Canarias en Datos" },
   {
-    href: "/recursos",
-    label: "Recursos",
-    alsoActive: ["/agora", "/bibliotheka", "/polis"],
+    href: "/demos-ios",
+    label: "Demos iOS",
+    alsoActive: ["/recursos", "/stoa", "/agora", "/bibliotheka", "/polis"],
+    children: [
+      {
+        href: "/stoa",
+        label: "STOA",
+        descripcion: "Patio cívico — actividad ligera del día a día",
+      },
+      {
+        href: "/agora",
+        label: "Ágora",
+        descripcion: "Deliberación por las 8 secciones PHAROS",
+      },
+      {
+        href: "/bibliotheka",
+        label: "Bibliotheka",
+        descripcion: "Cursus honorum + recursos comunes",
+      },
+      {
+        href: "/polis",
+        label: "POLIS",
+        descripcion: "Mapa que se traza entre vecinos",
+      },
+    ],
   },
   {
     href: "/sobre-ocre",
@@ -31,17 +53,38 @@ const SECCIONES: Seccion[] = [
 
 /**
  * Header en dos filas:
- *   · Fila 1 (siempre visible): logo del faro + nombre + iconos/acciones a la derecha.
- *   · Fila 2 (siempre visible): secciones principales como botones.
+ *   · Fila 1 (siempre visible): logo + iconos usuario.
+ *   · Fila 2: secciones principales. La entrada "Demos iOS" es un dropdown
+ *     que en desktop se abre al click y en móvil se expande inline mostrando
+ *     las sub-entradas en una segunda fila (scroll horizontal).
  *
- * En móvil la nav no se esconde detrás de un hamburguesa — queda visible
- * debajo, con scroll horizontal si hace falta. Así las funcionalidades
- * están siempre a un tap de distancia, incluso cuando los botones de
- * Entrar/Crear cuenta ocupan el lado derecho de la primera fila.
+ * Decisión 2026-05-09 con Panch: header se reduce a 3 entradas top-level
+ * (Inicio · Demos iOS · Sobre OCRE). Consultorías y Canarias en Datos quedan
+ * accesibles desde la home como 4 puertas, no desde el header.
  */
 export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
   const pathname = usePathname();
   const { user, cargando } = useSession();
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLLIElement>(null);
+
+  // Cerrar dropdown al click fuera
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    }
+    if (openDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [openDropdown]);
+
+  // Cerrar dropdown al cambiar ruta
+  useEffect(() => {
+    setOpenDropdown(null);
+  }, [pathname]);
 
   const isActive = (s: Seccion) => {
     if (s.href === "/") return pathname === "/";
@@ -65,7 +108,7 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
         <Link
           href="/"
           className="flex items-center gap-2 shrink-0"
-          aria-label="Demos iOS — inicio"
+          aria-label="OCRE — inicio"
         >
           <LogoOCRE size={26} />
         </Link>
@@ -127,7 +170,7 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
         </div>
       </div>
 
-      {/* Fila 2: secciones como botones — siempre visible, scroll horizontal en móvil */}
+      {/* Fila 2: secciones top-level */}
       <nav
         aria-label="Secciones principales"
         className="border-t"
@@ -143,11 +186,43 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
           >
             {SECCIONES.map((s) => {
               const activo = isActive(s);
+              const tieneChildren = !!s.children?.length;
+              const abierto = openDropdown === s.href;
+
+              if (!tieneChildren) {
+                return (
+                  <li key={s.href} className="shrink-0">
+                    <Link
+                      href={s.href}
+                      className="relative inline-block px-3 py-2.5 text-[0.9rem] rounded-md transition-colors whitespace-nowrap"
+                      style={{
+                        color: activo
+                          ? "var(--color-papiro-ink)"
+                          : "var(--color-piedra)",
+                        fontWeight: activo ? 600 : 500,
+                      }}
+                    >
+                      {s.label}
+                      {activo && <ActiveBar />}
+                    </Link>
+                  </li>
+                );
+              }
+
               return (
-                <li key={s.href} className="shrink-0">
-                  <Link
-                    href={s.href}
-                    className="relative inline-block px-3 py-2.5 text-[0.9rem] rounded-md transition-colors whitespace-nowrap"
+                <li
+                  key={s.href}
+                  className="shrink-0 relative"
+                  ref={abierto ? dropdownRef : null}
+                >
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setOpenDropdown(abierto ? null : s.href)
+                    }
+                    aria-expanded={abierto}
+                    aria-haspopup="true"
+                    className="relative inline-flex items-center gap-1 px-3 py-2.5 text-[0.9rem] rounded-md transition-colors whitespace-nowrap"
                     style={{
                       color: activo
                         ? "var(--color-papiro-ink)"
@@ -156,14 +231,67 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
                     }}
                   >
                     {s.label}
-                    {activo && (
-                      <span
-                        aria-hidden
-                        className="absolute inset-x-3 -bottom-px h-[2px]"
-                        style={{ background: "var(--color-ocre-deep)" }}
-                      />
-                    )}
-                  </Link>
+                    <span
+                      aria-hidden
+                      className="text-[0.7rem] transition-transform"
+                      style={{
+                        transform: abierto ? "rotate(180deg)" : "rotate(0)",
+                      }}
+                    >
+                      ▾
+                    </span>
+                    {activo && <ActiveBar />}
+                  </button>
+
+                  {abierto && (
+                    <div
+                      role="menu"
+                      className="absolute left-0 top-full mt-1 z-40 min-w-[260px] rounded-lg shadow-lg overflow-hidden"
+                      style={{
+                        background: "var(--color-surface)",
+                        border: "1px solid var(--color-linea)",
+                      }}
+                    >
+                      <Link
+                        href={s.href}
+                        role="menuitem"
+                        className="block px-4 py-3 text-[0.85rem] hover:bg-[var(--color-papiro-soft)] transition-colors"
+                        style={{
+                          color: "var(--color-papiro-ink)",
+                          fontWeight: 600,
+                          borderBottom: "1px solid var(--color-linea)",
+                        }}
+                      >
+                        Ver {s.label} completo →
+                      </Link>
+                      {s.children!.map((c) => (
+                        <Link
+                          key={c.href}
+                          href={c.href}
+                          role="menuitem"
+                          className="block px-4 py-3 hover:bg-[var(--color-papiro-soft)] transition-colors"
+                        >
+                          <div
+                            className="text-[0.92rem]"
+                            style={{
+                              color: "var(--color-papiro-ink)",
+                              fontWeight: 600,
+                            }}
+                          >
+                            {c.label}
+                          </div>
+                          {c.descripcion && (
+                            <div
+                              className="text-[0.78rem] mt-0.5"
+                              style={{ color: "var(--color-piedra)" }}
+                            >
+                              {c.descripcion}
+                            </div>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </li>
               );
             })}
@@ -171,5 +299,15 @@ export function Header({ onOpenSubscribe }: { onOpenSubscribe: () => void }) {
         </div>
       </nav>
     </header>
+  );
+}
+
+function ActiveBar() {
+  return (
+    <span
+      aria-hidden
+      className="absolute inset-x-3 -bottom-px h-[2px]"
+      style={{ background: "var(--color-ocre-deep)" }}
+    />
   );
 }

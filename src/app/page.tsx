@@ -69,14 +69,15 @@ export default function InicioPage() {
         >
           <Puerta
             indice={1}
-            href="/consultorias"
-            titulo="Consultorías"
-            lema="Si necesitas que te acompañemos"
+            href="/demos-ios"
+            titulo="Demos iOS"
+            lema="Si vienes a la comunidad"
           >
-            Asesoría para ayuntamientos, asociaciones y profesionales sobre
-            apertura de datos, urbanismo, vivienda turística y participación
-            ciudadana en Canarias. Sesiones cortas, informes citables, y
-            puentes con la administración cuando aplica.
+            La suite cívica de OCRE: <em>STOA</em> para el día a día del
+            barrio, <em>Ágora</em> para deliberar, <em>Bibliotheka</em>{" "}
+            para documentar, y <em>POLIS</em> para mirar y trazar el
+            territorio. Se entra con cuenta y se sale habiendo aportado
+            algo.
           </Puerta>
 
           <Puerta
@@ -86,21 +87,21 @@ export default function InicioPage() {
             lema="Si quieres ver el archipiélago"
           >
             Visor abierto de la provincia 35 — Gran Canaria, Fuerteventura y
-            Lanzarote — con capas de viviendas vacacionales, edificios,
-            secciones censales y otros indicadores públicos. Filtra, descarga
-            y cita. Iremos sumando indicadores nuevos cada mes.
+            Lanzarote — con capas de viviendas vacacionales, renta media,
+            patrimonio BIC, centros educativos y más. Filtra, descarga y
+            cita. Iremos sumando indicadores nuevos cada semana.
           </Puerta>
 
           <Puerta
             indice={3}
-            href="/recursos"
-            titulo="Recursos"
-            lema="Si vienes a aportar y consumir comunidad"
+            href="/consultorias"
+            titulo="Consultorías"
+            lema="Si necesitas que te acompañemos"
           >
-            Tres espacios cívicos digitales: <em>Ágora</em> para deliberar,{" "}
-            <em>Bibliotheka</em> para documentar y aprender, y un{" "}
-            <em>paseo gamificado</em> por el barrio para mirar tu calle con
-            otros ojos. Se entra con cuenta y se sale habiendo aportado algo.
+            Asesoría para ayuntamientos, asociaciones, autónomos y empresas
+            con compromiso social en Canarias. Apertura de datos,
+            urbanismo, vivienda turística, participación ciudadana,
+            visualización territorial. Primer contacto sin compromiso.
           </Puerta>
 
           <Puerta
@@ -110,8 +111,8 @@ export default function InicioPage() {
             lema="Si quieres saber quiénes somos"
           >
             Quiénes formamos la organización, cómo nos financiamos, cómo
-            entendemos la palabra «común» y por qué pensamos que recuperar el
-            espacio empieza por verlo bien. Transparencia, no marketing.
+            entendemos la palabra «común» y por qué pensamos que recuperar
+            el espacio empieza por verlo bien. Transparencia, no marketing.
           </Puerta>
         </ol>
       </section>

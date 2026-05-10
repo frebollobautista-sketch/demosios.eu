@@ -1,320 +1,143 @@
-import { SECCIONES_SKIN, EJES_SKIN, KOINA_LATINO } from "@/lib/skins/nombres";
-
 export const metadata = {
-  title: "Nosotros",
+  title: "Sobre OCRE",
   description:
-    "OCRE — Organización Canaria para la Recuperación de Espacios. Misión, visión, valores y equipo detrás de Demos iOS.",
+    "OCRE — Una plataforma cívica gamificada para recuperar el sentido de lo público y transformar la manera en que nos relacionamos con la política.",
 };
 
 export default function NosotrosPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 pb-40">
-      <div className="eyebrow">Sobre Demos iOS by OCRE</div>
+      <div className="eyebrow">Sobre OCRE</div>
       <h1
         className="display mt-1 text-[clamp(1.8rem,3.6vw,2.4rem)]"
         style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
       >
-        Un sistema operativo para el demos
+        Política que se juega, no que se sufre
       </h1>
+
       <p
-        className="mt-4 max-w-2xl"
+        className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed"
         style={{ color: "var(--color-piedra)" }}
       >
-        <strong style={{ color: "var(--color-ocre-deep)" }}>Demos iOS</strong>{" "}
-        se lee de dos maneras y ambas conviven a propósito. Quien conoce el
-        griego reconoce <em className="display italic">δημόσιος</em> —
-        «público», el adjetivo que en Atenas distinguía lo de todos de lo
-        privado. Quien no, lee <em className="display italic">Demos iOS</em>:
-        un sistema operativo del <em className="display italic">demos</em>, del
-        pueblo. La plataforma se piensa exactamente así: no como una red
-        social, sino como infraestructura cívica — un OS donde el ciudadano
-        tiene funciones, capas y permisos, no un muro donde publicar.
+        Las redes sociales nos prometieron conexión y nos dejaron con
+        indiferencia. Scroll infinito, indignación de usar y tirar, la
+        sensación de que todo da igual. Esa parálisis tiene nombre antiguo
+        — <em>ataraxia</em> — y un efecto muy moderno: millones de personas
+        convencidas de que la política no va con ellas.
       </p>
+
       <p
-        className="mt-4 max-w-2xl"
+        className="mt-4 max-w-2xl text-[1.05rem] leading-relaxed"
         style={{ color: "var(--color-piedra)" }}
       >
-        La construye y sostiene{" "}
-        <strong style={{ color: "var(--color-ocre-deep)" }}>OCRE</strong>, la
-        Organización Canaria para la Recuperación de Espacios. El proyecto
-        lleva el nombre de lo que quiere servir; la organización lleva el
-        nombre de lo que quiere hacer.
+        <strong style={{ color: "var(--color-ocre-deep)" }}>OCRE</strong> nace
+        para romper ese ciclo. No somos una red social más, ni un foro de
+        debate, ni una app de firmas. Somos una{" "}
+        <strong style={{ color: "var(--color-ocre-deep)" }}>
+          plataforma cívica gamificada
+        </strong>
+        : un espacio donde participar en lo público se siente como avanzar en
+        un juego, no como gritar al vacío.
       </p>
 
       <div className="divisor my-10" />
 
-      {/* Misión / Visión / Valores como bloques separados */}
-      <section className="space-y-8">
-        <Bloque titulo="Misión" eyebrow="Qué hacemos">
-          <p style={{ color: "var(--color-piedra)" }}>
-            <em
-              className="display italic"
-              style={{ color: "var(--color-piedra-clara)" }}
-            >
-              [Placeholder para redactar — una frase que diga para qué existe
-              OCRE. Ejemplo: «Recuperar el espacio urbano canario del común,
-              empezando por mapearlo, deliberarlo y articular a su gente.»]
-            </em>
-          </p>
-        </Bloque>
+      <section className="space-y-6">
+        <div className="eyebrow">Cómo funciona</div>
+        <h2
+          className="display mt-1 text-[1.4rem]"
+          style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
+        >
+          Tres capas, un propósito
+        </h2>
 
-        <Bloque titulo="Visión" eyebrow="Hacia dónde vamos">
-          <p style={{ color: "var(--color-piedra)" }}>
-            <em
-              className="display italic"
-              style={{ color: "var(--color-piedra-clara)" }}
-            >
-              [Placeholder — el horizonte largo. Ejemplo: «Una Canarias donde
-              cada barrio sepa qué parte de su suelo está en manos del común y
-              tenga los medios para ampliarlo.»]
-            </em>
-          </p>
-        </Bloque>
+        <p
+          className="mt-2 text-[0.97rem] leading-relaxed"
+          style={{ color: "var(--color-piedra)" }}
+        >
+          La plataforma se organiza en tres espacios complementarios. El{" "}
+          <strong style={{ color: "var(--color-ocre-deep)" }}>Ágora</strong> es
+          donde se debate y se delibera: propuestas vecinales, consultas
+          ciudadanas, conversaciones que van a algún sitio. La{" "}
+          <strong style={{ color: "var(--color-ocre-deep)" }}>Bibliotheka</strong>{" "}
+          reúne el conocimiento compartido: datos abiertos, recursos públicos,
+          documentación sobre el territorio. Y{" "}
+          <strong style={{ color: "var(--color-ocre-deep)" }}>Polis</strong> es
+          la capa territorial: un visor 3D interactivo de tu ciudad, tu barrio,
+          tu calle — donde la información deja de ser abstracta y se convierte
+          en mapa.
+        </p>
 
-        <Bloque titulo="Valores" eyebrow="Cómo trabajamos">
-          <ul
-            className="list-disc pl-5 space-y-2"
-            style={{ color: "var(--color-piedra)" }}
-          >
-            <li>
-              <em
-                className="display italic"
-                style={{ color: "var(--color-piedra-clara)" }}
-              >
-                [Placeholder — ejemplo: «Lo público antes que lo privado.
-                Transparencia por defecto. Participación real, no consultiva.»]
-              </em>
-            </li>
-          </ul>
-        </Bloque>
+        <p
+          className="mt-3 text-[0.97rem] leading-relaxed"
+          style={{ color: "var(--color-piedra)" }}
+        >
+          Cada acción — proponer, votar, documentar, mapear — suma puntos y
+          desbloquea niveles dentro de un{" "}
+          <em className="display italic" style={{ color: "var(--color-ocre-deep)" }}>
+            cursus honorum
+          </em>{" "}
+          cívico: una carrera de reconocimiento basada en lo que aportas a tu
+          comunidad, no en cuántos seguidores acumulas. La gamificación no es
+          un adorno; es el mecanismo que transforma la participación ocasional
+          en hábito.
+        </p>
+      </section>
+
+      <div className="divisor my-10" />
+
+      <section className="space-y-6">
+        <div className="eyebrow">Por qué existe</div>
+        <h2
+          className="display mt-1 text-[1.4rem]"
+          style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
+        >
+          Porque lo público merece mejores herramientas
+        </h2>
+
+        <p
+          className="mt-2 text-[0.97rem] leading-relaxed"
+          style={{ color: "var(--color-piedra)" }}
+        >
+          Tenemos apps para pedir comida, para encontrar pareja, para invertir
+          en bolsa. Pero para decidir qué pasa con el solar de tu barrio, con
+          el presupuesto de tu ayuntamiento o con el plan de movilidad de tu
+          isla, las herramientas siguen siendo un PDF colgado en una web
+          institucional y un buzón de sugerencias. OCRE quiere cerrar esa
+          brecha: darle a la participación ciudadana la misma calidad de
+          experiencia que damos por sentada en todo lo demás.
+        </p>
       </section>
 
       <div className="divisor my-10" />
 
       {/* Equipo */}
       <section aria-labelledby="equipo">
-        <div className="eyebrow">Equipo</div>
+        <div className="eyebrow">Quién hay detrás</div>
         <h2
           id="equipo"
           className="display mt-1 text-[1.4rem]"
           style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
         >
-          Quiénes lo sostienen
+          Un proyecto asociativo, abierto a quien quiera sumar
         </h2>
         <p
           className="mt-2 text-[0.95rem]"
           style={{ color: "var(--color-piedra)" }}
         >
-          Por ahora una persona al frente — luego, conforme sumen, se añaden.
+          OCRE es, por ahora, un proyecto personal con vocación colectiva.
+          Nace de una convicción: que las herramientas digitales pueden
+          acercar a la gente a la política en lugar de alejarla.
         </p>
 
-        <ul className="mt-4 grid gap-3 list-none p-0 m-0">
+        <ul className="mt-5 grid gap-3 list-none p-0 m-0">
           <MiembroEquipo
-            nombre="Pancho"
-            cargo="Fundador · Dirección"
-            descripcion="Origen de OCRE, del proyecto Demos iOS y de la tesis de las tres capas (Ágora · Bibliotheka · Polis). Pendiente de redactar bio más completa."
+            nombre="Francisco Rebollo Bautista"
+            cargo="Fundador"
+            descripcion="Analista de políticas públicas y relaciones internacionales con experiencia profesional en el extranjero. Dedica su tiempo libre a construir OCRE como proyecto asociativo, convencido de que se puede cambiar la manera en que percibimos e interactuamos con la política — empezando por las herramientas que usamos para participar en ella."
           />
         </ul>
       </section>
-
-      <div className="divisor my-10" />
-
-      {/* Explorador de skins */}
-      <section aria-labelledby="skins">
-        <div className="eyebrow">Nomenclatura</div>
-        <h2
-          id="skins"
-          className="display mt-1 text-[1.4rem]"
-          style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-        >
-          Modo griego · modo aventura latino
-        </h2>
-        <p
-          className="mt-3 text-[0.95rem]"
-          style={{ color: "var(--color-piedra)" }}
-        >
-          Demos iOS usa por defecto nomenclatura griega clásica
-          (Ágora, Bibliotheka, Polis). Un futuro <em>modo aventura</em> permitirá
-          conmutar toda la plataforma a nomenclatura latina — cambiando
-          únicamente las etiquetas visibles, no las rutas ni el código. El
-          cursus honorum ya es latino de origen, así que encaja sin fricción.
-          Aquí puedes previsualizar la correspondencia:
-        </p>
-
-        <div
-          className="mt-5 rounded-xl overflow-hidden"
-          style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-linea)",
-          }}
-        >
-          <table
-            className="w-full text-[0.92rem]"
-            style={{ borderCollapse: "collapse" }}
-          >
-            <thead>
-              <tr
-                style={{
-                  background: "var(--color-papiro-soft)",
-                }}
-              >
-                <Th>Concepto</Th>
-                <Th>Griego (actual)</Th>
-                <Th>Latino (aventura)</Th>
-                <Th>Traducción</Th>
-              </tr>
-            </thead>
-            <tbody>
-              {SECCIONES_SKIN.filter((s) => s.slug !== "inicio").map((s) => (
-                <tr
-                  key={s.slug}
-                  style={{ borderTop: "1px solid var(--color-linea)" }}
-                >
-                  <Td>Sección</Td>
-                  <Td>
-                    <span
-                      className="display italic"
-                      style={{ color: "var(--color-ocre-deep)" }}
-                    >
-                      {s.griego}
-                    </span>
-                    {s.griegoOriginal && (
-                      <span
-                        className="ml-1 text-[0.76rem]"
-                        style={{ color: "var(--color-piedra-clara)" }}
-                      >
-                        {s.griegoOriginal}
-                      </span>
-                    )}
-                  </Td>
-                  <Td>
-                    <span
-                      className="display italic"
-                      style={{ color: "var(--color-siena)" }}
-                    >
-                      {s.latino}
-                    </span>
-                  </Td>
-                  <Td style={{ color: "var(--color-piedra)" }}>
-                    {s.traduccion}
-                  </Td>
-                </tr>
-              ))}
-              <tr style={{ borderTop: "1px solid var(--color-linea)" }}>
-                <Td>Recursos del común</Td>
-                <Td>
-                  <span
-                    className="display italic"
-                    style={{ color: "var(--color-ocre-deep)" }}
-                  >
-                    {KOINA_LATINO.griego}
-                  </span>
-                </Td>
-                <Td>
-                  <span
-                    className="display italic"
-                    style={{ color: "var(--color-siena)" }}
-                  >
-                    {KOINA_LATINO.latino}
-                  </span>
-                </Td>
-                <Td style={{ color: "var(--color-piedra)" }}>
-                  las cosas comunes
-                </Td>
-              </tr>
-              {EJES_SKIN.map((e) => (
-                <tr
-                  key={e.id}
-                  style={{ borderTop: "1px solid var(--color-linea)" }}
-                >
-                  <Td>Eje de capital</Td>
-                  <Td>
-                    <span
-                      className="display italic"
-                      style={{ color: "var(--color-ocre-deep)" }}
-                    >
-                      {e.griego}
-                    </span>
-                  </Td>
-                  <Td>
-                    <span
-                      className="display italic"
-                      style={{ color: "var(--color-siena)" }}
-                    >
-                      {e.latino}
-                    </span>
-                  </Td>
-                  <Td style={{ color: "var(--color-piedra)" }}>
-                    {e.id === "koinonia" && "capital social"}
-                    {e.id === "paideia" && "capital cultural"}
-                    {e.id === "politeia" && "capital político"}
-                  </Td>
-                </tr>
-              ))}
-              <tr style={{ borderTop: "1px solid var(--color-linea)" }}>
-                <Td>Carrera cívica</Td>
-                <Td colSpan={2}>
-                  <span
-                    className="display italic"
-                    style={{ color: "var(--color-ocre-deep)" }}
-                  >
-                    Cursus honorum
-                  </span>{" "}
-                  <span
-                    className="text-[0.78rem]"
-                    style={{ color: "var(--color-piedra-clara)" }}
-                  >
-                    (ya es latino, no cambia)
-                  </span>
-                </Td>
-                <Td style={{ color: "var(--color-piedra)" }}>
-                  escala de grados
-                </Td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p
-          className="mt-4 text-[0.85rem]"
-          style={{ color: "var(--color-piedra-clara)" }}
-        >
-          El modo aventura todavía no está activado como toggle en la interfaz.
-          Cuando lo cableemos vivirá en tus ajustes como «Nomenclatura:
-          griego / latino».
-        </p>
-      </section>
-    </div>
-  );
-}
-
-function Bloque({
-  titulo,
-  eyebrow,
-  children,
-}: {
-  titulo: string;
-  eyebrow: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <div className="eyebrow">{eyebrow}</div>
-      <h2
-        className="display mt-1 text-[1.2rem]"
-        style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
-      >
-        {titulo}
-      </h2>
-      <div
-        className="mt-2 rounded-lg p-4"
-        style={{
-          background: "var(--color-surface)",
-          border: "1px solid var(--color-linea)",
-        }}
-      >
-        {children}
-      </div>
     </div>
   );
 }
@@ -375,43 +198,3 @@ function MiembroEquipo({
   );
 }
 
-function Th({ children }: { children: React.ReactNode }) {
-  return (
-    <th
-      className="text-left"
-      style={{
-        padding: "0.625rem 0.875rem",
-        fontSize: "0.72rem",
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
-        color: "var(--color-piedra)",
-        fontWeight: 600,
-      }}
-    >
-      {children}
-    </th>
-  );
-}
-
-function Td({
-  children,
-  colSpan,
-  style,
-}: {
-  children: React.ReactNode;
-  colSpan?: number;
-  style?: React.CSSProperties;
-}) {
-  return (
-    <td
-      colSpan={colSpan}
-      style={{
-        padding: "0.625rem 0.875rem",
-        verticalAlign: "top",
-        ...style,
-      }}
-    >
-      {children}
-    </td>
-  );
-}

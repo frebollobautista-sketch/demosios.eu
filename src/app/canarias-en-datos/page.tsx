@@ -144,8 +144,8 @@ export default function CanariasEnDatosPage() {
           <Categoria
             titulo="Movilidad y transporte"
             items={[
-              { name: "Guaguas Municipales LPGC: paradas + líneas", source: "GTFS Guaguas Municipales", ready: false, color: "#3da06a" },
-              { name: "Cobertura de transporte (300 m)", source: "derivado de paradas", ready: false, color: "#5dc88a" },
+              { name: "Guaguas Municipales LPGC: paradas + líneas", source: "GTFS · 848 paradas · 47 líneas", ready: true, color: "#3da06a" },
+              { name: "Cobertura transporte LPGC (300 m)", source: "derivado · 41,6 km² cubiertos", ready: true, color: "#5dc88a" },
             ]}
           />
           <Categoria

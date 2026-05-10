@@ -1294,8 +1294,8 @@ var LAYER_CATALOG = [
     {id:'arqueo', name:'Yacimientos arqueológicos', dot:'#8a4a2a', source:'datos.canarias.es', status:'soon'}
   ]},
   {id:'movilidad', label:'Movilidad y transporte', layers:[
-    {id:'guaguas', name:'Guaguas Municipales LPGC: paradas + líneas', dot:'#3da06a', source:'GTFS Guaguas Municipales', status:'soon'},
-    {id:'cobertura', name:'Cobertura de transporte (300 m)', dot:'#5dc88a', source:'derivado de paradas', status:'soon'}
+    {id:'guaguas', name:'Guaguas Municipales LPGC: paradas + líneas', dot:'#3da06a', source:'GTFS · 848 paradas, 47 líneas', status:'ready', toggle:'toggleGuaguas'},
+    {id:'cobertura', name:'Cobertura transporte LPGC (buffer 300 m)', dot:'#5dc88a', source:'derivado de paradas · 41,6 km²', status:'ready', toggle:'toggleCoberturaBus'}
   ]},
   {id:'demografia', label:'Demografía', layers:[
     {id:'poblacion', name:'Población por sección censal', dot:'#5a8aa8', source:'INE · Padrón continuo', status:'soon'},
@@ -1547,6 +1547,175 @@ function showEducacionLegend(show){
     '<span style="background:#5a90c0;width:10px;height:10px;border-radius:50%;display:inline-block"></span><span style="color:#888">Público</span>' +
     '<span style="background:#9ec0d8;width:10px;height:10px;border-radius:50%;display:inline-block"></span><span style="color:#888">Concertado</span>' +
     '<span style="color:#444;margin-left:6px;font-size:8px">Consejería Educación Canarias · datos.canarias.es</span>';
+}
+
+// ===========================================================
+//  CAPA GUAGUAS LPGC — paradas + líneas (GTFS estático)
+//  Fuente: https://www.guaguas.com/transit/google_transit/
+//  848 paradas, 47 líneas. Carga lazy en primer toggle.
+// ===========================================================
+var guaguasVisible = false;
+var guaguasPopup = null;
+
+function setupGuaguasLayer(paradas, lineas){
+  if(map.getSource('guaguas-lineas')) return;
+
+  // 1) Líneas (debajo de las paradas)
+  map.addSource('guaguas-lineas', {type:'geojson', data:lineas});
+  map.addLayer({
+    id:'guaguas-lineas', type:'line', source:'guaguas-lineas',
+    layout:{'line-cap':'round','line-join':'round', visibility:'none'},
+    paint:{
+      'line-color':['concat','#',['get','color']],
+      'line-width':['interpolate',['linear'],['zoom'], 11,1.5, 14,2.5, 17,4],
+      'line-opacity':0.7
+    }
+  });
+  // truco: el color en GTFS ya viene con '#', mejor pasarlo tal cual
+  map.setPaintProperty('guaguas-lineas','line-color',['get','color']);
+
+  // 2) Paradas
+  map.addSource('guaguas-paradas', {type:'geojson', data:paradas});
+  map.addLayer({
+    id:'guaguas-paradas', type:'circle', source:'guaguas-paradas',
+    paint:{
+      'circle-color':'#3da06a',
+      'circle-radius':['interpolate',['linear'],['zoom'], 12,2, 14,3.5, 17,6.5, 19,9],
+      'circle-opacity':0.95,
+      'circle-stroke-width':1.4,
+      'circle-stroke-color':'rgba(15,12,10,0.9)'
+    },
+    layout:{visibility:'none'}
+  });
+
+  // Click parada → popup
+  map.on('click','guaguas-paradas', function(e){
+    if(!e.features.length) return;
+    var p = e.features[0].properties;
+    var html = '<div style="padding:8px 4px;font-size:11px;line-height:1.55">'
+      + '<div style="font-size:9px;letter-spacing:1.5px;color:#3da06a;text-transform:uppercase">Parada de guagua</div>'
+      + '<div style="color:#d4c4a0;font-weight:600;margin:3px 0">' + (p.nombre || 'Sin nombre') + '</div>'
+      + (p.codigo ? '<div style="color:#8a8070;font-size:10px">Código ' + p.codigo + '</div>' : '')
+      + (p.wheelchair === '1' ? '<div style="color:#5dc88a;font-size:10px;margin-top:4px">♿ Accesible silla de ruedas</div>' : '')
+      + '<div style="color:#666;font-size:9px;margin-top:6px;border-top:1px solid #2a2520;padding-top:6px">id ' + p.id + '</div>'
+      + '</div>';
+    if(guaguasPopup) guaguasPopup.remove();
+    guaguasPopup = new maplibregl.Popup({closeButton:true,maxWidth:'260px',offset:8})
+      .setLngLat(e.features[0].geometry.coordinates).setHTML(html).addTo(map);
+  });
+  map.on('mouseenter','guaguas-paradas',function(){map.getCanvas().style.cursor='pointer';});
+  map.on('mouseleave','guaguas-paradas',function(){map.getCanvas().style.cursor='';});
+}
+
+function toggleGuaguas(){
+  if(!map.getSource('guaguas-paradas')){
+    Promise.all([
+      fetch('data/guaguas-paradas.geojson').then(function(r){return r.json();}),
+      fetch('data/guaguas-lineas.geojson').then(function(r){return r.json();}),
+    ]).then(function(res){
+      setupGuaguasLayer(res[0], res[1]);
+      guaguasVisible = true;
+      ['guaguas-lineas','guaguas-paradas'].forEach(function(id){
+        if(map.getLayer(id)) map.setLayoutProperty(id,'visibility','visible');
+      });
+      syncActiveLayer('guaguas', guaguasVisible);
+      showGuaguasLegend(true);
+    }).catch(function(e){
+      console.warn('Guaguas no cargadas:', e);
+    });
+    return;
+  }
+  guaguasVisible = !guaguasVisible;
+  var v = guaguasVisible ? 'visible' : 'none';
+  ['guaguas-lineas','guaguas-paradas'].forEach(function(id){
+    if(map.getLayer(id)) map.setLayoutProperty(id,'visibility',v);
+  });
+  if(!guaguasVisible && guaguasPopup){guaguasPopup.remove(); guaguasPopup=null;}
+  syncActiveLayer('guaguas', guaguasVisible);
+  showGuaguasLegend(guaguasVisible);
+}
+
+function showGuaguasLegend(show){
+  var el = document.getElementById('guaguas-legend');
+  if(!show){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'guaguas-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);max-width:90vw;flex-wrap:wrap;justify-content:center';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span><b style="color:#3da06a">Guaguas Municipales LPGC</b> · 848 paradas · 47 líneas</span>' +
+    '<span style="color:#555">|</span>' +
+    '<span style="color:#888">Líneas con su color oficial · click parada para detalles</span>' +
+    '<span style="color:#444;margin-left:6px;font-size:8px">GTFS guaguas.com · CC-BY</span>';
+}
+
+// ===========================================================
+//  CAPA COBERTURA TRANSPORTE — buffer 300m de paradas
+//  Halo verde sobre las zonas a ≤300m de una parada (≈4 min andando).
+// ===========================================================
+var coberturaBusVisible = false;
+
+function setupCoberturaBusLayer(data){
+  if(map.getSource('cobertura-bus')) return;
+  map.addSource('cobertura-bus', {type:'geojson', data:data});
+  map.addLayer({
+    id:'cobertura-bus-fill', type:'fill', source:'cobertura-bus',
+    paint:{
+      'fill-color':'#5dc88a',
+      'fill-opacity':['interpolate',['linear'],['zoom'], 11,0.18, 14,0.22, 17,0.16]
+    },
+    layout:{visibility:'none'}
+  }, 'labels');
+  map.addLayer({
+    id:'cobertura-bus-line', type:'line', source:'cobertura-bus',
+    paint:{
+      'line-color':'#5dc88a',
+      'line-width':1,
+      'line-opacity':0.6
+    },
+    layout:{visibility:'none'}
+  });
+}
+
+function toggleCoberturaBus(){
+  if(!map.getSource('cobertura-bus')){
+    fetch('data/guaguas-cobertura.geojson').then(function(r){return r.json();}).then(function(data){
+      setupCoberturaBusLayer(data);
+      coberturaBusVisible = true;
+      ['cobertura-bus-fill','cobertura-bus-line'].forEach(function(id){
+        if(map.getLayer(id)) map.setLayoutProperty(id,'visibility','visible');
+      });
+      syncActiveLayer('cobertura', coberturaBusVisible);
+      showCoberturaBusLegend(true);
+    }).catch(function(e){
+      console.warn('Cobertura bus no cargada:', e);
+    });
+    return;
+  }
+  coberturaBusVisible = !coberturaBusVisible;
+  var v = coberturaBusVisible ? 'visible' : 'none';
+  ['cobertura-bus-fill','cobertura-bus-line'].forEach(function(id){
+    if(map.getLayer(id)) map.setLayoutProperty(id,'visibility',v);
+  });
+  syncActiveLayer('cobertura', coberturaBusVisible);
+  showCoberturaBusLegend(coberturaBusVisible);
+}
+
+function showCoberturaBusLegend(show){
+  var el = document.getElementById('cobertura-bus-legend');
+  if(!show){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'cobertura-bus-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);max-width:90vw;flex-wrap:wrap;justify-content:center';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span style="background:#5dc88a;width:14px;height:14px;border-radius:3px;display:inline-block;opacity:0.6"></span>' +
+    '<span><b style="color:#5dc88a">Cobertura transporte público</b> · zonas a ≤300 m (4 min andando) de una parada</span>' +
+    '<span style="color:#444;margin-left:6px;font-size:8px">41,6 km² cubiertos · derivado del GTFS de Guaguas</span>';
 }
 
 // ===========================================================

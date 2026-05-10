@@ -1303,7 +1303,10 @@ var LAYER_CATALOG = [
   ]},
   {id:'equipamientos', label:'Equipamientos', layers:[
     {id:'educacion', name:'Centros educativos', dot:'#5a90c0', source:'Consejería Educación · datos.canarias.es', status:'ready', toggle:'toggleEducacion'},
-    {id:'salud', name:'Centros de salud', dot:'#c8d05a', source:'Servicio Canario de Salud', status:'soon'}
+    {id:'salud', name:'Centros sanitarios (hospitales, salud, urgencias)', dot:'#c8d05a', source:'GRAFCAN · Mapa Sanitario SCS', status:'ready', toggle:'toggleSalud'}
+  ]},
+  {id:'desigualdades', label:'Desigualdades cívicas', layers:[
+    {id:'lista-espera', name:'Listas de espera quirúrgica por isla', dot:'#d4632a', source:'ISTAC · SCS · 32.131 personas a dic 2025', status:'ready', toggle:'toggleListasEspera'}
   ]}
 ];
 
@@ -1545,6 +1548,285 @@ function showEducacionLegend(show){
     '<span style="background:#9ec0d8;width:10px;height:10px;border-radius:50%;display:inline-block"></span><span style="color:#888">Concertado</span>' +
     '<span style="color:#444;margin-left:6px;font-size:8px">Consejería Educación Canarias · datos.canarias.es</span>';
 }
+
+// ===========================================================
+//  CAPA SALUD — Centros sanitarios via WMS GRAFCAN
+//  Fuente: idecan2.grafcan.es/ServicioWMS/MapaSanitario
+//  Sub-capas combinadas: hospitales (HP), centros de salud (CS),
+//  centros de especialidades CAE, consultorios locales (CL),
+//  puntos de urgencia (PU). Click → GetFeatureInfo en GML.
+// ===========================================================
+var saludVisible = false;
+var saludPopup = null;
+var SALUD_WMS_URL = 'https://idecan2.grafcan.es/ServicioWMS/MapaSanitario';
+var SALUD_LAYERS_ALL = 'CENTRO_HP,CENTRO_CAE,CENTRO_CS,CENTRO_CL,CENTRO_PU';
+var SALUD_LAYER_NAMES = {
+  'CENTRO_HP':'Hospital','CENTRO_CAE':'Centro de especialidades',
+  'CENTRO_CS':'Centro de salud','CENTRO_CL':'Consultorio local',
+  'CENTRO_PU':'Punto de urgencia'
+};
+
+function setupSaludLayer(){
+  if(map.getSource('salud-wms')) return;
+  map.addSource('salud-wms', {
+    type:'raster',
+    tiles:[SALUD_WMS_URL +
+      '?service=WMS&version=1.1.1&request=GetMap' +
+      '&layers=' + SALUD_LAYERS_ALL +
+      '&bbox={bbox-epsg-3857}&width=256&height=256' +
+      '&srs=EPSG:3857&format=image/png&transparent=true'],
+    tileSize:256,
+    attribution:'Salud: GRAFCAN · Servicio Canario de Salud'
+  });
+  map.addLayer({
+    id:'salud-wms', type:'raster', source:'salud-wms',
+    paint:{'raster-opacity':0.85},
+    layout:{visibility:'none'}
+  });
+}
+
+function toggleSalud(){
+  if(!map.getLayer('salud-wms')) setupSaludLayer();
+  saludVisible = !saludVisible;
+  map.setLayoutProperty('salud-wms','visibility', saludVisible ? 'visible' : 'none');
+  if(!saludVisible && saludPopup){saludPopup.remove(); saludPopup=null;}
+  syncActiveLayer('salud', saludVisible);
+  showSaludLegend(saludVisible);
+}
+
+function saludMapClickHandler(e){
+  if(!saludVisible) return;
+  var canvas = map.getCanvas();
+  var pixelW = canvas.width / (window.devicePixelRatio || 1);
+  var pixelH = canvas.height / (window.devicePixelRatio || 1);
+  var i = Math.round(e.point.x);
+  var j = Math.round(e.point.y);
+  var b = map.getBounds();
+  var bbox = [b.getWest(),b.getSouth(),b.getEast(),b.getNorth()].join(',');
+  var url = SALUD_WMS_URL +
+    '?service=WMS&version=1.1.1&request=GetFeatureInfo' +
+    '&layers=' + SALUD_LAYERS_ALL +
+    '&query_layers=' + SALUD_LAYERS_ALL +
+    '&srs=EPSG:4326&bbox=' + bbox +
+    '&width=' + Math.round(pixelW) + '&height=' + Math.round(pixelH) +
+    '&x=' + i + '&y=' + j +
+    '&info_format=application/vnd.ogc.gml';
+
+  fetch(url).then(function(r){return r.text();}).then(function(xml){
+    var info = parseSaludGML(xml);
+    if(!info.length) return;
+    var html = info.map(function(f){
+      return '<div style="padding:8px 4px;font-size:11px;line-height:1.55;border-top:1px solid #2a2520;margin-top:6px">'
+        + '<div style="font-size:9px;letter-spacing:1.5px;color:#c8d05a;text-transform:uppercase">'
+        + (SALUD_LAYER_NAMES[f.tipo] || f.tipo) + '</div>'
+        + '<div style="color:#d4c4a0;font-weight:600;margin:2px 0">'
+        + (f.nombre || f.NOMBRE || f.denominacion || 'Sin denominación') + '</div>'
+        + (f.direccion || f.DIRECCION ? '<div style="color:#a89c80;font-size:10px">' + (f.direccion||f.DIRECCION) + '</div>' : '')
+        + (f.municipio || f.MUNICIPIO ? '<div style="color:#8a8070;font-size:10px">' + (f.municipio||f.MUNICIPIO) + '</div>' : '')
+        + (f.telefono || f.TELEFONO ? '<div style="color:#8a8070;font-size:10px;margin-top:2px">📞 ' + (f.telefono||f.TELEFONO) + '</div>' : '')
+        + '</div>';
+    }).join('');
+    if(saludPopup) saludPopup.remove();
+    saludPopup = new maplibregl.Popup({closeButton:true,maxWidth:'280px',offset:8})
+      .setLngLat(e.lngLat)
+      .setHTML('<div style="padding:0 6px 4px"><div style="font-size:9px;letter-spacing:1.5px;color:#888">SANIDAD · ' + info.length + (info.length===1?' RESULTADO':' RESULTADOS') + '</div>' + html + '</div>')
+      .addTo(map);
+  }).catch(function(err){
+    console.warn('GetFeatureInfo Salud falló:', err);
+  });
+}
+
+function parseSaludGML(xml){
+  var out = [];
+  var doc = new DOMParser().parseFromString(xml, 'text/xml');
+  Array.from(doc.getElementsByTagName('*')).forEach(function(el){
+    if(/_feature$/.test(el.localName || el.tagName)){
+      var tipo = (el.parentNode.localName || el.parentNode.tagName).replace(/_layer$/,'');
+      var feat = {tipo:tipo};
+      Array.from(el.children).forEach(function(c){
+        var k = c.localName || c.tagName;
+        if(k === 'boundedBy' || k.indexOf(':') !== -1) return;
+        feat[k] = (c.textContent || '').trim();
+      });
+      out.push(feat);
+    }
+  });
+  return out;
+}
+
+function showSaludLegend(show){
+  var el = document.getElementById('salud-legend');
+  if(!show){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'salud-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);max-width:90vw;flex-wrap:wrap;justify-content:center';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span><b style="color:#c8d05a">Sanidad pública</b> · click para detalles</span>' +
+    '<span style="color:#555">|</span>' +
+    '<span style="color:#888">Hospitales · Centros salud · Especialidades · Urgencias · Consultorios</span>' +
+    '<span style="color:#444;margin-left:6px;font-size:8px">GRAFCAN · SCS · datos.canarias.es</span>';
+}
+
+// ===========================================================
+//  CAPA LISTAS DE ESPERA QUIRÚRGICA SCS — etiquetas por isla
+//  Fuente: ISTAC C00045A_000001. Granularidad: isla (no hospital).
+//  32.131 personas en lista a dic 2025. Égalité visible.
+// ===========================================================
+var listasEsperaVisible = false;
+var listasEsperaPopup = null;
+
+function setupListasEsperaLayer(data){
+  if(map.getSource('lista-espera')) return;
+  map.addSource('lista-espera', {type:'geojson', data:data});
+
+  // Burbuja de fondo (fill circle) con tamaño proporcional al total
+  map.addLayer({
+    id:'lista-espera-bubble', type:'circle', source:'lista-espera',
+    paint:{
+      'circle-color':['interpolate',['linear'],['get','total'],
+        100,'#fad8b6',
+        1500,'#e89e6a',
+        8000,'#c8632a',
+        15000,'#8a3a10'
+      ],
+      'circle-radius':['interpolate',['linear'],['get','total'],
+        100,18, 1500,32, 8000,54, 15000,72
+      ],
+      'circle-opacity':0.78,
+      'circle-stroke-width':2,
+      'circle-stroke-color':'rgba(15,12,10,0.9)'
+    },
+    layout:{visibility:'none'}
+  });
+
+  // Texto encima con el número
+  map.addLayer({
+    id:'lista-espera-num', type:'symbol', source:'lista-espera',
+    layout:{
+      'text-field':['number-format',['get','total'],{'locale':'es'}],
+      'text-font':['Noto Sans Bold'],
+      'text-size':['interpolate',['linear'],['get','total'],
+        100,12, 1500,15, 8000,19, 15000,23
+      ],
+      'text-allow-overlap':true,
+      visibility:'none'
+    },
+    paint:{
+      'text-color':'#fff',
+      'text-halo-color':'rgba(0,0,0,0.4)',
+      'text-halo-width':1
+    }
+  });
+
+  // Etiqueta debajo con nombre de isla
+  map.addLayer({
+    id:'lista-espera-isla', type:'symbol', source:'lista-espera',
+    layout:{
+      'text-field':['get','isla'],
+      'text-font':['Noto Sans Regular'],
+      'text-size':10,
+      'text-offset':[0, 2.2],
+      'text-anchor':'top',
+      visibility:'none'
+    },
+    paint:{
+      'text-color':'#d4c4a0',
+      'text-halo-color':'rgba(0,0,0,0.85)',
+      'text-halo-width':1.5
+    }
+  });
+
+  // Click en burbuja → popup con desglose por especialidad
+  map.on('click','lista-espera-bubble', function(e){
+    if(!e.features.length) return;
+    var p = e.features[0].properties;
+    var top;
+    try { top = JSON.parse(p.top_especialidades); } catch(_) { top = []; }
+    var html = '<div style="padding:8px 4px;font-size:11px;line-height:1.55">'
+      + '<div style="font-size:9px;letter-spacing:1.5px;color:#d4632a;text-transform:uppercase">'
+      + 'Lista de espera quirúrgica · ' + (p.periodo || 'última') + '</div>'
+      + '<div style="color:#d4c4a0;font-weight:600;font-size:14px;margin:4px 0">'
+      + p.isla + '</div>'
+      + '<div style="color:#fff;font-size:18px;font-weight:700;margin:2px 0 6px">'
+      + Number(p.total).toLocaleString('es') + ' personas en lista</div>';
+    if(top.length){
+      html += '<div style="color:#888;font-size:9.5px;margin-top:8px;text-transform:uppercase;letter-spacing:1px">Top especialidades</div>'
+        + '<ul style="margin:4px 0 0;padding:0;list-style:none">';
+      top.forEach(function(t){
+        html += '<li style="display:flex;justify-content:space-between;color:#a89c80;padding:2px 0">'
+          + '<span>' + t[0] + '</span>'
+          + '<span style="color:#d4c4a0;font-weight:600">' + Number(t[1]).toLocaleString('es') + '</span>'
+          + '</li>';
+      });
+      html += '</ul>';
+    }
+    html += '<div style="color:#666;font-size:8.5px;margin-top:10px;font-style:italic;border-top:1px solid #2a2520;padding-top:6px">'
+      + 'Las islas pequeñas tienen menos lista <em>aquí</em> porque la cirugía compleja se deriva a hospitales de Tenerife o Gran Canaria.</div>'
+      + '</div>';
+    if(listasEsperaPopup) listasEsperaPopup.remove();
+    listasEsperaPopup = new maplibregl.Popup({closeButton:true,maxWidth:'320px',offset:8})
+      .setLngLat(e.features[0].geometry.coordinates)
+      .setHTML(html)
+      .addTo(map);
+  });
+  map.on('mouseenter','lista-espera-bubble',function(){map.getCanvas().style.cursor='pointer';});
+  map.on('mouseleave','lista-espera-bubble',function(){map.getCanvas().style.cursor='';});
+}
+
+function toggleListasEspera(){
+  if(!map.getSource('lista-espera')){
+    fetch('data/lista-espera-scs.geojson').then(function(r){return r.json();}).then(function(data){
+      setupListasEsperaLayer(data);
+      listasEsperaVisible = true;
+      ['lista-espera-bubble','lista-espera-num','lista-espera-isla'].forEach(function(id){
+        if(map.getLayer(id)) map.setLayoutProperty(id,'visibility','visible');
+      });
+      syncActiveLayer('lista-espera', listasEsperaVisible);
+      showListasEsperaLegend(true);
+    }).catch(function(e){
+      console.warn('Listas espera no cargadas:', e);
+    });
+    return;
+  }
+  listasEsperaVisible = !listasEsperaVisible;
+  var v = listasEsperaVisible ? 'visible' : 'none';
+  ['lista-espera-bubble','lista-espera-num','lista-espera-isla'].forEach(function(id){
+    if(map.getLayer(id)) map.setLayoutProperty(id,'visibility',v);
+  });
+  if(!listasEsperaVisible && listasEsperaPopup){listasEsperaPopup.remove(); listasEsperaPopup=null;}
+  syncActiveLayer('lista-espera', listasEsperaVisible);
+  showListasEsperaLegend(listasEsperaVisible);
+}
+
+function showListasEsperaLegend(show){
+  var el = document.getElementById('lista-espera-legend');
+  if(!show){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'lista-espera-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);max-width:90vw;flex-wrap:wrap;justify-content:center';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span><b style="color:#d4632a">Lista quirúrgica SCS</b> · personas esperando operación · click para desglose</span>' +
+    '<span style="color:#555">|</span>' +
+    '<span style="color:#888">' +
+      '<span style="background:#fad8b6;width:10px;height:10px;border-radius:50%;display:inline-block;vertical-align:middle"></span> 100' +
+      '<span style="margin:0 6px">→</span>' +
+      '<span style="background:#c8632a;width:14px;height:14px;border-radius:50%;display:inline-block;vertical-align:middle"></span> 8.000' +
+      '<span style="margin:0 6px">→</span>' +
+      '<span style="background:#8a3a10;width:18px;height:18px;border-radius:50%;display:inline-block;vertical-align:middle"></span> 15.000' +
+    '</span>' +
+    '<span style="color:#444;margin-left:6px;font-size:8px">ISTAC · SCS · dic 2025</span>';
+}
+
+// Hook click handler para Salud al cargar
+map.on('load', function(){
+  map.on('click', saludMapClickHandler);
+});
 
 // ===========================================================
 //  CAPA BIC — Bienes de Interés Cultural

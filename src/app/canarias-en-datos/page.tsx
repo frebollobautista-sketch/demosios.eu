@@ -159,7 +159,13 @@ export default function CanariasEnDatosPage() {
             titulo="Equipamientos"
             items={[
               { name: "Centros educativos", source: "Consejería Educación · datos.canarias.es", ready: true, color: "#5a90c0" },
-              { name: "Centros de salud", source: "Servicio Canario de Salud", ready: false, color: "#c8d05a" },
+              { name: "Centros sanitarios (hospitales, salud, urgencias)", source: "GRAFCAN · Mapa Sanitario SCS", ready: true, color: "#c8d05a" },
+            ]}
+          />
+          <Categoria
+            titulo="Desigualdades cívicas"
+            items={[
+              { name: "Listas de espera quirúrgica SCS por isla", source: "ISTAC · SCS · 32.131 personas a dic 2025", ready: true, color: "#d4632a" },
             ]}
           />
         </Bloque>

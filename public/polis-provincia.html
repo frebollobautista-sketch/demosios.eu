@@ -1307,6 +1307,9 @@ var LAYER_CATALOG = [
   ]},
   {id:'desigualdades', label:'Desigualdades cívicas', layers:[
     {id:'lista-espera', name:'Listas de espera quirúrgica por isla', dot:'#d4632a', source:'ISTAC · SCS · 32.131 personas a dic 2025', status:'ready', toggle:'toggleListasEspera'}
+  ]},
+  {id:'ambiente', label:'Medio ambiente', layers:[
+    {id:'aire', name:'Estaciones de calidad del aire', dot:'#5acab0', source:'GRAFCAN · Red de Vigilancia Calidad Aire Canarias', status:'ready', toggle:'toggleAire'}
   ]}
 ];
 
@@ -1717,6 +1720,121 @@ function showCoberturaBusLegend(show){
     '<span><b style="color:#5dc88a">Cobertura transporte público</b> · zonas a ≤300 m (4 min andando) de una parada</span>' +
     '<span style="color:#444;margin-left:6px;font-size:8px">41,6 km² cubiertos · derivado del GTFS de Guaguas</span>';
 }
+
+// ===========================================================
+//  CAPA CALIDAD DEL AIRE — Estaciones via WMS GRAFCAN
+//  Fuente: idecan2.grafcan.es/ServicioWMS/CalidadAire
+//  Capa ESTACIONES + ZONAS. Los VALORES en tiempo real se consultan
+//  en el portal oficial (link en el popup). Para integrar valores
+//  horarios habría que scrapear o usar EEA API; aplazado iter 2.
+// ===========================================================
+var aireVisible = false;
+var airePopup = null;
+var AIRE_WMS_URL = 'https://idecan2.grafcan.es/ServicioWMS/CalidadAire';
+var AIRE_LAYERS_ALL = 'ESTACIONES';
+var AIRE_PORTAL = 'https://www3.gobiernodecanarias.org/medioambiente/calidaddelaire/datosOnLineEstacion.do';
+
+function setupAireLayer(){
+  if(map.getSource('aire-wms')) return;
+  map.addSource('aire-wms', {
+    type:'raster',
+    tiles:[AIRE_WMS_URL +
+      '?service=WMS&version=1.1.1&request=GetMap' +
+      '&layers=' + AIRE_LAYERS_ALL +
+      '&bbox={bbox-epsg-3857}&width=256&height=256' +
+      '&srs=EPSG:3857&format=image/png&transparent=true'],
+    tileSize:256,
+    attribution:'Aire: GRAFCAN · Red Vigilancia Calidad Aire Canarias'
+  });
+  map.addLayer({
+    id:'aire-wms', type:'raster', source:'aire-wms',
+    paint:{'raster-opacity':0.92},
+    layout:{visibility:'none'}
+  });
+}
+
+function toggleAire(){
+  if(!map.getLayer('aire-wms')) setupAireLayer();
+  aireVisible = !aireVisible;
+  map.setLayoutProperty('aire-wms','visibility', aireVisible ? 'visible' : 'none');
+  if(!aireVisible && airePopup){airePopup.remove(); airePopup=null;}
+  syncActiveLayer('aire', aireVisible);
+  showAireLegend(aireVisible);
+}
+
+function aireMapClickHandler(e){
+  if(!aireVisible) return;
+  var canvas = map.getCanvas();
+  var pixelW = canvas.width / (window.devicePixelRatio || 1);
+  var pixelH = canvas.height / (window.devicePixelRatio || 1);
+  var b = map.getBounds();
+  var url = AIRE_WMS_URL +
+    '?service=WMS&version=1.1.1&request=GetFeatureInfo' +
+    '&layers=' + AIRE_LAYERS_ALL +
+    '&query_layers=' + AIRE_LAYERS_ALL +
+    '&srs=EPSG:4326' +
+    '&bbox=' + [b.getWest(),b.getSouth(),b.getEast(),b.getNorth()].join(',') +
+    '&width=' + Math.round(pixelW) + '&height=' + Math.round(pixelH) +
+    '&x=' + Math.round(e.point.x) + '&y=' + Math.round(e.point.y) +
+    '&info_format=application/vnd.ogc.gml';
+
+  fetch(url).then(function(r){return r.text();}).then(function(xml){
+    var info = parseGenericGML(xml);
+    if(!info.length) return;
+    var f = info[0];
+    var nombre = f.nombre || f.NOMBRE || f.estacion || 'Estación calidad aire';
+    var html = '<div style="padding:8px 4px;font-size:11px;line-height:1.55;max-width:260px">'
+      + '<div style="font-size:9px;letter-spacing:1.5px;color:#5acab0;text-transform:uppercase">Estación calidad aire</div>'
+      + '<div style="color:#d4c4a0;font-weight:600;margin:3px 0">' + nombre + '</div>'
+      + (f.tipo || f.TIPO ? '<div style="color:#a89c80;font-size:10px">Tipo: ' + (f.tipo||f.TIPO) + '</div>' : '')
+      + (f.municipio || f.MUNICIPIO ? '<div style="color:#8a8070;font-size:10px">' + (f.municipio||f.MUNICIPIO) + '</div>' : '')
+      + '<div style="margin-top:10px;padding-top:8px;border-top:1px solid #2a2520">'
+        + '<a href="' + AIRE_PORTAL + '" target="_blank" rel="noopener" style="color:#5acab0;font-size:11px">Ver lecturas horarias en vivo ↗</a>'
+        + '<div style="color:#666;font-size:9px;margin-top:4px;font-style:italic">Los valores en tiempo real (NO₂, PM10, O₃) se consultan en el portal oficial. Próximamente integramos lecturas en el visor.</div>'
+      + '</div></div>';
+    if(airePopup) airePopup.remove();
+    airePopup = new maplibregl.Popup({closeButton:true,maxWidth:'300px',offset:8})
+      .setLngLat(e.lngLat).setHTML(html).addTo(map);
+  }).catch(function(err){
+    console.warn('GetFeatureInfo Aire falló:', err);
+  });
+}
+
+// Helper genérico para parsear GML de WMS GRAFCAN. Reusable para cualquier capa.
+function parseGenericGML(xml){
+  var out = [];
+  var doc = new DOMParser().parseFromString(xml, 'text/xml');
+  Array.from(doc.getElementsByTagName('*')).forEach(function(el){
+    if(/_feature$/.test(el.localName || el.tagName)){
+      var feat = {};
+      Array.from(el.children).forEach(function(c){
+        var k = c.localName || c.tagName;
+        if(k === 'boundedBy' || k.indexOf(':') !== -1) return;
+        feat[k] = (c.textContent || '').trim();
+      });
+      out.push(feat);
+    }
+  });
+  return out;
+}
+
+function showAireLegend(show){
+  var el = document.getElementById('aire-legend');
+  if(!show){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'aire-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);max-width:90vw;flex-wrap:wrap;justify-content:center';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span><b style="color:#5acab0">Calidad del aire</b> · Red de Vigilancia · click sobre estación para detalles</span>' +
+    '<span style="color:#444;margin-left:6px;font-size:8px">GRAFCAN · Consejería Transición Ecológica · datos.canarias.es</span>';
+}
+
+map.on('load', function(){
+  map.on('click', aireMapClickHandler);
+});
 
 // ===========================================================
 //  CAPA SALUD — Centros sanitarios via WMS GRAFCAN

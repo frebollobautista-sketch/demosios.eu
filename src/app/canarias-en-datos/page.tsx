@@ -168,6 +168,12 @@ export default function CanariasEnDatosPage() {
               { name: "Listas de espera quirúrgica SCS por isla", source: "ISTAC · SCS · 32.131 personas a dic 2025", ready: true, color: "#d4632a" },
             ]}
           />
+          <Categoria
+            titulo="Medio ambiente"
+            items={[
+              { name: "Estaciones de calidad del aire", source: "GRAFCAN · Red de Vigilancia Calidad Aire Canarias", ready: true, color: "#5acab0" },
+            ]}
+          />
         </Bloque>
       </section>
 

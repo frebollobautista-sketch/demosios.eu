@@ -341,3 +341,46 @@ Conexión natural:
 Estas tres decisiones son las que hay que cerrar **antes** de empezar a pegar el isométrico al tablero plano. Idealmente las decide el módulo isométrico, no este — el tablero plano es agnóstico mientras respete `cusec` como entrada/salida.
 
 **URL local:** `http://localhost:8091/polis-piezas/tablero-formas.html` (server `ocre-static` desde `/Users/panch/OCRE`).
+
+### 2026-05-11 — Cruceros: derrama economica visible (capa Egalite)
+
+Idea de Panch que pivota sobre el problema civico del **trickle-down que no llega**. Los cruceros traen miles de pasajeros/dia a LPA pero la mayor parte del valor se queda en la naviera (operador del barco, mayoritariamente extranjero). Mostrar visualmente cuanto se queda en Canarias vs cuanto se va = "palanca civica concreta" que diferenciaria OCRE.
+
+**Tres capas posibles (decidir alcance al retomar):**
+
+1. **Calendario de escalas** (factible 100%) — Autoridad Portuaria de LPA publica el calendario semanal/mensual: barco, hora llegada, hora salida, plazas, naviera. Scrape o API si existe.
+
+2. **Posicion en tiempo real (AIS)** — barcos moviendose en vivo. Fuentes posibles: MarineTraffic (iframe gratis / API key 50 EUR/mes), VesselFinder (similar), **aisstream.io** (WebSocket gratuito, calidad razonable, lo mas prometedor). Calibre medio porque depende de fiabilidad endpoint publico.
+
+3. **Derrama economica estimada** (lo civicamente potente) — para cada crucero:
+   - Pasajeros declarados (calendario AP)
+   - Gasto medio en tierra: ~70 EUR/dia por crucerista (ISTAC Encuesta Gasto Turistico + Cabildo GC, fuentes publicas)
+   - Total derrama estimada = pasajeros x 70 EUR
+   - **Comparativa contundente**: precio medio crucero ~= 200 EUR/dia por pax → solo **30-35%** del valor que paga el crucerista queda en Canarias. El resto lo captura la naviera.
+
+**Framing critico** (decision pendiente — mas activista que descriptivo):
+> *"Hoy entra el barco X con 5.000 pasajeros. La derrama estimada en tierra es 350.000 EUR. El precio medio del crucero es 1.000.000 EUR/dia. El 65% se va con el barco."*
+
+**Implementacion propuesta (cuando se retome):**
+- Capa 1+3 en un solo commit (calendario + derrama). Capa 2 (AIS) en iteracion 2 si aisstream.io funciona.
+- Marcador grande sobre el puerto LPA con total semanal (pasajeros + derrama EUR).
+- Click → tabla de cruceros proximos 7 dias con barco, plazas, derrama, naviera.
+- Nota civica con cita ISTAC.
+
+**Alcance v1**: solo Las Palmas (prov 35). Tenerife/Lanzarote/Fuerteventura en v2.
+
+**Pendiente confirmar con Panch antes de implementar:**
+- Si el framing "el 65% se va" se publica tal cual o se neutraliza ("el 65% no queda en Canarias segun gasto medio declarado").
+- Si anadir comparativa con Hotel-todo-incluido (mismo problema economico pero anclado en tierra).
+- Si anadir contadores acumulados ano-corriente (cruceristas que han pisado tierra ese ano, etc.).
+
+### 2026-05-11 — GTFS-Realtime Guaguas: endpoint publico no existe
+
+Probado en sesion. El servidor de guaguas.com devuelve 200 con HTML generico a cualquier ruta /transit/.../realtime/* — pantalla de error camuflada de 200. El feed GTFS-RT con posiciones de autobuses en vivo **NO esta publicado** por Guaguas Municipales.
+
+Opciones para retomar:
+- Escribir a Guaguas Municipales SA pidiendo apertura del feed RT (CCN: gobierno LPGC).
+- Probar otros operadores canarios con GTFS-RT: TITSA (Tenerife) puede tener feed; Global GC (interurbano) probablemente no.
+- Alternativa: scrape de la app **Wayke** (la que usan los guaguistas para ver tiempo de espera). Fragil y posible problema TOS.
+
+Dejamos GTFS estatico funcionando (paradas + lineas + cobertura 300m).

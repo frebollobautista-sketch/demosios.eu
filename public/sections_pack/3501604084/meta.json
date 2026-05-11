@@ -1,0 +1,86 @@
+{
+  "cusec": "3501604084",
+  "mun": "016",
+  "nmun": "Palmas de Gran Canaria, Las",
+  "area_ha": 4.383932386787322,
+  "perimeter_m": 938.3807680636655,
+  "building_count": 4,
+  "tree_count": 0,
+  "monument_count": 0,
+  "poi_count": 5,
+  "road_segment_count": 110,
+  "centroid_lnglat": [
+    -15.439206982543642,
+    28.126084829592696
+  ],
+  "bbox_lnglat": [
+    -15.4405,
+    28.1243,
+    -15.4378,
+    28.1275
+  ],
+  "bbox_local_m": [
+    -124.26383256433017,
+    -157.53676974127785,
+    138.12978178495655,
+    186.54323025871122
+  ],
+  "enu_basis": {
+    "lng0": -15.439206982543642,
+    "lat0": 28.126084829592696,
+    "cos_lat0": 0.881912338836011
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-09T16:47:55+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

@@ -1,0 +1,210 @@
+/* KOINOS · POLIS runtime — paleta Into the Breach */
+:root {
+  --paper: #F5E8C8;
+  --ocre: #C89968;
+  --gris: #4A4D52;
+  --street: #6B6358;
+  --ink: #1A1612;
+  --accent-naranja: #E68A4F;
+  --accent-morado: #9F4FE6;
+  --white: #FFFFFF;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.banner {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 48px;
+  background: var(--ink); color: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 18px;
+  z-index: 10;
+  letter-spacing: 0.5px;
+}
+.banner-title { font-weight: bold; font-size: 18px; }
+.banner-sub { font-size: 13px; opacity: 0.85; }
+
+.back-btn {
+  position: fixed; top: 56px; left: 16px;
+  width: 38px; height: 38px;
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  font-size: 22px; font-weight: bold;
+  cursor: pointer; font-family: inherit;
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  z-index: 11;
+  display: none;          /* ocultado en nivel isla */
+  line-height: 0.8;
+  padding: 0;
+}
+.back-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.back-btn.visible { display: block; }
+
+/* Botones laterales ‹ › visibles solo en nivel distrito */
+.dist-side-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px; height: 64px;
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  font-size: 30px; font-weight: bold;
+  cursor: pointer; font-family: inherit;
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  z-index: 11;
+  display: none;
+  line-height: 0.8;
+  padding: 0;
+}
+.dist-side-btn.left { left: 16px; }
+.dist-side-btn.right { right: 16px; }
+.dist-side-btn:active { transform: translateY(-50%) translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.dist-side-btn.visible { display: block; }
+
+/* Etiqueta flotante del distrito */
+.dist-label {
+  position: fixed;
+  top: 56px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  box-shadow: 4px 4px 0 var(--ink);
+  z-index: 9;
+  display: none;
+  white-space: nowrap;
+}
+.dist-label.visible { display: block; }
+
+.breadcrumb {
+  position: fixed; top: 56px; left: 64px;
+  display: flex; gap: 4px; align-items: center;
+  z-index: 9;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 5px 10px;
+  box-shadow: 4px 4px 0 var(--ink);
+  font-size: 13px;
+  letter-spacing: 0.4px;
+}
+.breadcrumb .bc-seg {
+  background: transparent;
+  border: none;
+  padding: 2px 6px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: bold;
+}
+.breadcrumb .bc-seg:hover { color: var(--accent-naranja); }
+.breadcrumb .bc-seg.current {
+  color: var(--accent-naranja);
+  cursor: default;
+  text-decoration: underline;
+}
+.breadcrumb .bc-sep { color: var(--street); padding: 0 1px; }
+
+#stage {
+  position: fixed; top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+}
+#stage.grabbing { cursor: grabbing; }
+
+.hud {
+  position: fixed; top: 60px; right: 16px;
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  z-index: 5;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.hud-row { display: flex; align-items: baseline; gap: 6px; }
+.hud-row strong { font-size: 15px; color: var(--accent-naranja); }
+.hud-row .hud-label { color: var(--ink); opacity: 0.75; }
+
+.lod-pill {
+  position: fixed; bottom: 16px; left: 16px;
+  background: var(--ink); color: var(--paper);
+  padding: 6px 12px;
+  font-size: 12px;
+  z-index: 5;
+  letter-spacing: 0.8px;
+  border: 3px solid var(--ink);
+}
+
+.zoom-bar {
+  position: fixed; bottom: 16px; right: 16px;
+  display: flex; gap: 6px;
+  z-index: 5;
+}
+.zoom-bar button {
+  width: 38px; height: 38px;
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  font-size: 18px; font-weight: bold;
+  cursor: pointer; font-family: inherit;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.zoom-bar button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+
+.side-panel {
+  position: fixed; top: 48px; right: 0;
+  width: 320px; max-width: 92vw; height: calc(100vh - 48px);
+  background: var(--paper);
+  border-left: 5px solid var(--ink);
+  padding: 22px 22px 22px 26px;
+  transform: translateX(110%);
+  transition: transform 0.22s ease;
+  z-index: 8;
+  overflow-y: auto;
+}
+.side-panel.open { transform: translateX(0); }
+.side-panel h2 { margin: 0 0 16px 0; font-size: 22px; }
+.side-panel dl { margin: 0; }
+.side-panel dt { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--street); margin-top: 12px; }
+.side-panel dd { margin: 2px 0 0 0; font-size: 16px; font-weight: bold; }
+.side-panel .close {
+  position: absolute; top: 10px; right: 12px;
+  width: 32px; height: 32px;
+  background: transparent; border: none;
+  font-size: 28px; cursor: pointer; color: var(--ink);
+}
+
+.loader {
+  position: fixed; inset: 0;
+  background: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100;
+  transition: opacity 0.25s;
+}
+.loader.hidden { opacity: 0; pointer-events: none; }
+.loader-inner {
+  border: 4px solid var(--ink);
+  padding: 14px 24px;
+  font-size: 14px;
+  background: var(--paper);
+  box-shadow: 6px 6px 0 var(--ink);
+}

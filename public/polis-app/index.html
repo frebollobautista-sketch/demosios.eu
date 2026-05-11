@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>KOINOS · POLIS — runtime iso v0</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="banner">
+    <div class="banner-title">KOINOS · POLIS</div>
+    <div class="banner-sub" id="banner-sub">cargando…</div>
+  </header>
+
+  <button id="back-btn" class="back-btn" aria-label="Volver al nivel anterior" title="Volver">←</button>
+
+  <nav class="breadcrumb" id="breadcrumb" aria-label="Navegación jerárquica">
+    <button class="bc-seg" data-level="isla">Gran Canaria</button>
+  </nav>
+
+  <button id="dist-prev" class="dist-side-btn left" aria-label="Distrito anterior" title="Distrito anterior">‹</button>
+  <button id="dist-next" class="dist-side-btn right" aria-label="Distrito siguiente" title="Distrito siguiente">›</button>
+
+  <div id="dist-label" class="dist-label" aria-hidden="true"></div>
+
+  <canvas id="stage" aria-label="Mapa isométrico"></canvas>
+
+  <!-- HUD: el contenido se inyecta desde renderer.js consumiendo
+       state.indicators. Mientras Supabase/Next.js no lo rellenen el HUD
+       muestra placeholders "--". Ver docs/RUNTIME.md §Integración con la
+       capa cívica para el contrato. -->
+  <div class="hud" id="hud">
+    <div class="hud-row" data-key="zone-recovered">
+      <strong>--</strong> <span class="hud-label">recuperado</span>
+    </div>
+    <div class="hud-row" data-key="realtime-events">
+      <strong>--</strong> <span class="hud-label">eventos vivos</span>
+    </div>
+    <div class="hud-row" data-key="realtime-portals">
+      <strong>--</strong> <span class="hud-label">portales registrables</span>
+    </div>
+  </div>
+
+  <div class="lod-pill" id="lod-pill">LOD: sección</div>
+
+  <div class="zoom-bar" id="zoom-bar">
+    <button id="btn-zoom-out" title="Alejar">−</button>
+    <button id="btn-zoom-reset" title="Reset">○</button>
+    <button id="btn-zoom-in" title="Acercar">+</button>
+  </div>
+
+  <aside class="side-panel" id="side-panel" aria-hidden="true">
+    <button class="close" id="side-close" aria-label="Cerrar">×</button>
+    <h2 id="sp-title">Manzana</h2>
+    <dl id="sp-body"></dl>
+  </aside>
+
+  <div id="loader" class="loader">
+    <div class="loader-inner">cargando data pack…</div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+/* biblioteca-app/style.css
+   Paleta oscura, sobria. Ocre canario como único acento.
+   Layout 3 columnas (sliders | feed | misiones) — desktop primero,
+   colapsa en móvil a una sola columna con paneles plegables. */
+
+:root {
+  --bg:           #0a0a0a;
+  --bg-panel:    #111111;
+  --bg-card:     #161616;
+  --bg-card-hi:  #1c1c1c;
+  --line:        #2a2a2a;
+  --line-soft:   #1d1d1d;
+  --text:        #e0e0e0;
+  --text-dim:    #888888;
+  --text-faint:  #555555;
+  --ocre:        #c9a86a;
+  --ocre-soft:   #6e5a36;
+  --ok:          #5ea674;
+  --warn:        #c89a4a;
+  --danger:      #b6533a;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+  min-height: 100vh;
+}
+
+a { color: var(--ocre); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.4em 0.8em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+button:hover { border-color: var(--ocre); }
+button.primary {
+  background: var(--ocre);
+  color: #1a1410;
+  border-color: var(--ocre);
+  font-weight: 500;
+}
+button.primary:hover { background: #d6b574; border-color: #d6b574; }
+button.ghost { border-color: var(--line-soft); color: var(--text-dim); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+input, textarea, select {
+  font: inherit;
+  color: inherit;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 0.5em 0.7em;
+  border-radius: 3px;
+  width: 100%;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--ocre);
+}
+textarea { resize: vertical; min-height: 5em; }
+
+/* ─────────────────── LAYOUT ─────────────────── */
+
+header.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7em 1.2em;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 10;
+}
+header.topbar h1 {
+  margin: 0;
+  font-size: 1.05em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ocre);
+  text-transform: uppercase;
+}
+header.topbar .topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.85em;
+  color: var(--text-dim);
+}
+header.topbar .uid {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--text-faint);
+}
+
+main.app {
+  display: grid;
+  grid-template-columns: 200px 1fr 280px;
+  gap: 0;
+  min-height: calc(100vh - 50px);
+}
+
+aside.col {
+  background: var(--bg-panel);
+  border-right: 1px solid var(--line);
+  padding: 1.2em 1em;
+  overflow-y: auto;
+}
+aside.col.right {
+  border-right: none;
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+section.feed {
+  padding: 1.4em 1.6em;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+@media (max-width: 1000px) {
+  main.app { grid-template-columns: 1fr; }
+  aside.col {
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid var(--line);
+  }
+  aside.col.right {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* ─────────────────── SLIDERS ─────────────────── */
+
+.sliders-title {
+  font-size: 0.75em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.2em;
+}
+
+.slider-block {
+  margin-bottom: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.slider-block .polo {
+  font-size: 0.78em;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.03em;
+  width: 100%;
+}
+.slider-block .polo.top    { margin-bottom: 0.4em; color: var(--text); }
+.slider-block .polo.bottom { margin-top: 0.4em;    color: var(--text); }
+
+/* Slider vertical — usamos input[range] horizontal y rotamos 90deg via
+   appearance + writing-mode (mejor soporte que rotate transform). */
+.slider-block input[type=range] {
+  -webkit-appearance: slider-vertical;
+  appearance: slider-vertical;
+  writing-mode: vertical-lr;
+  direction: rtl;            /* positivo arriba */
+  width: 28px;
+  height: 130px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.slider-block .valor {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--text-faint);
+  margin-top: 0.2em;
+}
+
+/* ─────────────────── FEED ─────────────────── */
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.2em;
+}
+.feed-header h2 {
+  margin: 0;
+  font-size: 0.85em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.feed-header .feed-stats {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--text-faint);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--ocre-soft);
+  border-radius: 3px;
+  padding: 1em 1.2em;
+  margin-bottom: 0.9em;
+  transition: background 0.15s;
+}
+.card:hover { background: var(--bg-card-hi); }
+.card.is-mision { border-left-color: var(--ocre); border-left-width: 5px; }
+
+.card .card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5em;
+  gap: 0.6em;
+}
+.card .card-id {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--ocre);
+  letter-spacing: 0.04em;
+}
+.card .card-score {
+  font-family: var(--font-mono);
+  font-size: 0.72em;
+  color: var(--text-faint);
+}
+.card .card-body {
+  font-size: 0.92em;
+  color: var(--text);
+  line-height: 1.55;
+}
+.card .card-body p { margin: 0.4em 0; }
+.card .card-body strong { color: var(--ocre); font-weight: 600; }
+.card .card-body a { color: var(--ocre); }
+.card .card-toggle {
+  margin-top: 0.5em;
+  font-size: 0.75em;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+}
+.card .card-toggle:hover { color: var(--ocre); }
+.card.collapsed .card-body { max-height: 5.6em; overflow: hidden; position: relative; }
+.card.collapsed .card-body::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2em;
+  background: linear-gradient(transparent, var(--bg-card));
+  pointer-events: none;
+}
+
+.feed-pager {
+  display: flex;
+  justify-content: center;
+  margin: 1.6em 0 2em;
+}
+
+.feed-empty {
+  color: var(--text-dim);
+  font-style: italic;
+  text-align: center;
+  padding: 3em 1em;
+}
+
+/* ─────────────────── MISIONES ─────────────────── */
+
+.misiones-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.misiones-head h2 {
+  margin: 0;
+  font-size: 0.85em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.mision-list {
+  flex: 1;
+  overflow-y: auto;
+}
+.mision-list:empty::before {
+  content: "Sin misiones abiertas.";
+  color: var(--text-faint);
+  font-style: italic;
+  font-size: 0.85em;
+}
+.mision-item {
+  background: var(--bg-card);
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--ocre);
+  border-radius: 3px;
+  padding: 0.7em 0.8em;
+  margin-bottom: 0.6em;
+}
+.mision-item .mision-title {
+  font-size: 0.9em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.3;
+}
+.mision-item .mision-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  color: var(--text-faint);
+  margin-bottom: 0.4em;
+}
+.mision-item .mision-actions {
+  display: flex;
+  gap: 0.4em;
+  margin-top: 0.3em;
+}
+.mision-item button {
+  font-size: 0.75em;
+  padding: 0.25em 0.6em;
+}
+
+.sintesis-cta {
+  margin: 1em 0 0.6em;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1em;
+}
+.sintesis-cta button {
+  width: 100%;
+  font-size: 0.85em;
+  color: var(--ocre);
+  border-color: var(--ocre-soft);
+}
+
+/* ─────────────────── HONESTY METER ─────────────────── */
+
+.honesty {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.honesty .honesty-label {
+  font-size: 0.7em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.4em;
+}
+.honesty .honesty-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.85em;
+}
+.honesty .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  flex-shrink: 0;
+}
+.honesty.verde .dot { background: var(--ok); }
+.honesty.ambar .dot { background: var(--warn); }
+.honesty .honesty-text {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  color: var(--text-dim);
+}
+.honesty .honesty-hint {
+  font-size: 0.72em;
+  color: var(--text-faint);
+  margin-top: 0.3em;
+  font-style: italic;
+}
+
+/* ─────────────────── MODAL ─────────────────── */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1em;
+}
+.modal {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.4em 1.6em;
+}
+.modal h3 {
+  margin: 0 0 0.6em;
+  font-size: 1em;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--ocre);
+}
+.modal .modal-intro {
+  font-size: 0.9em;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+  line-height: 1.55;
+}
+.modal .field {
+  margin-bottom: 0.9em;
+}
+.modal .field label {
+  display: block;
+  font-size: 0.78em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3em;
+}
+.modal .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6em;
+  margin-top: 1em;
+}
+.modal .modal-error {
+  color: var(--danger);
+  font-size: 0.85em;
+  margin-top: 0.5em;
+}
+.modal .modal-ok {
+  color: var(--ok);
+  font-size: 0.85em;
+  margin-top: 0.5em;
+}
+
+/* Síntesis: listado de fuentes */
+.fuentes-list { margin-top: 0.4em; }
+.fuente-row {
+  display: grid;
+  grid-template-columns: 1fr 110px 28px;
+  gap: 0.4em;
+  margin-bottom: 0.4em;
+  align-items: center;
+}
+.fuente-row select, .fuente-row input { padding: 0.35em 0.5em; font-size: 0.85em; }
+.fuente-row button {
+  padding: 0.15em 0.4em;
+  border-color: var(--line-soft);
+  color: var(--text-faint);
+}
+.fuente-row button:hover { color: var(--danger); border-color: var(--danger); }
+.fuentes-add {
+  font-size: 0.8em;
+  color: var(--ocre);
+  margin-top: 0.3em;
+  display: flex;
+  gap: 0.5em;
+}
+.fuentes-add button { font-size: 0.8em; padding: 0.25em 0.7em; }
+.fuentes-hint {
+  font-size: 0.75em;
+  color: var(--text-faint);
+  font-style: italic;
+  margin-top: 0.3em;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   EXTENSIONES v20260527d — masa crítica Biblioteca
+   ══════════════════════════════════════════════════════════════════════ */
+
+.biblio-actions { margin-top: 0.6rem; }
+.btn-ghost-wide {
+  display: block; width: 100%;
+  background: transparent; color: var(--text);
+  border: 1px solid var(--line-soft, #222);
+  border-radius: 4px;
+  padding: 0.5em 0.8em; margin-bottom: 0.4rem;
+  font: inherit; font-size: 0.85em; text-align: left;
+  cursor: pointer; transition: all 150ms ease;
+}
+.btn-ghost-wide:hover {
+  border-color: var(--ocre);
+  color: var(--ocre);
+  background: rgba(201,168,106,0.04);
+}
+
+.feed-empty {
+  background: var(--surface, #141414);
+  border: 1px dashed var(--line-soft, #222);
+  border-radius: 6px;
+  padding: 1.4rem 1.2rem;
+  margin: 0.4rem 0;
+  color: var(--text);
+  font-size: 0.92em;
+}
+.feed-empty h3 {
+  font-size: 1em; font-weight: 500;
+  color: var(--ocre); margin: 0 0 0.6em 0;
+}
+.feed-empty p { margin: 0 0 0.6em 0; color: var(--text-faint, #888); }
+.feed-empty .empty-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem; }
+.feed-empty .empty-actions button {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--ocre); border-radius: 4px;
+  padding: 0.4em 0.8em; font: inherit; font-size: 0.85em;
+  cursor: pointer;
+}
+.feed-empty .empty-actions button:hover {
+  background: var(--ocre); color: var(--bg);
+}
+.feed-empty .empty-stat { font-size: 0.8em; color: var(--text-faint, #888); margin-top: 0.4em; font-style: italic; }
+
+.tokens-block {
+  margin-top: 0.8rem;
+  font-size: 0.85em;
+  color: var(--text);
+  border-top: 1px solid var(--line-soft, #222);
+  padding-top: 0.6rem;
+}
+.tokens-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem; }
+.tokens-saldo {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 1.4em; color: var(--ocre);
+}
+.tokens-hint { color: var(--text-faint, #888); font-size: 0.82em; margin: 0.2rem 0 0.5rem 0; }
+.btn-token-emit {
+  background: var(--ocre); color: var(--bg);
+  border: none; border-radius: 4px;
+  padding: 0.4em 0.9em; font: inherit; font-size: 0.85em;
+  cursor: pointer; font-weight: 500;
+}
+.btn-token-emit:hover { opacity: 0.85; }
+.tokens-emitidos {
+  list-style: none; padding: 0; margin: 0.5rem 0 0 0;
+  font-size: 0.75em; color: var(--text-faint, #888);
+  font-family: ui-monospace, Menlo, monospace;
+}
+.tokens-emitidos li { padding: 0.15em 0; }
+
+/* Barra superior compartida (shared/navbar.css, 40px fija). */
+.kn-has-navbar header.topbar { position: sticky; top: 40px; z-index: 20; }

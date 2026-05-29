@@ -1,0 +1,40 @@
+# Backups (hardlinks o duplicados de archivos vivos)
+public/sections_pack_backup_*
+public/buildings_backup_catastro
+public/buildings
+public/buildings-by-mun
+
+# Datos source/intermediate que el visor NO consume
+public/data/entidades-canarias-raw.json
+public/data/entidades
+public/data/barrios-canarias-seed.json
+public/data/barrios-canarias-final.json
+public/data/barrios-canonical.backup-*
+public/data/_*.log
+public/data/_*.py
+public/data/tejido-social.geojson
+
+# OSM crudos grandes (sustituidos por roads-main.json)
+public/osm-gc/roads.json
+public/osm-prov38/roads.json
+public/osm-gc/water.json
+public/osm-prov38/water.json
+
+# Catastro source (~3 GB) — fuera de public/ pero por si acaso
+catastro_data
+GEOFABRIK
+logs
+node_modules
+.next
+src
+packages
+
+# Archivos repo dev-only
+*.zip
+.git
+.claude
+docs
+*.md
+*.py
+*.log
+scripts

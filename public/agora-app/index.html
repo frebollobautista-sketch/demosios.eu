@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ágora — feed cívico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20260529c">
+  <link rel="stylesheet" href="sillas.css?v=20260527c">
+  <link rel="stylesheet" href="quorums.css?v=20260527c">
+  <link rel="stylesheet" href="pulso.css?v=20260527c">
+  <link rel="stylesheet" href="descubre.css?v=20260527g">
+</head>
+<body>
+  <!-- [VERDE-SKIN 2026-05-29] Header OCRE portado de POLIS (mismo shell):
+       membrete "OCRE ▾" con dropdown de vistas + tira "multitouch" selectora
+       de feed (muta la siluetas-strip de islas → aquí saltas de algoritmo-yo).
+       Skin verde oscuro: papel oscuro / tinta clara (invertido vs POLIS). -->
+  <div class="agora-topshell">
+    <header class="app-topbar" id="app-topbar">
+      <div class="app-topbar-left">
+        <div class="app-topbar-brand" id="app-topbar-brand" role="button" tabindex="0"
+             aria-haspopup="menu" aria-expanded="false">
+          <span class="brand-icon" aria-hidden="true"></span>
+          <span class="brand-text">OCRE</span>
+          <span class="brand-caret" aria-hidden="true">▾</span>
+        </div>
+        <code id="uid" class="topbar-uid-code" hidden></code>
+      </div>
+
+      <div class="app-topbar-menu" id="app-topbar-menu" role="menu" aria-hidden="true">
+        <a class="atm-item" role="menuitem" href="../polis-app/">
+          <span class="atm-dot" aria-hidden="true"></span>
+          <span class="atm-text"><span class="atm-name">POLIS</span><span class="atm-desc">El mapa cívico</span></span>
+        </a>
+        <button class="atm-item atm-active" role="menuitem" type="button" aria-current="page">
+          <span class="atm-dot" aria-hidden="true"></span>
+          <span class="atm-text"><span class="atm-name">ÁGORA</span><span class="atm-desc">Asambleas y debate</span></span>
+        </button>
+        <a class="atm-item" role="menuitem" href="../biblioteca-app/">
+          <span class="atm-dot" aria-hidden="true"></span>
+          <span class="atm-text"><span class="atm-name">BIBLIOTHEKA</span><span class="atm-desc">Archivo cívico y memoria</span></span>
+        </a>
+      </div>
+
+      <div class="app-topbar-right">
+        <button id="mode-descubre" class="app-topbar-iconbtn" type="button"
+                aria-label="Descubre" title="Descubre — un item a la vez, serendipia">✦</button>
+        <button id="btn-drawer" class="app-topbar-iconbtn" type="button"
+                aria-label="Tu algoritmo y misiones" aria-controls="drawer" aria-expanded="false">⚙</button>
+        <button id="app-topbar-enter" class="app-topbar-enter" type="button">Entrar</button>
+      </div>
+    </header>
+
+    <!-- Tira "multitouch": selector de feed (la cablea app.js: montarStrip). -->
+    <div id="agora-strip" class="agora-strip" role="tablist" aria-label="Feed activo"></div>
+  </div>
+
+  <!-- ─────────────────── Pinned mission strip ────────────────────────
+       Tira fina justo bajo la topbar. app.js la muestra/oculta según
+       si hay ≥1 misión abierta. Click [✓] cierra la misión.
+       ──────────────────────────────────────────────────────────────── -->
+  <div id="mision-pinned" class="mision-pinned" hidden>
+    <span class="mision-pinned-tag">▸ MISIÓN abierta:</span>
+    <span id="mision-pinned-title" class="mision-pinned-title">—</span>
+    <span id="mision-pinned-time" class="mision-pinned-time"></span>
+    <button id="mision-pinned-close" class="mision-pinned-close" type="button"
+            aria-label="Cerrar misión">✓</button>
+  </div>
+
+  <!-- Timeline (centro): columna única tipo Bluesky. Las cards las inyecta
+       app.js (renderCard). Status arriba, feed, vacío-invitante, paginación. -->
+  <main class="timeline" role="main" aria-label="Feed">
+    <div class="timeline-status">
+      <span id="feed-status">cargando…</span>
+    </div>
+
+    <div id="feed" class="feed"></div>
+
+    <!-- Vacío invitante: app.js lo rellena cuando el feed queda a 0 items -->
+    <div id="feed-empty" class="feed-empty" hidden></div>
+
+    <div class="timeline-paginacion">
+      <button id="btn-mas" class="btn-mas" type="button" hidden>siguientes →</button>
+    </div>
+  </main>
+
+  <!-- ─────────────────────────── Drawer ──────────────────────────────
+       Slide-in derecha. Oculto por default (aria-hidden="true").
+       Cerrar con #drawer-close, backdrop o ESC (lo cablea app.js).
+       Contiene: sliders + fuentes + misiones + loops + honesty.
+       ──────────────────────────────────────────────────────────────── -->
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+
+  <aside id="drawer" class="drawer" role="dialog" aria-modal="true"
+         aria-labelledby="drawer-title" aria-hidden="true" hidden>
+    <header class="drawer-head">
+      <h2 id="drawer-title" class="drawer-title">Tu algoritmo</h2>
+      <button id="drawer-close" class="drawer-close" type="button"
+              aria-label="Cerrar panel">×</button>
+    </header>
+
+    <div class="drawer-body">
+
+      <!-- Sliders (los pinta sliders.js dentro de #sliders-container) -->
+      <section class="drawer-section">
+        <div id="sliders-container" class="sliders-container"></div>
+        <button id="reset-sliders" class="btn-ghost" type="button"
+                title="Volver al centro">↺ centrar</button>
+      </section>
+
+      <hr class="drawer-sep">
+
+      <!-- Fuentes -->
+      <section class="drawer-section" id="fuentes" aria-label="Fuentes del feed">
+        <h3 class="drawer-subtitle">Fuentes</h3>
+
+        <label class="src-row">
+          <input type="checkbox" id="src-civic-toggle" checked>
+          <span class="src-label">Cívicas locales</span>
+        </label>
+
+        <label class="src-row">
+          <input type="checkbox" id="src-bsky-toggle" checked>
+          <span class="src-label">Bluesky</span>
+        </label>
+        <div class="src-detail">
+          <label class="src-field">
+            <span>hashtags</span>
+            <input type="text" id="src-bsky-hashtags"
+                   placeholder="canarias, vegueta" autocomplete="off">
+          </label>
+          <label class="src-field">
+            <span>cuentas</span>
+            <input type="text" id="src-bsky-accounts"
+                   placeholder="@handle.bsky.social, …" autocomplete="off">
+          </label>
+        </div>
+
+        <label class="src-row">
+          <input type="checkbox" id="src-reddit-toggle" checked>
+          <span class="src-label">Reddit</span>
+        </label>
+        <div class="src-detail">
+          <label class="src-field">
+            <span>subreddits</span>
+            <input type="text" id="src-reddit-subreddits"
+                   placeholder="canarias, laspalmas" autocomplete="off">
+          </label>
+        </div>
+
+        <label class="src-row is-disabled">
+          <input type="checkbox" disabled>
+          <span class="src-label">Mastodon <span class="src-soon">(v2)</span></span>
+        </label>
+        <label class="src-row is-disabled">
+          <input type="checkbox" disabled>
+          <span class="src-label">Reels <span class="src-soon">(v2)</span></span>
+        </label>
+
+        <button id="btn-fuentes-aplicar" class="btn-primary" type="button">
+          aplicar y recargar
+        </button>
+      </section>
+
+      <hr class="drawer-sep">
+
+      <!-- Misiones -->
+      <section class="drawer-section" aria-label="Misiones">
+        <h3 class="drawer-subtitle">
+          Misiones
+          <button id="btn-add-mision" class="btn-icon" type="button"
+                  aria-label="Nueva misión" title="Nueva misión">＋</button>
+        </h3>
+        <ul id="misiones-list" class="misiones-list"></ul>
+        <div id="misiones-empty" class="misiones-empty">Aún no hay misiones.</div>
+      </section>
+
+      <hr class="drawer-sep">
+
+      <!-- Loops -->
+      <section class="drawer-section" aria-label="Cierres de bucle">
+        <h3 class="drawer-subtitle">Cierres de bucle</h3>
+        <div id="loops-summary" class="loops-summary"></div>
+      </section>
+
+      <hr class="drawer-sep">
+
+      <!-- Honesty -->
+      <section class="drawer-section" aria-label="Honestidad">
+        <h3 class="drawer-subtitle">Honestidad <span class="drawer-subtitle-tag">30d</span></h3>
+        <div id="honesty-meter" class="honesty-meter"></div>
+      </section>
+
+      <hr class="drawer-sep">
+
+      <!-- Pulso + Tokens + Crear Quórum -->
+      <section class="drawer-section" aria-label="Acciones">
+        <button id="btn-abrir-pulso" class="btn-ghost-wide" type="button">
+          📡 Pulso de zona (72h)
+        </button>
+        <button id="btn-nuevo-quorum" class="btn-ghost-wide" type="button">
+          ▸ Convocar quórum
+        </button>
+      </section>
+
+      <hr class="drawer-sep">
+
+      <section class="drawer-section" aria-label="Tokens de invitación">
+        <div id="tokens-block" class="tokens-block"></div>
+      </section>
+
+    </div>
+  </aside>
+
+  <!-- ────────────────────── Modal de misión ──────────────────────────
+       Estructura existente — los IDs los usa app.js.
+       ──────────────────────────────────────────────────────────────── -->
+  <div class="modal-backdrop" id="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h2 id="modal-title">Nueva misión</h2>
+      <p id="modal-hint" class="modal-hint"></p>
+      <label>Título corto
+        <input id="mision-titulo" type="text" maxlength="80"
+               placeholder="Convocar reunión en el centro cívico" required>
+      </label>
+      <label>Descripción (opcional)
+        <textarea id="mision-descripcion" maxlength="280" rows="3"
+                  placeholder="A qué te comprometes esta semana"></textarea>
+      </label>
+      <label>Contraparte (opcional)
+        <input id="mision-contraparte" type="text" maxlength="120"
+               placeholder="Persona, colectivo o zona">
+      </label>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btn-cancel" type="button">cancelar</button>
+        <button class="btn-confirm" id="btn-confirm" type="button">crear misión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de quórum -->
+  <div class="modal-backdrop" id="modal-quorum-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-quorum-title">
+      <h2 id="modal-quorum-title">Convocar quórum</h2>
+      <p class="modal-hint">
+        Una convocatoria solo se abre si alcanza N firmas antes de la
+        fecha límite. Si no llega, vuelve como propuesta.
+      </p>
+      <label>Título <input id="q-titulo" type="text" maxlength="120" required></label>
+      <label>Descripción (opcional)
+        <textarea id="q-descripcion" maxlength="280" rows="3"></textarea>
+      </label>
+      <div style="display:flex; gap:0.6rem;">
+        <label style="flex:1;">Firmas necesarias
+          <input id="q-umbral" type="number" min="2" max="500" value="12" required>
+        </label>
+        <label style="flex:1;">Deadline
+          <input id="q-deadline" type="date" required>
+        </label>
+      </div>
+      <label>Lugar (opcional) <input id="q-lugar" type="text" maxlength="120"></label>
+      <label>Fecha del evento (opcional) <input id="q-fecha-evento" type="date"></label>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="q-cancel" type="button">cancelar</button>
+        <button class="btn-confirm" id="q-confirm" type="button">convocar</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js?v=20260529e"></script>
+</body>
+</html>

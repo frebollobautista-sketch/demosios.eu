@@ -1,0 +1,6 @@
+# Cloudflare Pages — redirect rules
+# Sintaxis: <source> <destination> <status>
+
+# Raíz → polis-app
+/  /polis-app/  302
+/index.html  /polis-app/  302

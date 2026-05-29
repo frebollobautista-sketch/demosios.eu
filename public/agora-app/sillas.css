@@ -1,0 +1,83 @@
+/* agora-app/sillas.css — Estilos para cards "silla vacía".
+ *
+ * Filosofía visual: la silla vacía es una INVITACIÓN, no una alerta.
+ * Por eso ni rojo, ni urgencia parpadeante — sólo un acento ámbar
+ * (mismo registro cromático que el resto del feed) + dos señales
+ * sutiles de "estado pendiente":
+ *   1. Borde izquierdo punteado en lugar de sólido → sugiere "sin
+ *      cerrar todavía", "esperando a alguien que se siente".
+ *   2. Opacidad 0.92 → ligero apagado, como una luz tenue.
+ *
+ * Las acciones (reclamar / sigue viva) usan texto en lugar de iconos
+ * para subrayar que son acciones de OTRA naturaleza que las del feed
+ * (compromiso/verificación vs reacción rápida).
+ *
+ * Asume las variables de style.css cargado antes (--ambar, --ocre,
+ * --faint, --surface-2, --border, --text). Este fichero NO redefine
+ * tokens; sólo extiende selectores.
+ */
+
+/* ── Card: borde izquierdo punteado + opacidad ──────────────── */
+.post.is-silla {
+  opacity: 0.92;
+  border-left: 2px dashed var(--ambar);
+  /* Compensamos el borde izquierdo más grueso para que el contenido
+     no se desplace respecto a las cards normales. */
+  padding-left: calc(1.2rem - 1px);
+}
+.post.is-silla:hover {
+  opacity: 1;
+  border-left-color: var(--ambar);   /* mantenemos el ámbar al hover */
+  border-color: var(--border);        /* el resto no se vuelve ocre */
+  border-left-style: dashed;
+  background: var(--surface-2);
+}
+
+/* ── Label "SILLA VACÍA" en ámbar ────────────────────────────── */
+.post-source.is-silla-label {
+  color: var(--ambar);
+  border-color: var(--ambar);
+  background: rgba(201, 144, 74, 0.06);   /* tinte ámbar muy leve */
+}
+
+/* ── Body: nombre de la entidad como primera línea, peso medio ─ */
+.post-body.is-silla-body {
+  font-style: normal;
+}
+.post-body.is-silla-body::first-line {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Acciones text-only — visualmente distintas del feed ──────── */
+.post-actions.is-silla-actions {
+  gap: 0.6rem;
+}
+.act-silla-reclamar,
+.act-silla-sigueviva {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  padding: 0.4em 0.9em;
+  border: 1px solid var(--border-2);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.act-silla-reclamar:hover {
+  color: var(--ambar);
+  border-color: var(--ambar);
+  background: rgba(201, 144, 74, 0.08);
+}
+.act-silla-sigueviva:hover {
+  color: var(--verde);
+  border-color: var(--verde);
+  background: rgba(106, 156, 94, 0.08);
+}
+.act-silla-reclamar:focus-visible,
+.act-silla-sigueviva:focus-visible {
+  outline: 2px solid var(--ocre);
+  outline-offset: 2px;
+}

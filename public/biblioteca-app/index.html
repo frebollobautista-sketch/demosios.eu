@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Biblioteca — feed formativo</title>
+  <link rel="stylesheet" href="../shared/navbar.css?v=20260527h">
+  <link rel="stylesheet" href="style.css?v=20260527d">
+  <link rel="stylesheet" href="sillas-conocimiento.css?v=20260527d">
+  <link rel="stylesheet" href="quorums-lectura.css?v=20260527d">
+  <link rel="stylesheet" href="pulso-palacios.css?v=20260527d">
+  <link rel="stylesheet" href="descubre.css?v=20260527g">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Biblioteca</h1>
+    <div class="topbar-right">
+      <button id="btn-descubre" title="Descubre una idea — modo serendípico formativo">✦ Descubre</button>
+      <button id="btn-nueva-sintesis" title="Crear síntesis (G2)">✎ Síntesis</button>
+      <button id="btn-nueva-mision" class="primary">+ Misión</button>
+      <span class="uid" title="Tu identidad anónima estable (UID)">UID <span id="uid">…</span></span>
+    </div>
+  </header>
+
+  <main class="app">
+
+    <!-- Columna izquierda: sliders verticales -->
+    <aside class="col left" id="sliders" aria-label="Sliders del algoritmo">
+      <!-- pintado por app.js -->
+    </aside>
+
+    <!-- Columna centro: feed -->
+    <section class="feed">
+      <div class="feed-header">
+        <h2>Feed</h2>
+        <span class="feed-stats" id="feed-stats">…</span>
+      </div>
+      <div id="feed" aria-live="polite"><!-- cards --></div>
+      <!-- Vacío como invitación: app.js lo muestra cuando ranked.length===0 -->
+      <div id="feed-empty" class="feed-empty" hidden></div>
+    </section>
+
+    <!-- Columna derecha: misiones + honesty -->
+    <aside class="col right" aria-label="Misiones y honesty meter">
+      <div class="misiones-head">
+        <h2>Misiones</h2>
+      </div>
+      <div class="mision-list" id="mision-list">
+        <!-- pintado por app.js -->
+      </div>
+
+      <div class="sintesis-cta">
+        <button id="btn-nueva-sintesis-side" onclick="document.getElementById('btn-nueva-sintesis').click()">
+          ✎ Crear síntesis (G2)
+        </button>
+      </div>
+
+      <div class="honesty" id="honesty">
+        <!-- pintado por app.js -->
+      </div>
+
+      <!-- Acciones masa crítica v3 -->
+      <div class="biblio-actions">
+        <button id="btn-abrir-pulso-palacios" class="btn-ghost-wide" type="button">
+          📡 Pulso de palacios (30d)
+        </button>
+        <button id="btn-nuevo-quorum-lectura" class="btn-ghost-wide" type="button">
+          ▸ Convocar lectura
+        </button>
+      </div>
+
+      <div class="tokens-block" id="tokens-block"></div>
+    </aside>
+
+  </main>
+
+  <!-- Modal de quórum de lectura -->
+  <div class="modal-backdrop" id="modal-quorum-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-quorum-title">
+      <h2 id="modal-quorum-title">Convocar lectura conjunta</h2>
+      <p class="modal-hint">
+        Una lectura se "abre" cuando alcanza N personas antes de la fecha.
+        Sin urgencia: si no llega, vuelve como propuesta archivada.
+      </p>
+      <label>Título <input id="ql-titulo" type="text" maxlength="120" required placeholder="Leer 'Republicanismo' (Pettit)"></label>
+      <label>Autor / fuente
+        <input id="ql-autor" type="text" maxlength="120" placeholder="Pettit, 1997">
+      </label>
+      <label>Descripción (opcional)
+        <textarea id="ql-descripcion" maxlength="280" rows="2"></textarea>
+      </label>
+      <div style="display:flex; gap:0.6rem;">
+        <label style="flex:1;">Personas necesarias
+          <input id="ql-umbral" type="number" min="2" max="100" value="6" required>
+        </label>
+        <label style="flex:1;">Deadline (cierre)
+          <input id="ql-deadline" type="date" required>
+        </label>
+      </div>
+      <label>Fecha de inicio de la lectura
+        <input id="ql-fecha-evento" type="date">
+      </label>
+      <label>Tema mnemoHACK relacionado (opcional)
+        <input id="ql-tema" type="text" maxlength="10" placeholder="t14">
+      </label>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="ql-cancel" type="button">cancelar</button>
+        <button class="btn-confirm" id="ql-confirm" type="button">convocar lectura</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js?v=20260527h"></script>
+</body>
+</html>

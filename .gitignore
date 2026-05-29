@@ -89,3 +89,12 @@ yarn-error.log*
 *.log
 *.bak
 /scripts/_cache/
+
+# Symlinks a datos externos + intermedios + backups pesados (2026-05-29)
+/public/buildings
+/public/buildings_backup_catastro
+/public/osm-gc
+/public/osm-prov38/
+/public/sections_pack_backup_2026_05_24/
+/public/prov38-secciones-lite.json
+.claude/

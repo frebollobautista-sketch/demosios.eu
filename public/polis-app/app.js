@@ -26,7 +26,7 @@ import { fitView, project, pointInScreenPolygon, ringCentroid, ringBbox,
 import { simplifyRing, outerRing, annotateDepth, sortByDepth }
   from "./clustering.js";
 import { loadCatalog, classify } from "./archetypes.js";
-import { render } from "./renderer.js?v=20260529-isla-oficial";
+import { render } from "./renderer.js?v=20260529-drilldown";
 import { attach } from "./interaction.js?v=20260525-swipeback";
 import { initOverlays, setOverlayActive } from "./overlays/index.js?v=20260529-batch3";
 import { TAXONOMIA, getVerbo, SECTOR_ESTADO, VERBO_ART } from "../shared/taxonomia.js?v=20260529b-lineart";

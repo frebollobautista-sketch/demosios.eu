@@ -1,0 +1,133 @@
+{
+  "_meta": {
+    "fuente_poblacion": "INE Padrón 2023 (cifras redondeadas)",
+    "uso": "Popup informativo nivel isla en runtime iso. Cada entrada va por código de municipio de 3 dígitos (sufijo del código INE 35XXX). El campo `chascarrillo` es una curiosidad popular para anclar identidad — no datos oficiales.",
+    "version": 1
+  },
+  "001": {
+    "nombre": "Agaete",
+    "poblacion": 5605,
+    "lema": "Puerto del oeste",
+    "chascarrillo": "El Cafetal del Valle cultiva el único café de Europa a 600 m de altitud."
+  },
+  "002": {
+    "nombre": "Agüimes",
+    "poblacion": 32140,
+    "lema": "Bronce y casco viejo",
+    "chascarrillo": "Cada barrio del casco antiguo se anuncia con una escultura de bronce a la entrada."
+  },
+  "005": {
+    "nombre": "Artenara",
+    "poblacion": 1109,
+    "lema": "El pueblo más alto",
+    "chascarrillo": "Pueblo más alto de la isla; conserva casas-cueva habitadas hoy."
+  },
+  "006": {
+    "nombre": "Arucas",
+    "poblacion": 38221,
+    "lema": "Piedra azul y ron",
+    "chascarrillo": "Su catedral neogótica está tallada íntegramente en piedra azul volcánica local."
+  },
+  "008": {
+    "nombre": "Firgas",
+    "poblacion": 7649,
+    "lema": "Agua y paseo",
+    "chascarrillo": "El Paseo de Canarias y la fuente del pueblo dan nombre al agua mineral más conocida del archipiélago."
+  },
+  "009": {
+    "nombre": "Gáldar",
+    "poblacion": 24357,
+    "lema": "Corte de los guanartemes",
+    "chascarrillo": "Bajo el casco está la Cueva Pintada con geometrías aborígenes únicas en Canarias."
+  },
+  "011": {
+    "nombre": "Ingenio",
+    "poblacion": 32012,
+    "lema": "Aguja y calado",
+    "chascarrillo": "Cuna del calado canario — bordado tradicional que sigue haciéndose a mano."
+  },
+  "012": {
+    "nombre": "Mogán",
+    "poblacion": 22945,
+    "lema": "La pequeña Venecia",
+    "chascarrillo": "El Puerto de Mogán tiene canales entre las casas y por eso lo llaman \"la pequeña Venecia\"."
+  },
+  "013": {
+    "nombre": "Moya",
+    "poblacion": 7627,
+    "lema": "Laurisilva y queso",
+    "chascarrillo": "El Barranco de Los Tilos guarda uno de los últimos reductos de laurisilva milenaria de Gran Canaria."
+  },
+  "016": {
+    "nombre": "Las Palmas de Gran Canaria",
+    "poblacion": 379925,
+    "lema": "Capital tricontinental",
+    "chascarrillo": "Fundada en 1478, fue la primera ciudad española en el Atlántico moderno — escala obligada de Colón."
+  },
+  "019": {
+    "nombre": "San Bartolomé de Tirajana",
+    "poblacion": 54816,
+    "lema": "Dunas y sol",
+    "chascarrillo": "Maspalomas conserva un campo de dunas activas cuya arena procede del Sahara."
+  },
+  "020": {
+    "nombre": "La Aldea de San Nicolás",
+    "poblacion": 7377,
+    "lema": "Fin de carretera",
+    "chascarrillo": "Hasta los años 90 solo se llegaba por mar o por una carretera de barrancos vertiginosa."
+  },
+  "021": {
+    "nombre": "Santa Brígida",
+    "poblacion": 18659,
+    "lema": "Vinos del barranco",
+    "chascarrillo": "El Monte Lentiscal embotella vinos de uva listán negro que viajaron a Indias en el siglo XVI."
+  },
+  "022": {
+    "nombre": "Santa Lucía de Tirajana",
+    "poblacion": 76517,
+    "lema": "Cuna del baloncesto",
+    "chascarrillo": "Aquí nacieron varios fundadores del CB Gran Canaria — afición acérrima al baloncesto."
+  },
+  "023": {
+    "nombre": "Santa María de Guía",
+    "poblacion": 13944,
+    "lema": "Queso de flor",
+    "chascarrillo": "El queso de flor de Guía es el único queso europeo cuajado con cardo silvestre (denominación de origen)."
+  },
+  "025": {
+    "nombre": "Tejeda",
+    "poblacion": 1840,
+    "lema": "Almendros en cumbre",
+    "chascarrillo": "En febrero el casco se llena de almendros en flor — fiesta popular con turrón y mazapán hechos in situ."
+  },
+  "026": {
+    "nombre": "Telde",
+    "poblacion": 102587,
+    "lema": "Ciudad de los faycanes",
+    "chascarrillo": "Capital del antiguo reino guanche del este — segunda ciudad de la isla por población."
+  },
+  "027": {
+    "nombre": "Teror",
+    "poblacion": 12326,
+    "lema": "Casa del Pino",
+    "chascarrillo": "Basílica del Pino, patrona de Gran Canaria — el domingo el mercadillo se llena de chorizo y pan dulce."
+  },
+  "031": {
+    "nombre": "Valsequillo de Gran Canaria",
+    "poblacion": 9353,
+    "lema": "Almendros y miel",
+    "chascarrillo": "Balcón natural sobre Telde — sus almendros y miel artesana son señas de identidad."
+  },
+  "032": {
+    "nombre": "Valleseco",
+    "poblacion": 3727,
+    "lema": "Manzanas y caldera",
+    "chascarrillo": "Centro de la sidra canaria — cada otoño se celebra la Fiesta de la Manzana."
+  },
+  "033": {
+    "nombre": "Vega de San Mateo",
+    "poblacion": 7617,
+    "lema": "Mercadillo y huerta",
+    "chascarrillo": "Su mercadillo agrícola los domingos es la vitrina semanal del campo grancanario."
+  }
+}

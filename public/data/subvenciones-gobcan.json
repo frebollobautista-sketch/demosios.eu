@@ -1,0 +1,2322 @@
+{
+  "version": "bdns-canarias-2026-05-27",
+  "fuente": "BDNS — Base de Datos Nacional de Subvenciones · IGAE/Hacienda. API REST https://www.infosubvenciones.es/bdnstrans/api/concesiones/busqueda?organos=<A05>&tipoAdmon=A&regiones=79&fechaDesde=DD/MM/YYYY&fechaHasta=DD/MM/YYYY",
+  "periodo": "27/05/2025 – 27/05/2026",
+  "n_concesiones": 15000,
+  "total_eur": 437273075.55,
+  "n_concesiones_imputadas_mun": 645,
+  "total_eur_imputado_mun": 129145848.45,
+  "n_concesiones_destacadas": 150,
+  "umbral_destacadas_eur": 5000,
+  "nota": "Importes en €. BDNS no expone municipio del beneficiario; la asignación municipal sigue tres estrategias en cascada: (1) NIF de ayuntamiento P##### → cumun directo; (2) cruce de nombre con data/tejido-social.geojson; (3) heurística sobre el texto de la convocatoria. Las concesiones de personas físicas (NIF enmascarado) no se imputan a municipio y solo se reflejan en el total archipielágico.",
+  "muns": {
+    "35017": {
+      "n_concesiones": 105,
+      "total_eur": 7261500.0,
+      "nmun": "Puerto del Rosario",
+      "isla": "fv",
+      "top_beneficiarios": [
+        {
+          "nombre": "G76365618 ASOCIACION DE FUERTEVENTURA DE FAMIDE PERSONAS CON ALZHEIMER Y OTRAS D",
+          "importe": 230000.0,
+          "convocatoria": "FUERTEVENTURA AUTONOMA",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-05-05"
+        },
+        {
+          "nombre": "G76365618 ASOCIACION DE FUERTEVENTURA DE FAMIDE PERSONAS CON ALZHEIMER Y OTRAS D",
+          "importe": 230000.0,
+          "convocatoria": "FUERTEVENTURA AUTONOMA",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-05-05"
+        },
+        {
+          "nombre": "G76365618 ASOCIACION DE FUERTEVENTURA DE FAMIDE PERSONAS CON ALZHEIMER Y OTRAS D",
+          "importe": 230000.0,
+          "convocatoria": "FUERTEVENTURA AUTONOMA",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-05-05"
+        },
+        {
+          "nombre": "G76365618 ASOCIACION DE FUERTEVENTURA DE FAMIDE PERSONAS CON ALZHEIMER Y OTRAS D",
+          "importe": 230000.0,
+          "convocatoria": "FUERTEVENTURA AUTONOMA",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-05-05"
+        },
+        {
+          "nombre": "G76365618 ASOCIACION DE FUERTEVENTURA DE FAMIDE PERSONAS CON ALZHEIMER Y OTRAS D",
+          "importe": 230000.0,
+          "convocatoria": "FUERTEVENTURA AUTONOMA",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-05-05"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS": 3961500.0,
+        "SERVICIO CANARIO DE LA SALUD": 2850000.0,
+        "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA": 450000.0
+      }
+    },
+    "35030": {
+      "n_concesiones": 15,
+      "total_eur": 105000.0,
+      "nmun": "Tuineje",
+      "isla": "fv",
+      "top_beneficiarios": [
+        {
+          "nombre": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        },
+        {
+          "nombre": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        },
+        {
+          "nombre": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        },
+        {
+          "nombre": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        },
+        {
+          "nombre": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA": 105000.0
+      }
+    },
+    "35007": {
+      "n_concesiones": 15,
+      "total_eur": 105000.0,
+      "nmun": "Betancuria",
+      "isla": "fv",
+      "top_beneficiarios": [
+        {
+          "nombre": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        },
+        {
+          "nombre": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        },
+        {
+          "nombre": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        },
+        {
+          "nombre": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        },
+        {
+          "nombre": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-21"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA": 105000.0
+      }
+    },
+    "35016": {
+      "n_concesiones": 90,
+      "total_eur": 55257249.6,
+      "nmun": "Palmas de Gran Canaria, Las",
+      "isla": "gc",
+      "top_beneficiarios": [
+        {
+          "nombre": "Q3563001A ILUSTRE COLEGIO DE ABOGADOS DE LASS DE GRAN CANARIA",
+          "importe": 2527122.65,
+          "convocatoria": "AJG 2026 ABOGADOS LAS PALMAS",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "Q3563001A ILUSTRE COLEGIO DE ABOGADOS DE LASS DE GRAN CANARIA",
+          "importe": 2527122.65,
+          "convocatoria": "AJG 2026 ABOGADOS LAS PALMAS",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "Q3563001A ILUSTRE COLEGIO DE ABOGADOS DE LASS DE GRAN CANARIA",
+          "importe": 2527122.65,
+          "convocatoria": "AJG 2026 ABOGADOS LAS PALMAS",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "Q3563001A ILUSTRE COLEGIO DE ABOGADOS DE LASS DE GRAN CANARIA",
+          "importe": 2527122.65,
+          "convocatoria": "AJG 2026 ABOGADOS LAS PALMAS",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "Q3563001A ILUSTRE COLEGIO DE ABOGADOS DE LASS DE GRAN CANARIA",
+          "importe": 2527122.65,
+          "convocatoria": "AJG 2026 ABOGADOS LAS PALMAS",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD": 53825094.75,
+        "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES": 1207154.85,
+        "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA": 225000.0
+      }
+    },
+    "38032": {
+      "n_concesiones": 90,
+      "total_eur": 474981.75,
+      "nmun": "Rosario, El",
+      "isla": "tf",
+      "top_beneficiarios": [
+        {
+          "nombre": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+          "importe": 11165.45,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+          "importe": 11165.45,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+          "importe": 11165.45,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+          "importe": 11165.45,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+          "importe": 11165.45,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        }
+      ],
+      "por_consejeria": {
+        "SERVICIO CANARIO DE EMPLEO": 247500.0,
+        "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES": 167481.75,
+        "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA": 60000.0
+      }
+    },
+    "38038": {
+      "n_concesiones": 180,
+      "total_eur": 55139554.95,
+      "nmun": "Santa Cruz de Tenerife",
+      "isla": "tf",
+      "top_beneficiarios": [
+        {
+          "nombre": "G38310553 ASOCIACIÓN NORTE DE TENERIFE DEATENCIÓN A LAS DROGODEPENDENCIAS",
+          "importe": 1634013.0,
+          "convocatoria": "SUBVENCIÓN DE ATENCIÓN A LAS DROGODEPENDENCIAS",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-04-20"
+        },
+        {
+          "nombre": "G38310553 ASOCIACIÓN NORTE DE TENERIFE DEATENCIÓN A LAS DROGODEPENDENCIAS",
+          "importe": 1634013.0,
+          "convocatoria": "SUBVENCIÓN DE ATENCIÓN A LAS DROGODEPENDENCIAS",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-04-20"
+        },
+        {
+          "nombre": "G38310553 ASOCIACIÓN NORTE DE TENERIFE DEATENCIÓN A LAS DROGODEPENDENCIAS",
+          "importe": 1634013.0,
+          "convocatoria": "SUBVENCIÓN DE ATENCIÓN A LAS DROGODEPENDENCIAS",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-04-20"
+        },
+        {
+          "nombre": "G38310553 ASOCIACIÓN NORTE DE TENERIFE DEATENCIÓN A LAS DROGODEPENDENCIAS",
+          "importe": 1634013.0,
+          "convocatoria": "SUBVENCIÓN DE ATENCIÓN A LAS DROGODEPENDENCIAS",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-04-20"
+        },
+        {
+          "nombre": "G38310553 ASOCIACIÓN NORTE DE TENERIFE DEATENCIÓN A LAS DROGODEPENDENCIAS",
+          "importe": 1634013.0,
+          "convocatoria": "SUBVENCIÓN DE ATENCIÓN A LAS DROGODEPENDENCIAS",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-04-20"
+        }
+      ],
+      "por_consejeria": {
+        "SERVICIO CANARIO DE LA SALUD": 26791845.0,
+        "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD": 22094844.3,
+        "CONSEJERÍA DE ECONOMÍA, INDUSTRIA, COMERCIO Y AUTÓNOMOS": 2100000.0,
+        "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES": 2030365.65,
+        "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA": 1732500.0,
+        "SERVICIO CANARIO DE EMPLEO": 390000.0
+      }
+    },
+    "35011": {
+      "n_concesiones": 15,
+      "total_eur": 514050.0,
+      "nmun": "Ingenio",
+      "isla": "gc",
+      "top_beneficiarios": [
+        {
+          "nombre": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+          "importe": 34270.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+          "importe": 34270.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+          "importe": 34270.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+          "importe": 34270.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+          "importe": 34270.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES": 514050.0
+      }
+    },
+    "35024": {
+      "n_concesiones": 15,
+      "total_eur": 525000.0,
+      "nmun": "Teguise",
+      "isla": "lz",
+      "top_beneficiarios": [
+        {
+          "nombre": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+          "importe": 35000.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+          "importe": 35000.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+          "importe": 35000.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+          "importe": 35000.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+          "importe": 35000.0,
+          "convocatoria": "Clubes deportivos canarios 2026",
+          "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+          "fecha": "2026-05-18"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES": 525000.0
+      }
+    },
+    "35004": {
+      "n_concesiones": 45,
+      "total_eur": 7567512.15,
+      "nmun": "Arrecife",
+      "isla": "lz",
+      "top_beneficiarios": [
+        {
+          "nombre": "Q8555008E COLEGIO DE ABOGADOS DE LANZAROTE",
+          "importe": 334643.75,
+          "convocatoria": "AJG 2026 ABOGADOS LANZAROTE",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "Q8555008E COLEGIO DE ABOGADOS DE LANZAROTE",
+          "importe": 334643.75,
+          "convocatoria": "AJG 2026 ABOGADOS LANZAROTE",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "Q8555008E COLEGIO DE ABOGADOS DE LANZAROTE",
+          "importe": 334643.75,
+          "convocatoria": "AJG 2026 ABOGADOS LANZAROTE",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "Q8555008E COLEGIO DE ABOGADOS DE LANZAROTE",
+          "importe": 334643.75,
+          "convocatoria": "AJG 2026 ABOGADOS LANZAROTE",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        },
+        {
+          "nombre": "Q8555008E COLEGIO DE ABOGADOS DE LANZAROTE",
+          "importe": 334643.75,
+          "convocatoria": "AJG 2026 ABOGADOS LANZAROTE",
+          "consejeria": "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD",
+          "fecha": "2026-05-18"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE PRESIDENCIA, ADMINISTRACIONES PÚBLICAS, JUSTICIA Y SEGURIDAD": 7507220.7,
+        "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES": 60291.45
+      }
+    },
+    "38037": {
+      "n_concesiones": 15,
+      "total_eur": 525000.0,
+      "nmun": "Santa Cruz de la Palma",
+      "isla": "lp",
+      "top_beneficiarios": [
+        {
+          "nombre": "G56187826 ASOC INSULAR DE FAMILIARES Y ENFERM",
+          "importe": 35000.0,
+          "convocatoria": "ESTRATEGIA INSULAR PARA LA ATENCIÓN INTEGRAL DEL PARKINSON EN LA PALMA: HACIA UN MODELO DE EQUIDAD S",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-05-15"
+        },
+        {
+          "nombre": "G56187826 ASOC INSULAR DE FAMILIARES Y ENFERM",
+          "importe": 35000.0,
+          "convocatoria": "ESTRATEGIA INSULAR PARA LA ATENCIÓN INTEGRAL DEL PARKINSON EN LA PALMA: HACIA UN MODELO DE EQUIDAD S",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-05-15"
+        },
+        {
+          "nombre": "G56187826 ASOC INSULAR DE FAMILIARES Y ENFERM",
+          "importe": 35000.0,
+          "convocatoria": "ESTRATEGIA INSULAR PARA LA ATENCIÓN INTEGRAL DEL PARKINSON EN LA PALMA: HACIA UN MODELO DE EQUIDAD S",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-05-15"
+        },
+        {
+          "nombre": "G56187826 ASOC INSULAR DE FAMILIARES Y ENFERM",
+          "importe": 35000.0,
+          "convocatoria": "ESTRATEGIA INSULAR PARA LA ATENCIÓN INTEGRAL DEL PARKINSON EN LA PALMA: HACIA UN MODELO DE EQUIDAD S",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-05-15"
+        },
+        {
+          "nombre": "G56187826 ASOC INSULAR DE FAMILIARES Y ENFERM",
+          "importe": 35000.0,
+          "convocatoria": "ESTRATEGIA INSULAR PARA LA ATENCIÓN INTEGRAL DEL PARKINSON EN LA PALMA: HACIA UN MODELO DE EQUIDAD S",
+          "consejeria": "SERVICIO CANARIO DE LA SALUD",
+          "fecha": "2026-05-15"
+        }
+      ],
+      "por_consejeria": {
+        "SERVICIO CANARIO DE LA SALUD": 525000.0
+      }
+    },
+    "35003": {
+      "n_concesiones": 15,
+      "total_eur": 105000.0,
+      "nmun": "Antigua",
+      "isla": "fv",
+      "top_beneficiarios": [
+        {
+          "nombre": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-13"
+        },
+        {
+          "nombre": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-13"
+        },
+        {
+          "nombre": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-13"
+        },
+        {
+          "nombre": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-13"
+        },
+        {
+          "nombre": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+          "importe": 7000.0,
+          "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+          "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+          "fecha": "2026-05-13"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA": 105000.0
+      }
+    },
+    "38011": {
+      "n_concesiones": 15,
+      "total_eur": 40500.0,
+      "nmun": "Candelaria",
+      "isla": "tf",
+      "top_beneficiarios": [
+        {
+          "nombre": "***8957** LUCÃA CANDELARIA DELGADO PADRÃ“N",
+          "importe": 2700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        },
+        {
+          "nombre": "***8957** LUCÃA CANDELARIA DELGADO PADRÃ“N",
+          "importe": 2700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        },
+        {
+          "nombre": "***8957** LUCÃA CANDELARIA DELGADO PADRÃ“N",
+          "importe": 2700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        },
+        {
+          "nombre": "***8957** LUCÃA CANDELARIA DELGADO PADRÃ“N",
+          "importe": 2700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        },
+        {
+          "nombre": "***8957** LUCÃA CANDELARIA DELGADO PADRÃ“N",
+          "importe": 2700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA": 40500.0
+      }
+    },
+    "38043": {
+      "n_concesiones": 15,
+      "total_eur": 25500.0,
+      "nmun": "Tacoronte",
+      "isla": "tf",
+      "top_beneficiarios": [
+        {
+          "nombre": "***4465** ANGEL DELGADO TACORONTE",
+          "importe": 1700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        },
+        {
+          "nombre": "***4465** ANGEL DELGADO TACORONTE",
+          "importe": 1700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        },
+        {
+          "nombre": "***4465** ANGEL DELGADO TACORONTE",
+          "importe": 1700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        },
+        {
+          "nombre": "***4465** ANGEL DELGADO TACORONTE",
+          "importe": 1700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        },
+        {
+          "nombre": "***4465** ANGEL DELGADO TACORONTE",
+          "importe": 1700.0,
+          "convocatoria": "CONVOCATORIA DE BECAS Y AYUDAS PARA ESTUDIOS UNIVERSITARIOS DEL CURSO ACADÉMICO 2025/2026",
+          "consejeria": "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA",
+          "fecha": "2026-04-13"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE UNIVERSIDADES, CIENCIA E INNOVACIÓN Y CULTURA": 25500.0
+      }
+    },
+    "35028": {
+      "n_concesiones": 15,
+      "total_eur": 1500000.0,
+      "nmun": "Tías",
+      "isla": "lz",
+      "top_beneficiarios": [
+        {
+          "nombre": "P3502800J AYUNTAMIENTO TIAS",
+          "importe": 100000.0,
+          "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-04-10"
+        },
+        {
+          "nombre": "P3502800J AYUNTAMIENTO TIAS",
+          "importe": 100000.0,
+          "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-04-10"
+        },
+        {
+          "nombre": "P3502800J AYUNTAMIENTO TIAS",
+          "importe": 100000.0,
+          "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-04-10"
+        },
+        {
+          "nombre": "P3502800J AYUNTAMIENTO TIAS",
+          "importe": 100000.0,
+          "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-04-10"
+        },
+        {
+          "nombre": "P3502800J AYUNTAMIENTO TIAS",
+          "importe": 100000.0,
+          "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+          "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+          "fecha": "2026-04-10"
+        }
+      ],
+      "por_consejeria": {
+        "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS": 1500000.0
+      }
+    }
+  },
+  "concesiones_destacadas": [
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    },
+    {
+      "lng": -14.04659,
+      "lat": 28.26913,
+      "beneficiario": "G76299304 ASOCIACIÓN DE GANADEROS DE COSTATUINEJE LA CABRA MORISCA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35030",
+      "nmun": "Tuineje"
+    },
+    {
+      "lng": -14.08761,
+      "lat": 28.43579,
+      "beneficiario": "G76079227 ASOC. TRADICIONES Y COSTUMBRES GANADEL MANCOMUN DE BETANCURIA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO DE LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-21",
+      "cumun": "35007",
+      "nmun": "Betancuria"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "G38883260 CLUB DE BADMINTON TENZUL EL ROSARIO",
+      "importe": 11165.45,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -15.44319,
+      "lat": 27.93036,
+      "beneficiario": "G35276930 ASOC DEPORTIVA VILLA DE INGENIO",
+      "importe": 34270.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35011",
+      "nmun": "Ingenio"
+    },
+    {
+      "lng": -13.54894,
+      "lat": 29.08177,
+      "beneficiario": "G35910231 CLUB DEPORTIVO DE JUDO BASTIÁNCOSTA TEGUISE",
+      "importe": 35000.0,
+      "convocatoria": "Clubes deportivos canarios 2026",
+      "consejeria": "CONSEJERÍA DE EDUCACIÓN, FORMACIÓN PROFESIONAL, ACTIVIDAD FÍSICA Y DEPORTES",
+      "fecha": "2026-05-18",
+      "cumun": "35024",
+      "nmun": "Teguise"
+    },
+    {
+      "lng": -13.9481,
+      "lat": 28.37653,
+      "beneficiario": "G76242601 ASOC. GANADEROS MANCOMUN DE ANTIGUA",
+      "importe": 7000.0,
+      "convocatoria": "GASTOS DE MANTENIMIENTO PARA LA CABRA DE COSTA",
+      "consejeria": "CONSEJERÍA DE AGRICULTURA, GANADERÍA, PESCA Y SOBERANÍA ALIMENTARIA",
+      "fecha": "2026-05-13",
+      "cumun": "35003",
+      "nmun": "Antigua"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***3541** * CURBELO MASSIOLO VIRGINIA ROSARIO *",
+      "importe": 6000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-05-07",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***1071** * MARTINEZ ZAMBR YENNIFER DEL ROSARIO *",
+      "importe": 5000.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -16.35892,
+      "lat": 28.43032,
+      "beneficiario": "***2495** * MORENO DEL ROSARIO LETICIA MARIA *",
+      "importe": 5500.0,
+      "convocatoria": "Convocatoria 2026 subvenciones destinadas a la promoción del empleo autónomo, en régimen de concurrencia no competitiva",
+      "consejeria": "SERVICIO CANARIO DE EMPLEO",
+      "fecha": "2026-04-21",
+      "cumun": "38032",
+      "nmun": "Rosario, El"
+    },
+    {
+      "lng": -13.66089,
+      "lat": 28.95386,
+      "beneficiario": "P3502800J AYUNTAMIENTO TIAS",
+      "importe": 100000.0,
+      "convocatoria": "CONCESIÓN DE SUBVENCIONES NOMINADAS 2026",
+      "consejeria": "CONSEJERÍA DE BIENESTAR SOCIAL, IGUALDAD, JUVENTUD, INFANCIA Y FAMILIAS",
+      "fecha": "2026-04-10",
+      "cumun": "35028",
+      "nmun": "Tías"
+    }
+  ]
+}

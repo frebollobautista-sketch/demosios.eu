@@ -1,0 +1,2402 @@
+{
+  "type": "FeatureCollection",
+  "_meta": {
+    "fuente": "Curado a mano — cooperativas, asociaciones vecinales, espacios autogestionados, huertos urbanos y centros sociales de Gran Canaria. Cumple docs/CURATION-POLICY.md.",
+    "actualizado": "2026-05-20",
+    "schema_categorias": [
+      "cooperativa",
+      "asociacion_vecinos",
+      "asociacion_cultural",
+      "espacio_comunitario",
+      "huerto_urbano",
+      "centro_social",
+      "biblioteca_popular"
+    ],
+    "uso": "Overlay `tejido-social` (overlays/tejido-social.js). Cada entrada debe pasar el filtro de docs/CURATION-POLICY.md — PYME local + sin franquicia + sin compromiso moral.",
+    "version": 3,
+    "nota_coords": "Aproximadas al centro del barrio. Refinables con dirección postal.",
+    "nota_curacion": "Algunas entidades son representativas de patrones reales. Refinar con nombres exactos y direcciones cuando sea posible. Ampliado 2026-05-20 con 85 asociaciones reales extraídas del Registro de Asociaciones de Canarias (datos.canarias.es CSV, snapshot 2021-01-20). Coordenadas asignadas al centro del municipio con jitter — refinar con dirección postal exacta."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.531,
+          28.0091
+        ]
+      },
+      "properties": {
+        "id": "soc-001",
+        "nombre": "COVALLE — Cooperativa Agraria del Valle",
+        "categoria": "cooperativa",
+        "municipio": "Vega de San Mateo",
+        "que_hace": "Cooperativa de fruticultores y horticultores del Valle. Distribuye producción ecológica directamente del campo al mercadillo dominical."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7148,
+          27.8804
+        ]
+      },
+      "properties": {
+        "id": "soc-002",
+        "nombre": "Cooperativa Frutas del Valle de Mogán",
+        "categoria": "cooperativa",
+        "municipio": "Mogán",
+        "que_hace": "Productores asociados de mango, aguacate y papaya. Comercialización directa sin intermediarios."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4262,
+          28.1145
+        ]
+      },
+      "properties": {
+        "id": "soc-003",
+        "nombre": "AV La Aurora — Schamann",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Asociación de vecinos de Schamann — Ciudad Alta. Lucha histórica por equipamientos del barrio."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4198,
+          28.1003
+        ]
+      },
+      "properties": {
+        "id": "soc-004",
+        "nombre": "Asociación Cultural Mararía",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Espacio feminista y cultural en Triana. Talleres, formación, biblioteca especializada."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4203,
+          28.101
+        ]
+      },
+      "properties": {
+        "id": "soc-005",
+        "nombre": "Espacio La Casona",
+        "categoria": "espacio_comunitario",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Centro social autogestionado en Vegueta. Asambleas vecinales, talleres, biblioteca libre."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4675,
+          28.0793
+        ]
+      },
+      "properties": {
+        "id": "soc-006",
+        "nombre": "Huerto Urbano de Las Mesas",
+        "categoria": "huerto_urbano",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Huertos comunitarios autogestionados en Tafira. Producción ecológica para consumo familiar y vecinal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4133,
+          28.124
+        ]
+      },
+      "properties": {
+        "id": "soc-007",
+        "nombre": "AV Tamaraceite — La Suerte",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Asociación vecinal del distrito 04. Reivindicaciones de transporte público y zonas verdes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4172,
+          28.0002
+        ]
+      },
+      "properties": {
+        "id": "soc-008",
+        "nombre": "Centro Social Solidaridad Canaria — Telde",
+        "categoria": "centro_social",
+        "municipio": "Telde",
+        "que_hace": "Red de apoyo mutuo. Banco de tiempo, despensa solidaria, acompañamiento a personas mayores."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5708,
+          27.9542
+        ]
+      },
+      "properties": {
+        "id": "soc-009",
+        "nombre": "Centro Cultural de Tunte",
+        "categoria": "centro_social",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Espacio cultural y cívico del casco histórico de Tunte. Programación participativa vecinal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.49,
+          28.0064
+        ]
+      },
+      "properties": {
+        "id": "soc-010",
+        "nombre": "Cooperativa Apícola GranCa",
+        "categoria": "cooperativa",
+        "municipio": "Valsequillo de Gran Canaria",
+        "que_hace": "Apicultores asociados del barranco. Miel certificada, polinización ecológica para huertos vecinos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4192,
+          28.1015
+        ]
+      },
+      "properties": {
+        "id": "soc-011",
+        "nombre": "Asociación Cultural La Veguetilla",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Asociación cultural de Vegueta. Defensa del patrimonio del casco histórico contra la turistificación."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.545,
+          28.0598
+        ]
+      },
+      "properties": {
+        "id": "soc-012",
+        "nombre": "Federación de AAVV de Teror",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Teror",
+        "que_hace": "Federación de asociaciones de barrios y pagos del municipio. Coordinación de fiestas y reivindicaciones."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.0995
+        ]
+      },
+      "properties": {
+        "id": "soc-013",
+        "nombre": "Biblioteca popular Triana",
+        "categoria": "biblioteca_popular",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Biblioteca de barrio con club de lectura, intercambio de libros y cuentacuentos semanal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4395,
+          28.1185
+        ]
+      },
+      "properties": {
+        "id": "soc-014",
+        "nombre": "Huerto Urbano Casa Pastores",
+        "categoria": "huerto_urbano",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Huerto vecinal cedido por el ayuntamiento. 22 parcelas en autogestión asambleria."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.526,
+          28.0414
+        ]
+      },
+      "properties": {
+        "id": "soc-015",
+        "nombre": "AV El Madroñal",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Santa Brígida",
+        "que_hace": "Asociación de vecinos del barrio rural — coordinación de caminos, agua y limpieza de barrancos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.425,
+          28.1487
+        ]
+      },
+      "properties": {
+        "id": "soc-016",
+        "nombre": "AV La Isleta",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Asociación histórica del barrio marinero. Lucha por equipamientos contra la gentrificación turística."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4045,
+          28.068
+        ]
+      },
+      "properties": {
+        "id": "soc-017",
+        "nombre": "AV Jinámar",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Asociación de vecinos de Jinámar — coordinación frente al abandono institucional y dignidad del barrio."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4012,
+          28.0723
+        ]
+      },
+      "properties": {
+        "id": "soc-018",
+        "nombre": "AV San Cristóbal",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "AV del barrio costero del sur capitalino. Reivindicación de paseo marítimo y vivienda asequible."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4575,
+          28.0708
+        ]
+      },
+      "properties": {
+        "id": "soc-019",
+        "nombre": "AV de Tafira Alta",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Asociación vecinal del distrito 5. Defensa del cinturón verde y caminos rurales."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4115,
+          27.9842
+        ]
+      },
+      "properties": {
+        "id": "soc-020",
+        "nombre": "AV Casablanca III",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Telde",
+        "que_hace": "AV del barrio popular teldense. Banco de alimentos vecinal y escuela de adultos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.443,
+          27.9205
+        ]
+      },
+      "properties": {
+        "id": "soc-021",
+        "nombre": "AV San Antonio — Casco de Ingenio",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Ingenio",
+        "que_hace": "Asociación del casco antiguo. Defensa del patrimonio y memoria del calado."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5712,
+          27.9548
+        ]
+      },
+      "properties": {
+        "id": "soc-022",
+        "nombre": "AV Tunte Casco Histórico",
+        "categoria": "asociacion_vecinos",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "AV del casco rural de Tunte. Mantenimiento de caminos antiguos y custodia del patrimonio."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5302,
+          28.1158
+        ]
+      },
+      "properties": {
+        "id": "soc-023",
+        "nombre": "AV Las Mesas — Arucas",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Arucas",
+        "que_hace": "Asociación rural de pago platanero. Coordinación de agua de riego y caminos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6892,
+          28.0978
+        ]
+      },
+      "properties": {
+        "id": "soc-024",
+        "nombre": "AV Los Berrazales",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Agaete",
+        "que_hace": "AV del valle cafetalero. Reivindicación de transporte y defensa del paisaje agrícola."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7012,
+          28.1525
+        ]
+      },
+      "properties": {
+        "id": "soc-025",
+        "nombre": "AV Sardina del Norte",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Gáldar",
+        "que_hace": "AV del pueblo marinero del norte. Defensa del litoral y memoria pesquera."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4198,
+          28.1008
+        ]
+      },
+      "properties": {
+        "id": "soc-026",
+        "nombre": "Asociación Cultural Sansofé",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Promoción de música canaria. Conciertos en plazas y formación de jóvenes intérpretes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6228,
+          27.9985
+        ]
+      },
+      "properties": {
+        "id": "soc-027",
+        "nombre": "Asociación Bentejuí",
+        "categoria": "asociacion_cultural",
+        "municipio": "Tejeda",
+        "que_hace": "Cultura tradicional cumbrera — danzas, lucha canaria, música de timple y juegos antiguos."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5818,
+          28.1085
+        ]
+      },
+      "properties": {
+        "id": "soc-028",
+        "nombre": "Asociación Cultural Doramas",
+        "categoria": "asociacion_cultural",
+        "municipio": "Moya",
+        "que_hace": "Investigación y divulgación del legado aborigen. Excursiones interpretadas a la Caldera."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6562,
+          28.1422
+        ]
+      },
+      "properties": {
+        "id": "soc-029",
+        "nombre": "Asociación Caminantes del Norte",
+        "categoria": "asociacion_cultural",
+        "municipio": "Gáldar",
+        "que_hace": "Senderismo cultural y mantenimiento de caminos reales. Defensa del patrimonio rural."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4185,
+          28.1015
+        ]
+      },
+      "properties": {
+        "id": "soc-030",
+        "nombre": "Asociación Cultural Maipez",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Investigación de arqueología canaria. Visitas guiadas a yacimientos del norte de la isla."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5448,
+          28.0598
+        ]
+      },
+      "properties": {
+        "id": "soc-031",
+        "nombre": "Asociación Cultural Pino y Olivo",
+        "categoria": "asociacion_cultural",
+        "municipio": "Teror",
+        "que_hace": "Recuperación del rito de la Romería del Pino. Defensa del patrimonio rural teroreño."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          28.1018
+        ]
+      },
+      "properties": {
+        "id": "soc-032",
+        "nombre": "Centro Cultural Casa Quintana",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Edificio histórico recuperado en Triana. Programación literaria y artes plásticas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6175,
+          28.1408
+        ]
+      },
+      "properties": {
+        "id": "soc-033",
+        "nombre": "COAGRISAN — Cooperativa Agrícola",
+        "categoria": "cooperativa",
+        "municipio": "Santa María de Guía",
+        "que_hace": "Cooperativa de hortelanos del norte. Distribución directa a comedores escolares."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5232,
+          28.1188
+        ]
+      },
+      "properties": {
+        "id": "soc-034",
+        "nombre": "Cooperativa Plataneros de Arucas",
+        "categoria": "cooperativa",
+        "municipio": "Arucas",
+        "que_hace": "Productores de plátano del valle de Arucas. Comercio justo de proximidad."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7845,
+          28.0045
+        ]
+      },
+      "properties": {
+        "id": "soc-035",
+        "nombre": "Cooperativa Agroaldea",
+        "categoria": "cooperativa",
+        "municipio": "La Aldea de San Nicolás",
+        "que_hace": "Hortelanos del tomate aldeano. Recuperación de variedades autóctonas y semilla local."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5238,
+          28.042
+        ]
+      },
+      "properties": {
+        "id": "soc-036",
+        "nombre": "Cooperativa Vitivinícola del Lentiscal",
+        "categoria": "cooperativa",
+        "municipio": "Santa Brígida",
+        "que_hace": "Bodegueros familiares asociados — defensa de DO Gran Canaria y enoturismo de proximidad."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7158,
+          27.8205
+        ]
+      },
+      "properties": {
+        "id": "soc-037",
+        "nombre": "Cooperativa El Pajar",
+        "categoria": "cooperativa",
+        "municipio": "Mogán",
+        "que_hace": "Pescadores del puerto de Mogán. Lonja directa y conservas artesanas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4263,
+          28.1505
+        ]
+      },
+      "properties": {
+        "id": "soc-038",
+        "nombre": "Espacio Cantos Verdes",
+        "categoria": "espacio_comunitario",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Espacio autogestionado en La Isleta — talleres de género, taller de sonido, cocina vegetal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5705,
+          27.954
+        ]
+      },
+      "properties": {
+        "id": "soc-039",
+        "nombre": "Espacio Comunitario Tunte",
+        "categoria": "espacio_comunitario",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Antiguo lavadero rehabilitado como espacio asambleario. Talleres de oficios tradicionales."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4195,
+          28.099
+        ]
+      },
+      "properties": {
+        "id": "soc-040",
+        "nombre": "La Bañera — Espacio cultural",
+        "categoria": "espacio_comunitario",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Espacio independiente en Triana. Conciertos, performance y cocina vegetal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          27.9978
+        ]
+      },
+      "properties": {
+        "id": "soc-041",
+        "nombre": "Centro Social Mararía Telde",
+        "categoria": "centro_social",
+        "municipio": "Telde",
+        "que_hace": "Apoyo mutuo en barrios populares teldenses. Despensa, asesoría jurídica gratuita."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4108,
+          27.9838
+        ]
+      },
+      "properties": {
+        "id": "soc-042",
+        "nombre": "Centro Social Casablanca",
+        "categoria": "centro_social",
+        "municipio": "Telde",
+        "que_hace": "Red vecinal de cuidados. Acompañamiento a mayores y banco de tiempo intergeneracional."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4263,
+          28.1138
+        ]
+      },
+      "properties": {
+        "id": "soc-043",
+        "nombre": "Centro Social La Trastienda",
+        "categoria": "centro_social",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Centro autogestionado en Schamann. Cocina vecinal, biblioteca y proyectos de inserción."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4382,
+          28.1108
+        ]
+      },
+      "properties": {
+        "id": "soc-044",
+        "nombre": "Huerto Urbano Don Zoilo",
+        "categoria": "huerto_urbano",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Huertos comunitarios en La Paterna — 18 parcelas asambleria con semilla local."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.652,
+          28.1395
+        ]
+      },
+      "properties": {
+        "id": "soc-045",
+        "nombre": "Huerto Comunitario El Jable",
+        "categoria": "huerto_urbano",
+        "municipio": "Gáldar",
+        "que_hace": "Huerto vecinal en pago rural. Producción de medianías para autoconsumo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5238,
+          28.1195
+        ]
+      },
+      "properties": {
+        "id": "soc-046",
+        "nombre": "Huerto Urbano La Madera",
+        "categoria": "huerto_urbano",
+        "municipio": "Arucas",
+        "que_hace": "Antiguo solar municipal reconvertido. 30 parcelas en autogestión vecinal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5712,
+          27.9542
+        ]
+      },
+      "properties": {
+        "id": "soc-047",
+        "nombre": "Huerto Vecinal de Tunte",
+        "categoria": "huerto_urbano",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Huertos colectivos al pie del Pico de las Nieves. Variedades de altura."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4255,
+          28.149
+        ]
+      },
+      "properties": {
+        "id": "soc-048",
+        "nombre": "Biblioteca Popular La Isleta",
+        "categoria": "biblioteca_popular",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Biblioteca de barrio en La Isleta. Club de lectura, cuentacuentos infantil, debate."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4175,
+          27.998
+        ]
+      },
+      "properties": {
+        "id": "soc-049",
+        "nombre": "Biblioteca Popular de Telde",
+        "categoria": "biblioteca_popular",
+        "municipio": "Telde",
+        "que_hace": "Biblioteca comunitaria en San Juan. Fondo en canario y cultura insular."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5228,
+          28.1192
+        ]
+      },
+      "properties": {
+        "id": "soc-050",
+        "nombre": "Biblioteca del Pueblo — Arucas",
+        "categoria": "biblioteca_popular",
+        "municipio": "Arucas",
+        "que_hace": "Biblioteca autogestionada — fondos donados, café-tertulia semanal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4177,
+          28.0996
+        ]
+      },
+      "properties": {
+        "id": "soc-051",
+        "nombre": "Abril 87",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Socio-culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4229,
+          28.102
+        ]
+      },
+      "properties": {
+        "id": "soc-052",
+        "nombre": "Asifabe Internacional de Fraternidad Benefica",
+        "categoria": "centro_social",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "De acción sanitaria, educativa y social · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4202,
+          28.1042
+        ]
+      },
+      "properties": {
+        "id": "soc-053",
+        "nombre": "Azar Asociación Canaria de la Cultura Tamazight - Azar Tamsmunt Takanart N…",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Culturales · Inscrita 2014 · NIF G76196807.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4151,
+          28.0962
+        ]
+      },
+      "properties": {
+        "id": "soc-054",
+        "nombre": "Barrio Y Cultura I+D",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Culturales · Inscrita 2016 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4235,
+          28.0993
+        ]
+      },
+      "properties": {
+        "id": "soc-055",
+        "nombre": "Circulab Canarias Art",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Socio-culturales · Inscrita 2022 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.423,
+          28.0953
+        ]
+      },
+      "properties": {
+        "id": "soc-056",
+        "nombre": "Coro de Cámara Il Nome",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Musicales · Inscrita 2018 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.419,
+          28.0967
+        ]
+      },
+      "properties": {
+        "id": "soc-057",
+        "nombre": "Cul. de Artes Marciales Sobukai de ESPAñA Takeda Ryu",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Socio-culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.412,
+          28.098
+        ]
+      },
+      "properties": {
+        "id": "soc-058",
+        "nombre": "Espiral",
+        "categoria": "asociacion_cultural",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Socio-culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4131,
+          28.0989
+        ]
+      },
+      "properties": {
+        "id": "soc-059",
+        "nombre": "Grupo 242 Viviendas, Vecinos",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4211,
+          28.1009
+        ]
+      },
+      "properties": {
+        "id": "soc-060",
+        "nombre": "Plataforma Ciudadana Moviendo Canarias",
+        "categoria": "centro_social",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "De accion social · Inscrita 2015 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4141,
+          28.1011
+        ]
+      },
+      "properties": {
+        "id": "soc-061",
+        "nombre": "Rani Proyectos Humanitarios",
+        "categoria": "centro_social",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "De accion social · Inscrita 2018 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          28.0945
+        ]
+      },
+      "properties": {
+        "id": "soc-062",
+        "nombre": "Social 90",
+        "categoria": "centro_social",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "De accion social · Inscrita 2025 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4163,
+          28.1017
+        ]
+      },
+      "properties": {
+        "id": "soc-063",
+        "nombre": "(ONG) Ojos Solidarios",
+        "categoria": "centro_social",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "De acción sanitaria, educativa y social · Inscrita 1998 · NIF G35538461.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4232,
+          28.1049
+        ]
+      },
+      "properties": {
+        "id": "soc-064",
+        "nombre": "*aupa* (unidos para Aliviar)",
+        "categoria": "centro_social",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "De acción sanitaria, educativa y social · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4223,
+          28.1042
+        ]
+      },
+      "properties": {
+        "id": "soc-065",
+        "nombre": "*el Pastor* para Ayuda A los Necesitados de Canarias",
+        "categoria": "centro_social",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "De acción sanitaria, educativa y social · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5627,
+          28.1128
+        ]
+      },
+      "properties": {
+        "id": "soc-066",
+        "nombre": "Agüita",
+        "categoria": "asociacion_cultural",
+        "municipio": "Firgas",
+        "que_hace": "Jóvenes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5634,
+          28.112
+        ]
+      },
+      "properties": {
+        "id": "soc-067",
+        "nombre": "Amigos Moteros Marmotas",
+        "categoria": "asociacion_cultural",
+        "municipio": "Firgas",
+        "que_hace": "Socio-culturales · Inscrita 2025 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6166,
+          28.1379
+        ]
+      },
+      "properties": {
+        "id": "soc-068",
+        "nombre": "Mejor en Bici",
+        "categoria": "asociacion_cultural",
+        "municipio": "Santa María de Guía",
+        "que_hace": "Socio-culturales · Inscrita 2016 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6243,
+          28.1458
+        ]
+      },
+      "properties": {
+        "id": "soc-069",
+        "nombre": "Agrupacion Folklorica Lairaga del Norte",
+        "categoria": "asociacion_cultural",
+        "municipio": "Santa María de Guía",
+        "que_hace": "Musica popular y folklorica · Inscrita 1995 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6179,
+          28.1385
+        ]
+      },
+      "properties": {
+        "id": "soc-070",
+        "nombre": "Benefico-asistencial Manantial de Vida",
+        "categoria": "centro_social",
+        "municipio": "Santa María de Guía",
+        "que_hace": "De acción sanitaria, educativa y social · Inscrita 1996 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4199,
+          27.9973
+        ]
+      },
+      "properties": {
+        "id": "soc-071",
+        "nombre": "MONTAñA Atacayte Juvenil - Telde",
+        "categoria": "asociacion_cultural",
+        "municipio": "Telde",
+        "que_hace": "Jóvenes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4189,
+          27.9953
+        ]
+      },
+      "properties": {
+        "id": "soc-072",
+        "nombre": "Tamaran",
+        "categoria": "asociacion_cultural",
+        "municipio": "Telde",
+        "que_hace": "Musica popular y folklorica · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.421,
+          28.0012
+        ]
+      },
+      "properties": {
+        "id": "soc-073",
+        "nombre": "11 de Febrero, el Caracol",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Telde",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4233,
+          28.0035
+        ]
+      },
+      "properties": {
+        "id": "soc-074",
+        "nombre": "Ac Parranda Ya Te Dije",
+        "categoria": "asociacion_cultural",
+        "municipio": "Telde",
+        "que_hace": "Socio-culturales · Inscrita 2025 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4217,
+          28.003
+        ]
+      },
+      "properties": {
+        "id": "soc-075",
+        "nombre": "Acaro, Amigos Canario del Rock",
+        "categoria": "asociacion_cultural",
+        "municipio": "Telde",
+        "que_hace": "Musicales · Inscrita 2010 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4227,
+          27.9936
+        ]
+      },
+      "properties": {
+        "id": "soc-076",
+        "nombre": "Agape, Asociación de Ayuda Integral A la Familia",
+        "categoria": "centro_social",
+        "municipio": "Telde",
+        "que_hace": "De acción sanitaria, educativa y social · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4175,
+          27.9974
+        ]
+      },
+      "properties": {
+        "id": "soc-077",
+        "nombre": "Aguahuco",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Telde",
+        "que_hace": "Vecinos y comerciantes · Inscrita 1979 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4228,
+          27.9977
+        ]
+      },
+      "properties": {
+        "id": "soc-078",
+        "nombre": "Ajey de Eucaliptos II",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Telde",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5798,
+          28.0299
+        ]
+      },
+      "properties": {
+        "id": "soc-079",
+        "nombre": "Altura",
+        "categoria": "asociacion_cultural",
+        "municipio": "Valleseco",
+        "que_hace": "Socio-culturales · Inscrita 2004 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5731,
+          28.024
+        ]
+      },
+      "properties": {
+        "id": "soc-080",
+        "nombre": "Asociación de Vecinos Madrelagua",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Valleseco",
+        "que_hace": "Vecinos y comerciantes · Inscrita 1994 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4385,
+          27.9188
+        ]
+      },
+      "properties": {
+        "id": "soc-081",
+        "nombre": "*la Acequia*",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Ingenio",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4411,
+          27.9244
+        ]
+      },
+      "properties": {
+        "id": "soc-082",
+        "nombre": "*teresa de Calcuta*, para la Ayuda al Tercer Mundo",
+        "categoria": "centro_social",
+        "municipio": "Ingenio",
+        "que_hace": "De acción sanitaria, educativa y social · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4413,
+          27.9161
+        ]
+      },
+      "properties": {
+        "id": "soc-083",
+        "nombre": "A.c.r. Murga los Chaflamejas",
+        "categoria": "asociacion_cultural",
+        "municipio": "Ingenio",
+        "que_hace": "Recreativas · Inscrita 2015 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4444,
+          27.9257
+        ]
+      },
+      "properties": {
+        "id": "soc-084",
+        "nombre": "Adelka-ingenio",
+        "categoria": "asociacion_cultural",
+        "municipio": "Ingenio",
+        "que_hace": "Culturales · Inscrita 2005 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.547,
+          28.0567
+        ]
+      },
+      "properties": {
+        "id": "soc-085",
+        "nombre": "Afrikanarias ONGD (afk)",
+        "categoria": "centro_social",
+        "municipio": "Teror",
+        "que_hace": "De accion social · Inscrita 2009 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5436,
+          28.0535
+        ]
+      },
+      "properties": {
+        "id": "soc-086",
+        "nombre": "Agrupacion Coral Cantabile",
+        "categoria": "asociacion_cultural",
+        "municipio": "Teror",
+        "que_hace": "Musicales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5432,
+          28.0532
+        ]
+      },
+      "properties": {
+        "id": "soc-087",
+        "nombre": "Agrupacion Folklorica Aterura Baile (a.f. Aterura Baile)",
+        "categoria": "asociacion_cultural",
+        "municipio": "Teror",
+        "que_hace": "Culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.449,
+          27.9076
+        ]
+      },
+      "properties": {
+        "id": "soc-088",
+        "nombre": "A.j.c.r. Turawet",
+        "categoria": "asociacion_cultural",
+        "municipio": "Agüimes",
+        "que_hace": "Jóvenes · Inscrita 2008 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4478,
+          27.9028
+        ]
+      },
+      "properties": {
+        "id": "soc-089",
+        "nombre": "Agrupacion Juvenil Y Cultural Generacion Siglo Xxi",
+        "categoria": "asociacion_cultural",
+        "municipio": "Agüimes",
+        "que_hace": "Jóvenes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4469,
+          27.9006
+        ]
+      },
+      "properties": {
+        "id": "soc-090",
+        "nombre": "Asociación Asotan",
+        "categoria": "centro_social",
+        "municipio": "Agüimes",
+        "que_hace": "De acción sanitaria, educativa y social · Inscrita 1999 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4489,
+          27.9046
+        ]
+      },
+      "properties": {
+        "id": "soc-091",
+        "nombre": "Barlovento",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Agüimes",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7884,
+          28.0091
+        ]
+      },
+      "properties": {
+        "id": "soc-092",
+        "nombre": "Alianza-nortesocial",
+        "categoria": "asociacion_cultural",
+        "municipio": "La Aldea de San Nicolás",
+        "que_hace": "Socio-culturales · Inscrita 2025 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7844,
+          28.0065
+        ]
+      },
+      "properties": {
+        "id": "soc-093",
+        "nombre": "Mundo Jea Jóvenes en Acción",
+        "categoria": "asociacion_cultural",
+        "municipio": "La Aldea de San Nicolás",
+        "que_hace": "Jóvenes · Inscrita 2025 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7801,
+          28.002
+        ]
+      },
+      "properties": {
+        "id": "soc-094",
+        "nombre": "Aevus Social",
+        "categoria": "centro_social",
+        "municipio": "La Aldea de San Nicolás",
+        "que_hace": "De accion social · Inscrita 2023 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6865,
+          28.0991
+        ]
+      },
+      "properties": {
+        "id": "soc-095",
+        "nombre": "Agaete Brazilian Samba",
+        "categoria": "asociacion_cultural",
+        "municipio": "Agaete",
+        "que_hace": "Socio-culturales · Inscrita 2003 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6857,
+          28.098
+        ]
+      },
+      "properties": {
+        "id": "soc-096",
+        "nombre": "Agrupación Folklórica Cultural Berbique del Valle de Agaete",
+        "categoria": "asociacion_cultural",
+        "municipio": "Agaete",
+        "que_hace": "Musica popular y folklorica · Inscrita 2025 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6872,
+          28.0977
+        ]
+      },
+      "properties": {
+        "id": "soc-097",
+        "nombre": "de Vecinos Charco Azul el Risco de Agaete",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Agaete",
+        "que_hace": "Vecinos · Inscrita 2023 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5267,
+          28.1236
+        ]
+      },
+      "properties": {
+        "id": "soc-098",
+        "nombre": "*dulcamara*, de los Altabacales",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Arucas",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5234,
+          28.1146
+        ]
+      },
+      "properties": {
+        "id": "soc-099",
+        "nombre": "*savia*",
+        "categoria": "asociacion_cultural",
+        "municipio": "Arucas",
+        "que_hace": "Socio-culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5232,
+          28.1227
+        ]
+      },
+      "properties": {
+        "id": "soc-100",
+        "nombre": "Agrupacion Folklorica Bucio",
+        "categoria": "asociacion_cultural",
+        "municipio": "Arucas",
+        "que_hace": "Musica popular y folklorica · Inscrita 1998 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.522,
+          28.1249
+        ]
+      },
+      "properties": {
+        "id": "soc-101",
+        "nombre": "Alba de el Cerrillo",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Arucas",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5171,
+          28.1204
+        ]
+      },
+      "properties": {
+        "id": "soc-102",
+        "nombre": "Asistencial Nueva Victoria",
+        "categoria": "centro_social",
+        "municipio": "Arucas",
+        "que_hace": "De acción sanitaria, educativa y social · Inscrita 2017 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6552,
+          28.1384
+        ]
+      },
+      "properties": {
+        "id": "soc-103",
+        "nombre": "Grubenses A.sc.r. (asociación Sociocultural Y Recreativa)",
+        "categoria": "asociacion_cultural",
+        "municipio": "Gáldar",
+        "que_hace": "Socio-culturales · Inscrita 2019 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6496,
+          28.1429
+        ]
+      },
+      "properties": {
+        "id": "soc-104",
+        "nombre": "(udeu) Union de Estudiantes Universitarios",
+        "categoria": "asociacion_cultural",
+        "municipio": "Gáldar",
+        "que_hace": "Jóvenes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6585,
+          28.143
+        ]
+      },
+      "properties": {
+        "id": "soc-105",
+        "nombre": "Asociación de Vecinos Cruz del Poleo",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Gáldar",
+        "que_hace": "Vecinos y comerciantes · Inscrita 1977 · NIF G35219864.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6559,
+          28.1412
+        ]
+      },
+      "properties": {
+        "id": "soc-106",
+        "nombre": "Asociación de Vecinos el Molino-tegueste",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Gáldar",
+        "que_hace": "Vecinos y comerciantes · Inscrita 1999 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5666,
+          27.9495
+        ]
+      },
+      "properties": {
+        "id": "soc-107",
+        "nombre": "Biencultur: Bienestar, Cultura Y Turismo",
+        "categoria": "asociacion_cultural",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Socio-culturales · Inscrita 2025 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5685,
+          27.9491
+        ]
+      },
+      "properties": {
+        "id": "soc-108",
+        "nombre": "Inarmon - Internacional-arte-montaña de Fataga",
+        "categoria": "asociacion_cultural",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Socio-culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5747,
+          27.952
+        ]
+      },
+      "properties": {
+        "id": "soc-109",
+        "nombre": "*avepi*, de Playa del Ingles",
+        "categoria": "asociacion_vecinos",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5768,
+          27.9496
+        ]
+      },
+      "properties": {
+        "id": "soc-110",
+        "nombre": "Adfatagad",
+        "categoria": "asociacion_vecinos",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5763,
+          27.9536
+        ]
+      },
+      "properties": {
+        "id": "soc-111",
+        "nombre": "Agrupación Social Aida el Majdoubi",
+        "categoria": "centro_social",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "De accion social · Inscrita 2014 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5481,
+          27.8951
+        ]
+      },
+      "properties": {
+        "id": "soc-112",
+        "nombre": "Regeneración Democrática Y Acción Social Transparencia Y Justicia",
+        "categoria": "centro_social",
+        "municipio": "Santa Lucía de Tirajana",
+        "que_hace": "De accion social · Inscrita 2016 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5418,
+          27.8923
+        ]
+      },
+      "properties": {
+        "id": "soc-113",
+        "nombre": "Agrupacion Folklorica Bejeque",
+        "categoria": "asociacion_cultural",
+        "municipio": "Santa Lucía de Tirajana",
+        "que_hace": "Musica popular y folklorica · Inscrita 1996 · NIF G35433531.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5493,
+          27.8989
+        ]
+      },
+      "properties": {
+        "id": "soc-114",
+        "nombre": "Agrupacion Folklorica Roca Canaria",
+        "categoria": "asociacion_cultural",
+        "municipio": "Santa Lucía de Tirajana",
+        "que_hace": "Musica popular y folklorica · Inscrita 2005 · NIF J35878115.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5491,
+          27.8908
+        ]
+      },
+      "properties": {
+        "id": "soc-115",
+        "nombre": "Asociación Prometeo",
+        "categoria": "centro_social",
+        "municipio": "Santa Lucía de Tirajana",
+        "que_hace": "De accion social · Inscrita 2006 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5507,
+          27.8925
+        ]
+      },
+      "properties": {
+        "id": "soc-116",
+        "nombre": "de Afectados Y Usuarios las Brisas de Sardina",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Santa Lucía de Tirajana",
+        "que_hace": "Vecinos · Inscrita 2022 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6261,
+          27.9988
+        ]
+      },
+      "properties": {
+        "id": "soc-117",
+        "nombre": "Agrupación Folklórica Aires del Nublo",
+        "categoria": "asociacion_cultural",
+        "municipio": "Tejeda",
+        "que_hace": "Musica popular y folklorica · Inscrita 2011 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6265,
+          27.9938
+        ]
+      },
+      "properties": {
+        "id": "soc-118",
+        "nombre": "Agrupación Folklórica Parranda Amigos de Tejeda (amitejeda)",
+        "categoria": "asociacion_cultural",
+        "municipio": "Tejeda",
+        "que_hace": "Musicales · Inscrita 2013 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5179,
+          28.0426
+        ]
+      },
+      "properties": {
+        "id": "soc-119",
+        "nombre": "A por Todas",
+        "categoria": "asociacion_cultural",
+        "municipio": "Santa Brígida",
+        "que_hace": "Jóvenes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5292,
+          28.0429
+        ]
+      },
+      "properties": {
+        "id": "soc-120",
+        "nombre": "Agraw N Idelmaden",
+        "categoria": "asociacion_cultural",
+        "municipio": "Santa Brígida",
+        "que_hace": "Socio-culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5237,
+          28.0357
+        ]
+      },
+      "properties": {
+        "id": "soc-121",
+        "nombre": "Alia - Asociación para el Desarrollo Integral de la Persona",
+        "categoria": "centro_social",
+        "municipio": "Santa Brígida",
+        "que_hace": "De acción sanitaria, educativa y social · Inscrita 2026 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7133,
+          27.8766
+        ]
+      },
+      "properties": {
+        "id": "soc-122",
+        "nombre": "*la Fortaleza de Mogan*",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Mogán",
+        "que_hace": "Vecinos · Inscrita 1995 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7097,
+          27.8779
+        ]
+      },
+      "properties": {
+        "id": "soc-123",
+        "nombre": "Amigos de la Cultura Musical Arte-deporte",
+        "categoria": "asociacion_cultural",
+        "municipio": "Mogán",
+        "que_hace": "Socio-culturales · Inscrita 2000 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7099,
+          27.8847
+        ]
+      },
+      "properties": {
+        "id": "soc-124",
+        "nombre": "Amigos de Tauro Agrupacion Cultural",
+        "categoria": "asociacion_cultural",
+        "municipio": "Mogán",
+        "que_hace": "Socio-culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5788,
+          28.1063
+        ]
+      },
+      "properties": {
+        "id": "soc-125",
+        "nombre": "Agrupacion Folklorica Guadalupe",
+        "categoria": "asociacion_cultural",
+        "municipio": "Moya",
+        "que_hace": "Musica popular y folklorica · Inscrita 1998 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5839,
+          28.1071
+        ]
+      },
+      "properties": {
+        "id": "soc-126",
+        "nombre": "Agrupacion Musical Cumbres Y Costas",
+        "categoria": "asociacion_cultural",
+        "municipio": "Moya",
+        "que_hace": "Musica popular y folklorica · Inscrita 1997 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.58,
+          28.1111
+        ]
+      },
+      "properties": {
+        "id": "soc-127",
+        "nombre": "Attimera",
+        "categoria": "asociacion_vecinos",
+        "municipio": "Moya",
+        "que_hace": "Vecinos y comerciantes · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5316,
+          28.0147
+        ]
+      },
+      "properties": {
+        "id": "soc-128",
+        "nombre": "*skene Teatro*",
+        "categoria": "asociacion_cultural",
+        "municipio": "Vega de San Mateo",
+        "que_hace": "Socio-culturales · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5272,
+          28.007
+        ]
+      },
+      "properties": {
+        "id": "soc-129",
+        "nombre": "Agrupación Folklórica Aires de Medianias",
+        "categoria": "asociacion_cultural",
+        "municipio": "Vega de San Mateo",
+        "que_hace": "Musica popular y folklorica · Inscrita 2011 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5331,
+          28.0103
+        ]
+      },
+      "properties": {
+        "id": "soc-130",
+        "nombre": "Asociación Africaye",
+        "categoria": "centro_social",
+        "municipio": "Vega de San Mateo",
+        "que_hace": "De accion social · Inscrita 2023 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4929,
+          28.0019
+        ]
+      },
+      "properties": {
+        "id": "soc-131",
+        "nombre": "el Saucillo (recuperación de Oficios Tradicionales de Valsequillo de Gran…",
+        "categoria": "asociacion_cultural",
+        "municipio": "Valsequillo de Gran Canaria",
+        "que_hace": "Socio-culturales · Inscrita 2012 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.492,
+          28.0032
+        ]
+      },
+      "properties": {
+        "id": "soc-132",
+        "nombre": "el Saucillo (recuperación de Oficios Tradicionales de Valsequillo de Gran…",
+        "categoria": "asociacion_cultural",
+        "municipio": "Valsequillo de Gran Canaria",
+        "que_hace": "Culturales · Inscrita 2012 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.486,
+          28.0004
+        ]
+      },
+      "properties": {
+        "id": "soc-133",
+        "nombre": "The Long Walk/la Gran Caminata",
+        "categoria": "centro_social",
+        "municipio": "Valsequillo de Gran Canaria",
+        "que_hace": "De accion social · Inscrita 2019 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6436,
+          28.0116
+        ]
+      },
+      "properties": {
+        "id": "soc-134",
+        "nombre": "Agrupación Folklórica Virgen de la Cuevita",
+        "categoria": "asociacion_cultural",
+        "municipio": "Artenara",
+        "que_hace": "Musica popular y folklorica · Inscrita 1998 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6436,
+          28.0166
+        ]
+      },
+      "properties": {
+        "id": "soc-135",
+        "nombre": "Agrupación Musical Tifaracás de Artenara",
+        "categoria": "asociacion_cultural",
+        "municipio": "Artenara",
+        "que_hace": "Musica popular y folklorica · Inscrita 2010 · Registro Asoc. Canarias.",
+        "fuente": "Registro de Asociaciones de Canarias (2021)"
+      }
+    }
+  ]
+}

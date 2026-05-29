@@ -84,3 +84,8 @@ yarn-error.log*
 /public/sections_pack/35033*/
 /public/sections_pack/contact_sheet_gc.png
 /public/sections_pack/contact_sheet_canteras.png
+
+# Logs y backups en cualquier ruta (2026-05-29)
+*.log
+*.bak
+/scripts/_cache/

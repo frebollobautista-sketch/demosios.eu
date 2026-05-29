@@ -13,7 +13,7 @@ Uso:
 
 Entrada:
   - Geofabrik PBF (canary-islands-*.osm.pbf)
-  - public/gc-secciones.json (secciones censales)
+  - public/prov38-secciones-lite.json (secciones censales)
 
 Salida: public/buildings/CUSECCODE.json
   Formato: [[coords, height, levels], ...]
@@ -37,6 +37,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 # Find PBF file
 PBF_CANDIDATES = [
     os.path.join(ROOT, "GEOFABRIK", "canary-islands-latest.osm.pbf"),
+    "/Users/panch/Documents/UCM reclamación/_archivo/duplicates/KOINOS-duplicado/GEOFABRIK/canary-islands-260410.osm.pbf",
     os.path.join(ROOT, "GEOFABRIK", "canary-islands-260410.osm.pbf"),
     os.path.join(ROOT, "KOINOS duplicado", "GEOFABRIK", "canary-islands-260410.osm.pbf"),
     os.path.join(ROOT, "canary-islands.osm.pbf"),
@@ -54,19 +55,16 @@ if not PBF_PATH:
     print(f"y colócalo en: {os.path.join(ROOT, 'GEOFABRIK')}/")
     sys.exit(1)
 
-SECCIONES_PATH = os.path.join(ROOT, "public", "gc-secciones.json")
+SECCIONES_PATH = os.path.join(ROOT, "public", "prov38-secciones-lite.json")
 if not os.path.exists(SECCIONES_PATH):
-    # Fallback to lite version
-    SECCIONES_PATH = os.path.join(ROOT, "public", "gc-secciones-lite.json")
-if not os.path.exists(SECCIONES_PATH):
-    print("ERROR: Falta gc-secciones.json o gc-secciones-lite.json")
+    print("ERROR: Falta prov38-secciones-lite.json")
     sys.exit(1)
 
 # Provincia 35 bounding box (with margin)
-BBOX_MIN_LON = -16.0
-BBOX_MAX_LON = -13.3
-BBOX_MIN_LAT = 27.6
-BBOX_MAX_LAT = 29.4
+BBOX_MIN_LON = -18.3
+BBOX_MAX_LON = -16.0
+BBOX_MIN_LAT = 27.4
+BBOX_MAX_LAT = 28.9
 
 
 class BuildingCollector(osmium.SimpleHandler):
@@ -192,7 +190,7 @@ def main():
 
     for feat in secciones['features']:
         cusec = feat['properties'].get('cusec', feat['properties'].get('CUSEC', ''))
-        if not cusec or not cusec.startswith('35'):
+        if not cusec or not cusec.startswith('38'):
             continue
         try:
             geom = shape(feat['geometry'])

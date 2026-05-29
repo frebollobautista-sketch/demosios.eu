@@ -1,0 +1,712 @@
+{
+  "version": "istac-C00069A_000001-1.12-2026-Q1",
+  "fuente": "ISTAC · Estadística de Población Activa Registrada (EPA-Reg) · Dataset C00069A_000001 v1.12 · https://datos.canarias.es/api/estadisticas/statistical-resources/v1.0/datasets/ISTAC/C00069A_000001/1.12.csv",
+  "fecha_dato": "2026-Q1",
+  "nota": "Tasa de paro registrado = paro registrado (UNE_REG) / población activa registrada (ACT_REG, 16+ años). Datos trimestrales ISTAC. Frontera (38013) se reporta como '38013_2007' en ISTAC tras la creación de El Pinar (38901) en 2007.",
+  "muns": {
+    "38013": {
+      "paro_pct": 11.44,
+      "paro_n": 250,
+      "activa_n": 2185,
+      "fecha": "2026-Q1",
+      "nmun": "Frontera",
+      "isla": "eh"
+    },
+    "38048": {
+      "paro_pct": 11.05,
+      "paro_n": 285,
+      "activa_n": 2580,
+      "fecha": "2026-Q1",
+      "nmun": "Valverde",
+      "isla": "eh"
+    },
+    "38901": {
+      "paro_pct": 12.15,
+      "paro_n": 110,
+      "activa_n": 905,
+      "fecha": "2026-Q1",
+      "nmun": "Pinar de El Hierro, El",
+      "isla": "eh"
+    },
+    "35003": {
+      "paro_pct": 8.9,
+      "paro_n": 550,
+      "activa_n": 6180,
+      "fecha": "2026-Q1",
+      "nmun": "Antigua",
+      "isla": "fv"
+    },
+    "35007": {
+      "paro_pct": 8.75,
+      "paro_n": 35,
+      "activa_n": 400,
+      "fecha": "2026-Q1",
+      "nmun": "Betancuria",
+      "isla": "fv"
+    },
+    "35014": {
+      "paro_pct": 9.14,
+      "paro_n": 1320,
+      "activa_n": 14435,
+      "fecha": "2026-Q1",
+      "nmun": "Oliva, La",
+      "isla": "fv"
+    },
+    "35015": {
+      "paro_pct": 6.31,
+      "paro_n": 730,
+      "activa_n": 11570,
+      "fecha": "2026-Q1",
+      "nmun": "Pájara",
+      "isla": "fv"
+    },
+    "35017": {
+      "paro_pct": 9.52,
+      "paro_n": 2405,
+      "activa_n": 25250,
+      "fecha": "2026-Q1",
+      "nmun": "Puerto del Rosario",
+      "isla": "fv"
+    },
+    "35030": {
+      "paro_pct": 8.52,
+      "paro_n": 760,
+      "activa_n": 8925,
+      "fecha": "2026-Q1",
+      "nmun": "Tuineje",
+      "isla": "fv"
+    },
+    "35001": {
+      "paro_pct": 18.02,
+      "paro_n": 500,
+      "activa_n": 2775,
+      "fecha": "2026-Q1",
+      "nmun": "Agaete",
+      "isla": "gc"
+    },
+    "35002": {
+      "paro_pct": 12.54,
+      "paro_n": 2315,
+      "activa_n": 18455,
+      "fecha": "2026-Q1",
+      "nmun": "Agüimes",
+      "isla": "gc"
+    },
+    "35005": {
+      "paro_pct": 10.89,
+      "paro_n": 55,
+      "activa_n": 505,
+      "fecha": "2026-Q1",
+      "nmun": "Artenara",
+      "isla": "gc"
+    },
+    "35006": {
+      "paro_pct": 14.61,
+      "paro_n": 3045,
+      "activa_n": 20845,
+      "fecha": "2026-Q1",
+      "nmun": "Arucas",
+      "isla": "gc"
+    },
+    "35008": {
+      "paro_pct": 14.75,
+      "paro_n": 615,
+      "activa_n": 4170,
+      "fecha": "2026-Q1",
+      "nmun": "Firgas",
+      "isla": "gc"
+    },
+    "35009": {
+      "paro_pct": 15.4,
+      "paro_n": 1945,
+      "activa_n": 12630,
+      "fecha": "2026-Q1",
+      "nmun": "Gáldar",
+      "isla": "gc"
+    },
+    "35011": {
+      "paro_pct": 14.12,
+      "paro_n": 2505,
+      "activa_n": 17745,
+      "fecha": "2026-Q1",
+      "nmun": "Ingenio",
+      "isla": "gc"
+    },
+    "35012": {
+      "paro_pct": 9.37,
+      "paro_n": 990,
+      "activa_n": 10570,
+      "fecha": "2026-Q1",
+      "nmun": "Mogán",
+      "isla": "gc"
+    },
+    "35013": {
+      "paro_pct": 18.4,
+      "paro_n": 735,
+      "activa_n": 3995,
+      "fecha": "2026-Q1",
+      "nmun": "Moya",
+      "isla": "gc"
+    },
+    "35016": {
+      "paro_pct": 15.48,
+      "paro_n": 29255,
+      "activa_n": 189015,
+      "fecha": "2026-Q1",
+      "nmun": "Palmas de Gran Canaria, Las",
+      "isla": "gc"
+    },
+    "35019": {
+      "paro_pct": 10.78,
+      "paro_n": 3005,
+      "activa_n": 27880,
+      "fecha": "2026-Q1",
+      "nmun": "San Bartolomé de Tirajana",
+      "isla": "gc"
+    },
+    "35020": {
+      "paro_pct": 16.6,
+      "paro_n": 580,
+      "activa_n": 3495,
+      "fecha": "2026-Q1",
+      "nmun": "Aldea de San Nicolás, La",
+      "isla": "gc"
+    },
+    "35021": {
+      "paro_pct": 11.54,
+      "paro_n": 1055,
+      "activa_n": 9140,
+      "fecha": "2026-Q1",
+      "nmun": "Santa Brígida",
+      "isla": "gc"
+    },
+    "35022": {
+      "paro_pct": 12.84,
+      "paro_n": 5420,
+      "activa_n": 42215,
+      "fecha": "2026-Q1",
+      "nmun": "Santa Lucía de Tirajana",
+      "isla": "gc"
+    },
+    "35023": {
+      "paro_pct": 15.31,
+      "paro_n": 1115,
+      "activa_n": 7285,
+      "fecha": "2026-Q1",
+      "nmun": "Santa María de Guía de Gran Canaria",
+      "isla": "gc"
+    },
+    "35025": {
+      "paro_pct": 12.72,
+      "paro_n": 110,
+      "activa_n": 865,
+      "fecha": "2026-Q1",
+      "nmun": "Tejeda",
+      "isla": "gc"
+    },
+    "35026": {
+      "paro_pct": 15.55,
+      "paro_n": 8710,
+      "activa_n": 56020,
+      "fecha": "2026-Q1",
+      "nmun": "Telde",
+      "isla": "gc"
+    },
+    "35027": {
+      "paro_pct": 15.27,
+      "paro_n": 1065,
+      "activa_n": 6975,
+      "fecha": "2026-Q1",
+      "nmun": "Teror",
+      "isla": "gc"
+    },
+    "35031": {
+      "paro_pct": 12.77,
+      "paro_n": 685,
+      "activa_n": 5365,
+      "fecha": "2026-Q1",
+      "nmun": "Valsequillo de Gran Canaria",
+      "isla": "gc"
+    },
+    "35032": {
+      "paro_pct": 16.71,
+      "paro_n": 315,
+      "activa_n": 1885,
+      "fecha": "2026-Q1",
+      "nmun": "Valleseco",
+      "isla": "gc"
+    },
+    "35033": {
+      "paro_pct": 13.32,
+      "paro_n": 550,
+      "activa_n": 4130,
+      "fecha": "2026-Q1",
+      "nmun": "Vega de San Mateo",
+      "isla": "gc"
+    },
+    "38002": {
+      "paro_pct": 8.51,
+      "paro_n": 40,
+      "activa_n": 470,
+      "fecha": "2026-Q1",
+      "nmun": "Agulo",
+      "isla": "lg"
+    },
+    "38003": {
+      "paro_pct": 9.31,
+      "paro_n": 95,
+      "activa_n": 1020,
+      "fecha": "2026-Q1",
+      "nmun": "Alajeró",
+      "isla": "lg"
+    },
+    "38021": {
+      "paro_pct": 13.51,
+      "paro_n": 125,
+      "activa_n": 925,
+      "fecha": "2026-Q1",
+      "nmun": "Hermigua",
+      "isla": "lg"
+    },
+    "38036": {
+      "paro_pct": 8.92,
+      "paro_n": 440,
+      "activa_n": 4930,
+      "fecha": "2026-Q1",
+      "nmun": "San Sebastián de la Gomera",
+      "isla": "lg"
+    },
+    "38049": {
+      "paro_pct": 11.59,
+      "paro_n": 230,
+      "activa_n": 1985,
+      "fecha": "2026-Q1",
+      "nmun": "Valle Gran Rey",
+      "isla": "lg"
+    },
+    "38050": {
+      "paro_pct": 14.52,
+      "paro_n": 180,
+      "activa_n": 1240,
+      "fecha": "2026-Q1",
+      "nmun": "Vallehermoso",
+      "isla": "lg"
+    },
+    "38007": {
+      "paro_pct": 15.27,
+      "paro_n": 155,
+      "activa_n": 1015,
+      "fecha": "2026-Q1",
+      "nmun": "Barlovento",
+      "isla": "lp"
+    },
+    "38008": {
+      "paro_pct": 13.1,
+      "paro_n": 520,
+      "activa_n": 3970,
+      "fecha": "2026-Q1",
+      "nmun": "Breña Alta",
+      "isla": "lp"
+    },
+    "38009": {
+      "paro_pct": 11.67,
+      "paro_n": 370,
+      "activa_n": 3170,
+      "fecha": "2026-Q1",
+      "nmun": "Breña Baja",
+      "isla": "lp"
+    },
+    "38014": {
+      "paro_pct": 13.23,
+      "paro_n": 125,
+      "activa_n": 945,
+      "fecha": "2026-Q1",
+      "nmun": "Fuencaliente de la Palma",
+      "isla": "lp"
+    },
+    "38016": {
+      "paro_pct": 20.14,
+      "paro_n": 145,
+      "activa_n": 720,
+      "fecha": "2026-Q1",
+      "nmun": "Garafía",
+      "isla": "lp"
+    },
+    "38024": {
+      "paro_pct": 15.39,
+      "paro_n": 1600,
+      "activa_n": 10395,
+      "fecha": "2026-Q1",
+      "nmun": "Llanos de Aridane, Los",
+      "isla": "lp"
+    },
+    "38027": {
+      "paro_pct": 16.56,
+      "paro_n": 655,
+      "activa_n": 3955,
+      "fecha": "2026-Q1",
+      "nmun": "Paso, El",
+      "isla": "lp"
+    },
+    "38029": {
+      "paro_pct": 17.53,
+      "paro_n": 170,
+      "activa_n": 970,
+      "fecha": "2026-Q1",
+      "nmun": "Puntagorda",
+      "isla": "lp"
+    },
+    "38030": {
+      "paro_pct": 13.06,
+      "paro_n": 175,
+      "activa_n": 1340,
+      "fecha": "2026-Q1",
+      "nmun": "Puntallana",
+      "isla": "lp"
+    },
+    "38033": {
+      "paro_pct": 13.38,
+      "paro_n": 275,
+      "activa_n": 2055,
+      "fecha": "2026-Q1",
+      "nmun": "San Andrés y Sauces",
+      "isla": "lp"
+    },
+    "38037": {
+      "paro_pct": 14.21,
+      "paro_n": 1090,
+      "activa_n": 7670,
+      "fecha": "2026-Q1",
+      "nmun": "Santa Cruz de la Palma",
+      "isla": "lp"
+    },
+    "38045": {
+      "paro_pct": 20.67,
+      "paro_n": 435,
+      "activa_n": 2105,
+      "fecha": "2026-Q1",
+      "nmun": "Tazacorte",
+      "isla": "lp"
+    },
+    "38047": {
+      "paro_pct": 12.28,
+      "paro_n": 140,
+      "activa_n": 1140,
+      "fecha": "2026-Q1",
+      "nmun": "Tijarafe",
+      "isla": "lp"
+    },
+    "38053": {
+      "paro_pct": 14.86,
+      "paro_n": 390,
+      "activa_n": 2625,
+      "fecha": "2026-Q1",
+      "nmun": "Villa de Mazo",
+      "isla": "lp"
+    },
+    "35004": {
+      "paro_pct": 9.27,
+      "paro_n": 3500,
+      "activa_n": 37755,
+      "fecha": "2026-Q1",
+      "nmun": "Arrecife",
+      "isla": "lz"
+    },
+    "35010": {
+      "paro_pct": 9.65,
+      "paro_n": 275,
+      "activa_n": 2850,
+      "fecha": "2026-Q1",
+      "nmun": "Haría",
+      "isla": "lz"
+    },
+    "35018": {
+      "paro_pct": 7.43,
+      "paro_n": 825,
+      "activa_n": 11105,
+      "fecha": "2026-Q1",
+      "nmun": "San Bartolomé",
+      "isla": "lz"
+    },
+    "35024": {
+      "paro_pct": 6.72,
+      "paro_n": 850,
+      "activa_n": 12645,
+      "fecha": "2026-Q1",
+      "nmun": "Teguise",
+      "isla": "lz"
+    },
+    "35028": {
+      "paro_pct": 6.94,
+      "paro_n": 730,
+      "activa_n": 10525,
+      "fecha": "2026-Q1",
+      "nmun": "Tías",
+      "isla": "lz"
+    },
+    "35029": {
+      "paro_pct": 7.29,
+      "paro_n": 280,
+      "activa_n": 3840,
+      "fecha": "2026-Q1",
+      "nmun": "Tinajo",
+      "isla": "lz"
+    },
+    "35034": {
+      "paro_pct": 5.5,
+      "paro_n": 560,
+      "activa_n": 10175,
+      "fecha": "2026-Q1",
+      "nmun": "Yaiza",
+      "isla": "lz"
+    },
+    "38001": {
+      "paro_pct": 8.42,
+      "paro_n": 2105,
+      "activa_n": 24995,
+      "fecha": "2026-Q1",
+      "nmun": "Adeje",
+      "isla": "tf"
+    },
+    "38004": {
+      "paro_pct": 12.13,
+      "paro_n": 390,
+      "activa_n": 3215,
+      "fecha": "2026-Q1",
+      "nmun": "Arafo",
+      "isla": "tf"
+    },
+    "38005": {
+      "paro_pct": 12.78,
+      "paro_n": 630,
+      "activa_n": 4930,
+      "fecha": "2026-Q1",
+      "nmun": "Arico",
+      "isla": "tf"
+    },
+    "38006": {
+      "paro_pct": 10.74,
+      "paro_n": 4850,
+      "activa_n": 45160,
+      "fecha": "2026-Q1",
+      "nmun": "Arona",
+      "isla": "tf"
+    },
+    "38010": {
+      "paro_pct": 15.33,
+      "paro_n": 335,
+      "activa_n": 2185,
+      "fecha": "2026-Q1",
+      "nmun": "Buenavista del Norte",
+      "isla": "tf"
+    },
+    "38011": {
+      "paro_pct": 11.51,
+      "paro_n": 1740,
+      "activa_n": 15120,
+      "fecha": "2026-Q1",
+      "nmun": "Candelaria",
+      "isla": "tf"
+    },
+    "38012": {
+      "paro_pct": 15.31,
+      "paro_n": 245,
+      "activa_n": 1600,
+      "fecha": "2026-Q1",
+      "nmun": "Fasnia",
+      "isla": "tf"
+    },
+    "38015": {
+      "paro_pct": 15.79,
+      "paro_n": 345,
+      "activa_n": 2185,
+      "fecha": "2026-Q1",
+      "nmun": "Garachico",
+      "isla": "tf"
+    },
+    "38017": {
+      "paro_pct": 10.4,
+      "paro_n": 3260,
+      "activa_n": 31355,
+      "fecha": "2026-Q1",
+      "nmun": "Granadilla de Abona",
+      "isla": "tf"
+    },
+    "38018": {
+      "paro_pct": 15.31,
+      "paro_n": 415,
+      "activa_n": 2710,
+      "fecha": "2026-Q1",
+      "nmun": "Guancha, La",
+      "isla": "tf"
+    },
+    "38019": {
+      "paro_pct": 9.61,
+      "paro_n": 1115,
+      "activa_n": 11605,
+      "fecha": "2026-Q1",
+      "nmun": "Guía de Isora",
+      "isla": "tf"
+    },
+    "38020": {
+      "paro_pct": 13.46,
+      "paro_n": 1545,
+      "activa_n": 11480,
+      "fecha": "2026-Q1",
+      "nmun": "Güímar",
+      "isla": "tf"
+    },
+    "38022": {
+      "paro_pct": 16.13,
+      "paro_n": 1890,
+      "activa_n": 11720,
+      "fecha": "2026-Q1",
+      "nmun": "Icod de los Vinos",
+      "isla": "tf"
+    },
+    "38023": {
+      "paro_pct": 14.39,
+      "paro_n": 12200,
+      "activa_n": 84780,
+      "fecha": "2026-Q1",
+      "nmun": "San Cristóbal de La Laguna",
+      "isla": "tf"
+    },
+    "38025": {
+      "paro_pct": 14.48,
+      "paro_n": 700,
+      "activa_n": 4835,
+      "fecha": "2026-Q1",
+      "nmun": "Matanza de Acentejo, La",
+      "isla": "tf"
+    },
+    "38026": {
+      "paro_pct": 14.87,
+      "paro_n": 3275,
+      "activa_n": 22030,
+      "fecha": "2026-Q1",
+      "nmun": "Orotava, La",
+      "isla": "tf"
+    },
+    "38028": {
+      "paro_pct": 16.31,
+      "paro_n": 2225,
+      "activa_n": 13645,
+      "fecha": "2026-Q1",
+      "nmun": "Puerto de la Cruz",
+      "isla": "tf"
+    },
+    "38031": {
+      "paro_pct": 14.98,
+      "paro_n": 2955,
+      "activa_n": 19725,
+      "fecha": "2026-Q1",
+      "nmun": "Realejos, Los",
+      "isla": "tf"
+    },
+    "38032": {
+      "paro_pct": 11.56,
+      "paro_n": 1095,
+      "activa_n": 9470,
+      "fecha": "2026-Q1",
+      "nmun": "Rosario, El",
+      "isla": "tf"
+    },
+    "38034": {
+      "paro_pct": 15.32,
+      "paro_n": 390,
+      "activa_n": 2545,
+      "fecha": "2026-Q1",
+      "nmun": "San Juan de la Rambla",
+      "isla": "tf"
+    },
+    "38035": {
+      "paro_pct": 9.04,
+      "paro_n": 1120,
+      "activa_n": 12390,
+      "fecha": "2026-Q1",
+      "nmun": "San Miguel de Abona",
+      "isla": "tf"
+    },
+    "38038": {
+      "paro_pct": 15.0,
+      "paro_n": 15790,
+      "activa_n": 105275,
+      "fecha": "2026-Q1",
+      "nmun": "Santa Cruz de Tenerife",
+      "isla": "tf"
+    },
+    "38039": {
+      "paro_pct": 15.39,
+      "paro_n": 1250,
+      "activa_n": 8120,
+      "fecha": "2026-Q1",
+      "nmun": "Santa Úrsula",
+      "isla": "tf"
+    },
+    "38040": {
+      "paro_pct": 8.75,
+      "paro_n": 485,
+      "activa_n": 5545,
+      "fecha": "2026-Q1",
+      "nmun": "Santiago del Teide",
+      "isla": "tf"
+    },
+    "38041": {
+      "paro_pct": 12.86,
+      "paro_n": 600,
+      "activa_n": 4665,
+      "fecha": "2026-Q1",
+      "nmun": "Sauzal, El",
+      "isla": "tf"
+    },
+    "38042": {
+      "paro_pct": 16.71,
+      "paro_n": 350,
+      "activa_n": 2095,
+      "fecha": "2026-Q1",
+      "nmun": "Silos, Los",
+      "isla": "tf"
+    },
+    "38043": {
+      "paro_pct": 14.58,
+      "paro_n": 1860,
+      "activa_n": 12755,
+      "fecha": "2026-Q1",
+      "nmun": "Tacoronte",
+      "isla": "tf"
+    },
+    "38044": {
+      "paro_pct": 17.65,
+      "paro_n": 240,
+      "activa_n": 1360,
+      "fecha": "2026-Q1",
+      "nmun": "Tanque, El",
+      "isla": "tf"
+    },
+    "38046": {
+      "paro_pct": 11.4,
+      "paro_n": 695,
+      "activa_n": 6095,
+      "fecha": "2026-Q1",
+      "nmun": "Tegueste",
+      "isla": "tf"
+    },
+    "38051": {
+      "paro_pct": 17.23,
+      "paro_n": 840,
+      "activa_n": 4875,
+      "fecha": "2026-Q1",
+      "nmun": "Victoria de Acentejo, La",
+      "isla": "tf"
+    },
+    "38052": {
+      "paro_pct": 10.05,
+      "paro_n": 100,
+      "activa_n": 995,
+      "fecha": "2026-Q1",
+      "nmun": "Vilaflor de Chasna",
+      "isla": "tf"
+    }
+  }
+}

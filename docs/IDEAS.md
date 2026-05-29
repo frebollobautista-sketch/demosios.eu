@@ -120,6 +120,47 @@ Propuesta del usuario: añadir en la Bibliotheka un editor para publicar artícu
 
 Pendiente de respuesta del usuario para fijar nombre/estructura/editor antes de construir.
 
+## Ágora — tablero de aficiones / feed
+
+### 2026-05-29 — Tablero de aficiones y preferencias: diseño cerrado
+Sesión dedicada a diseñar (no construir aún) el algoritmo de un "tablero de aficiones y preferencias" para Ágora. Vanilla ES modules, sin build, todo localStorage de momento.
+
+**Hallazgo de partida:** hoy las aficiones NO son dimensiones del algoritmo — son una capa de *boost*. En `descubre.js`, los intereses de `PALETA_AMPLIA` solo (a) multiplican peso por match de keyword (`construirBoost`), (b) deciden qué subreddits se cargan, (c) aplican un `dimBias` pequeño. Los ítems (`feed.js:aplicarDims`) solo llevan 4 dims posturales (`cercania, conocidos, reaccionar, temporalidad`), ninguna temática. Por eso el interés no se ve en sliders, `explicar()` no lo nombra y `aprenderDeFeedback()` no lo aprende. Ya existía un proto-toggle: los presets `✦ Intereses` / `🏛 Cívico`.
+
+**Re-encuadre:** promover las aficiones de "boost" a **dimensiones de primera clase**. En cuanto cada interés es una `dim` con su slider y los ítems se puntúan en dims temáticas, `rank()` (agnóstico de dims), `explicar()` y `aprenderDeFeedback()` funcionan gratis. Es "enchufarse al motor sin reescribirlo".
+
+**Decisiones cerradas con el usuario:**
+- **Opción A — dos tableros separados** (hobby/entretenimiento · cívico/sociopolítico), cada uno su set de dims, sus sliders y su clave de storage. (Se descartaron B unificado y C crossfader jerárquico).
+- **Familia cívica derivada de `taxonomia.js`** (los 10 verbos) por mapeo fino, sin editar el fichero (sólo-lectura; otra sesión es dueña de él). Fuente de verdad única.
+- **Solo Ágora en v1**; `biblioteca-app` reutilizará `shared/tablero.js` después.
+- **Tablero = SOLO afinidad de tema** (sliders para gustos estables). Hobby: 10 intereses de `PALETA_AMPLIA` + mando **Descubrimiento** (seguro↔sorpresa, expone `serendipia`). Cívico: 10 verbos + Descubrimiento.
+- **Posturales recortados** (los 4 `DIMS_AGORA` heredados convencían poco al usuario, "complicaban los filtros"). Lugar/tiempo/postura son propiedades *por-ítem*, no preferencias estables → **chips en la propia tarjeta** que al tocarlos pivotan (patrón 1, elegido sobre rails y maqueta). El pivot = **boost transitorio, visible y reversible, NO aprendido ni persistido** (lente de sesión, no algoritmo propio). La "Acción" (consumir↔convocar) se vuelve **botón *actuar* + chip de postura** en la tarjeta — gana, no se pierde. Única excepción de control persistente: **chip de alcance geográfico** (barrio/isla) fijo arriba. `cercania`/`ts` quedan como sesgo de orden interno en `rank()`, ya no user-facing.
+- **Entrega dual con cambio en vivo:** *toggle* (un tablero activo a la vez) ⇄ *feed único intercalado* (ratio ajustable + cuota cívica ≥1 por ventana). El usuario alterna entre ambos modos cuando quiera.
+- **Anti-dilución de lo sociopolítico (3 capas):** inyección cívica (`INJECT_CADA=6`) promovida de Descubre a invariante del feed; suelo de familia en modo único; enganche del "éxito" al `honestyMeter` de `loops.js` (celebrar fin real, nunca engagement por engagement).
+
+**Distinción clave de la filosofía:** pulgares sobre el tema = aprendizaje persistido (tu algoritmo, dueño tú); pivots de chip = lente transitoria.
+
+**Plan de implementación (validado, pendiente luz verde para codear):**
+1. `shared/tablero.js` **nuevo** — define las dos familias como sets de dims, `dimsMeta` por familia, `clasificar(item)` (texto/kind/subreddit/overlay → dims temáticas, sustituye a `construirBoost` como señal de tema), `pivotBoost(item, pivots)` transitorio, `interleave(hobby, civico, ratio)` + cuota cívica, estado/persistencia `agora-tablero` con migración desde `agora-sliders` + `agora-descubre-config`.
+2. `feed.js` — `aplicarDims` llama a `tablero.clasificar(item)`; `cercania`/`ts` pasan a sesgo de orden; cada ítem expone geo/ts/postura para los chips.
+3. `sliders.js` → `mountTablero(container, familia, onChange)` (reusa persistencia/`setState` existentes).
+4. `descubre.js` — presets = entrada Descubre de cada tablero; retira `construirBoost` como señal de tema; promueve inyección cívica.
+5. `app.js` — familia activa, interruptor en vivo toggle⇄único, chips de pivot + chip de alcance, pasar dims/sliders correctos a `rank()`.
+6. Anti-dilución + hook a `honestyMeter`.
+
+Se reutilizan `rank.js`, `stumble.js`, `hud.js`, `gestos.js`, `loops.js`, `taxonomia.js` **sin editarlos**.
+
+### 2026-05-29 — Ágora alineada al formato de POLIS: skin verde oscuro + touchbar mutada
+Decisión del usuario: Ágora "forma parte de la misma app" que POLIS, así que adopta su formato (membrete serif, barras paper/ink, IBM Plex Mono para números/UID, idioma neobrutalista) pero con **skin verde oscuro** en vez del ocre/papel de POLIS — manteniendo el **acento cálido (oro PHAROS)** como POLIS. Paleta nueva en `agora-app/style.css` `:root` (bg `#0e1712`, surfaces verdes, text parchemino, `--ocre` oro intacto, `--font-serif`/`--font-mono`).
+
+**Header portado de POLIS (no recoloreado):** Ágora adopta el shell real de POLIS — membrete **"OCRE ▾"** (icono pieza de ajedrez oro + serif) con su **dropdown de vistas** (POLIS→`../polis-app/`, ÁGORA activo, BIBLIOTHEKA→`../biblioteca-app/`) y los iconos ✦/⚙/Entrar a la derecha. **Se retiró `shared/navbar.js`** (la barra de 3 pestañas Mapa/Ágora/Biblioteca): la navegación entre caras vive ahora en el dropdown OCRE▾, como en el mapa. CSS portado a `agora-app/style.css` (.app-topbar, .app-topbar-brand, .app-topbar-menu/.atm-item) adaptado a verde.
+
+**Touchbar mutada:** la tira de siluetas de islas de POLIS (`siluetas-strip`, salto de contexto territorial) muta en Ágora a la **tira selectora de feed** (salto de contexto algorítmico): `✦ Aficiones · 🏛 Cívico · ⇄ Mezcla`. Es donde se conmuta en vivo entre los dos tableros y el feed único intercalado — entrega el "cambio en vivo" del diseño en el mismo sitio donde POLIS pone las islas. Alternativas anotadas para más adelante: chips de intereses activos (silenciar/solo), zonas cívicas con actividad, sub-secciones.
+
+**Ruteo de feeds por FUENTE** (no por tema): Aficiones = reddit/bsky (el ancho de la web), Cívico = overlays/quórums/sillas/eventos (vida local), Mezcla = interleave de ambos con cuota cívica. Coherente con los presets originales de Descubre. Las dims temáticas del tablero ordenan DENTRO de cada feed.
+
+Bug colateral cazado y corregido: el comentario de documentación del timeline en `index.html` anidaba `<!-- opcional -->` dentro de otro comentario → el primer `-->` lo cerraba y renderizaba los botones de ejemplo + un `-->` suelto sobre el feed. Eliminado.
+
 ## Sin clasificar
 
 ### 2026-04-19 — Preview renderizable dentro de Cowork
@@ -273,3 +314,54 @@ Próximos pasos: (1) enriquecer alturas con datos catastrales de plantas cuando 
 
 ### 2026-04-19 — Cuarto eje opcional `oikonomia`
 Se decidió reducir a 3 ejes (koinonía/paideía/politeía). Si en iteraciones posteriores aparece una economía local productiva en OCRE, la interfaz `PesoPorEje` admite ampliarla sin romper contribuciones existentes.
+
+## POLIS — Sistema de gestos
+
+### 2026-05-13 — Trámites cívicos como categoría nueva del árbol (DIFERIDO — requiere identidad real)
+Hoy el catálogo de gestos cubre expresión cívica declarativa (señalo, reporto, recomiendo, me comprometo). Falta el gesto que **mueve un trámite administrativo real** — la pieza que cierra el círculo "el mapa hace, no sólo muestra". Categoría nueva propuesta, **reservada en IDEAS hasta tener backend de identidad real (Cl@ve / certificado digital)** porque todos estos gestos exigen identidad oficial verificable, no anónimo ni pseudónimo:
+
+- `queja_oficial` — un `reporte` que el usuario eleva con identidad. Va al organismo competente (ayuntamiento, cabildo, SCS, GovCan) con seguimiento del expediente. Un bache reportado se vuelve queja municipal trazable.
+- `solicitud_cita` — pedir cita en padrón / servicios sociales / SCS desde el popup del equipamiento. El catálogo dice qué citas aplican a cada tipo de equipamiento.
+- `consultar_padron` — sobre `vivienda` residencial. Certificado, cambio de domicilio, comprobación.
+- `pago_tasa` — IBI, basura, agua, terraza, vado. No procesamos pago: redirigimos a la sede electrónica con contexto rellenado.
+- `licencia_menor` — obra menor, mudanza, fiesta de calle, mercado puntual.
+- `subvencion_o_ayuda` — sobre entidad cívica o comercio. Solicitar la subvención aplicable (cultura, vivienda, REA, bono cultural).
+- `transparencia` — sobre equipamiento o entidad. Solicitud formal de información pública (ley de transparencia).
+- `firma_propuesta` — firmar una `propuesta` (capa 3 del catálogo activo) elevándola a petición oficial al alcanzar quórum.
+
+Decisiones a tomar cuando se desbloqueen: qué 3 trámites empezar (voto: queja oficial + cita SCS + consulta padrón), quién hospeda el puente administrativo (sede electrónica vs capa Next.js que envía por email firmado vs API directa si existe), y cómo se cablea Cl@ve/certificado contra la identidad pseudónima del sistema actual. Probablemente implica una **capa 6** nueva o ampliación de capa 5 con tipo de identidad `identidad_oficial`.
+
+### 2026-05-13 — Acción colectiva con quórums
+Mecánicas que dan sentido a sumarse: individualmente valen poco, colectivamente se transforman. Algunas piezas **podrían funcionar sin identidad real** (anónimo agregado o pseudónimo estable) y entrarían al catálogo activo en una iteración futura; otras dependen de los trámites (que están diferidos):
+
+- `convoco_quorum` — propongo acción que requiere N personas. Si llega: se eleva. Ej: limpieza de playa (12+ → cabildo), paso peatonal (50+ → queja colectiva), consulta de barrio (100+ → resultado público no vinculante). Convocar puede hacerse con pseudónimo estable; lo que se eleva ya requiere identidad real.
+- `firmo_quorum` — adhesión a una convocatoria. Más fuerte que `senal_pos`: es compromiso de presencia o consentimiento formal. Anónimo con UID estable evita duplicados sin exigir identidad.
+- `voto_consulta_local` — si alguien activó una consulta informal, voto. Anónimo agregado por barrio.
+- `mision_barrio` — el sistema propone misiones desde la analítica de gestos: "7 reportes de alumbrado este mes en tu barrio → ¿lo elevamos a queja colectiva?". No es gesto del usuario, es propuesta automática del sistema sobre un patrón detectado.
+
+Sujetos nuevos posibles: `convocatoria_quorum` (efímera con umbral, parecida a `evento` pero con condición de activación).
+
+Pendiente de decidir: ¿quórums los convoca cualquiera con pseudónimo, o sólo rol Mediador? ¿Misiones de barrio las propone el sistema automáticamente o las activa un Mediador?
+
+### 2026-05-13 — Gamificación como puerta a capacidades (no como puntos decorativos)
+Reformulación del sentido de la gamificación dentro del árbol de gestos. Los badges actuales (si se diseñaran como simples puntos coleccionables) serían vacíos. La propuesta es que cada badge **desbloquee una superficie de acción**, no acumule trofeo:
+
+- **Vecino reconocido en X barrio** — tras N gestos válidos en el barrio. Sus reportes ganan peso en agregación pública; sus propuestas arrancan con +5 firmas implícitas.
+- **Curador de tejido** — tras N `alta_ciudadana` validadas correctamente por moderación. Sus altas siguientes entran sin cola.
+- **Mediador** — tras cumplir N compromisos públicos. Puede convocar consultas informales sin requerir activación admin.
+- **Representante de entidad verificado** — ya existe como `soy_de_entidad` (capa 5 actual). Da `publico_balance`, `alianza`, etc.
+- **Validador de zona** — tras señales que después se confirman correctas. Sus reportes saltan el filtro inicial de moderación.
+
+Principio: quien no juega no pierde nada. Quien juega obtiene **más superficies de acción**, no medallas. Coherente con la filosofía "anonimato por defecto, identidad opcional verificable" — los badges no exponen a nadie, solo añaden permisos.
+
+Lo único que entraría al catálogo activo sin esperar backend serían los conteos internos para detectar candidatos a cada badge. La concesión efectiva de capacidades requiere backend Supabase (perfil persistente, rol, validación de reportes). Por eso queda apuntado aquí.
+
+### 2026-05-13 — Pendientes que se moverán al catálogo cuando se acuerden
+Lista de cosas a decidir antes de mover ideas de IDEAS a `GESTO-CATALOG.md`:
+
+1. ¿Qué 3 trámites empezamos cuando llegue identidad real? Voto inicial: queja oficial + cita SCS + consulta padrón.
+2. ¿Quién hospeda el puente administrativo? Sede electrónica municipal con redirect, o capa Next.js propia que envía por email firmado, o API directa del organismo si existe.
+3. ¿Quórums abiertos a cualquier pseudónimo o sólo rol Mediador?
+4. ¿Misiones de barrio: propuestas automáticas del sistema o activación manual por Mediadores?
+5. ¿Cómo se cablea Cl@ve/certificado contra la identidad pseudónima actual? Probablemente cuenta verificada que cuelga del pseudónimo estable, no reemplazo.
+6. ¿Capa 6 nueva (identidad oficial) o ampliación de capa 5?

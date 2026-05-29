@@ -11,6 +11,293 @@ Contexto de una línea. Decisión pendiente o siguiente paso.
 
 ---
 
+## Arquitectura del proyecto
+
+### 2026-05-24 — Tesis de participación: lo rompedor es epistémico, embudo de tres niveles y separación derecho/retención
+
+Conversación estratégica sobre cómo POLIS/OCRE rompe la desafección democrática y qué ofrecer a la ciudadanía de base. No se ha tocado código; queda como marco para decisiones de producto y onboarding.
+
+**(1) Corrección al baseline "hay que ser muy rompedor".** Lo disruptivo NO es la intensidad política —la persona desafecta huye del conflicto y del "posiciónate"; presentar la plataforma como militancia digital repele al público objetivo y deja solo a los ya convencidos—. Lo rompedor es **epistémico**: hacer visible lo invisible (quién controla cada manzana, los trade-offs reales). El mensaje no es "ven a luchar" sino "ven a *ver*". Esto ya está en la tesis de POLIS (commons vs. acumulación) y en "jugar ES opinar con información".
+
+**(2) Reclamar espacio digital = especificidad hiperlocal.** No se compite con la economía de la atención en su terreno. La palanca es que la persona vea *su* calle/edificio/bar. El territorio es contenido infinito, renovable y no copiable barato.
+
+**(3) Embudo de tres niveles, no conversión total.** No hace falta que todos participen (esa expectativa mata el civic tech). Diseñar para: *espectador* (solo mira su barrio; ~90%; ya genera conciencia → de aquí sale la masa/visibilidad), *participante ligero* (un voto, un vídeo) y *núcleo* (cursus honorum → de aquí sale la fuerza). Puertas distintas para públicos distintos.
+
+**(4) La movilización difusa se vuelve citable.** POLIS como cara no partidista y verificable de la movilización actual: un dato sobre un mapa lo cita un medio, una pancarta no. Resuelve el problema de credibilidad ante el neutral y el periodista.
+
+**(5) El consenso agregado necesita salida al mundo real.** Las decisiones agregadas de N jugadores deben convertirse en un objeto que existe (documento, cifra prensable, entrega al ayuntamiento). Sin esa puerta, es un juego sin consecuencia y se nota.
+
+**(6) Separar capa de legitimidad y capa de retención.** Nadie se queda por "el ejercicio de su derecho" — el derecho legitima pero no retiene. Confundirlas produce algo moralmente impecable y vacío. Lo que retiene a la ciudadanía de base: **reconocimiento** (cursus honorum como motor, no decoración), **consecuencia legible** (pantalla "tu decisión vs. ayuntamiento vs. media"), **identidad territorial** ("mi barrio" = bucle de retención que se actualiza solo) y **coste de entrada de 30 segundos** (primera acción = un voto sobre el uso de una calle, sin conocimiento previo ni posicionamiento; encaja con la primera misión ya decidida: Espacio público en Las Canteras). Síntesis: el derecho legitima, el juego retiene, el territorio engancha, el reconocimiento fideliza.
+
+### 2026-05-11 — Regla de membresía, flujo asimétrico hacia administraciones, línea editorial cartográfica y arquitectura anti-filtración
+
+Conversación estratégica que cierra tres decisiones estructurales y abre una cuarta. Antes de tocar código conviene fijarlas porque condicionan el modelo de datos, el verificador de cuentas, el API público y la propia tesis política de la plataforma.
+
+**(1) Regla de membresía: solo demos, nunca kratos.**
+
+En Demos iOS / OCRE se admiten como cuentas registradas únicamente:
+
+- **Personas individuales** (la base, voto y voz horizontales).
+- **Tercer sector** (asociaciones vecinales, AMPAs, sindicatos, cooperativas, ONGs, fundaciones).
+- **Pymes** locales.
+
+Quedan explícitamente **excluidos como miembros**: gobierno (estatal, autonómico, cabildos, ayuntamientos), partidos políticos, grandes corporaciones, fondos de inversión, SOCIMIs, grandes tenedores. Pueden leer lo público — no pueden registrarse, no pueden votar, no pueden moderar, no pueden contar como "voz" en ningún agregado.
+
+La lectura clásica: el demos se reúne en la plaza; el kratos responde a lo que la plaza produce, no participa en producirlo. Es lo que distingue una *res publica viva* de un Decidim donde la administración modera y la legitimidad se diluye.
+
+**Implicaciones operativas inmediatas:**
+
+- Tabla `profiles` necesita un campo `tipo_cuenta` enum (`individuo` | `tercer_sector` | `pyme`) con verificación dura en el alta institucional (NIF, registro de asociaciones, registro mercantil para pymes).
+- Manifiesto cívico corto que cada cuenta institucional suscribe al registrarse: no concentración de capital, no extracción del territorio, deliberación honesta. Revocación si se documenta incumplimiento. No es filtro ideológico, es condición de pertenencia a la plaza.
+- Una pyme inmobiliaria-rentista es técnicamente pyme pero su lógica no es la de la base. El manifiesto y la revocación son la forma de filtrar sin tener que escribir reglas de exclusión por sector.
+- El gobierno nunca entra por la puerta trasera: cuidado con cuentas de "investigadores municipales", "asociaciones pantalla", "fundaciones del cabildo". El verificador debe revisar relaciones de propiedad y financiación cuando hay duda.
+
+**(2) Flujo asimétrico de información hacia la administración.**
+
+El gobierno pasa de **interlocutor** a **lector**. El reporte de desperfectos del que hablamos en la sesión anterior **deja de ser un ticket** que el ciudadano envía al ayuntamiento (con su firma, su identidad, su responsabilidad) y pasa a ser una **publicación cívica** al mapa común. El ayuntamiento decide si se entera, si scrapea, si se suscribe al API.
+
+Arquitectura en tres capas con permisos diferenciados:
+
+- **Capa 1 — Deliberativa interna.** Solo cuentas verificadas (individuo / tercer sector / pyme). El gobierno no tiene lectura privilegiada. Aquí viven debates, propuestas, votos, conversaciones íntimas en TOUCH. Máxima protección (ver punto 4).
+- **Capa 2 — Publicaciones públicas.** Mapa POLIS, ensayos Bibliotheka, FEED público, hilos cerrados con resolución. Cualquiera puede leer, incluido el gobierno.
+- **Capa 3 — API de agregados para administraciones y terceros.** Endpoint público con datos agregados (nunca identidades, nunca parcelas singulares). El ayuntamiento se suscribe vía webhook al feed de desperfectos por municipio. La administración consume estructurado lo que ya es público — no negocia con la plataforma para tener acceso preferente.
+
+El loop se invierte: ya no es "ciudadano → ayuntamiento → ciudadano" sino "ciudadano → mapa común ← ayuntamiento". La administración pasa a ser una más de las que consultan, y se la mide por cómo responde, no por si concede. El estado de los desperfectos ("abierto / en gestión / resuelto / sin atender N días") queda visible para todos: el mapa es **scorecard público** de la administración.
+
+**Implicaciones inmediatas:**
+
+- Tabla `anotacion_territorial` unificada con campo `competencia_administrativa` opcional. Cuando está rellenado, la anotación entra automáticamente en el feed público que las administraciones pueden consumir.
+- API REST público bajo `/api/v1/...` con endpoints agregados por municipio / sección / categoría. Sin autenticación obligatoria. Documentado.
+- Webhook opcional para administraciones que quieran push (no pull). Esto sí pide registro técnico, pero no convierte a la administración en cuenta del demos: es relación de cliente API, no de miembro.
+
+**(3) Línea editorial cartográfica: bloque sí, parcela no.**
+
+POLIS expone la desigualdad estructural — concentración rentista, densidad de vacacional, propiedad corporativa por sección — porque es información que el ciudadano necesita para opinar con criterio y que el gobierno debería producir y no produce.
+
+POLIS **no** expone inteligencia operativa accionable contra propiedades o personas concretas. La regla operativa, escrita y codificada en el data layer:
+
+- **Resolución máxima de propiedad: sección censal o bloque.** Nunca parcela singular en vista pública.
+- **Nombres de grandes tenedores (Blackstone, SOCIMIs específicas, fondos) aparecen como categoría agregada** ("X% de esta sección bajo titularidad de Y"), nunca asociados a una parcela concreta visible en mapa.
+- **El API de agregados sirve datos a partir de N propietarios distintos por celda** (N ≥ 5 o similar, decisión técnica pendiente) — k-anonymity básico para evitar reidentificación.
+- **No hay descarga de raw data con propietario a nivel parcelario.** Lo que el Catastro ofrece bajo pago identificado, POLIS no replica.
+
+La razón política, no solo legal: la energía política que hoy se canaliza en pintadas, cerrojos rotos, ocupaciones y otras acciones directas existe porque el conflicto no tiene cuerpo deliberativo. POLIS, si funciona, le ofrece a esa misma energía un cuerpo no-violento donde mapear, deliberar y presionar institucionalmente. Pero solo lo hace si se distancia con claridad de la acción directa contra propiedades o personas singulares — si no, queda como teatro o como inteligencia operativa, y en cualquiera de los dos casos pierde su carácter de contrapoder en sentido fuerte (Negri / Hardt: contrapoder es visibilidad, deliberación y presión electoral-judicial, no destrucción de propiedad).
+
+Conviene una **declaración de principios cartográficos** escrita y visible — algo corto, una página — donde se diga: exponer desigualdad estructural sí; identificar parcelas singulares o personas no; deliberar la injusticia sí; armar la acción directa no. No por miedo a los arts. 510 y 573 CP (que también están), sino por coherencia política del proyecto.
+
+**(4) Arquitectura anti-filtración del espacio deliberativo interno.**
+
+La pregunta "¿podemos impedir capturas de pantalla?" tiene respuesta franca: **en web, no**. CSS, deshabilitar clic derecho, eventos de focus — todo bypasseable en segundos, y un teléfono apuntando a la pantalla anula cualquier defensa por sofisticada que sea. En apps nativas iOS/Android **sí** se puede pedir al sistema operativo que oculte el contenido (`FLAG_SECURE` en Android, `UIScreen.isCaptured` en iOS — lo que hace Signal), pero la cámara externa sigue ganando.
+
+La pregunta productiva no es "cómo impedir capturas" sino **"cómo reducir el valor estratégico de una captura aunque ocurra"**. Ahí sí hay arquitectura útil, y se asume para la Capa 1 (deliberativa interna):
+
+- **Marca de agua personal invisible en cada vista renderizada.** El handle (o un hash del user_id) embebido en píxeles que sobreviven al screenshot pero no son visibles a ojo. Si una captura aparece filtrada, se identifica al filtrador. Apple lo usa para docs internos; funciona como disuasor real.
+- **Efímero por defecto en la capa íntima.** El contenido del espacio deliberativo más sensible (TOUCH, conversaciones de borrador previas a publicar en Ágora) tiene caducidad. Una captura sigue valiendo pero pierde contexto (respuestas, votos, hilo alrededor) — queda como prueba huérfana, no como historia consultable. La decisión 2026-05-02 de TOUCH como invite-only con 3 círculos es coherente con esto.
+- **Modo off-record para conversaciones sensibles.** Nada persistido en servidor. Se documenta la decisión final, no la transcripción.
+- **Pseudonimato por defecto, nombre real opt-in.** Si lo que se filtra es un handle, no una persona, el daño se contiene. Coherente con el cursus honorum como identidad cívica (el grado y el handle, no el DNI).
+- **Agregación obligatoria en POLIS.** Lo del punto 3: si la captura no contiene parcelas singulares ni propietarios identificados, no es armable como inteligencia.
+- **Sin DMs ni grupos cerrados (por ahora).** La decisión 2026-05-02 de postergar TÚ y VOSOTROS protege también de este flanco: lo que no existe no se filtra.
+
+App nativa con `FLAG_SECURE` / `UIScreen.isCaptured` es complemento para los casuales, no defensa contra los determinados. Vale la pena cuando exista versión móvil, pero no se prioriza ahora.
+
+**Decisiones técnicas pendientes derivadas de esta entrada:**
+
+1. **Esquema de `tipo_cuenta` en `profiles`** y proceso de verificación institucional (KYC ligero para tercer sector + pyme).
+2. **Manifiesto cívico** redactado en una página, mostrado en alta institucional, vinculado a la cuenta con timestamp de aceptación.
+3. **Diseño del API `/api/v1/agregados/`** — endpoints, granularidad, k-anonymity threshold N, webhooks opcionales.
+4. **Implementación de watermarking invisible** en server-side rendering de la Capa 1 — librería a evaluar (steganography en canvas o en SVG según superficie).
+5. **Declaración de principios cartográficos** redactada y visible en `/principios` o equivalente, enlazada desde POLIS.
+6. **Modelo `anotacion_territorial`** con campos `competencia_administrativa`, `estado` (abierto / gestión / resuelto / sin_atender), `feed_publico` boolean.
+7. **Política de revocación de cuenta institucional** documentada (criterios, procedimiento, derecho a defensa, registro público de revocaciones para auditabilidad).
+
+Tres invariantes que tienen que sostenerse juntos para que el balance funcione: la administración no participa, la cartografía respeta la resolución máxima (bloque sí, parcela no), y el espacio deliberativo interno protege a quien delibera (watermark, efímero, pseudónimo, off-record). Si los tres están escritos, codificados y defendibles, el gobierno se beneficia de la información sin tener acceso preferente, y el ciudadano no se compromete porque no firma nada, no denuncia a nadie y no aparece en registro vinculable.
+
+### 2026-05-10 — Capa de convergencia ciudadano↔administración sobre POLIS (anterior a la decisión de membresía)
+
+Sesión previa donde se identificó la pauta de qué información cívica puede compartirse con administraciones con feedback loop corto. Núcleo: hecho localizable + ventaja informativa del vecino + competencia administrativa clara + bajo coste político + loop verificable. Candidatos por capa OSM:
+
+- **Roads** (96.439 features): alumbrado fundido, baches, señalización, pasos de cebra, sumideros, ramas obstruyendo.
+- **Parks** (12.881 features): mobiliario roto, salud arbórea, parques infantiles, vertidos, microbasura.
+- **Water** (22.140 features): obstrucciones en barrancos, vertidos tras lluvia, accesos costeros cortados, fuentes públicas averiadas. Convergencia muy alta y subexplorada (Consejo Insular de Aguas + Costas + ayuntamiento).
+- **POIs** (10.190 puntos): correcciones del mapa (negocios cerrados / nuevos / accesibilidad / horarios).
+- **Edificios 3D** (128.215): patrimonio en mal estado, riesgo de derrumbe visible.
+
+Zonas de fricción (NO converger directamente): vivienda vacía / vacacional ilegal (rompe equilibrio social, agregación obligatoria si acaso), ruido/olores/tráfico (politiza), mapeo de acumulación corporativa (núcleo de POLIS, tensa con administración por diseño).
+
+**Prototipo recomendado:** desperfectos en el paseo de Las Canteras — zona con `canteras_enriched.json` ya cargado (1.665 edificios, 1.475 POIs), competencia municipal directa, alta intensidad de uso, respuesta administrativa visible. Segundo loop: estado de barrancos y accesos a costa (interlocutores: Consejo Insular de Aguas, Demarcación de Costas).
+
+Esta entrada queda **revisada por la del 2026-05-11**: el reporte deja de ser ticket dirigido al ayuntamiento y pasa a ser publicación al mapa común que la administración consume vía API. Ver punto (2) de la entrada del 11 mayo.
+
+### 2026-05-10 — Gestor de contenido: grid de 6, algoritmos suscribibles, gramática gestual de TOUCH
+
+Propuesta del usuario para unificar la superficie principal de la app — lo que en la entrada del 2026-05-02 llamamos *"mi quiosco"*. La idea reúne tres movimientos que hasta ahora estaban dispersos en `FEED-FUNCIONALIDADES.md`, `TOUCH-FUNCIONALIDADES.md` y los notebooks:
+
+1. **Grid finito de 6 elementos en lugar de scroll infinito.** El usuario ve seis publicaciones a la vez, en cuadrícula, ocupando una pantalla. Es la materialización visual del anti-patrón "🚫 scroll infinito" que ya estaba descartado tanto en FEED como en TOUCH; ahora se eleva a forma arquitectónica: una pantalla = seis ítems = una unidad de atención cerrada. Para ver más, el usuario hace un acto deliberado (refresh, cambio de algoritmo, gesto). No hay arrastre infinito.
+
+2. **Suscripción a algoritmos en plural.** En vez de un único algoritmo opaco que decide qué ves, el usuario se suscribe a uno o varios algoritmos que aportan contenido al grid. Continuación del principio "filtro lo hace el usuario" del FEED (notebook 02, gap 4.7), pero generalizado: los algoritmos son **objetos de primera clase**, públicos, firmados por su autor, con manifest legible. El usuario no diseña *un* algoritmo: compone varios.
+
+3. **Gramática gestual heredada de TOUCH.** Las interacciones que se diseñaron para TOUCH (caption oculta, gesto deliberado en vez de scroll pasivo) se aplican a TODA la superficie. Diferencias propias del gestor:
+   - **Long-press → expansión casi a pantalla completa** para interactuar con la publicación (PEC, debate, contexto, autoría, fuente del algoritmo que la trajo). Patrón Peek-and-Pop / Quick Look pero aplicado al objeto cívico, no al sistema operativo.
+   - **Gestos predefinidos → la información se mueve.** Repertorio aún por fijar: swipe horizontal entre algoritmos suscritos (cambiar la fuente del grid sin salir), swipe vertical para descartar/refrescar el slot, etc.
+
+### Implicaciones de que el usuario cree sus propios algoritmos
+
+El salto de "algoritmos suscribibles" (los crea otra gente) a "el usuario crea el suyo" abre un terreno espinoso que conviene mapear antes de tocar código:
+
+**(a) Lenguaje de definición.** ¿Cómo describe el usuario su preferencia? Tres niveles, escalables: (i) sliders de peso por sección PHAROS — ya planteado en FEED notebook 4.7; (ii) selectores tipo Bluesky feed: incluir autores, etiquetas, territorio, tipo de contenido (debate / obra / post), exclusiones; (iii) reglas booleanas o lenguaje natural ("muéstrame lo que pasa en mi barrio + ensayos de salud + amigos íntimos"). Más potente, más opaco. Recomendación MVP: (i) + (ii).
+
+**(b) El algoritmo es público y firmado.** Coherente con la transparencia radical del proyecto: cada algoritmo tiene autor visible, manifest legible y otros usuarios pueden suscribirse. Esto convierte al "diseñador de algoritmos" en una figura nueva del ecosistema cívico — lo que en griego sería un *kybernētēs* (piloto, gobernador; raíz de "cibernética"). Hay que decidir si esa figura entra en el cursus honorum o queda lateral como insignia.
+
+**(c) Capital y reconocimiento.** Si alguien crea un algoritmo que muchos suscriben, ¿gana capital `paideía` (sabe enseñar a mirar) o `politeía` (organiza el espacio público)? Probablemente paideía. Conviene fijar cómo computa antes de que la gente empiece a "minar suscriptores".
+
+**(d) Auditabilidad por publicación.** Cada ítem en el grid lleva visible POR QUÉ está ahí — qué algoritmo lo trajo, con qué peso. Es el "badge tu algoritmo" de FEED-FUNCIONALIDADES llevado a la unidad mínima. Sin esto, la transparencia es retórica.
+
+**(e) Riesgo de filter bubble consciente.** Si el usuario diseña su propia burbuja, peor que TikTok (que al menos a veces te empuja a contenido nuevo). Mitigación propuesta: garantizar que **1 de los 6 slots SIEMPRE sea "fuera de tu algoritmo"** (asignado por una regla del sistema — territorio adyacente, sección PHAROS poco visitada, debate del día). Esa fricción es coherente con la decisión política del proyecto: la plaza no se elige a la carta.
+
+**(f) Adversarial.** Algoritmos públicos son armas baratas: alguien crea uno que parece neutral pero amplifica una agenda. Mitigación: marcar algoritmos populares con el "mapa de su sesgo" (qué secciones, qué territorio, qué autores favorece), permitir disputas, etiquetar algoritmos institucionales vs. ciudadanos.
+
+**(g) Componibilidad de varios algoritmos en 6 slots.** ¿Reparto proporcional, rotación, prioridad declarada, slots fijos por algoritmo? Decisión muy operativa, condiciona el resto.
+
+**(h) Fricción cívica al crear.** Coherente con los "3 segundos de fricción cívica" de la entrada del 2026-05-02: crear un algoritmo debería pedir al autor declarar su sesgo intencionado en una línea ("este algoritmo prioriza voz vecinal sobre prensa institucional"). Es el manifest mínimo, parte pública del objeto.
+
+**(i) Lock-in vs. exit.** El usuario debe poder bifurcar un algoritmo ajeno, modificarlo como suyo, exportarlo, borrarlo. Coherente con la postura del proyecto sobre patrimonio personal en TOUCH.
+
+**(j) Separación grafo social vs. grafo algorítmico.** Suscribirse a un algoritmo NO debería contar como "follow" del autor. Son dos relaciones distintas que conviene no fusionar — evitamos la dinámica Twitter de concursar por seguidores.
+
+### Pendiente de decidir antes de construir
+
+1. **¿El gestor es la home unificada "mi quiosco" del 2026-05-02 o un módulo aparte?** Probablemente es su materialización concreta. Confirmar y unificar nombres.
+2. **¿Aplica solo a Ágora (YO) o a toda la app (Ágora + Bibliotheka + Polis)?** Si es transversal, decidir cómo conviven en un mismo grid items de naturaleza distinta (post corto, ensayo largo, hilo de debate, ítem de mapa).
+3. **Lenguaje de definición del algoritmo en el MVP**: arrancar con sliders PHAROS + selectores básicos.
+4. **Reparto de los 6 slots** entre N algoritmos suscritos + el slot obligatorio "fuera de tu burbuja".
+5. **Long-press**: ¿abre overlay (vuelvo al grid) o navega a vista detalle (avanzo)?
+6. **Repertorio de gestos exacto**: swipe entre algoritmos, swipe descarta, swipe guarda en TOUCH, double-tap PEC. Prototipar antes de cablear.
+
+### 2026-05-03 — Toggle público con tres nombres griegos: Ágora · Bibliotheka · Polis
+
+Decisión del usuario tras ver el primer mock del Quiosco con cuatro pestañas pronominales: **la cara externa de la app usa los nombres griegos clásicos**, no los pronombres. La arquitectura interna sigue siendo YO/NOSOTROS/ELLO + Polis (ver entrada del 2026-05-02 más abajo), pero la nav inferior tiene **tres botones**: Ágora · Bibliotheka · Polis.
+
+Reasignación funcional:
+
+- **Ágora** = el **YO** (FEED público + TOUCH íntimo, integrados con sub-tabs internos).
+  - Lectura: la Ágora griega era la plaza social cotidiana donde la gente coincidía a charlar y a contar. Encaja con la voz personal pública e íntima.
+  - El módulo de debate (lo que en la sesión del 2 mayo se llamó "Ágora") **deja de llamarse así**.
+
+- **Bibliotheka** = el **NOSOTROS** (debate Reddit-like) + el **ELLO** (obras publicadas), con sub-tabs internos `Debate` y `Obras`.
+  - Lectura: la Bibliotheka clásica guardaba tanto los rollos de obra como los registros de las decisiones. Cuadra con "Reddit con base de datos" (lo que el usuario explicitó) ampliado a publicación de obra.
+  - Se absorbe el ELLO sin perder su identidad: queda como sub-tab visible, con tarjetas de color púrpura distinguibles dentro del flujo.
+
+- **Polis** = territorio + intercambio + registro (sin cambios respecto a la entrada del 2026-05-02).
+
+**El ELLO desaparece como pestaña** independiente. **Los pronombres siguen siendo la arquitectura conceptual interna** — sirven para razonar sobre tipos de contenido, gramática del usuario, decisiones de UX y filiación de docs. Pero el usuario final ve tres pestañas griegas, no cuatro pronombres.
+
+### Implicaciones inmediatas (acciones tomadas el 2026-05-03)
+
+1. `docs/AGORA-FUNCIONALIDADES.md` — el contenido viejo (que describía el debate) **se ha movido a** `docs/BIBLIOTHEKA-DEBATE.md`. El doc original queda libre para describir la **nueva** Ágora (módulo del YO).
+2. `docs/AGORA-DATA-MODEL.md` — convertido en redirect a `docs/BIBLIOTHEKA-DEBATE-DATA-MODEL.md`.
+3. `supabase/migrations/20260502000000_agora.sql` — **se mantiene tal cual** con prefijo `agora_*` en tablas. Cuando renombremos rutas en código, podemos hacer una migración v3 que renombre las tablas a `biblio_debate_*`. Sin urgencia; coste técnico bajo.
+4. Las rutas `/agora/...` del código actual describen el debate. **Quedan pendientes de mover** a `/bibliotheka/debate/...` cuando bajemos al código real. La pestaña `/agora` del nuevo Ágora arrancará desde cero.
+5. `docs/CONCEPTO.md` y los notebooks 01_TOUCH, 02_FEED, 07_BIBLIOTHEKA quedan **pendientes de actualizar** con esta reasignación. Se actualizan en la siguiente tanda de docs.
+
+### Tres pestañas, dos sub-tabs internos
+
+Mock visual: `quiosco-mobile-mock` (artifact en Cowork). Estructura confirmada visualmente.
+
+- Ágora abre con sub-tabs `Todo · Público (FEED) · Íntimo (TOUCH)`.
+- Bibliotheka abre con sub-tabs `Todo · Debate · Obras`.
+- Polis abre con su lógica propia (mapa + capas; aún por desarrollar).
+
+
+### 2026-05-02 — Demos iOS organizado por pronombres: YO / NOSOTROS / ELLO + Polis
+
+Decisión arquitectónica del usuario tras la reflexión sobre Reddit vs Twitter como modos sociales distintos. La plataforma se reorganiza con una columna vertebral gramatical clara: cada módulo encarna un pronombre del habla común. No es metáfora decorativa, es taxonomía operativa. Define UI, gramática del contenido, expectativas del usuario y arquitectura de notificaciones.
+
+**El YO** — Twitter / Instagram. Posts personales, gente compartiendo pensamientos, fotografía cotidiana. Modo expresivo del individuo. Cubre dos capas existentes:
+
+- **FEED** = el yo público (lo que dices a quien quiera leer).
+- **TOUCH** = el yo íntimo (lo que enseñas solo a tu círculo).
+
+Ambos comparten gramática (post corto + media + endorsement) pero divergen en alcance. Mismo pronombre, dos órbitas.
+
+**El NOSOTROS** — Reddit con sentido de base de datos. Debate, deliberación, archivo temático. Modo asambleario. Una sola capa:
+
+- **ÁGORA** = el nosotros que delibera (el debate común, los hilos PHAROS, las propuestas Decidim, los mapeos Polis-style).
+
+Aquí pesa la sección PHAROS, el territorio, la categoría local. Aquí vive el cierre formal de hilos con resumen y la promoción a propuesta votable.
+
+**El ELLO** — Substack. Herramienta libre para presentar y publicar. Modo obra. Una sola capa:
+
+- **BIBLIOTHEKA** = el ello que se publica (cursus de vídeos, ensayos largos al estilo Grapheion, guías y plantillas del común que no son un debate sino una pieza acabada).
+
+Aquí pesa la autoría, la duración del texto, la curaduría editorial. Es el espacio donde cada uno aporta lo que sabe hacer al patrimonio común. La voz queda fijada.
+
+**POLIS — fuera de la trinidad pronominal, geográfico-pragmático**
+
+Polis no es un pronombre. Es el lugar. Aquí conviven:
+
+- El mapa cívico (digital twin canario, edificios 3D, capital por bloque) que ya está en marcha.
+- El **intercambio práctico** anclado al territorio: coche compartido, busco/ofrezco, oficios cerca, mercadillo del sábado. Lo que antes era pieza de Koiná y ahora se desplaza a Polis porque es geográfico por naturaleza.
+- El **registro territorial** (un edificio pasa a manos de un fondo, una plaza se peatonaliza, un comercio cierra) — anotaciones colectivas sobre el espacio.
+
+τὰ Κοινά (Koiná) **se redefine**: se queda en Bibliotheka lo que es publicación de recursos del común (guías, plantillas, conocimiento legible y reusable). Se mueve a Polis lo que es servicio o intercambio anclado a un sitio.
+
+### Implicaciones inmediatas
+
+1. **Una pantalla de entrada unificada** ("mi quiosco" — propuesto en la reflexión del 2026-05-02 sobre Reddit/Twitter) mezcla los cuatro mundos con badges de pronombre, deja al usuario activar/desactivar capas. No es feed algorítmico — es navegación etiquetada.
+2. **Cada acción de publicación empieza eligiendo el pronombre** (3 segundos de fricción cívica): "voy a decir algo mío" / "voy a abrir un debate común" / "voy a publicar una obra" / "voy a anotar el territorio". Esto evita que la voz personal contamine el debate temático y viceversa.
+3. **Polis amplía su alcance** más allá del mapa: queda como módulo de **lugar + intercambio + registro**. Hay que actualizar `POLIS-STATE.md` y los notebooks/03_POLIS.md.
+4. **Los notebooks de cada sección** quedan filiados: TOUCH y FEED al "yo", Ágora al "nosotros", Bibliotheka al "ello", Polis fuera del eje pronominal.
+5. **TOUCH queda pendiente de revisar** dentro de la lente "yo íntimo" — la decisión 2026-04-20 (D3) de "TOUCH invite-only estricto con círculos de 3 niveles" sigue siendo coherente.
+
+### Lo que esta arquitectura NO contempla todavía
+
+- **El IMPERSONAL** (anuncios institucionales, decisiones aprobadas por proceso Decidim, actas): podría ser una capa lateral en Bibliotheka o un módulo "boletín oficial" propio. Sigue abierto.
+
+### 2026-05-02 — Decisión política: el TÚ y el VOSOTROS quedan postpuestos
+
+Decisión del usuario: la **otredad mediatizada** (mensajería privada uno-a-uno, grupos cerrados con membresía explícita) **no tiene cabida hasta que la base republicana esté asentada**. Es decir: hasta que el espacio público común — NOSOTROS (Ágora) + ELLO (Bibliotheka) + Polis (lugar/intercambio/registro) + YO en sus dos modos (FEED público y TOUCH íntimo) — funcione como **res publica viva**, no se construyen canales privados encima.
+
+Razón política: una plataforma cívica que añade DMs y grupos cerrados antes de tener una asamblea sólida termina siendo un sustituto privado de WhatsApp con apariencia cívica, donde la conversación importante migra a chats invisibles y el espacio público se vacía. Es exactamente la dinámica que mata Decidim, Loomio y todas las plataformas participativas convencionales: la deliberación auténtica se hace fuera, en grupos privados, y la plataforma queda como teatro.
+
+Demos iOS apuesta deliberadamente por el camino contrario: **primero la plaza, después los pasillos**. El TÚ y el VOSOTROS aparecerán cuando tenga sentido — cuando ya haya una vida común visible y el privado venga a complementarla, no a sustituirla. Si nunca tienen sentido, mejor.
+
+Esta decisión queda como invariante hasta que el usuario la revise explícitamente. Cualquier propuesta futura de "añadir mensajes directos" debe argumentar por qué la base republicana ya está asentada.
+
+---
+
+## Ágora — foro híbrido
+
+### 2026-05-02 — MVP de Ágora desplegado: foro + Decidim + Polis
+Implementado el sistema completo de deliberación según `docs/AGORA-DATA-MODEL.md`. Tres modos coexisten en una misma estructura de hilo:
+
+- **debate** (por defecto): comentarios anidados estilo Reddit, PEC al hilo y al comentario.
+- **propuesta_decidim**: voto binario *a favor / en contra / abstención* sobre un texto concreto, con fecha de cierre y quórum opcional.
+- **consenso_polis**: microfrases con voto ternario *de acuerdo / desacuerdo / pasar*.
+
+Un hilo nace siempre como `debate` y su autor puede promoverlo a cualquiera de los otros dos modos sin destruir la conversación previa. Los comentarios del debate quedan visibles bajo el panel del modo nuevo.
+
+Anclaje obligatorio a sección PHAROS, opcional a categoría local y a territorio (isla → municipio → barrio). La página de sección permite filtrar por las tres dimensiones y ordenar por última actividad / recientes / más respaldados.
+
+Artefactos:
+- `supabase/migrations/20260502000000_agora.sql` — 8 tablas + 5 enums + RLS + triggers de denormalización + rate limit (5 hilos/24h, 30 comentarios/hora).
+- `src/lib/agora/{tipos,queries,acciones,territorio,tiempos}.ts` — API server-side completa.
+- `src/app/agora/{page,nuevo,[seccion]/{page,[hiloId]/page}}.tsx` — rutas Next 16 con `params: Promise`.
+- 7 componentes cliente: filtros, formulario, caja de comentar, árbol anidado, botón PEC, panel Decidim, panel Polis, promoción de modo.
+
+**Pendiente para próximas sesiones:**
+1. **Aplicar la migración SQL** al proyecto Supabase real (este chat solo escribió el archivo).
+2. **Clustering Polis-style** sobre `agora_votos_propuesta`: vista materializada que identifique grupos de opinión y propuestas-puente (las que generan consenso entre clusters opuestos). Recalcular cada hora.
+3. **Gating real por grado cursus** para promoción y fijación de hilos: hoy solo el autor puede promover. Incorporar `bouleutes` / `didaskalos` cuando exista cálculo de capital en server.
+4. **Cierre automático de decisiones**: cron edge function que actualiza `resultado` cuando vence `fecha_cierre`, calcula aprobada/rechazada/sin_quorum/empate.
+5. **Capital generado**: enganchar las inserciones de `agora_hilos` y `agora_comentarios` con la tabla `contribuciones` (decisión 2026-04-19 sobre tabla única) para que sumen capital al perfil del usuario según `pesoDeSeccion`.
+6. **Notificaciones**: cuando alguien comenta tu hilo o vota tu propuesta, llegar al feed personal del usuario.
+7. **Realtime opcional**: `supabase.channel('agora_hilo:<id>')` para que comentarios y votos se propaguen sin recargar.
+8. **Moderación**: extender `reports` para cubrir `agora_hilos`/`agora_comentarios`/`agora_propuestas` (la tabla actual solo apunta a posts/comments del FEED).
+9. **Búsqueda full-text** en hilos por sección — índice GIN sobre `titulo || cuerpo`.
+10. **Anti-spam adicional**: detección de duplicados por hash de cuerpo, cooldown progresivo cuando salta el rate limit.
+
+---
+
 ## Marca e identidad
 
 ### 2026-04-19 — Nombre del proyecto: **Demos iOS** (lectura doble intencional)
@@ -173,6 +460,9 @@ Prevista la tabla `profiles` replicada. Decisión pendiente: ¿perfil único cro
 ### 2026-04-19 — Digitalizador urbano pixel art → Polis OCRE
 El pipeline ya documentado en `KOINOS/POLIS_digitalizador_urbano.md` debe alimentar el mapa de Polis. Material base en `KOINOS/estilos/*.json`.
 
+### 2026-05-24 — Motor de sinergias (Nobel Economía 2025: Mokyr / Aghion-Howitt)
+Marco: Mokyr distingue conocimiento proposicional (saber qué/por qué — teóricos) y prescriptivo (saber cómo — ejecutores); la innovación se vuelve autosostenida cuando baja el coste de acceso al conocimiento y ambos mundos se encuentran. Aghion-Howitt: destrucción creativa, todo cambio tiene un coste que alguien paga. Dirección para OCRE: la red social cívica no es un feed sino una máquina de reducir el coste de acceso al conocimiento en un territorio. Principios: (1) perfil dual — cada vecino declara su *saber* y su *hacer/recursos*; partir el capital PHAROS en capital de saber y capital de ejecución. (2) Objeto central = encuentro/proyecto, no la publicación. (3) Emparejamiento por distancia cruzada — premiar conexiones socialmente lejanas pero geográficamente cercanas (capital social puente). (4) Cada match anclado a sección censal (POLIS). (5) Destrucción creativa visible (alineado con principio del juego POLIS). (6) Conocimiento contestable: el ejecutor reporta qué falló → actualiza el saber. Piezas ya alineadas: Bibliotheka (Cursus honorum=proposicional, Koiná=prescriptivo), Ágora (deliberación), Polis (ancla geográfica). Falta el motor de emparejamiento que las cose — nombre tentativo *Synousía* (συνουσία) — que proponga proyectos activamente. Métrica: tejido cívico = densidad de colaboraciones realizadas entre desconocidos, ponderada por distancia social. Siguiente paso: documento de diseño de producto (modelo de datos del perfil dual, lógica del motor de emparejamiento, integración con secciones censales).
+
 ## Territorio
 
 ### 2026-04-19 — Rutas dinámicas por territorio
@@ -212,6 +502,9 @@ Idea: "custodio/a del agua", "guardián/ana de la biblioteca del barrio", etc. I
 
 ### 2026-04-19 — Red profesional a partir del cursus
 Cuando haya varios oikonómoi y ergátai por barrio, ofrecer "sugeridos cercanos con PECs relevantes" como motor de enlace profesional dentro del común.
+
+### 2026-05-24 — Árbol de habilidades Mêtis (savant / fabricant) absorbe el cursus
+Diseño completo en [`ARBOL-METIS.md`](./ARBOL-METIS.md), mockup interactivo en [`arbol-metis-mockup.html`](./arbol-metis-mockup.html). Sistema de gamificación de dos ramas: Epistḗmē (savant, saber por qué — alimentada por capital cultural/paideía + koinonía) y Téchnē (fabricant, saber cómo — capital político/politeía + koinonía), con un tronco Synousía cuyos nodos exigen un nodo encendido de cada rama del mismo tier (co-activable en pareja, reparte el coste). Decisiones tomadas con el usuario: (1) entregable = documento + mockup visual; (2) mecánica híbrida — capital acumulado como umbral que no se gasta + un recurso renovable, *práxis*, que sí se gasta al encender un nodo y se recarga con la semana y lo cotidiano; (3) el árbol absorbe los 7 grados del cursus — el grado se *deriva* de los puntos de árbol (escalera única de 7 nombres conservada) y la *clase* del banner pasa a ser la rama dominante (savant/fabricant/sinérgeta). Árchon sigue siendo electo. Pendientes: validar nombres, cerrar catálogo de nodos y costes exactos, regla de recarga de práxis, variante de latencia, esqueleto TS en `src/lib/metis/`.
 
 ## Taxonomía
 

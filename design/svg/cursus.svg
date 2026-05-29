@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"
+     role="img" aria-labelledby="t" font-family="Georgia, serif">
+  <title id="t">cursus</title>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%"  stop-color="#fbf4dd"/>
+      <stop offset="100%" stop-color="#f0e0c0"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="55%" r="65%">
+      <stop offset="60%" stop-color="#fbf4dd" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#8a5a2a" stop-opacity="0.18"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+<rect width="1024" height="1024" fill="#fbf4dd"/><circle cx="512.0" cy="532.0" r="430" fill="url(#sky)" stroke="#221d18" stroke-width="6"/><circle cx="512.0" cy="532.0" r="430" fill="url(#vignette)"/><polygon points="512.00,386.00 834.16,572.00 512.00,758.00 189.84,572.00" fill="#8a5a2a" stroke="none" stroke-width="0.0" stroke-linejoin="round" opacity="0.22"/><polygon points="221.02,555.20 221.02,572.00 512.00,740.00 512.00,723.20" fill="#c8b898" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,723.20 512.00,740.00 802.98,572.00 802.98,555.20" fill="#b07840" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,387.20 802.98,555.20 512.00,723.20 221.02,555.20" fill="#f4ead4" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/><polygon points="262.58,519.20 262.58,555.20 512.00,699.20 512.00,663.20" fill="#c8b898" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,663.20 512.00,699.20 761.42,555.20 761.42,519.20" fill="#8a5a2a" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,375.20 761.42,519.20 512.00,663.20 262.58,519.20" fill="#f0e0c0" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/><polygon points="314.55,483.20 314.55,519.20 512.00,633.20 512.00,597.20" fill="#c8b898" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,597.20 512.00,633.20 709.45,519.20 709.45,483.20" fill="#8a5a2a" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,369.20 709.45,483.20 512.00,597.20 314.55,483.20" fill="#c8b898" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/><polygon points="362.35,447.20 362.35,483.20 512.00,569.60 512.00,533.60" fill="#c8b898" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,533.60 512.00,569.60 661.65,483.20 661.65,447.20" fill="#8a5a2a" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,360.80 661.65,447.20 512.00,533.60 362.35,447.20" fill="#b07840" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/><polygon points="412.23,411.20 412.23,447.20 512.00,504.80 512.00,468.80" fill="#c8b898" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,468.80 512.00,504.80 611.77,447.20 611.77,411.20" fill="#8a5a2a" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,353.60 611.77,411.20 512.00,468.80 412.23,411.20" fill="#8a5a2a" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/><polygon points="453.80,380.00 453.80,411.20 512.00,444.80 512.00,413.60" fill="#c8b898" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,413.60 512.00,444.80 570.20,411.20 570.20,380.00" fill="#8a5a2a" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/>
+<polygon points="512.00,346.40 570.20,380.00 512.00,413.60 453.80,380.00" fill="#c85438" stroke="#221d18" stroke-width="2.5" stroke-linejoin="round" opacity="1.0"/><circle cx="512.0" cy="366.8" r="70" fill="none" stroke="#7c8a4a" stroke-width="8" stroke-dasharray="0.1 28" stroke-linecap="round"/><circle cx="512.0" cy="366.8" r="36" fill="#d8a44a" stroke="#221d18" stroke-width="4"/><text x="512.0" y="378.8" text-anchor="middle" font-size="38" fill="#221d18" font-weight="700">V</text><g text-anchor="middle"><text x="512.0" y="914" font-size="86" fill="#221d18" letter-spacing="14" font-weight="700">CURSUS</text><text x="512.0" y="958" font-size="26" fill="#8a5a2a" letter-spacing="10">HONORUM · CIUDADANÍA</text></g></svg>

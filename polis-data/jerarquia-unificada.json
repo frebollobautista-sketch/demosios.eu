@@ -1,0 +1,1232 @@
+{
+  "municipio": "Las Palmas de Gran Canaria",
+  "codigo_ine": "35016",
+  "fuentes": {
+    "poligonos_secciones": "INE Secciones Censales 2019 (274 polígonos)",
+    "barrios_nombres": "Wikipedia Anexo:Barrios de Las Palmas de Gran Canaria (122 barrios)",
+    "barrios_poligonos": "OpenStreetMap admin_level=9 (12 barrios con contorno)",
+    "mapeo_espacial": "Centroide sección censal → polígono barrio OSM (86/274 mapeadas)"
+  },
+  "niveles": [
+    "municipio (1) → codigo 35016",
+    "distrito (5) → codigo DD",
+    "sector (21) → agrupación Wikipedia",
+    "barrio (122) → nombre Wikipedia, 12 con polígono OSM",
+    "sección censal (274) → codigo CUSEC 35016DDSSS, TODAS con polígono INE"
+  ],
+  "distritos": [
+    {
+      "codigo": "01",
+      "nombre": "01. Vegueta, Cono Sur y Tafira",
+      "n_secciones": 58,
+      "sectores": [
+        {
+          "codigo": "01-01",
+          "nombre": "01. Marzagán",
+          "barrios": [
+            {
+              "nombre": "Cuesta Ramón",
+              "poblacion": 606,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de Los Hoyos",
+              "poblacion": 249,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de Marzagán",
+              "poblacion": 8,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Jinámar (Fase III)",
+              "poblacion": 4318,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Data",
+              "poblacion": 213,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Llano de Las Nieves",
+              "poblacion": 1698,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Llanos de La Barrera",
+              "poblacion": 278,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Lomo de Enmedio",
+              "poblacion": 61,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Lomo El Sabinal",
+              "poblacion": 178,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Los Hoyos",
+              "poblacion": 925,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Marzagán",
+              "poblacion": 389,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Mercalaspalmas",
+              "poblacion": 0,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Montequemado",
+              "poblacion": 319,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Santa Margarita",
+              "poblacion": 598,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "01-02",
+          "nombre": "02. San Cristóbal",
+          "barrios": [
+            {
+              "nombre": "Casablanca I",
+              "poblacion": 3247,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Lasso",
+              "poblacion": 2895,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Hoya de La Plata",
+              "poblacion": 1777,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Pedro Hidalgo",
+              "poblacion": 3721,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "San Cristóbal",
+              "poblacion": 821,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Tres Palmas",
+              "poblacion": 1429,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Vega de San José",
+              "poblacion": 11387,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [],
+              "nombre_osm": "Vega de San José"
+            },
+            {
+              "nombre": "Zárate",
+              "poblacion": 4010,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "01-03",
+          "nombre": "03. Vegueta-Triana",
+          "barrios": [
+            {
+              "nombre": "Vegueta",
+              "poblacion": 4272,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501601003",
+                "3501601005",
+                "3501601001",
+                "3501601004"
+              ],
+              "nombre_osm": "Vegueta"
+            }
+          ]
+        },
+        {
+          "codigo": "01-08",
+          "nombre": "08. Los Riscos",
+          "barrios": [
+            {
+              "nombre": "El Batán",
+              "poblacion": 3591,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "San Juan - San José",
+              "poblacion": 7750,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "San Roque",
+              "poblacion": 3286,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "01-12",
+          "nombre": "12. Tafira",
+          "barrios": [
+            {
+              "nombre": "Campus Universitario",
+              "poblacion": 25,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de La Montañeta",
+              "poblacion": 50,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de Tafira",
+              "poblacion": 51,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Fondillo",
+              "poblacion": 898,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Secadero",
+              "poblacion": 945,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Calzada",
+              "poblacion": 438,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Cantera",
+              "poblacion": 408,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Montañeta",
+              "poblacion": 423,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Lomo Blanco",
+              "poblacion": 3858,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Lomo Verdejo",
+              "poblacion": 734,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Monteluz",
+              "poblacion": 401,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Pico Viento",
+              "poblacion": 234,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Salto del Negro",
+              "poblacion": 1377,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "San Francisco de Paula",
+              "poblacion": 596,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Tafira Alta",
+              "poblacion": 2865,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Tafira Baja",
+              "poblacion": 1537,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Zurbarán",
+              "poblacion": 377,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        }
+      ],
+      "secciones_sin_barrio": [
+        "3501601006",
+        "3501601007",
+        "3501601008",
+        "3501601010",
+        "3501601011",
+        "3501601012",
+        "3501601013",
+        "3501601014",
+        "3501601015",
+        "3501601017",
+        "3501601018",
+        "3501601019",
+        "3501601020",
+        "3501601021",
+        "3501601023",
+        "3501601024",
+        "3501601025",
+        "3501601026",
+        "3501601027",
+        "3501601029",
+        "3501601030",
+        "3501601031",
+        "3501601032",
+        "3501601033",
+        "3501601034",
+        "3501601035",
+        "3501601036",
+        "3501601037",
+        "3501601038",
+        "3501601039",
+        "3501601040",
+        "3501601041",
+        "3501601042",
+        "3501601043",
+        "3501601044",
+        "3501601045",
+        "3501601046",
+        "3501601047",
+        "3501601048",
+        "3501601049",
+        "3501601050",
+        "3501601051",
+        "3501601052",
+        "3501601053",
+        "3501601054",
+        "3501601055",
+        "3501601056",
+        "3501601057",
+        "3501601058",
+        "3501601059",
+        "3501601060",
+        "3501601061",
+        "3501601062",
+        "3501601063"
+      ],
+      "nota": "54 secciones sin mapeo a barrio específico (faltan polígonos de barrio)"
+    },
+    {
+      "codigo": "02",
+      "nombre": "02. Centro",
+      "n_secciones": 58,
+      "sectores": [
+        {
+          "codigo": "02-03",
+          "nombre": "03. Vegueta-Triana",
+          "barrios": [
+            {
+              "nombre": "Triana",
+              "poblacion": 9641,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501602006",
+                "3501602001",
+                "3501602028",
+                "3501602003",
+                "3501602002",
+                "3501602004",
+                "3501602005"
+              ],
+              "nombre_osm": "Triana"
+            }
+          ]
+        },
+        {
+          "codigo": "02-04",
+          "nombre": "04. Arenales",
+          "barrios": [
+            {
+              "nombre": "Canalejas",
+              "poblacion": 8304,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501602038",
+                "3501602035",
+                "3501602036",
+                "3501602033",
+                "3501602034"
+              ],
+              "nombre_osm": "Canalejas"
+            },
+            {
+              "nombre": "Ciudad del Mar",
+              "poblacion": 4437,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501602037",
+                "3501602047",
+                "3501602040"
+              ],
+              "nombre_osm": "Ciudad del Mar"
+            },
+            {
+              "nombre": "Ciudad Jardín",
+              "poblacion": 5299,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501602051",
+                "3501602049",
+                "3501602050",
+                "3501602052"
+              ],
+              "nombre_osm": "Ciudad Jardín"
+            },
+            {
+              "nombre": "Fincas Unidas",
+              "poblacion": 4349,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501602044",
+                "3501602041"
+              ],
+              "nombre_osm": "Fincas Unidas"
+            },
+            {
+              "nombre": "Lugo",
+              "poblacion": 9650,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501602043",
+                "3501602045",
+                "3501602046",
+                "3501602039",
+                "3501602042",
+                "3501602048"
+              ],
+              "nombre_osm": "Lugo"
+            }
+          ]
+        },
+        {
+          "codigo": "02-05",
+          "nombre": "05. Santa Catalina",
+          "barrios": [
+            {
+              "nombre": "Alcaravaneras",
+              "poblacion": 13542,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501602061",
+                "3501602053",
+                "3501602054",
+                "3501602056",
+                "3501602058",
+                "3501602057",
+                "3501602059",
+                "3501602055"
+              ],
+              "nombre_osm": "Alcaravaneras"
+            }
+          ]
+        },
+        {
+          "codigo": "02-08",
+          "nombre": "08. Los Riscos",
+          "barrios": [
+            {
+              "nombre": "Diseminado de Las Palmas",
+              "poblacion": 18,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "San Francisco - San Nicolás",
+              "poblacion": 3251,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "02-09",
+          "nombre": "09. Las Rehoyas",
+          "barrios": [
+            {
+              "nombre": "Lomo Apolinario",
+              "poblacion": 3026,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Miller",
+              "poblacion": 8816,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Miller Industrial",
+              "poblacion": 439,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "02-13",
+          "nombre": "13. La Paterna",
+          "barrios": [
+            {
+              "nombre": "Casablanca III",
+              "poblacion": 4668,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Paterna",
+              "poblacion": 8547,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Los Tarahales",
+              "poblacion": 2880,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        }
+      ],
+      "secciones_sin_barrio": [
+        "3501602007",
+        "3501602009",
+        "3501602010",
+        "3501602011",
+        "3501602012",
+        "3501602013",
+        "3501602014",
+        "3501602015",
+        "3501602016",
+        "3501602018",
+        "3501602019",
+        "3501602020",
+        "3501602021",
+        "3501602022",
+        "3501602023",
+        "3501602025",
+        "3501602026",
+        "3501602027",
+        "3501602029",
+        "3501602030",
+        "3501602032",
+        "3501602064",
+        "3501602065"
+      ],
+      "nota": "23 secciones sin mapeo a barrio específico (faltan polígonos de barrio)"
+    },
+    {
+      "codigo": "03",
+      "nombre": "03. Puerto-Canteras",
+      "n_secciones": 45,
+      "sectores": [
+        {
+          "codigo": "03-05",
+          "nombre": "05. Santa Catalina",
+          "barrios": [
+            {
+              "nombre": "Santa Catalina - Canteras",
+              "poblacion": 19360,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "03-06",
+          "nombre": "06. La Isleta",
+          "barrios": [
+            {
+              "nombre": "La Isleta",
+              "poblacion": 24101,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501603032",
+                "3501603034",
+                "3501603036",
+                "3501603030",
+                "3501603037",
+                "3501603026",
+                "3501603027",
+                "3501603041",
+                "3501603033",
+                "3501603035",
+                "3501603024",
+                "3501603025",
+                "3501603029",
+                "3501603031",
+                "3501603040",
+                "3501603028",
+                "3501603038"
+              ],
+              "nombre_osm": "La Isleta"
+            }
+          ]
+        },
+        {
+          "codigo": "03-07",
+          "nombre": "07. Guanarteme",
+          "barrios": [
+            {
+              "nombre": "Guanarteme",
+              "poblacion": 27951,
+              "tiene_poligono_osm": true,
+              "secciones_censales": [
+                "3501603010",
+                "3501603020",
+                "3501603017",
+                "3501603019",
+                "3501603011",
+                "3501603013",
+                "3501603015",
+                "3501603012",
+                "3501603023",
+                "3501603016",
+                "3501603022",
+                "3501603045",
+                "3501603014",
+                "3501603021",
+                "3501603018"
+              ],
+              "nombre_osm": "Guanarteme"
+            }
+          ]
+        }
+      ],
+      "secciones_sin_barrio": [
+        "3501603001",
+        "3501603002",
+        "3501603003",
+        "3501603004",
+        "3501603005",
+        "3501603006",
+        "3501603007",
+        "3501603008",
+        "3501603009",
+        "3501603042",
+        "3501603043",
+        "3501603044",
+        "3501603046"
+      ],
+      "nota": "13 secciones sin mapeo a barrio específico (faltan polígonos de barrio)"
+    },
+    {
+      "codigo": "04",
+      "nombre": "04. Ciudad Alta",
+      "n_secciones": 79,
+      "sectores": [
+        {
+          "codigo": "04-09",
+          "nombre": "09. Las Rehoyas",
+          "barrios": [
+            {
+              "nombre": "Las Rehoyas",
+              "poblacion": 13214,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Rehoyas Altas",
+              "poblacion": 2267,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "04-10",
+          "nombre": "10. Schamann",
+          "barrios": [
+            {
+              "nombre": "San Antonio",
+              "poblacion": 1880,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Schamann",
+              "poblacion": 16386,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Chumberas",
+              "poblacion": 4338,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "04-11",
+          "nombre": "11. Escaleritas",
+          "barrios": [
+            {
+              "nombre": "La Minilla",
+              "poblacion": 3692,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Escaleritas",
+              "poblacion": 23976,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Don Zoilo",
+              "poblacion": 1564,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Altavista",
+              "poblacion": 659,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "04-13",
+          "nombre": "13. La Paterna",
+          "barrios": [
+            {
+              "nombre": "Cuevas Torres",
+              "poblacion": 3502,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "04-14",
+          "nombre": "14. Las Torres",
+          "barrios": [
+            {
+              "nombre": "Díaz Casanova",
+              "poblacion": 66,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Cardón",
+              "poblacion": 965,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Feria",
+              "poblacion": 14207,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Las Torres",
+              "poblacion": 7985,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Las Torres Industrial",
+              "poblacion": 18,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "San Lázaro (Urb. Siete Palmas)",
+              "poblacion": 9409,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        }
+      ],
+      "secciones_sin_barrio": [
+        "3501604001",
+        "3501604002",
+        "3501604003",
+        "3501604004",
+        "3501604005",
+        "3501604006",
+        "3501604007",
+        "3501604008",
+        "3501604009",
+        "3501604011",
+        "3501604012",
+        "3501604013",
+        "3501604014",
+        "3501604015",
+        "3501604016",
+        "3501604017",
+        "3501604019",
+        "3501604020",
+        "3501604021",
+        "3501604022",
+        "3501604023",
+        "3501604024",
+        "3501604025",
+        "3501604026",
+        "3501604027",
+        "3501604028",
+        "3501604029",
+        "3501604030",
+        "3501604031",
+        "3501604032",
+        "3501604033",
+        "3501604034",
+        "3501604035",
+        "3501604036",
+        "3501604037",
+        "3501604038",
+        "3501604039",
+        "3501604040",
+        "3501604041",
+        "3501604042",
+        "3501604043",
+        "3501604045",
+        "3501604046",
+        "3501604047",
+        "3501604048",
+        "3501604049",
+        "3501604050",
+        "3501604051",
+        "3501604052",
+        "3501604053",
+        "3501604055",
+        "3501604056",
+        "3501604057",
+        "3501604058",
+        "3501604059",
+        "3501604060",
+        "3501604061",
+        "3501604062",
+        "3501604063",
+        "3501604064",
+        "3501604065",
+        "3501604066",
+        "3501604067",
+        "3501604068",
+        "3501604069",
+        "3501604070",
+        "3501604071",
+        "3501604073",
+        "3501604074",
+        "3501604075",
+        "3501604076",
+        "3501604077",
+        "3501604078",
+        "3501604079",
+        "3501604080",
+        "3501604081",
+        "3501604082",
+        "3501604083",
+        "3501604084"
+      ],
+      "nota": "79 secciones sin mapeo a barrio específico (faltan polígonos de barrio)"
+    },
+    {
+      "codigo": "05",
+      "nombre": "05. Tamaraceite-San Lorenzo",
+      "n_secciones": 34,
+      "sectores": [
+        {
+          "codigo": "05-15",
+          "nombre": "15. Tamaraceite",
+          "barrios": [
+            {
+              "nombre": "Cañada Honda",
+              "poblacion": 277,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Casa Ayala",
+              "poblacion": 1930,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Ciudad del Campo",
+              "poblacion": 619,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Costa Ayala",
+              "poblacion": 538,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Cruz del Ovejero",
+              "poblacion": 323,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Cuevas Blancas",
+              "poblacion": 1,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de Los Giles",
+              "poblacion": 79,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de Tamaraceite",
+              "poblacion": 147,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de Tenoya",
+              "poblacion": 73,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Toscón",
+              "poblacion": 776,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Isla Perdida",
+              "poblacion": 1143,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Cazuela",
+              "poblacion": 443,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Galera",
+              "poblacion": 859,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Suerte",
+              "poblacion": 1058,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Ladera Alta",
+              "poblacion": 1623,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Las Majadillas",
+              "poblacion": 911,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Las Mesas",
+              "poblacion": 2504,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Las Perreras",
+              "poblacion": 312,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Lomo Los Frailes",
+              "poblacion": 4745,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Los Giles",
+              "poblacion": 434,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Piletas",
+              "poblacion": 1420,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Tamaraceite",
+              "poblacion": 10862,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        },
+        {
+          "codigo": "05-16",
+          "nombre": "16. San Lorenzo",
+          "barrios": [
+            {
+              "nombre": "Almatriche Alto",
+              "poblacion": 1498,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Almatriche Bajo",
+              "poblacion": 1930,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de Almatriche",
+              "poblacion": 269,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Diseminado de San Lorenzo",
+              "poblacion": 284,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Dragonal Alto",
+              "poblacion": 139,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Dragonal Bajo",
+              "poblacion": 235,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Pintor",
+              "poblacion": 422,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Román",
+              "poblacion": 332,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Roque",
+              "poblacion": 84,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "El Zardo",
+              "poblacion": 737,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Hoya Andrea",
+              "poblacion": 2319,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Cruz",
+              "poblacion": 67,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Milagrosa",
+              "poblacion": 390,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "La Palma",
+              "poblacion": 224,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Tenoya",
+              "poblacion": 2462,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Las Cuevas",
+              "poblacion": 116,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Llanos de Mª Rivera",
+              "poblacion": 146,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Lomo Corcobado",
+              "poblacion": 56,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Masapez",
+              "poblacion": 37,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Risco Negro",
+              "poblacion": 383,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "San José del Álamo",
+              "poblacion": 205,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "San Lorenzo",
+              "poblacion": 1321,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            },
+            {
+              "nombre": "Siete Puertas",
+              "poblacion": 381,
+              "tiene_poligono_osm": false,
+              "secciones_censales": []
+            }
+          ]
+        }
+      ],
+      "secciones_sin_barrio": [
+        "3501605001",
+        "3501605002",
+        "3501605003",
+        "3501605004",
+        "3501605005",
+        "3501605006",
+        "3501605007",
+        "3501605008",
+        "3501605009",
+        "3501605010",
+        "3501605011",
+        "3501605012",
+        "3501605013",
+        "3501605014",
+        "3501605015",
+        "3501605016",
+        "3501605017",
+        "3501605018",
+        "3501605019",
+        "3501605020",
+        "3501605021",
+        "3501605022",
+        "3501605023",
+        "3501605024",
+        "3501605025",
+        "3501605026",
+        "3501605027",
+        "3501605028",
+        "3501605029",
+        "3501605030",
+        "3501605031",
+        "3501605032",
+        "3501605033",
+        "3501605034"
+      ],
+      "nota": "34 secciones sin mapeo a barrio específico (faltan polígonos de barrio)"
+    }
+  ],
+  "resumen": {
+    "secciones_asignadas_a_barrio": 71,
+    "secciones_sin_barrio": 203,
+    "total_secciones": 274,
+    "barrios_con_poligono_osm": 12,
+    "barrios_sin_poligono": 110,
+    "unidad_minima_con_geometria": "sección censal (274 polígonos INE)",
+    "unidad_minima_con_nombre": "barrio (122 nombres Wikipedia)",
+    "recomendacion": "Navegación: municipio → distrito → secciones censales. Los nombres de barrio se usan como etiqueta contextual donde el mapeo espacial está confirmado."
+  }
+}

@@ -294,6 +294,325 @@ body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif}
   </div>
 </aside>
 
+<!-- ════════ GESTOS CÍVICOS: verbos en 1ª persona → sectores multi-toggle ════════ -->
+<button class="gestos-btn" id="gestos-btn" onclick="toggleGestosPanel()">
+  <span class="gestos-btn-icon">✋</span><span>Gestos</span>
+</button>
+
+<aside class="gestos-panel" id="gestos-panel" aria-hidden="true">
+  <div class="layer-panel-header">
+    <h2>Lo que está en mis manos</h2>
+    <button class="close-btn" onclick="toggleGestosPanel()" aria-label="Cerrar">×</button>
+  </div>
+  <div class="gestos-verbos" id="gestos-verbos"></div>
+</aside>
+
+<div class="gsg-backdrop" id="gsg-backdrop" hidden onclick="closeGestosSub()"></div>
+<div class="gsg-overlay" id="gsg-overlay" hidden role="dialog" aria-modal="true" aria-label="Sectores">
+  <div class="gsg-head">
+    <span class="gsg-title" id="gsg-title"></span>
+    <button class="close-btn" onclick="closeGestosSub()" aria-label="Cerrar">×</button>
+  </div>
+  <div class="gsg-toggles" id="gsg-toggles"></div>
+  <div class="gsg-foot">
+    <button class="gsg-cancel" onclick="closeGestosSub()">cancelar</button>
+    <button class="gsg-accept" onclick="aplicarGestos()">aceptar</button>
+  </div>
+</div>
+
+<style>
+.gestos-btn{position:fixed;top:52px;right:10px;z-index:11;
+  background:linear-gradient(135deg,#1a1610 0%,#15120e 100%);
+  border:1px solid #2a2520;border-radius:8px;padding:9px 12px;color:#d4c4a0;
+  font-size:12px;letter-spacing:1px;font-family:system-ui,sans-serif;cursor:pointer;
+  display:flex;align-items:center;gap:6px;box-shadow:2px 2px 12px rgba(0,0,0,0.45);text-transform:uppercase}
+.gestos-btn:hover{border-color:#3a3530}
+.gestos-btn-icon{font-size:14px;line-height:1}
+.gestos-panel{position:fixed;top:0;right:0;height:100vh;width:320px;z-index:13;
+  background:linear-gradient(180deg,#161310 0%,#100e0c 100%);border-left:1px solid #2a2520;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;box-shadow:-4px 0 20px rgba(0,0,0,0.5)}
+.gestos-panel.open{transform:translateX(0)}
+.gestos-verbos{flex:1;overflow-y:auto;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}
+.verbo-card{display:flex;flex-direction:column;align-items:flex-start;gap:4px;background:#15120e;
+  border:1px solid #2a2520;border-radius:8px;padding:12px 10px;color:#d4c4a0;cursor:pointer;text-align:left;font-family:inherit}
+.verbo-card:hover{border-color:#d4c4a0}
+.verbo-glifo{font-size:20px;line-height:1}
+.verbo-nombre{font-size:13px;font-weight:600;color:#fff5d8}
+.verbo-sub{font-size:10px;color:#8a7a5a;letter-spacing:.3px;text-transform:uppercase}
+.gsg-backdrop{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,0.55)}
+.gsg-backdrop[hidden]{display:none}
+.gsg-overlay{position:fixed;z-index:41;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(420px,92vw);max-height:80vh;display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#1a1610,#100e0c);border:1px solid #2a2520;border-radius:10px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+.gsg-overlay[hidden]{display:none}
+.gsg-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #2a2520}
+.gsg-title{font-size:13px;letter-spacing:1px;color:#fff5d8;text-transform:uppercase;font-weight:600}
+.gsg-toggles{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px;overflow-y:auto}
+.gsg-toggle{display:flex;align-items:center;gap:6px;padding:11px 10px;cursor:pointer;text-align:left;
+  background:#15120e;border:1px solid #2a2520;border-radius:6px;color:#d4c4a0;font:inherit;font-size:12px}
+.gsg-toggle:hover{border-color:#3a3530}
+.gsg-toggle.on{background:#d4c4a0;color:#15120e;border-color:#d4c4a0;font-weight:600}
+.gsg-toggle:disabled{opacity:.4;cursor:not-allowed;border-style:dashed}
+.gsg-soon{margin-left:auto;font-size:9px;letter-spacing:.5px;opacity:.7;text-transform:uppercase}
+.gsg-foot{display:flex;gap:8px;justify-content:flex-end;padding:12px 14px;border-top:1px solid #2a2520}
+.gsg-cancel,.gsg-accept{padding:8px 16px;border-radius:6px;cursor:pointer;font:inherit;font-size:12px;font-weight:600}
+.gsg-cancel{background:transparent;border:1px solid #2a2520;color:#d4c4a0}
+.gsg-accept{background:#d4c4a0;border:1px solid #d4c4a0;color:#15120e}
+@media(max-width:380px){.gsg-toggles{grid-template-columns:1fr}}
+</style>
+
+<script>
+/* Verbos cívicos → sectores → activan capas reales del mapa.
+   Reusa ACTIVE_LAYERS + las funciones globales toggleX de polis-provincia.
+   Las funciones se llaman al pulsar (el script principal ya ha corrido). */
+var GESTOS_VERBOS = [
+  { id:'me_muevo', verbo:'Me muevo', glifo:'🚶', sectores:[
+    { label:'Guagua', layer:'guaguas', toggle:'toggleGuaguas' },
+    { label:'Cobertura bus', layer:'cobertura', toggle:'toggleCoberturaBus' },
+    { label:'Bici / a pie', soon:true },
+    { label:'Parking', soon:true } ]},
+  { id:'habito', verbo:'Habito', glifo:'🏠', sectores:[
+    { label:'Vivienda vacacional', layer:'vv', toggle:'toggleVV' },
+    { label:'Renta media', layer:'renta', toggle:'toggleRenta' },
+    { label:'Alquiler / €·m²', soon:true } ]},
+  { id:'me_cuido', verbo:'Me cuido', glifo:'🩺', sectores:[
+    { label:'Centros sanitarios', layer:'salud', toggle:'toggleSalud' },
+    { label:'Listas de espera', layer:'lista-espera', toggle:'toggleListasEspera' },
+    { label:'Farmacia / gimnasio', soon:true } ]},
+  { id:'como', verbo:'Como', glifo:'🍽', sectores:[
+    { label:'Restaurante / bar', soon:true },
+    { label:'Productor local', soon:true },
+    { label:'Mercadillo', soon:true } ]},
+  { id:'disfruto', verbo:'Disfruto', glifo:'🎭', sectores:[
+    { label:'Patrimonio (BIC)', layer:'bic', toggle:'toggleBIC' },
+    { label:'Eventos', soon:true },
+    { label:'Senderismo', soon:true } ]},
+  { id:'paseo', verbo:'Paseo', glifo:'🌅', sectores:[
+    { label:'Parques y jardines', layer:'pq-urbano', toggle:'togglePqUrbano' },
+    { label:'Playas', layer:'pq-playa', toggle:'togglePqPlaya' },
+    { label:'Forestal / matorral', layer:'pq-forestal', toggle:'togglePqForestal' },
+    { label:'Deporte aire libre', layer:'pq-deporte', toggle:'togglePqDeporte' },
+    { label:'Suelo agrícola', layer:'pq-agricola', toggle:'togglePqAgricola' },
+    { label:'Calidad del aire', layer:'aire', toggle:'toggleAire' } ]},
+  { id:'estudio', verbo:'Estudio', glifo:'📚', sectores:[
+    { label:'Centros educativos', layer:'educacion', toggle:'toggleEducacion' },
+    { label:'Biblioteca', soon:true },
+    { label:'Becas + formación', soon:true } ]},
+  { id:'convivo', verbo:'Convivo', glifo:'🤝', sectores:[
+    { label:'Asociaciones', soon:true },
+    { label:'Eventos próximos', soon:true } ]},
+  { id:'trabajo', verbo:'Trabajo', glifo:'💼', sectores:[
+    { label:'Empleo', soon:true },
+    { label:'Formación / reeducación', soon:true } ]},
+  { id:'participo', verbo:'Participo', glifo:'✊', sectores:[
+    { label:'Ir al Ágora', destino:'/agora' } ]}
+];
+
+function toggleGestosPanel(){
+  var p = document.getElementById('gestos-panel');
+  var open = !p.classList.contains('open');
+  p.classList.toggle('open', open);
+  p.setAttribute('aria-hidden', String(!open));
+  if(open) renderGestosVerbos();
+}
+function renderGestosVerbos(){
+  var c = document.getElementById('gestos-verbos'); if(!c) return;
+  c.innerHTML = '';
+  GESTOS_VERBOS.forEach(function(v){
+    var n = v.sectores.filter(function(s){ return s.layer; }).length;
+    var b = document.createElement('button');
+    b.className = 'verbo-card';
+    b.onclick = function(){ openGestosSub(v.id); };
+    b.innerHTML = '<span class="verbo-glifo">'+v.glifo+'</span>'+
+      '<span class="verbo-nombre">'+v.verbo+'</span>'+
+      '<span class="verbo-sub">'+(n ? n+' capa'+(n>1?'s':'') : 'pronto')+'</span>';
+    c.appendChild(b);
+  });
+}
+function openGestosSub(id){
+  var v = GESTOS_VERBOS.find(function(x){ return x.id===id; }); if(!v) return;
+  document.getElementById('gsg-title').textContent = v.verbo;
+  var cont = document.getElementById('gsg-toggles');
+  cont.innerHTML = v.sectores.map(function(s){
+    if(s.destino) return '<button class="gsg-toggle" data-destino="'+s.destino+'"><span>'+s.label+'</span><span class="gsg-soon">↗</span></button>';
+    if(s.soon || !s.layer) return '<button class="gsg-toggle" disabled><span>'+s.label+'</span><span class="gsg-soon">pronto</span></button>';
+    var on = (typeof ACTIVE_LAYERS!=='undefined' && ACTIVE_LAYERS.has(s.layer)) ? ' on' : '';
+    return '<button class="gsg-toggle'+on+'" data-layer="'+s.layer+'" data-toggle="'+s.toggle+'" aria-pressed="'+(on?'true':'false')+'"><span>'+s.label+'</span></button>';
+  }).join('');
+  cont.querySelectorAll('.gsg-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(btn.dataset.destino){ try{ window.top.location.href = btn.dataset.destino; }catch(e){ window.location.href = btn.dataset.destino; } return; }
+      if(btn.disabled) return;
+      btn.classList.toggle('on');
+      btn.setAttribute('aria-pressed', btn.classList.contains('on') ? 'true' : 'false');
+    });
+  });
+  document.getElementById('gsg-backdrop').hidden = false;
+  document.getElementById('gsg-overlay').hidden = false;
+}
+function closeGestosSub(){
+  document.getElementById('gsg-overlay').hidden = true;
+  document.getElementById('gsg-backdrop').hidden = true;
+}
+function aplicarGestos(){
+  var marc = document.querySelectorAll('#gsg-toggles .gsg-toggle.on');
+  marc.forEach(function(btn){
+    var id = btn.dataset.layer, fn = btn.dataset.toggle;
+    if(!id || !fn) return;
+    var active = (typeof ACTIVE_LAYERS!=='undefined') && ACTIVE_LAYERS.has(id);
+    if(!active && typeof window[fn]==='function') window[fn]();   // activar (no flipear si ya activa)
+  });
+  closeGestosSub();
+  var p = document.getElementById('gestos-panel');
+  p.classList.remove('open'); p.setAttribute('aria-hidden','true');
+}
+</script>
+
+<!-- ════════ BUSCADOR DE CALLES (OSM, índice ligero) ════════ -->
+<div class="street-search" id="street-search">
+  <input type="text" id="street-input" placeholder="🔎 Buscar tu calle…" autocomplete="off" spellcheck="false">
+  <button id="street-clear" type="button" aria-label="Limpiar" hidden>×</button>
+  <div class="street-results" id="street-results" hidden></div>
+</div>
+
+<style>
+.street-search{position:fixed;top:10px;left:10px;z-index:12;width:min(280px,62vw);font-family:system-ui,sans-serif}
+.street-search input{width:100%;box-sizing:border-box;padding:9px 30px 9px 12px;border-radius:8px;
+  border:1px solid #2a2520;background:linear-gradient(135deg,#1a1610,#15120e);color:#e8dcc0;font-size:13px;outline:none}
+.street-search input::placeholder{color:#8a7a5a}
+.street-search input:focus{border-color:#d4c4a0}
+#street-clear{position:absolute;right:8px;top:6px;background:none;border:none;color:#8a7a5a;font-size:18px;line-height:1;cursor:pointer}
+#street-clear:hover{color:#d4c4a0}
+.street-results{margin-top:4px;background:#15120e;border:1px solid #2a2520;border-radius:8px;
+  max-height:52vh;overflow-y:auto;box-shadow:2px 4px 16px rgba(0,0,0,0.5)}
+.street-results[hidden]{display:none}
+.street-row{padding:9px 12px;color:#d4c4a0;font-size:12px;cursor:pointer;border-bottom:1px solid #1f1c18}
+.street-row:last-child{border-bottom:none}
+.street-row:hover{background:#221d16;color:#fff5d8}
+.street-empty{padding:10px 12px;color:#8a7a5a;font-size:12px}
+.street-row.street-geo{color:#5dc88a;font-style:italic;border-top:1px solid #1f1c18}
+</style>
+
+<script>
+/* Buscador de calles: carga data/street-index.json (1.3MB, generado por
+   scripts/build-street-index.mjs desde osm-gc/roads.json 37MB) bajo
+   demanda. Busca por nombre, vuela al bbox de la calle y pone un pin. */
+(function(){
+  var IDX = null, loading = false, marker = null, input, results, clearBtn;
+  function norm(s){ return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }
+  function ensureIdx(cb){
+    if(IDX){ cb && cb(); return; }
+    if(loading) return;
+    loading = true;
+    results.hidden = false;
+    results.innerHTML = '<div class="street-empty">Cargando calles…</div>';
+    fetch('data/street-index.json').then(function(r){ return r.json(); }).then(function(d){
+      IDX = d.map(function(s){ return { n:s.name, k:norm(s.name), lat:s.lat, lon:s.lon, b:s.bbox }; });
+      loading = false; cb && cb();
+    }).catch(function(){
+      loading = false;
+      results.innerHTML = '<div class="street-empty">No se pudo cargar el índice de calles.</div>';
+    });
+  }
+  function search(q){
+    var k = norm(q.trim());
+    if(k.length < 2){ results.hidden = true; return; }
+    ensureIdx(function(){
+      var starts = [], has = [];
+      for(var i=0; i<IDX.length && (starts.length+has.length)<60; i++){
+        var p = IDX[i].k.indexOf(k);
+        if(p === 0) starts.push(IDX[i]);
+        else if(p > 0) has.push(IDX[i]);
+      }
+      var top = starts.concat(has).slice(0, 12);
+      var rows = top.map(function(s){ return '<div class="street-row" data-lat="'+s.lat+'" data-lon="'+s.lon+'" data-b="'+s.b.join(',')+'">'+s.n+'</div>'; });
+      // Fila de cierre: resolver dirección exacta (calle + número) vía
+      // Nominatim (OSM). Cubre el "número de portal" que el índice local no tiene.
+      var qEsc = q.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      rows.push('<div class="street-row street-geo" data-geo="1">📍 Buscar «'+qEsc+'» como dirección exacta</div>');
+      results.hidden = false;
+      results.innerHTML = rows.join('');
+    });
+  }
+  // Geocoder OSM (Nominatim): resuelve "Calle X 23, municipio" al portal
+  // exacto. CORS abierto. Política: ≤1 req/s — solo se llama al pulsar la
+  // fila "dirección exacta", no en cada tecla.
+  function nominatim(q){
+    if(!q || q.trim().length < 3) return;
+    results.hidden = false;
+    results.innerHTML = '<div class="street-empty">Buscando dirección…</div>';
+    var url = 'https://nominatim.openstreetmap.org/search?format=json&limit=6&countrycodes=es'
+      + '&accept-language=es&q=' + encodeURIComponent(q.trim() + ', Canarias');
+    fetch(url, { headers: { 'Accept':'application/json' } })
+      .then(function(r){ return r.json(); })
+      .then(function(arr){
+        if(!Array.isArray(arr) || arr.length === 0){
+          results.innerHTML = '<div class="street-empty">Sin dirección exacta. Prueba con calle y número.</div>';
+          return;
+        }
+        results.innerHTML = arr.map(function(r){
+          var bb = r.boundingbox || [];                       // [south, north, west, east]
+          var b = (bb.length === 4) ? [bb[2], bb[0], bb[3], bb[1]].join(',') : '';
+          var corto = String(r.display_name || '').split(',').slice(0, 3).join(',');
+          var full = String(r.display_name || '').replace(/"/g, '');
+          return '<div class="street-row" data-lat="'+r.lat+'" data-lon="'+r.lon+'" data-b="'+b+'" title="'+full+'">📍 '+corto+'</div>';
+        }).join('');
+      })
+      .catch(function(){ results.innerHTML = '<div class="street-empty">No se pudo consultar el geocoder.</div>'; });
+  }
+  function select(row){
+    var b = row.getAttribute('data-b').split(',').map(Number);
+    var lon = +row.getAttribute('data-lon'), lat = +row.getAttribute('data-lat');
+    // Zoom a NIVEL DE CALLE: elegimos el zoom por el tamaño del bbox en
+    // vez de encuadrarlo entero (fitBounds dejaba demasiado lejos en
+    // calles largas). Calles normales → z17–18; solo se aleja si el bbox
+    // es enorme (nombre repetido por toda la provincia).
+    var span = (b.length === 4 && isFinite(b[0]))
+      ? Math.max(b[2] - b[0], b[3] - b[1]) : 0;
+    var z = span < 0.0025 ? 18
+          : span < 0.008  ? 17
+          : span < 0.03   ? 15.5
+          : 13.5;
+    map.flyTo({ center:[lon, lat], zoom: z, duration: 1000, essential: true });
+    if(marker) marker.remove();
+    marker = new maplibregl.Marker({ color:'#d4c4a0' })
+      .setLngLat([lon, lat])
+      .setPopup(new maplibregl.Popup({ offset:18, closeButton:false }).setText(row.textContent))
+      .addTo(map);
+    marker.togglePopup();
+    results.hidden = true;
+    input.value = row.textContent;
+    clearBtn.hidden = false;
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    input = document.getElementById('street-input');
+    results = document.getElementById('street-results');
+    clearBtn = document.getElementById('street-clear');
+    if(!input) return;
+    var t = null;
+    input.addEventListener('input', function(){
+      clearBtn.hidden = !input.value;
+      clearTimeout(t); t = setTimeout(function(){ search(input.value); }, 160);
+    });
+    input.addEventListener('focus', function(){ ensureIdx(); });
+    results.addEventListener('click', function(e){
+      var r = e.target.closest('.street-row'); if(!r) return;
+      if(r.dataset.geo){ nominatim(input.value); return; }   // fila "dirección exacta"
+      select(r);
+    });
+    clearBtn.addEventListener('click', function(){
+      input.value=''; clearBtn.hidden=true; results.hidden=true;
+      if(marker){ marker.remove(); marker=null; } input.focus();
+    });
+    document.addEventListener('click', function(e){
+      if(!document.getElementById('street-search').contains(e.target)) results.hidden = true;
+    });
+  });
+})();
+</script>
+
 <!-- Island navigator — top center -->
 <div class="island-nav" id="island-nav">
   <div class="island-tooltip" id="island-tooltip"></div>
@@ -578,6 +897,9 @@ function setupOSMLayer(layer, data) {
       paint:{'fill-color':'#2a5a18','fill-opacity':['interpolate',['linear'],['zoom'],12,0.25,16,0.5]},
       minzoom:12
     }, 'labels');
+    // Cache for parks-subtype toggles (Espacios verdes y suelo libre)
+    PARKS_DATA = polys;
+    if(typeof onParksDataReady === 'function') onParksDataReady();
   } else if (id === 'osm-coast') {
     map.addSource(id, {type:'geojson', data:data});
     map.addLayer({
@@ -1310,6 +1632,14 @@ var LAYER_CATALOG = [
   ]},
   {id:'ambiente', label:'Medio ambiente', layers:[
     {id:'aire', name:'Estaciones de calidad del aire', dot:'#5acab0', source:'GRAFCAN · Red de Vigilancia Calidad Aire Canarias', status:'ready', toggle:'toggleAire'}
+  ]},
+  {id:'espacios-verdes', label:'Espacios verdes y suelo libre', layers:[
+    {id:'pq-urbano',     name:'Jardines, parques y juegos infantiles', dot:'#4aa05a', source:'OSM · garden + park + playground (5.858)', status:'ready', toggle:'togglePqUrbano'},
+    {id:'pq-deporte',    name:'Instalaciones deportivas al aire libre', dot:'#5ac4a8', source:'OSM · pitch (2.281)',                       status:'ready', toggle:'togglePqDeporte'},
+    {id:'pq-agricola',   name:'Suelo agrícola',                         dot:'#c4a868', source:'OSM · farmland + orchard + vineyard (2.508)', status:'ready', toggle:'togglePqAgricola'},
+    {id:'pq-forestal',   name:'Forestal y matorral',                    dot:'#2a5018', source:'OSM · scrub + wood + forest + reserva (1.706)', status:'ready', toggle:'togglePqForestal'},
+    {id:'pq-playa',      name:'Playas y arenales',                      dot:'#d4c878', source:'OSM · beach + sand + salt_pond (474)',     status:'ready', toggle:'togglePqPlaya'},
+    {id:'pq-cementerio', name:'Cementerios',                            dot:'#807868', source:'OSM · cemetery (54)',                      status:'ready', toggle:'togglePqCementerio'}
   ]}
 ];
 
@@ -2268,6 +2598,132 @@ map.on('load', function(){
   // Click handler global para BIC GetFeatureInfo
   map.on('click', bicMapClickHandler);
 });
+
+// ===========================================================
+//  CAPA ESPACIOS VERDES Y SUELO LIBRE
+//  Fuente: OSM (osm-gc/parks.json, 12.881 polígonos).
+//  Subtipos cívicos agrupados a partir de la propiedad `type`.
+//  Cada toggle añade fill + line filtrados, color propio, popup
+//  con nombre + tipo. La capa base verde única (osm-parks) se
+//  oculta automáticamente cuando hay algún subtipo activo, para
+//  no mezclar tonos.
+// ===========================================================
+var PARKS_DATA = null;
+var PARKS_SUBTYPES = {
+  'pq-urbano':     {label:'Jardines, parques y juegos infantiles', types:['garden','park','playground'],              color:'#4aa05a', stroke:'#7cc88a', visible:false},
+  'pq-deporte':    {label:'Instalaciones deportivas al aire libre', types:['pitch'],                                   color:'#5ac4a8', stroke:'#86dac4', visible:false},
+  'pq-agricola':   {label:'Suelo agrícola',                         types:['farmland','orchard','vineyard'],           color:'#c4a868', stroke:'#d8c490', visible:false},
+  'pq-forestal':   {label:'Forestal y matorral',                    types:['scrub','wood','forest','nature_reserve'],  color:'#2a5018', stroke:'#4a7a3a', visible:false},
+  'pq-playa':      {label:'Playas y arenales',                      types:['beach','sand','salt_pond','beach_resort'], color:'#d4c878', stroke:'#e6dba0', visible:false},
+  'pq-cementerio': {label:'Cementerios',                            types:['cemetery'],                                color:'#807868', stroke:'#9c947e', visible:false}
+};
+var pqPopup = null;
+var pqPendingToggles = [];
+
+function setupParksSubtypeLayer(subId){
+  if(!PARKS_DATA) return false;
+  if(map.getSource(subId)) return true;
+  var cfg = PARKS_SUBTYPES[subId];
+  var feats = PARKS_DATA.features.filter(function(f){
+    return cfg.types.indexOf(f.properties.type) !== -1;
+  });
+  map.addSource(subId, {type:'geojson', data:{type:'FeatureCollection', features:feats}});
+  map.addLayer({
+    id:subId+'-fill', type:'fill', source:subId,
+    paint:{
+      'fill-color':cfg.color,
+      'fill-opacity':['interpolate',['linear'],['zoom'],10,0.35,14,0.55,17,0.7]
+    },
+    layout:{visibility:'none'},
+    minzoom:9
+  }, 'labels');
+  map.addLayer({
+    id:subId+'-line', type:'line', source:subId,
+    paint:{
+      'line-color':cfg.stroke,
+      'line-width':['interpolate',['linear'],['zoom'],11,0.4,15,1.1],
+      'line-opacity':0.85
+    },
+    layout:{visibility:'none'},
+    minzoom:11
+  }, 'labels');
+
+  map.on('click', subId+'-fill', function(e){
+    if(!e.features.length) return;
+    var p = e.features[0].properties;
+    var html = '<div style="padding:8px 10px;font-size:11px;line-height:1.5;max-width:240px">'
+      + '<div style="font-size:9px;letter-spacing:1px;color:'+cfg.color+';text-transform:uppercase">'+escapeHtml(cfg.label)+'</div>'
+      + '<div style="color:#d4c4a0;font-weight:600;margin:2px 0">'+escapeHtml(p.name||'(sin nombre)')+'</div>'
+      + '<div style="color:#8a8070;font-size:10px">tipo OSM: '+escapeHtml(p.type||'')+'</div>'
+      + '</div>';
+    if(pqPopup) pqPopup.remove();
+    pqPopup = new maplibregl.Popup({closeButton:true,maxWidth:'280px',offset:8})
+      .setLngLat(e.lngLat).setHTML(html).addTo(map);
+  });
+  map.on('mouseenter', subId+'-fill', function(){map.getCanvas().style.cursor='pointer';});
+  map.on('mouseleave', subId+'-fill', function(){map.getCanvas().style.cursor='';});
+  return true;
+}
+
+function toggleParksSubtype(subId){
+  var cfg = PARKS_SUBTYPES[subId];
+  if(!cfg) return;
+  if(!PARKS_DATA){
+    // Encolar hasta que los datos estén disponibles
+    if(pqPendingToggles.indexOf(subId) === -1) pqPendingToggles.push(subId);
+    console.warn('Datos de parques aún no cargados — toggle "'+subId+'" en cola');
+    return;
+  }
+  if(!map.getSource(subId)) setupParksSubtypeLayer(subId);
+  cfg.visible = !cfg.visible;
+  var v = cfg.visible ? 'visible' : 'none';
+  map.setLayoutProperty(subId+'-fill','visibility', v);
+  map.setLayoutProperty(subId+'-line','visibility', v);
+  if(!cfg.visible && pqPopup){pqPopup.remove(); pqPopup=null;}
+  syncActiveLayer(subId, cfg.visible);
+  updateParksBaseVisibility();
+  updateParksLegend();
+}
+
+function onParksDataReady(){
+  // Procesa toggles que llegaron antes que los datos
+  while(pqPendingToggles.length){
+    var id = pqPendingToggles.shift();
+    toggleParksSubtype(id);
+  }
+}
+
+function updateParksBaseVisibility(){
+  if(!map.getLayer('osm-parks')) return;
+  var anyOn = Object.keys(PARKS_SUBTYPES).some(function(k){return PARKS_SUBTYPES[k].visible;});
+  map.setLayoutProperty('osm-parks','visibility', anyOn ? 'none' : 'visible');
+}
+
+function togglePqUrbano(){     toggleParksSubtype('pq-urbano'); }
+function togglePqDeporte(){    toggleParksSubtype('pq-deporte'); }
+function togglePqAgricola(){   toggleParksSubtype('pq-agricola'); }
+function togglePqForestal(){   toggleParksSubtype('pq-forestal'); }
+function togglePqPlaya(){      toggleParksSubtype('pq-playa'); }
+function togglePqCementerio(){ toggleParksSubtype('pq-cementerio'); }
+
+function updateParksLegend(){
+  var active = Object.keys(PARKS_SUBTYPES).filter(function(k){return PARKS_SUBTYPES[k].visible;});
+  var el = document.getElementById('pq-legend');
+  if(!active.length){if(el) el.style.display='none'; return;}
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'pq-legend';
+    el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(10,10,10,0.94);border:1px solid #222;border-radius:8px;padding:8px 14px;font-size:9px;color:#aaa;display:flex;align-items:center;gap:10px;backdrop-filter:blur(12px);max-width:94vw;flex-wrap:wrap;justify-content:center';
+    document.body.appendChild(el);
+  }
+  el.style.display = 'flex';
+  el.innerHTML = '<span style="color:#888;letter-spacing:1.5px;font-weight:600">ESPACIOS VERDES Y SUELO LIBRE</span>' +
+    active.map(function(k){
+      var c = PARKS_SUBTYPES[k];
+      return '<span style="display:inline-flex;align-items:center;gap:5px"><span style="background:'+c.color+';width:11px;height:11px;border-radius:2px;display:inline-block;border:1px solid '+c.stroke+'"></span>'+c.label+'</span>';
+    }).join('<span style="color:#333">·</span>') +
+    '<span style="color:#444;margin-left:6px;font-size:8px">OSM · 12.881 polígonos</span>';
+}
 </script>
 </body>
 </html>

@@ -50,3 +50,6 @@ yarn-error.log*
 
 # Datos brutos descargados desde portales públicos (fuente, no versionar)
 /scripts/raw/
+/public/sections_pack/
+/public/sections_pack/
+/public/sections_pack/

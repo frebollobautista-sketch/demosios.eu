@@ -157,17 +157,84 @@ node scripts/catastro-to-buildings.mjs
 node scripts/extract-gc-municipios.mjs
 ```
 
-## Versiones anteriores (no tocar, referencia)
-- `polis-3d-v2.html` — versión LPGC con sombras y edificios pulidos
-- `polis-3d.html` — primera versión 3D
-- `polis_v5.html` a `polis_v16.html` — iteraciones tempranas
-- `polis-r3f.html` — prototipo React Three Fiber (abandonado)
+## Versiones anteriores (movidas a `_archivo/`, 2026-05-11)
+
+Para reducir ruido en sesiones futuras de Claude, todos los prototipos
+HTML previos y JSX sueltos en raíz se han movido a
+[`_archivo/`](_archivo/README.md). Ver inventario completo allí.
+
+- `_archivo/prototipos-html/` — `polis-3d.html`, `polis-3d-v2.html`,
+  `polis-r3f.html` (abandonado), `polis-paseo.html`, `polis.html`,
+  `quiosco-grid-mock.html`, `polis-v16.html` (23MB), + carpeta
+  `primeros-html/` con v5–v16 y tests.
+- `_archivo/prototipos-jsx/` — `feed-page-current.jsx`,
+  `koinos-full-preview.jsx`, `koinos-preview.html`, `mapear-preview.jsx`,
+  `ocre-preview.html`, `touch-preview.jsx`, carpeta `prototipos/`.
+- `_archivo/visual-refs/` — `referencias/`, `barrios-png/`, `estilos/`,
+  `polis-secciones-censales/` (281 PNGs preview iso).
+- `_archivo/ucm-reclamation/` — documentos universitarios sin
+  relación con el proyecto.
+- `_archivo/catastro-extras/` — extracción Catastro Puerto del Rosario
+  (586MB) que vivía mezclada en raíz.
+- `_archivo/geofabrik-antigua/` — extracto OSM antiguo (~116MB datos).
+- `_archivo/duplicates/KOINOS-duplicado/` — duplicado de carpeta;
+  contiene el PBF GEOFABRIK funcional de 57MB.
+
+Lo único activo en `public/` ahora es `polis-provincia.html` (canónico)
+más los datos vivos (`data/`, `osm-gc/`, `sections_pack/`, `buildings/`,
+`catalog/`, `gc-*.json`). Nada movido afecta a la iso porque sus
+symlinks apuntan a esos directorios vivos.
 
 ## Contexto del proyecto KOINOS/OCRE
 
 KOINOS es una plataforma Next.js 16 / React 19 desplegada en Vercel (koinos.es). OCRE es el nombre del front-end cívico. POLIS es la sección del mapa. El plan es que `polis-provincia.html` se convierta en la homepage de koinos.es, ya sea servida como static HTML o convertida a componente React.
 
 Supabase está configurado como backend (ver package.json).
+
+## POLIS como juego de gestión cívica (decisión mayo 2026)
+
+### Concepto
+POLIS no es solo un visor — es un juego de gestión donde el jugador toma decisiones de política pública sobre el territorio real. El acto de jugar ES el acto de opinar con información. Las decisiones colectivas de los jugadores se agregan como mandato ciudadano.
+
+### Unidad jugable: la sección censal
+La sección censal (~1.000-2.500 personas, ~10-20 manzanas) es la pieza del tablero. Cada sección tiene datos reales del INE (renta, demografía) y contiene edificios con POIs de OSM (negocios, servicios). 76 secciones cubren la zona Las Canteras-Isleta-Guanarteme-Alcaravaneras.
+
+### Datos ya disponibles para el juego
+- **canteras_enriched.json** (838 KB): 1.665 edificios con 761 vinculados a 1.475 POIs (restaurantes, tiendas, hoteles, farmacias...) con nombre, categoría, subcategoría, dirección, web, teléfono
+- **canteras_sections.json**: 76 secciones censales con polígonos en coordenadas locales
+- **canteras_pois.json**: 4.437 POIs extraídos del PBF de Geofabrik para la zona
+- Distribución: 425 restauración, 410 comercio, 106 servicios, 53 alojamiento, 43 salud, 21 finanzas...
+- Paleta de colores por uso definida (naranja=restauración, azul=comercio, púrpura=alojamiento, verde=salud, dorado=finanzas, etc.)
+
+### Misiones diseñadas (problemas reales → gameplay)
+1. **Vivienda** — Regular vivienda vacacional vs. residencial. Datos: INE renta, Catastro uso, ISTAC vacacionales
+2. **Movilidad** — Trazar transporte, peatonalizar. Datos: OSM viario, Guaguas GTFS
+3. **Agua/clima** — Balance hídrico, desaladoras. Datos: AEMET, ISTAC consumo
+4. **Desigualdad** — Distribución de servicios. Datos: INE renta por sección (ya tenemos)
+5. **Economía local** — Diversificación vs. monocultivo turístico. Datos: OSM POIs, INE empleo
+6. **Espacio público** — Asignar usos a calles y plazas. Datos: OSM paseo (8 tramos), árboles (3.255), parques (225)
+7. **Energía** — Renovables en cubiertas. Datos: Catastro superficie, AEMET irradiación
+8. **Patrimonio** — Proteger vs. invertir en otro sitio. Datos: BIC, Catastro antigüedad
+
+### Principios de diseño del juego
+- No simular la realidad: revelar los trade-offs. Cada decisión tiene un coste que alguien paga.
+- Los datos reales son el gancho, no la simulación. "Salmon Sushi Bar" en su dirección real genera vínculo emocional.
+- No tomar partido: presentar complejidad. Ninguna solución es gratuita.
+- El multijugador no es opcional: las decisiones agregadas de muchos jugadores forman consenso político medible.
+- Cada misión termina con comparación: "tu decisión vs. la del ayuntamiento real vs. la media de otros jugadores."
+- La primera misión debe ser "Espacio público" en el paseo de Las Canteras (datos más completos, más reconocible).
+
+### Prototipo Godot (godot/polis_walk/)
+Prototipo de exploración construido en Godot 4.6.2 con:
+- Vista de gestión (cámara cenital, zoom, pan, orbitar)
+- Edificios coloreados por categoría de uso
+- Hover → marquesina con nombre de negocio
+- Click → detalle completo con todos los POIs del edificio
+- Secciones censales como polígonos base con bordes
+- Scripts: management_camera.gd, city_builder.gd
+
+### Decisión de plataforma
+El prototipo Godot sirvió para explorar. La versión final debería ser web (accesible sin instalar nada) usando el stack existente: MapLibre GL JS para el mapa + React para la UI de gestión + Supabase para agregar decisiones de jugadores. Godot podría usarse si se necesita exportar a WebGL para una experiencia más inmersiva.
 
 ## Próximos pasos — lo que el usuario quiere
 

@@ -1,0 +1,41 @@
+/* shared/navbar.css — Barra superior compartida (3 facetas). */
+
+.kn-navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 40px; z-index: 3000;
+  display: flex; align-items: stretch; justify-content: center;
+  background: rgba(8, 8, 8, 0.96);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1c1c1c;
+}
+
+/* El body recibe padding para no quedar tapado por la barra fija. */
+body.kn-has-navbar { padding-top: 40px; }
+
+.kn-tab {
+  display: flex; align-items: center; gap: 0.45em;
+  padding: 0 1.2rem;
+  text-decoration: none; color: #8a8a8a;
+  font: 500 0.85rem/1 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  border-bottom: 2px solid transparent;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+.kn-tab .kn-ico { font-size: 1.05rem; filter: grayscale(0.6); opacity: 0.8; }
+.kn-tab:hover { color: #ccc; }
+.kn-tab:hover .kn-ico { opacity: 1; }
+
+.kn-tab.is-active {
+  color: #fff;
+  border-bottom-color: var(--kn-tab-accent, #c9a86a);
+}
+.kn-tab.is-active .kn-ico { filter: none; opacity: 1; }
+
+@media (max-width: 420px) {
+  .kn-tab { padding: 0 0.85rem; gap: 0.3em; }
+  .kn-tab .kn-lbl { font-size: 0.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kn-tab { transition: none; }
+}

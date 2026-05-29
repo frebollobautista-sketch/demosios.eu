@@ -5,9 +5,22 @@
   --gris: #4A4D52;
   --street: #6B6358;
   --ink: #1A1612;
-  --accent-naranja: #E68A4F;
+  /* [I] ITB v2: naranja más saturado (era #E68A4F) para sensación HUD/táctico. */
+  --accent-naranja: #FF7A2E;
   --accent-morado: #9F4FE6;
   --white: #FFFFFF;
+
+  /* [I] ITB v2: nuevos acentos HUD y capas semi-translúcidas. */
+  --accent-cyan: #2EE8E0;             /* [I] hover / selection HUD */
+  --accent-red: #E63946;              /* [I] alert / danger */
+  --ink-tr-90: rgba(26, 22, 18, 0.92); /* [I] HUD body backgrounds (chips, toolbar) */
+  --ink-tr-70: rgba(26, 22, 18, 0.72); /* [I] HUD card backgrounds livianos */
+  --paper-tr-50: rgba(245, 232, 200, 0.5);
+
+  /* [I] ITB v2: fuentes. Plex Mono para números/HUD. Georgia conserva
+     identidad heredada en titulares, breadcrumb e italic. */
+  --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+  --font-serif: Georgia, "Times New Roman", serif;
 }
 
 * { box-sizing: border-box; }
@@ -33,25 +46,367 @@ html, body {
   z-index: 10;
   letter-spacing: 0.5px;
 }
-.banner-title { font-weight: bold; font-size: 18px; }
-.banner-sub { font-size: 13px; opacity: 0.85; }
+.banner-title {
+  font-weight: bold;
+  font-size: 18px;
+  /* Placeholder de logo — color oro PHAROS hasta que llegue identidad visual */
+  color: #d4af37;
+  letter-spacing: 0.08em;
+  font-style: italic;
+}
+.banner-sub {
+  /* Ocultado 2026-05-13: la info de nivel vive en breadcrumb + canvas floating */
+  display: none;
+}
+/* HUD ocultado 2026-05-13: placeholders sin sentido hasta tener indicadores reales */
+.hud { display: none !important; }
 
+/* Back button — circular, arriba izquierda. Sólo visible si no
+   estamos en isla. Diseño consistente con resto de FABs redondos. */
 .back-btn {
   position: fixed; top: 56px; left: 16px;
-  width: 38px; height: 38px;
+  width: 44px; height: 44px;
   background: var(--paper);
-  border: 4px solid var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
   font-size: 22px; font-weight: bold;
   cursor: pointer; font-family: inherit;
   color: var(--ink);
   box-shadow: 4px 4px 0 var(--ink);
   z-index: 11;
   display: none;          /* ocultado en nivel isla */
-  line-height: 0.8;
+  line-height: 1;
   padding: 0;
 }
 .back-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
-.back-btn.visible { display: block; }
+.back-btn.visible { display: flex; align-items: center; justify-content: center; }
+
+/* ============================================================
+   Cog menu (v1.7) — botón único de preferencias arriba derecha.
+   Sustituye a search-toggle + registro-toggle + admin-badge sueltos.
+   ============================================================ */
+.cog-toggle {
+  position: fixed;
+  top: 56px;
+  right: 16px;
+  width: 44px; height: 44px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  z-index: 13;
+  padding: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.cog-toggle:active,
+.cog-toggle.active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.cog-toggle.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.cog-menu {
+  position: fixed;
+  /* [I] ITB v2 — cog ahora vive en la hud-toolbar (bottom 16, alto 52).
+     El menu se ancla justo encima de la toolbar, centrado. */
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 6px;
+  z-index: 13;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 200px;
+}
+.cog-menu.open { display: flex; }
+.cog-menu .cog-item {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font: 14px Georgia, "Times New Roman", serif;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  letter-spacing: 0.2px;
+}
+.cog-menu .cog-item:hover { background: #ECDBB4; }
+.cog-menu .cog-item:active { background: var(--accent-naranja); }
+.cog-menu .cog-close {
+  border-top: 1px solid rgba(26,22,18,0.18);
+  margin-top: 4px;
+  padding-top: 10px;
+  font-size: 12px;
+  color: var(--street);
+  font-style: italic;
+}
+.cog-menu .cog-admin { color: #D9534F; font-weight: bold; }
+.cog-menu .cog-sep {
+  height: 1px;
+  background: rgba(34, 29, 24, 0.18);
+  margin: 6px 4px;
+}
+
+/* ============================================================
+   2026-05-26 — Modal genérico del cog (cuenta, privacidad, tema, info)
+   ============================================================ */
+.cog-modal {
+  position: fixed; inset: 0;
+  display: none;
+  z-index: 1500;
+  align-items: center; justify-content: center;
+}
+.cog-modal.open { display: flex; }
+.cog-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(34, 29, 24, 0.55);
+  backdrop-filter: blur(2px);
+}
+.cog-modal-card {
+  position: relative;
+  background: var(--paper, #fbf4dd);
+  color: var(--ink, #221d18);
+  border: 2px solid var(--ink, #221d18);
+  border-radius: 8px;
+  max-width: 480px;
+  width: calc(100% - 32px);
+  max-height: 80vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  font-family: Georgia, "Times New Roman", serif;
+}
+.cog-modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(34,29,24,0.18);
+  background: var(--paper-warm, #f4ead4);
+}
+.cog-modal-head h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: italic;
+}
+.cog-modal-x {
+  background: none; border: none;
+  font-size: 24px; line-height: 1;
+  cursor: pointer;
+  color: var(--ink, #221d18);
+  padding: 0 4px;
+}
+.cog-modal-x:hover { color: var(--accent-naranja, #c85438); }
+.cog-modal-body {
+  padding: 16px 18px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.cog-modal-body h3 {
+  margin: 18px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ocre-dk, #8a5a2a);
+}
+.cog-modal-body .cog-lead { margin: 0 0 10px; }
+.cog-modal-body .cog-note { font-size: 12px; color: #6e4824; margin: 6px 0; }
+.cog-modal-body .cog-list { padding-left: 18px; margin: 6px 0; font-size: 13px; }
+.cog-modal-body .cog-list li { margin: 3px 0; }
+.cog-modal-body code {
+  background: rgba(34,29,24,0.08);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+  font-size: 12px;
+}
+.cog-modal-body .cog-field {
+  display: flex; flex-direction: column;
+  gap: 4px;
+  margin: 10px 0;
+}
+.cog-modal-body .cog-field span { font-size: 13px; font-weight: 600; }
+.cog-modal-body .cog-field input {
+  padding: 8px 10px;
+  border: 1px solid rgba(34,29,24,0.4);
+  border-radius: 4px;
+  background: white;
+  font-family: inherit;
+  font-size: 14px;
+}
+.cog-modal-body .cog-radio {
+  border: 1px solid rgba(34,29,24,0.2);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 10px 0;
+}
+.cog-modal-body .cog-radio legend {
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--ocre-dk, #8a5a2a);
+}
+.cog-modal-body .cog-radio label {
+  display: block;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.cog-modal-body .cog-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: var(--ink, #221d18);
+  color: var(--paper, #fbf4dd);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+}
+.cog-modal-body .cog-btn:hover { background: var(--accent-naranja, #c85438); }
+.cog-modal-body .cog-btn-danger { background: #8a3a1c; }
+.cog-modal-body .cog-btn-danger:hover { background: #c85438; }
+.cog-modal-body .cog-flash {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #d4e8c5;
+  color: #2d5a1c;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* ============================================================
+   2026-05-26 — Tema y escala (data-cog-theme / data-cog-fontscale)
+   Variantes ligeras: "papel" = más claro y aireado;
+   "tinta" = oscuro alto contraste.
+   ============================================================ */
+html[data-cog-theme="papel"] {
+  --paper: #fdf9e8;
+  --paper-warm: #f8f1d8;
+  --sand: #d6c8a8;
+}
+html[data-cog-theme="tinta"] {
+  --paper: #2a2620;
+  --paper-warm: #34302a;
+  --sand: #6b5e48;
+  --ink: #f4ead4;
+}
+html[data-cog-theme="tinta"] body { color: var(--ink); }
+html[data-cog-fontscale="s"] { font-size: 14px; }
+html[data-cog-fontscale="m"] { font-size: 16px; }
+html[data-cog-fontscale="l"] { font-size: 18px; }
+
+/* ============================================================
+   [I] ITB v2 — HUD toolbar inferior centrada.
+   Agrupa los controles (back, gestos, cog, layer-panel, zoom) en
+   una barra HUD táctica. Fondo ink translúcido, chaflán izq/der,
+   dividers entre grupos semánticos. Cada botón override la posición
+   fixed de su clase legacy y se renderiza inline dentro del flex.
+   ============================================================ */
+.hud-toolbar {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--ink-tr-90);
+  border: 1px solid var(--paper);
+  padding: 6px;
+  z-index: 12;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 50%,
+                     calc(100% - 8px) 100%, 8px 100%, 0 50%);
+  box-shadow: 0 0 0 1px rgba(245, 232, 200, 0.18),
+              0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.hud-toolbar .tool-btn {
+  /* [I] Reset visual común para todos los botones. Override fixed/round/
+     box-shadow heredados de .back-btn, .cog-toggle, etc. */
+  position: static !important;
+  top: auto !important; right: auto !important;
+  bottom: auto !important; left: auto !important;
+  transform: none !important;
+  width: 40px; height: 40px;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--paper) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  transition: color 90ms, border-color 90ms, background 90ms;
+}
+.hud-toolbar .tool-btn:hover {
+  border-color: var(--accent-cyan) !important;
+  color: var(--accent-cyan) !important;
+}
+.hud-toolbar .tool-btn:active,
+.hud-toolbar .tool-btn.active,
+.hud-toolbar .tool-btn.open {
+  background: var(--accent-naranja) !important;
+  color: var(--ink) !important;
+  border-color: var(--accent-naranja) !important;
+  transform: none !important;
+}
+/* [I] Override del estilo activo legacy del cog-toggle (ink/paper) que
+   chocaba con la paleta HUD. */
+.hud-toolbar #cog-toggle.active {
+  background: var(--accent-naranja) !important;
+  color: var(--ink) !important;
+}
+/* [I] back-btn: la lógica de visibilidad (display:none salvo .visible)
+   sigue intacta; reescribimos como flex inline cuando visible. */
+.hud-toolbar #back-btn { display: none; }
+.hud-toolbar #back-btn.visible {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+/* [I] layer-panel-toggle: legacy tenía `hidden` attribute para ocultarlo
+   por defecto. Si quiere mostrarse necesita JS quitar el hidden; aquí
+   simplemente lo mostramos siempre dentro de la barra como acceso a
+   "modo datos" — coherente con la dirección ITB v2 (HUD jugable). */
+.hud-toolbar #layer-panel-toggle[hidden] { display: flex !important; }
+
+.hud-toolbar .tool-btn svg {
+  width: 20px; height: 20px;
+  stroke: currentColor;
+}
+.hud-toolbar .tool-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--paper);
+  opacity: 0.4;
+  margin: 0 4px;
+  display: inline-block;
+}
+@media (max-width: 480px) {
+  .hud-toolbar { gap: 2px; padding: 5px; }
+  .hud-toolbar .tool-btn { width: 36px; height: 36px; font-size: 16px; }
+  .hud-toolbar .tool-btn svg { width: 18px; height: 18px; }
+  .hud-toolbar .tool-divider { height: 22px; margin: 0 2px; }
+}
 
 /* Botones laterales ‹ › visibles solo en nivel distrito */
 .dist-side-btn {
@@ -60,11 +415,11 @@ html, body {
   transform: translateY(-50%);
   width: 54px; height: 64px;
   background: var(--paper);
-  border: 4px solid var(--ink);
+  border: 2px solid var(--ink);
   font-size: 30px; font-weight: bold;
   cursor: pointer; font-family: inherit;
   color: var(--ink);
-  box-shadow: 4px 4px 0 var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
   z-index: 11;
   display: none;
   line-height: 0.8;
@@ -72,55 +427,167 @@ html, body {
 }
 .dist-side-btn.left { left: 16px; }
 .dist-side-btn.right { right: 16px; }
-.dist-side-btn:active { transform: translateY(-50%) translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.dist-side-btn:active { transform: translateY(-50%) translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
 .dist-side-btn.visible { display: block; }
 
-/* Etiqueta flotante del distrito */
-.dist-label {
-  position: fixed;
-  top: 56px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--paper);
-  border: 3px solid var(--ink);
-  padding: 6px 14px;
-  font-size: 13px;
-  font-weight: bold;
-  letter-spacing: 0.4px;
-  box-shadow: 4px 4px 0 var(--ink);
-  z-index: 9;
-  display: none;
-  white-space: nowrap;
-}
-.dist-label.visible { display: block; }
+/* dist-label (etiqueta flotante de distrito/barrio) — DESACTIVADA
+   v1.7 — la info del nivel actual ahora vive en el membrete unificado
+   (línea inferior: "Distrito · X edificios"). Se mantiene la regla
+   con !important display:none para que ningún ".visible" la muestre
+   y no choque con el membrete. */
+.dist-label,
+.dist-label.visible { display: none !important; }
 
-.breadcrumb {
-  position: fixed; top: 56px; left: 64px;
-  display: flex; gap: 4px; align-items: center;
+/* ============================================================
+   Membrete flotante (v1.7) — sustituye al pill breadcrumb. Estilo
+   papel oficial flotando sobre el render: rectángulo horizontal con
+   borde fino, sombra dura, font Georgia italic. Dos líneas:
+   - mb-parents: cadena de padres con › (pequeño, clicable)
+   - mb-current: nivel actual + meta (italic bold grande)
+   En nivel isla mb-parents queda vacío y solo se ve mb-current
+   con "Gran Canaria".
+   ============================================================ */
+/* [I] ITB v2 — membrete reescrito como cadena de chips chaflanados
+   estilo HUD táctico. Fondo ink semi-transparente, texto paper, borde
+   fino paper, acento triangular en la esquina izquierda del chip
+   actual (via clip-path). Mantiene Georgia italic para identidad y usa
+   Plex Mono para la meta numérica. */
+.membrete {
+  position: fixed;
+  top: 56px;                    /* justo debajo del banner (48px) */
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 9;
-  background: var(--paper);
-  border: 3px solid var(--ink);
-  padding: 5px 10px;
-  box-shadow: 4px 4px 0 var(--ink);
-  font-size: 13px;
-  letter-spacing: 0.4px;
+  background: transparent;      /* [I] el fondo ahora vive en cada chip */
+  border: none;                 /* [I] sin marco global */
+  padding: 0;
+  box-shadow: none;
+  font-family: var(--font-serif);
+  font-style: italic;
+  text-align: center;
+  max-width: calc(100vw - 24px);
+  line-height: 1.15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
-.breadcrumb .bc-seg {
+.membrete .mb-parents {
+  font-size: 11px;
+  color: var(--paper);
+  letter-spacing: 0.3px;
+  margin-bottom: 0;
+  min-height: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  /* [I] chip-row contenedor: fondo ink translúcido + chaflán esquinas. */
+  background: var(--ink-tr-90);
+  border: 1px solid var(--paper);
+  padding: 2px 10px;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0 50%);
+  max-width: 100%;
+}
+.membrete .mb-parents:empty { display: none; }
+.membrete .mb-parents .mb-parent {
   background: transparent;
   border: none;
-  padding: 2px 6px;
+  padding: 0 4px;
   font-family: inherit;
-  font-size: 13px;
-  color: var(--ink);
+  font-style: italic;
+  font-size: 11px;
+  color: var(--paper);
   cursor: pointer;
+  letter-spacing: 0.3px;
+}
+.membrete .mb-parents .mb-parent:hover { color: var(--accent-cyan); }
+.membrete .mb-parents .mb-sep {
+  color: var(--paper);
+  opacity: 0.55;
+  padding: 0 2px;
+}
+.membrete .mb-current {
+  font-size: 16px;
+  font-weight: bold;
+  font-style: italic;
+  color: var(--paper);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: var(--ink-tr-90);
+  border: 1px solid var(--paper);
+  padding: 5px 14px 6px;
+  /* [I] chip principal con chaflán + acento triangular izq. sup. */
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 8px);
+  position: relative;
+  max-width: 100%;
+}
+/* [I] meta numérica dentro del chip-current usa Plex Mono. */
+.membrete .mb-current .mb-meta {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--accent-cyan);
+  margin-left: 6px;
+  opacity: 0.92;
+}
+
+/* ============================================================
+   Membrete dropdown (2026-05-19) — al click en cada segmento
+   `mb-parent` se despliega un menú con los hermanos del nivel.
+   Estilo papel/ink consistente con el resto del UI.
+   ============================================================ */
+.mb-dropdown {
+  position: fixed;
+  z-index: 10000;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  min-width: 220px;
+  max-width: 320px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 4px;
+}
+.mb-dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink);
+  padding: 8px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 0;
+  transition: background 80ms;
+}
+.mb-dropdown-item:hover {
+  background: var(--paper-warm, #F0DDB4);
+  color: var(--accent-naranja, #E68A4F);
+}
+.mb-dropdown-item.active {
+  background: var(--paper-warm, #F0DDB4);
   font-weight: bold;
 }
-.breadcrumb .bc-seg:hover { color: var(--accent-naranja); }
-.breadcrumb .bc-seg.current {
-  color: var(--accent-naranja);
-  cursor: default;
-  text-decoration: underline;
+.mb-dropdown-sub {
+  opacity: 0.65;
+  font-style: italic;
+  font-size: 12px;
+  margin-left: 6px;
 }
-.breadcrumb .bc-sep { color: var(--street); padding: 0 1px; }
 
 #stage {
   position: fixed; top: 0; left: 0;
@@ -145,28 +612,37 @@ html, body {
 .hud-row strong { font-size: 15px; color: var(--accent-naranja); }
 .hud-row .hud-label { color: var(--ink); opacity: 0.75; }
 
+/* lod-pill — relocada arriba del layer-panel-toggle para no colisionar
+   con su nueva posición (bottom-left circular). */
 .lod-pill {
-  position: fixed; bottom: 16px; left: 16px;
+  position: fixed; bottom: 76px; left: 16px;
   background: var(--ink); color: var(--paper);
   padding: 6px 12px;
   font-size: 12px;
   z-index: 5;
   letter-spacing: 0.8px;
   border: 3px solid var(--ink);
+  border-radius: 14px;
 }
 
+/* Zoom bar — agrupados abajo derecha, botones redondos XL para tap
+   cómodo en móvil. 56×56 desktop · 52×52 móvil. */
 .zoom-bar {
   position: fixed; bottom: 16px; right: 16px;
-  display: flex; gap: 6px;
+  display: flex; flex-direction: column; gap: 10px;
   z-index: 5;
 }
 .zoom-bar button {
-  width: 38px; height: 38px;
+  width: 56px; height: 56px;
   background: var(--paper);
-  border: 4px solid var(--ink);
-  font-size: 18px; font-weight: bold;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-size: 24px; font-weight: bold;
   cursor: pointer; font-family: inherit;
   box-shadow: 4px 4px 0 var(--ink);
+  line-height: 1;
+  padding: 0;
+  color: var(--ink);
 }
 .zoom-bar button:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
 
@@ -208,3 +684,3687 @@ html, body {
   background: var(--paper);
   box-shadow: 6px 6px 0 var(--ink);
 }
+
+/* ============================================================
+   Panel de capas cívicas (overlays/index.js · mountPanel).
+   Toggle "≡" abajo-izquierda. El aside emerge desde la izquierda
+   con la lista de capas agrupadas por categoría. Estilo Into the
+   Breach: ink + paper, sin gradientes.
+   ============================================================ */
+
+/* Panel-de-capas toggle — abajo izquierda, redondo 48×48. */
+.layer-panel-toggle {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  width: 48px; height: 48px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer;
+  font: bold 22px/1 Georgia, serif;
+  color: var(--ink);
+  z-index: 9;
+  padding: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.layer-panel-toggle:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.layer-panel-toggle.open {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.layer-panel {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 88vw;
+  max-height: 75vh;
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  border-left: none;
+  border-bottom: none;
+  box-shadow: 6px -6px 0 rgba(26,22,18,0.18);
+  transform: translateX(-110%);
+  transition: transform 0.22s ease;
+  z-index: 8;
+  overflow-y: auto;
+  padding: 12px 14px 18px;
+}
+.layer-panel.open { transform: translateX(0); }
+
+.layer-panel .lp-head {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--street);
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.layer-panel .lp-cat {
+  margin-bottom: 10px;
+}
+.layer-panel .lp-cat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--street);
+  margin: 8px 0 4px 4px;
+}
+
+.layer-panel .lp-layer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 6px 10px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  font: 13px Georgia, serif;
+  color: var(--ink);
+}
+.layer-panel .lp-layer:hover {
+  background: #ECDBB4;
+}
+.layer-panel .lp-layer.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.layer-panel .lp-layer.active .lp-dot {
+  background: var(--accent-naranja);
+}
+.layer-panel .lp-layer.muted {
+  opacity: 0.45;
+}
+
+.layer-panel .lp-dot {
+  width: 10px; height: 10px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  flex: 0 0 auto;
+}
+
+.layer-panel .lp-name {
+  flex: 1 1 auto;
+}
+
+/* 2026-05-27 — Sub-chips por subcategoría (alimentación et al.) */
+.layer-panel .lp-subchips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px 8px 8px 28px;  /* indentado bajo el toggle */
+  background: rgba(34, 29, 24, 0.04);
+  border-left: 2px solid rgba(34, 29, 24, 0.15);
+  margin-left: 12px;
+  margin-bottom: 6px;
+}
+.layer-panel .lp-subchips[hidden] { display: none; }
+.layer-panel .lp-chip {
+  --chip-fill: #888;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px 3px 5px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(34,29,24,0.25);
+  border-radius: 11px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 11px;
+  color: rgba(34,29,24,0.65);
+  transition: background 0.15s, color 0.15s;
+}
+.layer-panel .lp-chip:hover {
+  background: rgba(255,255,255,0.9);
+  color: rgba(34,29,24,1);
+}
+.layer-panel .lp-chip.active {
+  background: var(--chip-fill);
+  border-color: var(--chip-fill);
+  color: white;
+}
+.layer-panel .lp-chip-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--chip-fill);
+  flex: 0 0 auto;
+}
+.layer-panel .lp-chip.active .lp-chip-dot {
+  background: white;
+  border: 1px solid var(--chip-fill);
+}
+.layer-panel .lp-chip-glyph {
+  font-weight: 600;
+  font-size: 10px;
+  margin-right: 2px;
+}
+.layer-panel .lp-chip-label { white-space: nowrap; }
+.layer-panel .lp-chip-all {
+  --chip-fill: #5a4030;
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* ============================================================
+   Popup de municipio (vista isla). Aparece centrado al hacer tap
+   sobre un mun. Nombre + lema + población + chascarrillo + CTA
+   "Entrar". Estilo Into the Breach: paper sobre ink, sin gradientes.
+   ============================================================ */
+
+.mun-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  width: min(420px, 88vw);
+  max-height: 80vh;
+  background: var(--paper);
+  border: 5px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 22px 26px 24px;
+  z-index: 15;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  overflow-y: auto;
+}
+.mun-popup.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+.mun-popup .close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 32px; height: 32px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1;
+}
+.mun-popup .mp-escudo {
+  width: 56px; height: 56px;
+  margin: 0 0 10px;
+  background: var(--ocre);
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--paper);
+  letter-spacing: -1px;
+}
+.mun-popup .mp-nombre {
+  margin: 0 0 4px;
+  font-size: 22px;
+  line-height: 1.15;
+}
+.mun-popup .mp-lema {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--street);
+  margin-bottom: 14px;
+}
+.mun-popup .mp-stats {
+  margin: 0 0 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+}
+.mun-popup .mp-stats dt {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--street);
+  align-self: center;
+}
+.mun-popup .mp-stats dd {
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+.mun-popup .mp-chascarrillo {
+  margin: 0 0 18px;
+  padding: 10px 12px;
+  background: #ECDBB4;
+  border-left: 4px solid var(--accent-naranja);
+  font-size: 13px;
+  line-height: 1.45;
+  font-style: italic;
+}
+.mun-popup .mp-enter {
+  width: 100%;
+  background: var(--ink);
+  color: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 10px 16px;
+  font: bold 14px Georgia, serif;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--accent-naranja);
+}
+.mun-popup .mp-enter:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--accent-naranja);
+}
+.mun-popup .mp-enter:hover {
+  background: var(--accent-naranja);
+  border-color: var(--accent-naranja);
+}
+
+/* Backdrop tenue cuando el popup está abierto */
+.mun-popup-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 22, 18, 0.18);
+  z-index: 14;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+.mun-popup-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================================
+   Popup de evento cultural. Aparece anclado al lado del pin
+   tocado. Más compacto que el de municipio (no es full-modal —
+   es un tooltip rico).
+   ============================================================ */
+.evento-popup {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: min(340px, 88vw);
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 16px 20px 18px;
+  z-index: 14;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.evento-popup.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.evento-popup .close {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  width: 28px; height: 28px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1;
+}
+.evento-popup .ep-cat {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  background: var(--ink);
+  color: var(--paper);
+  margin-bottom: 8px;
+}
+.evento-popup .ep-cat[data-cat="exposicion"]      { background: #C89968; }
+.evento-popup .ep-cat[data-cat="concierto"]       { background: #9F4FE6; }
+.evento-popup .ep-cat[data-cat="taller"]          { background: #7CB07C; }
+.evento-popup .ep-cat[data-cat="festival"]        { background: #E68A4F; }
+.evento-popup .ep-cat[data-cat="presentacion"]    { background: #3F5F7E; }
+.evento-popup .ep-cat[data-cat="evento_especial"] { background: #D9534F; }
+.evento-popup .ep-titulo {
+  margin: 0 0 6px;
+  font-size: 17px;
+  line-height: 1.2;
+}
+.evento-popup .ep-when {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--accent-naranja);
+  margin-bottom: 2px;
+}
+.evento-popup .ep-where {
+  font-size: 12px;
+  color: var(--street);
+  margin-bottom: 10px;
+}
+.evento-popup .ep-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* ============================================================
+   Popup de productor local — análogo al de evento pero con oficio
+   en lugar de fecha y "qué hace" en lugar de descripción.
+   ============================================================ */
+.productor-popup {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: min(360px, 88vw);
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 16px 20px 18px;
+  z-index: 14;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.productor-popup.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.productor-popup .close {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  width: 28px; height: 28px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1;
+}
+.productor-popup .pp-oficio {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  background: var(--ink);
+  color: var(--paper);
+  margin-bottom: 8px;
+}
+.productor-popup .pp-oficio[data-o="queso"]      { background: #C89968; }
+.productor-popup .pp-oficio[data-o="vino"]       { background: #9F4FE6; }
+.productor-popup .pp-oficio[data-o="cafe"]       { background: #5C3D24; }
+.productor-popup .pp-oficio[data-o="miel"]       { background: #E68A4F; }
+.productor-popup .pp-oficio[data-o="sidra"]      { background: #7CB07C; }
+.productor-popup .pp-oficio[data-o="almendra"]   { background: #D4A87C; color: var(--ink); }
+.productor-popup .pp-oficio[data-o="calado"]     { background: #4A4D52; }
+.productor-popup .pp-oficio[data-o="sal"]        { background: #B8D4E0; color: var(--ink); }
+.productor-popup .pp-oficio[data-o="mercadillo"] { background: #E2C99A; color: var(--ink); }
+.productor-popup .pp-oficio[data-o="aloe"]       { background: #9FCB6C; color: var(--ink); }
+.productor-popup .pp-nombre {
+  margin: 0 0 6px;
+  font-size: 18px;
+  line-height: 1.2;
+}
+.productor-popup .pp-where {
+  font-size: 12px;
+  color: var(--street);
+  margin-bottom: 10px;
+}
+.productor-popup .pp-que {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 10px 12px;
+  background: #ECDBB4;
+  border-left: 4px solid var(--accent-naranja);
+  font-style: italic;
+}
+
+/* Bloque de gestos disponibles dentro del popup. Se llena dinámicamente
+   por gestosDisponiblesPara(sujeto, contexto) — ver gestos.js. Por
+   defecto sólo se ve un disclosure "+" alineado a la derecha; el panel
+   con los botones está oculto hasta que el usuario lo expanda. */
+.pp-gestos {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.gesto-disclosure {
+  /* Hereda .gesto-btn--icon */
+}
+.gesto-panel {
+  display: none;
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 2px solid var(--ink);
+}
+.gesto-panel.open { display: block; }
+.pp-gestos-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.pp-gestos-row:last-child { margin-bottom: 0; }
+.pp-gestos-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--street);
+  margin: 6px 0 4px;
+}
+.gesto-btn {
+  font-family: inherit;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 11px;
+  line-height: 1.2;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.gesto-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.gesto-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.gesto-btn--icon {
+  width: 30px; height: 30px;
+  padding: 0;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.gesto-btn[data-active="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.gesto-btn[disabled] {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+.pp-gestos-picker {
+  display: none;
+  margin-top: 6px;
+  padding: 8px;
+  background: #ECDBB4;
+  border: 2px solid var(--ink);
+}
+.pp-gestos-picker.open { display: block; }
+.pp-gestos-picker .pp-gestos-row { margin-bottom: 0; }
+
+/* ============================================================
+   Popup tejido social — cooperativa, asociación, espacio comunitario.
+   Borde izquierdo en verde-cooperativa para refuerzo simbólico.
+   ============================================================ */
+.tejido-popup {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: min(360px, 88vw);
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 16px 20px 18px;
+  z-index: 14;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.tejido-popup.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.tejido-popup .close {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  width: 28px; height: 28px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1;
+}
+.tejido-popup .tp-cat {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  background: var(--ink);
+  color: var(--paper);
+  margin-bottom: 8px;
+}
+.tejido-popup .tp-cat[data-c="cooperativa"]         { background: #4A7C59; }
+.tejido-popup .tp-cat[data-c="asociacion_vecinos"]  { background: #3F5F7E; }
+.tejido-popup .tp-cat[data-c="asociacion_cultural"] { background: #7A4F9E; }
+.tejido-popup .tp-cat[data-c="espacio_comunitario"] { background: #C45A4A; }
+.tejido-popup .tp-cat[data-c="huerto_urbano"]       { background: #7CB07C; color: var(--ink); }
+.tejido-popup .tp-cat[data-c="centro_social"]       { background: #D9534F; }
+.tejido-popup .tp-cat[data-c="biblioteca_popular"]  { background: #8B6F47; }
+.tejido-popup .tp-nombre {
+  margin: 0 0 6px;
+  font-size: 18px;
+  line-height: 1.2;
+}
+.tejido-popup .tp-where {
+  font-size: 12px;
+  color: var(--street);
+  margin-bottom: 10px;
+}
+.tejido-popup .tp-que {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 10px 12px;
+  background: #ECDBB4;
+  border-left: 4px solid #4A7C59;
+  font-style: italic;
+}
+
+/* Boost visual del badge "Tejido" en el buscador */
+.search-result .sr-type[data-t="tejido"] { background: #4A7C59; }
+
+/* ----------------------------------------------------------
+   Registro oficial (Registro de Asociaciones de Canarias).
+   Comparte layout con tejido/productor; paleta muted (ink-tinted)
+   para diferenciar del tejido curado. */
+.registro-popup {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: min(360px, 88vw);
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 16px 20px 18px;
+  z-index: 14;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+.registro-popup.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.registro-popup .close {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  width: 28px; height: 28px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1;
+}
+.registro-popup .rp-tipo {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  background: var(--ink);
+  color: var(--paper);
+  margin-bottom: 8px;
+}
+.registro-popup .rp-tipo[data-t="asociacion"] { background: #5C5651; }
+.registro-popup .rp-tipo[data-t="fundacion"]  { background: #7A6B4A; }
+.registro-popup .rp-nombre {
+  margin: 0 0 6px;
+  font-size: 17px;
+  line-height: 1.2;
+}
+.registro-popup .rp-actividad {
+  font-size: 11px;
+  color: var(--street);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+.registro-popup .rp-where {
+  font-size: 12px;
+  color: var(--street);
+  margin-bottom: 10px;
+}
+.registro-popup .rp-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.registro-popup .rp-link {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 12px;
+  text-decoration: none;
+  border: 2px solid var(--ink);
+}
+.registro-popup .rp-link:hover { background: var(--paper); color: var(--ink); }
+.registro-popup .rp-flag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: transparent;
+  color: var(--street);
+  font-size: 11px;
+  border: 1px dashed var(--street);
+}
+
+/* ============================================================
+   TABLERO CÍVICO — estilo juego de gestión (dashboard.js)
+   Panel persistente a la derecha con cards de ámbitos. Tipografía
+   grande, sombras 6px, bordes ink 4px — más "tablero" que "panel".
+   ============================================================ */
+/* [I] ITB v2 — Dashboard reescrito como dock peek lateral derecho.
+   Por defecto sólo asoma una tira ~32 px con la etiqueta vertical
+   "DATOS ▸". Al hover (o cuando se le añade .open via JS) la dock
+   desliza completa hacia dentro. Fondo ink translúcido, esquina
+   izquierda chaflanada para suavizar el dock. */
+.dashboard {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) translateX(calc(100% - 32px));
+  width: 280px;
+  max-height: 78vh;
+  background: var(--ink-tr-90);
+  border-left: 1px solid var(--paper);
+  border-top: 1px solid var(--paper);
+  border-bottom: 1px solid var(--paper);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.35);
+  z-index: 11;
+  padding: 14px 14px 16px 26px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--paper);
+  clip-path: polygon(16px 0, 100% 0, 100% 100%, 16px 100%, 0 50%);
+  transition: transform 280ms cubic-bezier(0.4, 1.2, 0.3, 1);
+  font-family: var(--font-serif);
+}
+.dashboard:hover,
+.dashboard.open {
+  transform: translateY(-50%) translateX(0);
+}
+.dashboard::before {
+  content: "DATOS";
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--paper);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.dashboard:hover::before,
+.dashboard.open::before {
+  color: var(--accent-cyan);
+}
+.dashboard .db-head {
+  /* [I] ITB v2 — head sobre fondo ink. Plex Mono para sensación HUD. */
+  font: 500 11px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent-cyan);
+  text-align: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--paper);
+}
+.dashboard .db-card {
+  /* [I] ITB v2 — cards en superficie paper para legibilidad sobre dock ink. */
+  border: 1px solid var(--paper);
+  background: var(--paper);
+  padding: 10px 12px 12px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--ink);
+}
+/* 2026-05-21 — Estado "overlay encendido" cuando el card togglea su capa
+   primaria (cultura→eventos, movilidad→guaguas, etc.). Visualmente
+   distinto de .active (popover abierto) para no confundir. */
+.dashboard .db-card.layer-on {
+  background: var(--accent-naranja);
+  box-shadow: 3px 3px 0 var(--ink), inset 0 0 0 2px var(--ink);
+}
+.dashboard .db-card.layer-on .db-glyph {
+  background: var(--paper);
+  color: var(--ink);
+}
+.dashboard .db-card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.dashboard .db-glyph {
+  flex: 0 0 auto;
+  width: 32px; height: 32px;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: bold 18px Georgia, serif;
+  line-height: 1;
+}
+.dashboard .db-titles { flex: 1 1 auto; min-width: 0; }
+.dashboard .db-label {
+  /* [I] Georgia italic = identidad heredada en titulares. */
+  font: italic bold 13px var(--font-serif);
+  color: var(--ink);
+  line-height: 1.15;
+}
+.dashboard .db-derecho {
+  /* [I] Plex Mono para "derecho" / código semántico. */
+  font: 500 9px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--street);
+  margin-top: 2px;
+}
+.dashboard .db-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-top: 2px;
+}
+.dashboard .db-value {
+  /* [I] Métrica grande en Plex Mono para feel HUD. */
+  font: 600 26px var(--font-mono);
+  color: var(--accent-naranja);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.dashboard .db-unit {
+  font: 500 11px var(--font-mono);
+  color: var(--ink);
+  opacity: 0.75;
+}
+.dashboard .db-hint {
+  font-size: 10px;
+  color: var(--street);
+  font-style: italic;
+  min-height: 12px;
+}
+.dashboard .db-action {
+  margin-top: 4px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 8px 10px;
+  font: bold 11px Georgia, serif;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 3px 3px 0 var(--accent-naranja);
+  line-height: 1.25;
+}
+.dashboard .db-action:hover {
+  background: var(--accent-naranja);
+  border-color: var(--accent-naranja);
+}
+.dashboard .db-action:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--accent-naranja);
+}
+
+/* 2026-05-21 P3 — Popover de "Detalles ▾" disponible en TODOS los
+   breakpoints (no sólo móvil). Las definiciones específicas dentro del
+   @media de móvil refinan el tamaño/posición; estas son la base. */
+.db-popover {
+  position: fixed;
+  z-index: 14;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 10px 14px;
+  min-width: 200px;
+  max-width: 280px;
+  display: none;
+  font-family: Georgia, serif;
+}
+.db-popover.open { display: block; }
+.db-popover .pop-titulo {
+  font: bold 14px Georgia, serif;
+  color: var(--ink);
+  line-height: 1.15;
+}
+.db-popover .pop-derecho {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--street);
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+.db-popover .pop-hint {
+  margin-top: 8px;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--street);
+  border-top: 1px solid var(--ink);
+  padding-top: 6px;
+}
+.db-popover .pop-lines {
+  margin-top: 6px;
+  border-top: 1px solid var(--ink);
+  padding-top: 4px;
+}
+.db-popover .pop-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(26, 22, 18, 0.25);
+  font-size: 12px;
+}
+.db-popover .pop-line:last-child { border-bottom: 0; }
+.db-popover .pop-line-label {
+  color: var(--street);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.db-popover .pop-line-value {
+  font-weight: bold;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.db-popover .pop-line-hint {
+  font-size: 10px;
+  color: var(--street);
+  font-style: italic;
+  padding: 0 0 4px 8px;
+}
+
+/* Nota: el media query previo `display: none` para .dashboard a
+   <900px se eliminó. En su lugar, el bloque "MÓVIL" más abajo
+   transforma el dashboard en bottom sheet deslizable. */
+
+/* Reposiciono el HUD existente a la izquierda cuando el tablero está
+   a la derecha — evita el solape visual del HUD numérico con el card
+   "Cuidado del espacio" que queda arriba del todo. */
+.dashboard ~ .hud,
+body:has(.dashboard) .hud {
+  right: auto;
+  left: 64px;
+}
+
+/* ============================================================
+   POPUP DE COMPROMISO — captura intención del usuario por ámbito.
+   Estilo más serio (formulario), bordes 4px, modal centrado.
+   ============================================================ */
+.compromiso-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 22, 18, 0.42);
+  z-index: 20;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.compromiso-overlay.open { display: flex; }
+
+.compromiso-box {
+  width: min(440px, 92vw);
+  background: var(--paper);
+  border: 5px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 24px 26px 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.compromiso-box .close {
+  position: absolute;
+  top: 6px; right: 12px;
+  width: 32px; height: 32px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1;
+}
+.compromiso-box .cp-derecho {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--street);
+}
+.compromiso-box .cp-titulo {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.compromiso-box .cp-explica {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink);
+  opacity: 0.85;
+}
+.compromiso-box .cp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.compromiso-box .cp-field span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--street);
+}
+.compromiso-box .cp-field input {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 8px 10px;
+  font: 14px Georgia, serif;
+  color: var(--ink);
+  outline: none;
+}
+.compromiso-box .cp-field input:focus {
+  border-color: var(--accent-naranja);
+}
+.compromiso-box .cp-submit {
+  margin-top: 4px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 4px solid var(--ink);
+  padding: 12px 16px;
+  font: bold 14px Georgia, serif;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--accent-naranja);
+}
+.compromiso-box .cp-submit:hover {
+  background: var(--accent-naranja);
+  border-color: var(--accent-naranja);
+}
+.compromiso-box .cp-submit:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--accent-naranja);
+}
+.compromiso-box .cp-result {
+  font-size: 12px;
+  color: var(--accent-naranja);
+  min-height: 16px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Señales binarias dentro de cada card */
+.dashboard .db-senales {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 0;
+  border-top: 2px solid rgba(26,22,18,0.18);
+  border-bottom: 2px solid rgba(26,22,18,0.18);
+  margin: 4px 0;
+}
+.dashboard .db-senal {
+  flex: 0 0 auto;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 4px 8px;
+  font: bold 11px Georgia, serif;
+  color: var(--ink);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+.dashboard .db-senal:hover { background: #ECDBB4; }
+.dashboard .db-senal:active {
+  transform: translate(1px, 1px);
+}
+.dashboard .db-senal[data-action="senal-pos"]:hover { background: #C8E0C8; }
+.dashboard .db-senal[data-action="senal-neg"]:hover { background: #E6C8C8; }
+.dashboard .db-reportes-count {
+  margin-left: auto;
+  font-size: 9px;
+  color: var(--street);
+  font-style: italic;
+}
+.dashboard .db-action.db-secondary {
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-size: 10px;
+  padding: 6px 10px;
+  margin-top: 4px;
+}
+.dashboard .db-action.db-secondary:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.dashboard .db-action.db-secondary:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* Lista de categorías en el popup de reporte */
+.rp-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 6px 0 10px;
+}
+.rp-option {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 8px 10px;
+  font: 12px Georgia, serif;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.rp-option:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.rp-option:active {
+  transform: translate(1px, 1px);
+}
+
+/* Botón "+" flotante para registro de entidad */
+.registro-toggle {
+  position: fixed;
+  top: 56px;
+  right: 360px;
+  width: 38px; height: 38px;
+  background: var(--accent-naranja);
+  border: 2px solid var(--ink);
+  font: bold 20px Georgia, serif;
+  cursor: pointer;
+  color: var(--paper);
+  box-shadow: 2px 2px 0 var(--ink);
+  z-index: 11;
+  padding: 0;
+  line-height: 0.6;
+}
+.registro-toggle:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+@media (max-width: 900px) {
+  .registro-toggle { right: 64px; }
+}
+
+/* Form-fields adicionales para registro de entidad — usan los mismos
+   estilos .cp-field. Select extra: */
+.compromiso-box select {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 8px 10px;
+  font: 14px Georgia, serif;
+  color: var(--ink);
+  outline: none;
+  width: 100%;
+}
+.compromiso-box select:focus { border-color: var(--accent-naranja); }
+.compromiso-box .compromiso-box {
+  max-height: 88vh;
+  overflow-y: auto;
+}
+#registro-overlay .compromiso-box {
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+/* ============================================================
+   MODO ADMIN — Badge + panel de registro nominal
+   ============================================================ */
+.admin-badge {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #D9534F;
+  color: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 4px 12px;
+  font: bold 10px Georgia, serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  z-index: 30;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.admin-badge:active {
+  transform: translateX(-50%) translate(1px, 1px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.admin-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 22, 18, 0.72);
+  z-index: 25;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.admin-overlay.open { display: flex; }
+
+.admin-box {
+  width: min(960px, 96vw);
+  max-height: 90vh;
+  background: var(--paper);
+  border: 5px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 20px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+.admin-box .close {
+  position: absolute;
+  top: 6px; right: 12px;
+  width: 32px; height: 32px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.ad-head h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+.ad-head .ad-sub {
+  font-size: 11px;
+  color: var(--street);
+  line-height: 1.4;
+}
+.ad-head .ad-sub code {
+  background: #ECDBB4;
+  padding: 1px 4px;
+  border: 1px solid var(--ink);
+  font-size: 10px;
+}
+.ad-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ad-filters select,
+.ad-filters input {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 6px 8px;
+  font: 12px Georgia, serif;
+  color: var(--ink);
+  outline: none;
+}
+.ad-filters select:focus,
+.ad-filters input:focus { border-color: var(--accent-naranja); }
+
+.ad-table-wrap {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  border: 2px solid var(--ink);
+  background: #FAF1DA;
+}
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 11px Georgia, serif;
+}
+.ad-table th {
+  background: var(--ink);
+  color: var(--paper);
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  padding: 6px 8px;
+  position: sticky;
+  top: 0;
+  text-align: left;
+}
+.ad-table td {
+  padding: 6px 8px;
+  border-top: 1px solid rgba(26,22,18,0.15);
+  vertical-align: top;
+}
+.ad-table tr.gesto-falso td { opacity: 0.45; text-decoration: line-through; }
+.ad-table .ad-uid {
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--street);
+}
+.ad-table .ad-detail {
+  font-size: 10px;
+  color: var(--ink);
+  font-family: monospace;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ad-table .ad-actions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.ad-table .ad-act-btn {
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  padding: 2px 6px;
+  font: 9px Georgia, serif;
+  cursor: pointer;
+  color: var(--ink);
+  letter-spacing: 0.3px;
+}
+.ad-table .ad-act-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.ad-table .ad-act-btn.danger:hover {
+  background: #D9534F;
+  color: var(--paper);
+  border-color: #D9534F;
+}
+.ad-summary {
+  font-size: 11px;
+  color: var(--street);
+  font-style: italic;
+}
+
+/* ============================================================
+   MÓVIL — bottom sheet para el dashboard, FABs reorganizados.
+   Breakpoint: 768px. Sustituye/extiende el media query previo de 900px.
+   ============================================================ */
+
+@media (max-width: 768px) {
+  /* [I v2] ITB v2 móvil — el dock peek lateral derecho se mantiene
+     también en móvil (Pancho decidió coherencia con desktop). Solo
+     ajustamos ancho y peek-amount para no comer demasiado viewport
+     mobile. Se asoma 28 px desde el borde derecho; al tap se abre a
+     85vw máximo 320 px. La toolbar HUD inferior (bottom 16) y el dock
+     peek conviven: el dock no se ancla a la parte inferior, queda
+     centrado vertical y respeta el espacio de la toolbar. */
+  .dashboard {
+    width: 85vw;
+    max-width: 320px;
+    transform: translateY(-50%) translateX(calc(100% - 28px));
+    max-height: 70vh;
+    bottom: auto;
+    top: 50%;
+    right: 0;
+    left: auto;
+  }
+  .dashboard:hover,
+  .dashboard.open {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  /* Desplazar search/+ a la izquierda del strip de iconos en móvil.
+     Collapsed: dashboard width 56px → search/+ a right: 72px-110px.
+     Sin panel "open" — lupa+'+' siempre en su sitio. */
+
+  /* Popover individual del ámbito — aparece al clicar un icono.
+     Anclado a la izquierda del icono pulsado. Solo título + derecho
+     (opción B "sin contenido"). */
+  .db-popover {
+    position: fixed;
+    z-index: 14;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    padding: 10px 14px;
+    min-width: 180px;
+    max-width: 260px;
+    display: none;
+    font-family: Georgia, serif;
+  }
+  .db-popover.open { display: block; }
+  .db-popover .pop-titulo {
+    font: bold 14px Georgia, serif;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .db-popover .pop-derecho {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--street);
+    margin-top: 4px;
+  }
+  .db-popover .pop-hint {
+    margin-top: 8px;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--street);
+    border-top: 1px solid var(--ink);
+    padding-top: 6px;
+  }
+
+  /* HUD compacto arriba-izquierda */
+  body:has(.dashboard) .hud,
+  .hud {
+    top: 56px;
+    left: 16px;
+    right: auto;
+    padding: 6px 10px;
+    font-size: 11px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .hud-row strong { font-size: 13px; }
+
+  /* v1.7 — search-toggle / registro-toggle / admin-badge legacy
+     quedan hidden (su entrada vive en el menú cog). El cog-toggle
+     ocupa la esquina arriba-derecha unificadamente. */
+
+  /* LOD pill arriba-centro discreto */
+  .lod-pill {
+    bottom: auto;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    padding: 3px 8px;
+    z-index: 8;
+  }
+
+  /* Zoom bar abajo derecha — botones XL redondos. */
+  .zoom-bar {
+    bottom: 16px;
+    right: 12px;
+    gap: 8px;
+  }
+  .zoom-bar button {
+    width: 52px; height: 52px;
+    font-size: 22px;
+  }
+
+  /* Layer panel toggle abajo izquierda redondo. */
+  .layer-panel-toggle {
+    bottom: 16px;
+    left: 12px;
+    width: 48px; height: 48px;
+  }
+
+  /* Popups más compactos: usan ancho disponible */
+  .mun-popup,
+  .compromiso-box,
+  .admin-box,
+  .productor-popup,
+  .tejido-popup,
+  .registro-popup,
+  .evento-popup {
+    width: 94vw;
+    max-width: 94vw;
+  }
+  .evento-popup,
+  .productor-popup,
+  .tejido-popup,
+  .registro-popup {
+    bottom: 96px;            /* por encima del handle del bottom sheet */
+  }
+
+  /* Banner ligero en móvil */
+  .banner {
+    padding: 0 12px;
+  }
+  .banner-title { font-size: 16px; }
+  .banner-sub { font-size: 11px; }
+
+  /* [I] Membrete compacto en móvil — chips ITB v2 más pequeños. */
+  .membrete {
+    max-width: calc(100vw - 24px);
+    gap: 3px;
+  }
+  .membrete .mb-current {
+    font-size: 14px;
+    padding: 4px 12px 5px;
+  }
+  .membrete .mb-current .mb-meta { font-size: 10px; }
+  .membrete .mb-parents,
+  .membrete .mb-parents .mb-parent { font-size: 10px; }
+  .membrete .mb-parents { padding: 1px 8px; }
+
+  /* Search overlay full screen */
+  .search-overlay { padding-top: 16px; }
+  .search-box { width: 96vw; max-height: 88vh; }
+
+  /* Cards interno más denso */
+  .dashboard .db-card { padding: 8px 10px 10px; }
+  .dashboard .db-value { font-size: 24px; }
+  .dashboard .db-action { font-size: 10px; padding: 6px 8px; }
+}
+
+/* Tablet medium — ya quitamos el `display: none` previo */
+@media (max-width: 900px) and (min-width: 769px) {
+  .dashboard {
+    width: 240px;            /* angosto pero visible */
+  }
+}
+
+/* ============================================================
+   POPUP DESPLEGABLE DE SECCIÓN — datos + actividades + acciones
+   Aparece tras tap en sección (state.selectedSeccionCusec).
+   ============================================================ */
+
+.seccion-detalle-toggle {
+  /* [I v2] HUD card discreta en esquina inferior izquierda. Antes era
+     un pill grande centrado que tapaba mapa. Ahora es una mini-tarjeta
+     táctica con chaflán que invita a abrir el detalle de la sección
+     activa sin robar protagonismo al render. */
+  position: fixed;
+  bottom: 76px;            /* sobre la hud-toolbar */
+  left: 12px;
+  transform: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ink-tr-90);
+  color: var(--paper);
+  border: 1px solid var(--paper);
+  padding: 5px 11px 5px 9px;
+  font: italic 600 11px var(--font-serif);
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  z-index: 10;
+  clip-path: polygon(7px 0, 100% 0, 100% 100%, 0 100%, 0 7px);
+}
+.seccion-detalle-toggle:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+.seccion-detalle-toggle:active {
+  background: var(--accent-naranja);
+  color: var(--ink);
+}
+.seccion-detalle-toggle .sdt-arrow {
+  font: 500 11px var(--font-mono);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.seccion-detalle-popup {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  right: 312px;             /* a la izquierda del dashboard 280+16 */
+  max-height: 75vh;
+  background: var(--paper);
+  border: 5px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 18px 22px 20px;
+  z-index: 11;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+.seccion-detalle-popup.open { display: flex; }
+.seccion-detalle-popup .close {
+  position: absolute;
+  top: 6px; right: 12px;
+  width: 32px; height: 32px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.sd-head { border-bottom: 2px solid var(--ink); padding-bottom: 10px; }
+.sd-head .sd-derecho {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--street);
+}
+.sd-head .sd-titulo { margin: 4px 0 2px; font-size: 20px; }
+.sd-head .sd-zona { font-size: 12px; color: var(--street); }
+.sd-section h3 {
+  margin: 0 0 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--accent-naranja);
+}
+.sd-datos {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 0;
+}
+.sd-datos dt {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--street);
+}
+.sd-datos dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+.sd-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.sd-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.sd-chip-row--sub:empty { display: none; }
+.sd-chip {
+  font: 10px/1 Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 4px 7px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+}
+.sd-chip:hover { background: #ECDBB4; }
+.sd-chip.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.sd-chip[data-tipo="evento"].active    { background: #9F4FE6; color: #fff; border-color: #1A1612; }
+.sd-chip[data-tipo="productor"].active { background: #E68A4F; color: #1A1612; border-color: #1A1612; }
+.sd-chip[data-tipo="tejido"].active    { background: #4A7C59; color: #fff; border-color: #1A1612; }
+.sd-chip .sd-chip-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 5px;
+  border: 1.5px solid var(--ink);
+  vertical-align: middle;
+}
+.sd-actividades {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sd-actividad {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  text-align: left;
+  font: 12px Georgia, serif;
+  color: var(--ink);
+}
+.sd-actividad:hover { background: #ECDBB4; }
+.sd-actividad .sda-cat {
+  flex: 0 0 auto;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 1px 5px;
+  background: var(--ink);
+  color: var(--paper);
+}
+.sd-actividad .sda-cat[data-t="evento"]    { background: #9F4FE6; }
+.sd-actividad .sda-cat[data-t="productor"] { background: #E68A4F; }
+.sd-actividad .sda-cat[data-t="tejido"]    { background: #4A7C59; }
+.sd-actividad .sda-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sd-acciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.sd-accion {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 7px 9px;
+  font: 11px Georgia, serif;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.sd-accion:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.sd-accion:active {
+  transform: translate(1px, 1px);
+}
+.sd-accion .sda-glifo {
+  font-weight: bold;
+  margin-right: 4px;
+}
+.sd-empty {
+  font-size: 11px;
+  color: var(--street);
+  font-style: italic;
+  padding: 4px 0;
+}
+
+@media (max-width: 768px) {
+  .seccion-detalle-popup {
+    right: 16px;             /* ocupa todo el ancho disponible */
+    bottom: 16px;            /* aprovecha que cerramos el bottom sheet
+                                  en openSeccionDetallePopup → mas alto */
+    max-height: 78vh;        /* + espacio vertical para ver acciones */
+    z-index: 14;             /* por encima de cog (13) y FABs */
+  }
+  .seccion-detalle-toggle {
+    /* [I v2] mantiene posición esquina inferior izquierda en mobile */
+    bottom: 76px;
+    z-index: 11;
+  }
+}
+
+/* ============================================================
+   Buscador transversal (search.js · #search-overlay).
+   ============================================================ */
+
+.search-toggle {
+  position: fixed;
+  top: 56px;
+  right: 16px;
+  width: 38px; height: 38px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  font: 18px/1 Georgia, serif;
+  cursor: pointer;
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  z-index: 11;
+  padding: 0;
+}
+.search-toggle:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 22, 18, 0.42);
+  z-index: 20;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+}
+.search-overlay.open {
+  display: flex;
+}
+
+.search-box {
+  width: min(540px, 92vw);
+  background: var(--paper);
+  border: 5px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 18px 18px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 72vh;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  padding: 10px 14px;
+  font: 16px Georgia, serif;
+  color: var(--ink);
+  outline: none;
+}
+.search-input:focus {
+  border-color: var(--accent-naranja);
+}
+
+.search-results {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  border: 2px solid transparent;
+}
+.search-results:empty + .search-hint { opacity: 0.5; }
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: var(--paper);
+  margin-bottom: 4px;
+}
+.search-result:hover,
+.search-result.active {
+  background: #ECDBB4;
+  border-color: var(--ink);
+}
+.search-result .sr-type {
+  flex: 0 0 auto;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2px 6px;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.search-result .sr-type[data-t="productor"] { background: #E68A4F; }
+.search-result .sr-type[data-t="municipio"] { background: #C89968; }
+.search-result .sr-type[data-t="evento"]    { background: #9F4FE6; }
+.search-result .sr-type[data-t="distrito"]  { background: #3F5F7E; }
+.search-result .sr-type[data-t="calle"]     { background: #4A4D52; }
+.search-result .sr-type[data-t="venue"]     { background: #6B6358; }
+.search-result .sr-type[data-t="barrio"]    { background: #2F6B5C; }
+.search-result .sr-type[data-t="manzana"]   { background: #8B6B3A; }
+.search-result .sr-type[data-t="poi"]       { background: #B8434F; }
+.search-result .sr-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.search-result .sr-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.search-result .sr-sublabel {
+  font-size: 11px;
+  color: var(--street);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-empty {
+  padding: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--street);
+  font-style: italic;
+}
+
+.search-hint {
+  font-size: 10px;
+  color: var(--street);
+  text-align: center;
+  letter-spacing: 0.5px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(26, 22, 18, 0.15);
+}
+
+/* -----------------------------------------------------------------
+   Modal de lista de eventos (P5 — 2026-05-21).
+   Aparece cuando un cluster de pins acumula >1 evento.
+   En móvil: bottom-sheet que sube desde abajo. En tablet/desktop:
+   panel lateral derecho que entra desde la derecha. ----------- */
+.evento-list-modal {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--paper);
+  border-top: 4px solid var(--ink);
+  box-shadow: 0 -3px 0 var(--ink);
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 16px;
+  z-index: 60;
+  transform: translateY(100%);
+  transition: transform 220ms ease;
+}
+.evento-list-modal[aria-hidden="false"] { transform: translateY(0); }
+@media (min-width: 768px) {
+  .evento-list-modal {
+    left: auto; right: 0; bottom: 0; top: 0;
+    width: 380px;
+    max-height: none;
+    max-width: 90vw;
+    transform: translateX(100%);
+    border-top: 0;
+    border-left: 4px solid var(--ink);
+    box-shadow: -3px 0 0 var(--ink);
+  }
+  .evento-list-modal[aria-hidden="false"] { transform: translateX(0); }
+}
+.evento-list-modal .close {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  width: 32px; height: 32px;
+  font: bold 18px/1 Georgia, serif;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+}
+.elm-head {
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 12px;
+}
+.elm-derecho {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: var(--accent-naranja);
+}
+.elm-titulo {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 4px 0 0;
+  color: var(--ink);
+  font-family: Georgia, serif;
+}
+.elm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.elm-item {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 8px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font: 12px Georgia, serif;
+  text-align: left;
+  color: var(--ink);
+}
+.elm-item:hover { background: #ECDBB4; }
+.elm-item .elm-cat {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 1px 5px;
+  align-self: flex-start;
+  background: var(--ink);
+  color: var(--paper);
+}
+.elm-item .elm-titulo-pequeno { font-weight: bold; }
+.elm-item .elm-fecha {
+  color: var(--street);
+  font-size: 11px;
+}
+
+/* --------------------------------------------------------------------
+   Archipiélago — modo FLOTANTE (2026-05-21 v2).
+   Las 7 siluetas flotan con bobbing ambient en posiciones random.
+   Hover (mouse) → snap a posición geográfica real (sobre el mapa-
+   fantasma del fondo) + iluminación. Drag desde silueta iluminada
+   hasta su ghost → confirma → enterIsla. Mobile: tap = enter directo.
+   -------------------------------------------------------------------- */
+.archipielago-float {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  background: var(--paper);
+  overflow: hidden;
+  touch-action: none;
+  /* 2026-05-25 — fade in/out 280ms para suavizar entrada/salida del
+     mini-juego al pasar a la vista canvas. La JS añade .fading antes
+     de hide para que la opacidad caiga; al show la quita y reaparece. */
+  transition: opacity 0.28s ease-out;
+  opacity: 1;
+}
+.archipielago-float.fading { opacity: 0; pointer-events: none; }
+.archipielago-float[hidden] { display: none; }
+
+.float-ghosts,
+.float-islands {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.float-islands { pointer-events: auto; }
+
+.float-hint {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 28px;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  color: var(--street);
+  font-size: 13px;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 400ms;
+  letter-spacing: 0.02em;
+}
+.archipielago-float.interacted .float-hint { opacity: 0; }
+
+.isla-ghost {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.18;
+  transition: opacity 220ms ease;
+  filter: saturate(0.4);
+}
+.isla-ghost.active { opacity: 0.45; }
+.isla-ghost.hit { opacity: 0.7; filter: saturate(1); }
+.isla-ghost canvas { display: block; width: 100%; height: 100%; }
+
+.isla-float {
+  position: absolute;
+  pointer-events: auto;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  /* Estado base (idle): completamente gris. La isla "gana color" solo
+     cuando el usuario interactúa con ella (hover, drag, encaje). */
+  filter: grayscale(1) brightness(0.88) contrast(1.05);
+  /* Sin transición de left/top en idle — el motor físico actualiza
+     posición cada frame. Las transiciones se activan solo en .snapped
+     y .locked (encaje final) para suavizar el lock-in. */
+  transition: filter 280ms ease, transform 280ms ease;
+  will-change: transform, left, top;
+}
+.isla-float .isla-float-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* El motor físico (JS) aplica transform: rotate(...) cada frame.
+     transform-origin centra la rotación. */
+  transform-origin: center center;
+  will-change: transform;
+}
+.isla-float.highlighted {
+  /* Hover (mouse): la isla recupera color e invita a ser arrastrada,
+     PERO NO se mueve a su sitio. El encaje exige arrastrarla. */
+  filter: grayscale(0) saturate(1) brightness(1)
+          drop-shadow(0 0 14px var(--accent-naranja))
+          drop-shadow(0 0 4px var(--accent-naranja));
+  transform: scale(1.06);
+  z-index: 2;
+}
+.isla-float.snapped {
+  /* "Encajada" — solo tras un drop correcto. La isla queda fija en su
+     ghost target (left/top los pone el JS) y se interpolan con
+     transition para que el lock-in se sienta suave. */
+  filter: grayscale(0) saturate(1) brightness(1)
+          drop-shadow(0 0 14px var(--accent-naranja))
+          drop-shadow(0 0 4px var(--accent-naranja));
+  transform: scale(1.08);
+  z-index: 2;
+  transition: left 280ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              top 280ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              filter 280ms ease,
+              transform 280ms ease;
+}
+.isla-float.dragging {
+  cursor: grabbing;
+  transition: filter 220ms ease, transform 220ms ease;
+  /* Durante el drag también recupera color (la isla está siendo "elegida"). */
+  filter: grayscale(0) saturate(1) brightness(1)
+          drop-shadow(0 0 18px var(--accent-naranja));
+  transform: scale(1.12);
+  z-index: 3;
+}
+/* "Lock-in" — encaje confirmado tras drop correcto. Zoom + glow
+   intensificados durante los ~500ms previos a enterIsla.
+   2026-05-27 v3 — Pancho: pedido un descenso suave desde ~14 px por
+   encima del ghost hasta encajar en el centro. Implementado con
+   `@keyframes lockin-descend` (más fiable que transition + doble-rAF,
+   que se atropellaba cuando el navegador fusionaba los cambios de
+   `top` en el mismo frame). La animación recorre translateY de
+   -14 → 0 manteniendo scale(1.12) durante todo el descenso. `forwards`
+   conserva la posición final (translateY 0 = anclada al ghost). */
+@keyframes lockin-descend {
+  /* 2026-05-27 v4 — Encaje más lento y cinematográfico (850ms). La isla
+     desciende desde 18px arriba mientras su glow interior crece de
+     dentro a afuera (drop-shadow naranja que se intensifica y expande). */
+  0% {
+    transform: translateY(-18px) scale(1.16);
+    filter: grayscale(0) saturate(1.2) brightness(1.15)
+            drop-shadow(0 0 6px var(--accent-naranja));
+  }
+  55% {
+    filter: grayscale(0) saturate(1.3) brightness(1.25)
+            drop-shadow(0 0 34px var(--accent-naranja))
+            drop-shadow(0 0 14px var(--accent-naranja));
+  }
+  100% {
+    transform: translateY(0) scale(1.12);
+    filter: grayscale(0) saturate(1.1) brightness(1.02)
+            drop-shadow(0 0 22px var(--accent-naranja))
+            drop-shadow(0 0 8px var(--accent-naranja));
+  }
+}
+.isla-float.locked {
+  filter: grayscale(0) saturate(1.1) brightness(1.02)
+          drop-shadow(0 0 22px var(--accent-naranja))
+          drop-shadow(0 0 8px var(--accent-naranja));
+  transform: scale(1.12);
+  z-index: 6;
+  animation: lockin-descend 850ms cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+}
+
+/* 2026-05-27 — Onda de choque: cuando una isla encaja en su ghost, las
+   demás islas (que siguen flotando) reciben un temblor breve como por
+   el impacto. Aplicada vía clase transitoria `.quaking` desde el JS en
+   el momento del snap; se auto-quita a los ~420ms. La intensidad es
+   sutil (±3px) para no romper la legibilidad del archipiélago. */
+@keyframes lockin-quake {
+  0%   { transform: translate(0, 0)    rotate(0deg); }
+  10%  { transform: translate(-4px,  2px) rotate(-0.8deg); }
+  22%  { transform: translate( 4px, -2px) rotate( 0.8deg); }
+  35%  { transform: translate(-3px,  3px) rotate(-0.6deg); }
+  48%  { transform: translate( 3px, -3px) rotate( 0.6deg); }
+  62%  { transform: translate(-3px,  2px) rotate(-0.4deg); }
+  76%  { transform: translate( 2px, -1px) rotate( 0.3deg); }
+  88%  { transform: translate(-1px,  1px) rotate(-0.15deg); }
+  100% { transform: translate(0, 0)    rotate(0deg); }
+}
+.isla-float.quaking {
+  animation: lockin-quake 560ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+/* 2026-05-27 v4 — Destello de encaje "de adentro a afuera". Dos capas
+   creadas por el JS en el centro de la isla encajada:
+   · .lockin-flash: un círculo radial naranja-dorado que nace del tamaño
+     de la isla y se expande (scale 0.2 → 24) cubriendo el viewport,
+     desvaneciéndose. Es el frente de onda luminoso.
+   · .lockin-flash-global: un wash radial anclado en la isla que tiñe
+     TODO el mapa con un fogonazo cálido y se apaga.
+   Ambos usan mix-blend-mode:screen para sumar luz sin tapar el dibujo. */
+@keyframes lockin-flash-radial {
+  0%   { opacity: 0;   transform: translate(-50%, -50%) scale(0.2); }
+  14%  { opacity: 1; }
+  100% { opacity: 0;   transform: translate(-50%, -50%) scale(24); }
+}
+.lockin-flash {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 40;
+  background: radial-gradient(circle,
+    rgba(255, 244, 214, 0.95) 0%,
+    rgba(244, 188, 104, 0.70) 32%,
+    rgba(230, 150, 60, 0.18) 60%,
+    rgba(230, 150, 60, 0) 75%);
+  mix-blend-mode: screen;
+  animation: lockin-flash-radial 850ms cubic-bezier(0.12, 0.7, 0.3, 1) forwards;
+}
+@keyframes lockin-flash-global {
+  0%   { opacity: 0; }
+  22%  { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+.lockin-flash-global {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 38;
+  background: radial-gradient(circle at var(--fx, 50%) var(--fy, 50%),
+    rgba(255, 236, 188, 0.75) 0%,
+    rgba(238, 170, 84, 0.32) 42%,
+    rgba(230, 150, 60, 0) 78%);
+  mix-blend-mode: screen;
+  animation: lockin-flash-global 850ms ease-out forwards;
+}
+/* [D] Efecto "emerge" al volver del nivel isla al archipiélago: la
+   isla destinada estaba descendida (locked) y ahora "asoma" hacia
+   arriba durante ~360ms antes de re-entrar en la simulación física.
+   Se aplica como clase transitoria por _resetArchipielagoFloatState. */
+.isla-float.emerging {
+  filter: grayscale(0) saturate(1) brightness(1)
+          drop-shadow(0 0 18px var(--accent-naranja))
+          drop-shadow(0 0 6px var(--accent-naranja));
+  transform: translateY(-12px) scale(1.1);
+  z-index: 3;
+  transition: filter 360ms ease,
+              transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.isla-float canvas { display: block; width: 100%; height: 100%; }
+.isla-float-name {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--ink);
+  white-space: nowrap;
+  background: rgba(245, 232, 200, 0.92);
+  padding: 1px 6px;
+  border: 1px solid var(--ink);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+/* 2026-05-25 — Pancho: el nombre NO aparece en hover (highlighted) ni
+   durante el drag — solo cuando la isla está encajada correctamente
+   (snapped o locked). Hover sigue cambiando color/glow pero sin chip. */
+.isla-float.snapped .isla-float-name,
+.isla-float.locked  .isla-float-name {
+  opacity: 1;
+}
+
+/* Keyframes isla-bob eliminado en favor del motor físico JS. */
+
+/* --------------------------------------------------------------------
+   Archipiélago — modo GRID (2026-05-21 v1, apartado).
+   Conservado en CSS por si volvemos a este modo. Solo se monta si
+   ARCH_MODE === "grid" en app.js (actualmente "float").
+   -------------------------------------------------------------------- */
+/* --------------------------------------------------------------------
+   Archipiélago — grid de selector de isla (2026-05-21).
+   Sustituye al render iso del nivel "archipielago". Disposición
+   geográfica respetada con áreas CSS Grid nombradas: occidente
+   (lp/lg/eh) a la izquierda, centro (tf/gc) en medio, oriente (lz/fv)
+   a la derecha. Celdas vacías quedan vacías → respiración geográfica.
+   -------------------------------------------------------------------- */
+.archipielago-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  background: var(--paper);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  grid-template-areas:
+    ".  lp .  lz"
+    "lg tf gc fv"
+    "eh .  .  .";
+  gap: 12px;
+  padding: 96px 18px 32px;
+  pointer-events: auto;
+}
+
+/* Doctrina mapa-prístino a nivel archipiélago: ocultar todo el cromo
+   periférico que no aporta al selector de isla (dashboard, cog, panel
+   toggle, búsqueda, back, etiquetas dist/barrio). Banner KOINOS y
+   membrete sí permanecen — identifican el visor y la posición actual,
+   y se promueven encima de la grid (z-index alto). */
+body.lv-archipielago .banner { z-index: 60; }
+body.lv-archipielago .membrete { z-index: 59; }
+
+body.lv-archipielago .hud,
+body.lv-archipielago .dashboard,
+body.lv-archipielago .cog-toggle,
+body.lv-archipielago .cog-menu,
+body.lv-archipielago .layer-panel-toggle,
+body.lv-archipielago .layer-panel,
+body.lv-archipielago .back-btn,
+body.lv-archipielago .search-toggle,
+body.lv-archipielago .dist-label,
+body.lv-archipielago .lod-pill,
+body.lv-archipielago .registro-toggle,
+body.lv-archipielago .admin-badge {
+  display: none !important;
+}
+.archipielago-grid[hidden] { display: none; }
+
+.isla-card {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 10px 12px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  transition: transform 80ms ease, box-shadow 80ms ease;
+}
+.isla-card:hover {
+  background: #FCEFCF;
+}
+.isla-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.isla-card:focus-visible {
+  outline: 2px solid var(--accent-naranja);
+  outline-offset: 2px;
+}
+
+.isla-card-canvas {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  display: block;
+  /* el render JS pinta la silueta; aquí solo geometría */
+}
+
+.isla-card-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(10px, 2.1vw, 16px);
+  text-align: center;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.isla-card-tag {
+  /* Placeholder para chascarrillo/lema futuro. Reservamos altura
+     mínima para que las tarjetas no salten cuando se añada texto. */
+  display: block;
+  min-height: 14px;
+  font-size: clamp(10px, 1.8vw, 12px);
+  font-style: italic;
+  color: var(--street);
+  text-align: center;
+  line-height: 1.2;
+  flex: 0 0 auto;
+}
+
+/* Móvil estrecho: TF y GC necesitan más aire; las occidentales se
+   apilan a 3 columnas estrechas. La forma del archipiélago se
+   mantiene. */
+@media (max-width: 480px) {
+  .archipielago-grid {
+    gap: 8px;
+    padding: 78px 10px 16px;
+  }
+  .isla-card {
+    padding: 8px 8px 10px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+}
+
+/* ============================================================
+   Panel de gestos (mano). Sustituye al panel de capas como entrada
+   principal: bottom-sheet alto con un grid de tarjetas-ámbito. Cada
+   tarjeta es una "actividad cívica narrada en primera persona" — el
+   usuario reencuadra capas de datos como acciones que puede tomar.
+   El `≡` panel de capas crudo sigue accesible desde el footer del
+   sheet ("Ver capas de datos").
+   ============================================================ */
+
+.gestos-toggle {
+  position: fixed;
+  left: 16px;
+  bottom: 130px;        /* encima del .lod-pill con margen visual */
+  width: 44px; height: 44px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  cursor: pointer;
+  color: var(--ink);
+  z-index: 9;
+  padding: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Forzar ocultación del botón `≡` legacy cuando tiene atributo hidden;
+   el `display: flex` propio del selector lo override por defecto. */
+.layer-panel-toggle[hidden] { display: none !important; }
+.gestos-toggle:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.gestos-toggle.open {
+  background: var(--ink);
+  color: var(--paper);
+}
+.gestos-toggle svg {
+  width: 22px; height: 22px;
+  stroke: currentColor;
+}
+
+.gestos-sheet {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 70vh;
+  background: var(--paper);
+  border-top: 2px solid var(--ink);
+  box-shadow: 0 -4px 0 rgba(26, 22, 18, 0.18);
+  transform: translateY(102%);
+  transition: transform 0.22s ease;
+  z-index: 16;
+  display: flex; flex-direction: column;
+}
+.gestos-sheet.open { transform: translateY(0); }
+
+.gestos-sheet-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px 10px;
+  border-bottom: 2px solid var(--ink);
+}
+.gestos-sheet-title {
+  margin: 0;
+  font-size: 18px;
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+.gestos-sheet-head .close {
+  width: 32px; height: 32px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 0;
+  line-height: 1;
+}
+
+/* Grid estático de ámbitos. Tarjetas en columnas regulares, todo
+   visible (glifo + título + subtítulo). El movimiento de salvapantallas
+   vive en otro componente (archipielago-float). */
+.gestos-sheet-grid {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-content: start;
+}
+@media (max-width: 720px) {
+  .gestos-sheet-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.ambito-card {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+  text-align: left;
+  padding: 14px 12px 12px;
+  display: flex; flex-direction: column;
+  gap: 6px;
+  min-height: 128px;
+}
+.ambito-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.ambito-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.ambito-card .ambito-glifo {
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: 4px;
+  color: var(--ink);
+  opacity: 0.85;
+}
+.ambito-card .ambito-title {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+}
+.ambito-card .ambito-sub {
+  font-size: 11px;
+  color: var(--street);
+  line-height: 1.35;
+}
+
+.gestos-sheet-foot {
+  border-top: 2px solid var(--ink);
+  padding: 10px 14px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.gestos-sheet-data {
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  text-decoration: underline;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px;
+}
+.gestos-sheet-data:hover { color: var(--accent-naranja); }
+
+/* ============================================================
+   [OCRE-SKIN] 2026-05-24 — App shell mínimo sobre ITB v2.
+   ------------------------------------------------------------
+   Revert 2026-05-24 noche: Pancho conserva sólo la top bar
+   (logo OCRE + Entrar) y la siluetas-touchbar de las 7 islas.
+   El resto de la UI vuelve a ITB v2: canvas paper, etiquetas
+   barrio on, hud-toolbar inferior (gestos/cog/menú/zoom/back),
+   dashboard dock derecho, sección-detalle-toggle, membrete con
+   breadcrumb. La única regla de ocultación es el banner viejo
+   "KOINOS · POLIS" arriba, que el app-topbar sustituye.
+   ============================================================ */
+
+:root {
+  --ocre-brand: #B88646;        /* color del logo OCRE en top bar */
+  --paper-app: #FBF7EE;         /* paper más limpio para chrome OCRE topbar */
+  --paper-app-tr: rgba(251, 247, 238, 0.96);
+}
+
+/* Sólo escondemos el banner viejo "KOINOS · POLIS" — la nueva top bar
+   OCRE ocupa ese mismo espacio. Todo lo demás de ITB v2 sigue activo. */
+body.skin-ocre .banner { display: none !important; }
+
+/* ------------------------------------------------------------
+   APP-TOPBAR — barra superior paper con brand + Entrar
+   ------------------------------------------------------------ */
+.app-topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  min-height: 56px;
+  background: var(--paper-app);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  gap: 6px;
+  /* z-index 14: sobre archipielago-float (12) y resto de overlays
+     internos, para que el shell OCRE y la touchbar queden siempre visibles. */
+  z-index: 14;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  flex-wrap: wrap; /* permite que el bocadillo de búsqueda baje a una 2ª fila */
+}
+body:not(.skin-ocre) .app-topbar { display: none; }
+
+/* Grupos izq/der dentro del topbar */
+.app-topbar-left,
+.app-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 56px;
+}
+
+/* Botones de icono uniformes (back / search / cog) en topbar */
+.app-topbar-iconbtn,
+.app-topbar-back {
+  appearance: none;
+  background: transparent;
+  border: none;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0;
+  transition: background 0.12s;
+}
+.app-topbar-iconbtn:hover,
+.app-topbar-back:hover { background: rgba(26, 22, 18, 0.08); }
+.app-topbar-iconbtn:active,
+.app-topbar-back:active { transform: translateY(1px); }
+.app-topbar-iconbtn.active { background: var(--ink); color: var(--paper-app); }
+
+/* Back: ahora flota junto al membrete, no en el topbar (mantenemos
+   el selector para no romper IDs antiguos). Sólo visible cuando
+   tiene padre al que retroceder. */
+.app-membrete-back,
+.app-membrete-search {
+  position: fixed;
+  top: 102px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  /* 2026-05-25 v2 — Pancho: no se veía la flecha. Vuelvo a backdrop
+     paper-warm semi-translúcido (no opaco) para garantizar visibilidad
+     sobre cualquier fondo del lienzo, conservando la sensación "ligero"
+     pidiendo Pancho. Icon stroke 2.4 ink + drop-shadow paper duplicado. */
+  background: rgba(251, 247, 238, 0.85);
+  border: 1px solid rgba(26, 22, 18, 0.14);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.app-membrete-back  { left: 6px; }
+.app-membrete-search { right: 6px; }
+.app-membrete-back svg,
+.app-membrete-search svg {
+  stroke-width: 2.4;
+}
+.app-membrete-back:hover,
+.app-membrete-search:hover {
+  background: rgba(251, 247, 238, 1);
+}
+.app-membrete-back:active,
+.app-membrete-search:active { transform: translateY(1px); }
+.app-membrete-search.active {
+  background: var(--ink);
+  color: var(--paper-app);
+  border-color: var(--ink);
+}
+body:not(.skin-ocre) .app-membrete-back,
+body:not(.skin-ocre) .app-membrete-search { display: none; }
+/* Back solo visible cuando hay nivel padre */
+.app-membrete-back { display: none; }
+.app-membrete-back.visible { display: flex; }
+
+.app-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.app-topbar-brand .brand-icon {
+  display: inline-block;
+  width: 18px;
+  height: 22px;
+  /* Pieza de ajedrez estilizada (peón/torre) en ocre. SVG inline para
+     control fino. */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 22'><path fill='%23B88646' d='M6 1 h6 v3 h-1 v3 l1.2 1.2 v2 l-1 0.8 v6 l1.5 1.3 v3.7 h-9 v-3.7 l1.5-1.3 v-6 l-1-0.8 v-2 l1.2-1.2 v-3 h-1z'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.app-topbar-brand .brand-caret {
+  font-size: 11px;
+  color: var(--ink);
+  opacity: 0.55;
+  margin-left: 2px;
+  font-family: var(--font-mono);
+}
+
+.app-topbar-enter {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  margin-left: 2px;
+}
+.app-topbar-enter:hover {
+  background: var(--ink);
+  color: var(--paper-app);
+}
+.app-topbar-enter:active { transform: translateY(1px); }
+
+/* ------------------------------------------------------------
+   APP-SEARCH-BUBBLE — bocadillo flotante, anclado al borde
+   derecho de la pantalla, crece hacia la IZQUIERDA. Vive fuera
+   del topbar para que su z-index domine sobre la siluetas-strip.
+   ------------------------------------------------------------ */
+.app-search-bubble {
+  position: fixed;
+  /* Justo debajo de la lupa-membrete (top: 102 + 36 + 8 gap = 146) */
+  top: 146px;
+  right: 12px;
+  width: min(360px, calc(100vw - 24px));
+  background: var(--paper-app);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(26, 22, 18, 0.12);
+  display: none;
+  z-index: 22;
+}
+.app-search-bubble.open { display: block; }
+body:not(.skin-ocre) .app-search-bubble { display: none !important; }
+
+.asb-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26, 22, 18, 0.05);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.asb-input-icon { color: var(--ink); opacity: 0.6; flex-shrink: 0; }
+.asb-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+  min-width: 0;
+}
+.asb-input::placeholder { color: rgba(26, 22, 18, 0.45); }
+.asb-clear {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  opacity: 0.55;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 6px;
+  display: none;
+}
+.asb-clear.visible { display: block; }
+
+.asb-results {
+  margin-top: 8px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.asb-hint {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(26, 22, 18, 0.55);
+  padding: 4px 6px;
+}
+.asb-result-group {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(26, 22, 18, 0.5);
+  margin-top: 10px;
+  margin-bottom: 4px;
+  padding: 0 6px;
+}
+.asb-result {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 8px 10px;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: 6px;
+}
+.asb-result:hover { background: rgba(184, 134, 70, 0.12); }
+.asb-result .asb-r-meta {
+  display: block;
+  font-size: 11px;
+  opacity: 0.55;
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+/* ------------------------------------------------------------
+   APP-TOPBAR-MENU — dropdown de vistas / modos OCRE
+   POLIS activo; ÁGORA, FOROS, MEMORIA en placeholder "pronto".
+   ------------------------------------------------------------ */
+.app-topbar-menu {
+  position: fixed;
+  top: 58px;
+  left: 12px;
+  min-width: 240px;
+  background: var(--paper-app);
+  border: 1px solid rgba(26, 22, 18, 0.12);
+  border-radius: 10px;
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
+  /* z-index 21: por encima de siluetas-strip (11) y topbar (14).
+     Pancho 2026-05-25: la strip tapaba al dropdown porque ambos
+     ocupan la zona top:60-92 al mismo tiempo. */
+  z-index: 21;
+}
+.app-topbar-menu.open { display: flex; }
+
+.atm-item {
+  appearance: none;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  color: var(--ink);
+}
+.atm-item:hover:not([disabled]) { background: rgba(184, 134, 70, 0.12); }
+.atm-item[disabled] { cursor: default; opacity: 0.5; }
+
+.atm-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ocre-brand);
+  flex-shrink: 0;
+}
+.atm-dot-soon { background: rgba(26, 22, 18, 0.25); }
+
+.atm-text { display: flex; flex-direction: column; gap: 1px; }
+.atm-name {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.atm-desc {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  opacity: 0.7;
+}
+.atm-desc em { font-style: italic; opacity: 0.85; }
+.atm-active .atm-name { color: var(--ocre-brand); }
+
+/* ------------------------------------------------------------
+   APP-BOTTOMBAR — bottom sheet pull-up
+   Colapsado: solo handle + caption. Abierto: revela CTA + lista de
+   gestos recientes. Toggle con tap en el grip (todo el área superior).
+   ------------------------------------------------------------ */
+.app-bottombar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: var(--paper-app);
+  display: flex;
+  flex-direction: column;
+  z-index: 11;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.06), 0 -8px 24px rgba(0, 0, 0, 0.25);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 64px;
+  overflow: hidden;
+}
+.app-bottombar[aria-expanded="true"] {
+  max-height: 62vh;
+  overflow-y: auto;
+}
+body:not(.skin-ocre) .app-bottombar { display: none; }
+
+.app-bottombar-grip {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 8px 16px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  width: 100%;
+  flex-shrink: 0;
+}
+.app-bottombar-handle {
+  width: 44px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(26, 22, 18, 0.25);
+  display: block;
+}
+.app-bottombar[aria-expanded="true"] .app-bottombar-handle {
+  background: rgba(26, 22, 18, 0.4);
+}
+.app-bottombar-caption {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+  opacity: 0.78;
+  text-align: center;
+  display: inline-block;
+}
+.app-bottombar-caption .bb-sep {
+  margin: 0 6px;
+  opacity: 0.45;
+}
+
+/* ------ Cuerpo del sheet (visible al abrir) ------ */
+.app-bottombar-body {
+  padding: 4px 18px 24px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.app-bottombar:not([aria-expanded="true"]) .app-bottombar-body {
+  display: none;
+}
+
+/* CTA grande "Dejar un gesto aquí" */
+.bb-cta {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--ink);
+  color: var(--paper-app);
+  border: none;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.1s, background 0.15s;
+}
+.bb-cta:hover { background: #2A2218; }
+.bb-cta:active { transform: translateY(1px); }
+.bb-cta-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ocre-brand);
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.bb-cta-text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.bb-cta-title { font-family: var(--font-serif); font-size: 16px; font-weight: 600; }
+.bb-cta-sub { font-family: var(--font-mono); font-size: 11px; opacity: 0.7; }
+
+/* Lista de gestos recientes */
+.bb-recent-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.55;
+  margin-top: 4px;
+}
+.bb-recent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bb-recent-list li {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(184, 134, 70, 0.08);
+}
+.bb-recent-empty {
+  font-style: italic;
+  opacity: 0.6;
+  background: transparent !important;
+}
+
+/* ------------------------------------------------------------
+   ZOOM-FAB — solo +/− stacked, paper bg, bottom-right
+   (F4 ya colocado aquí; piensa minimalista — el resto va al sheet)
+   ------------------------------------------------------------ */
+.zoom-fab {
+  position: fixed;
+  right: 14px;
+  bottom: 92px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 11;
+}
+body:not(.skin-ocre) .zoom-fab { display: none; }
+/* 2026-05-25 — Pancho: zoom +/- fuera, en móvil basta pinch + doble-tap.
+   El FAB unificado vive abajo-izquierda. */
+.skin-ocre .zoom-fab { display: none !important; }
+
+/* [OCRE-SKIN 2026-05-25] Consolidación: la hud-toolbar legacy, la pill
+   "Datos y actividades", el dock "DATOS" derecho y el cog-toggle suelto
+   quedan reemplazados por:
+     - topbar icons (← / 🔍 / ⚙ / Entrar)
+     - FAB unificado bottom-left (Gestos / Datos / Capas)
+   Ocultamos en skin-ocre para no duplicar entradas. */
+.skin-ocre .hud-toolbar,
+.skin-ocre .seccion-detalle-toggle,
+.skin-ocre .dashboard,
+.skin-ocre .cog-toggle,
+.skin-ocre .back-btn,
+.skin-ocre .banner {
+  display: none !important;
+}
+
+/* En skin-ocre la membrete vive BAJO la siluetas-strip (no encima).
+   Strip ocupa 56-92, membrete empieza a 100 para que back/lupa
+   (top:102, alto 36) queden centrados verticalmente con su chip. */
+body.skin-ocre .membrete {
+  top: 100px;
+  z-index: 19; /* sobre strip (14), bajo back/lupa (20) */
+}
+/* Mini-juego archipielago se mantiene: es la entrada de la app */
+
+.zoom-fab button {
+  width: 38px;
+  height: 38px;
+  background: var(--paper-app);
+  border: 1px solid rgba(26, 22, 18, 0.18);
+  border-radius: 6px;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+.zoom-fab button:hover { background: #FFFCF5; }
+.zoom-fab button:active { transform: translateY(1px); box-shadow: 0 0 0 rgba(0, 0, 0, 0.18); }
+
+/* ------------------------------------------------------------
+   UNIFIED FAB — botón único izquierda que reemplaza ≡ capas +
+   📊 datos + ✋ gestos. Posición: borde-izquierdo a ~3/5 del borde
+   inferior. Al tap abre un drawer con las tres secciones en pestañas.
+   ------------------------------------------------------------ */
+.unified-fab {
+  position: fixed;
+  left: 16px;
+  bottom: 40%;          /* 3/5 desde el borde inferior */
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper-app);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.32);
+  z-index: 12;
+  padding: 0;
+  transition: transform 0.15s;
+}
+.unified-fab:hover { transform: scale(1.05); }
+.unified-fab:active { transform: scale(0.97); }
+.unified-fab svg { width: 22px; height: 22px; }
+body:not(.skin-ocre) .unified-fab { display: none; }
+/* Solo visible en vista POLIS — en ÁGORA/BIBLIOTHEKA no aplica */
+body.skin-ocre[data-view="agora"] .unified-fab,
+body.skin-ocre[data-view="bibliotheka"] .unified-fab { display: none; }
+
+/* Drawer del FAB unificado */
+.unified-drawer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: var(--paper-app);
+  z-index: 13;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.3);
+  transform: translateY(100%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 78vh;
+  display: flex;
+  flex-direction: column;
+}
+.unified-drawer.open { transform: translateY(0); }
+body:not(.skin-ocre) .unified-drawer { display: none; }
+
+.unified-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 8px 16px;
+  border-bottom: 1px solid rgba(26, 22, 18, 0.08);
+}
+.unified-drawer-tabs {
+  display: flex;
+  gap: 4px;
+}
+.unified-drawer-tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(26, 22, 18, 0.55);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+.unified-drawer-tab.active {
+  background: var(--ink);
+  color: var(--paper-app);
+}
+.unified-drawer-close {
+  appearance: none;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 4px 8px;
+}
+.unified-drawer-close:hover { opacity: 1; }
+.unified-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px 24px 16px;
+}
+.ud-pane { display: none; }
+.ud-pane.active { display: block; }
+
+/* 2026-05-25 — Toggle grid de ámbitos dentro de la pestaña Gestos.
+   Cada tarjeta es un botón on/off. Estado ON: fondo ink + texto paper. */
+.ud-grid-head {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--ink);
+  opacity: 0.75;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.ud-grid-head-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--ocre-brand);
+  text-transform: uppercase;
+}
+.ud-toggle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.ud-toggle {
+  appearance: none;
+  background: rgba(184, 134, 70, 0.08);
+  border: 1.5px solid rgba(184, 134, 70, 0.3);
+  border-radius: 10px;
+  padding: 12px 12px 10px 12px;
+  cursor: pointer;
+  font-family: var(--font-serif);
+  text-align: left;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: background 0.12s, border-color 0.12s, transform 0.1s;
+}
+.ud-toggle:hover {
+  background: rgba(184, 134, 70, 0.18);
+  border-color: rgba(184, 134, 70, 0.55);
+}
+.ud-toggle:active { transform: translateY(1px); }
+.ud-toggle.on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper-app);
+}
+.ud-toggle.on .ud-toggle-icon { color: var(--ocre-brand); }
+.ud-toggle-icon {
+  font-size: 18px;
+  line-height: 1;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+/* Line-art en polilíneas que ilustra el gesto (2026-05-28). Ocupa la
+   parte superior de la tarjeta; el trazo hereda currentColor. */
+.ud-toggle-art {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.ud-toggle-art svg { height: 46px; width: auto; }
+.ud-toggle-art .ud-toggle-icon { font-size: 24px; margin: 0; }
+.ud-toggle-name {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+}
+.ud-toggle-sub {
+  font-size: 11px;
+  opacity: 0.75;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.ud-toggle.on .ud-toggle-sub { opacity: 0.7; }
+.ud-grid-foot {
+  margin-top: 14px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--ink);
+  opacity: 0.6;
+  padding: 6px 4px 0 4px;
+}
+
+/* Sinergias entre políticas seleccionadas */
+.ud-synergies {
+  margin-top: 14px;
+  background: rgba(184, 134, 70, 0.12);
+  border-left: 3px solid var(--ocre-brand);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.ud-synergies-head {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ocre-brand);
+  margin-bottom: 4px;
+}
+.ud-synergy {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink);
+  padding: 3px 0;
+  line-height: 1.35;
+}
+.ud-synergy::before {
+  content: "↔ ";
+  color: var(--ocre-brand);
+  margin-right: 4px;
+}
+
+/* Acciones del pane (Limpiar / Aplicar) */
+.ud-grid-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(26, 22, 18, 0.08);
+}
+.ud-action-secondary,
+.ud-action-primary {
+  appearance: none;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 1;
+  transition: background 0.12s, border-color 0.12s, transform 0.1s;
+}
+.ud-action-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid rgba(26, 22, 18, 0.25);
+}
+.ud-action-secondary:hover:not([disabled]) { background: rgba(26, 22, 18, 0.06); }
+.ud-action-secondary[disabled] { opacity: 0.4; cursor: default; }
+.ud-action-primary {
+  background: var(--ink);
+  color: var(--paper-app);
+  border: 1px solid var(--ink);
+  font-weight: 600;
+}
+.ud-action-primary:hover:not([disabled]) { background: #2a2218; }
+.ud-action-primary:active:not([disabled]) { transform: translateY(1px); }
+.ud-action-primary[disabled] {
+  opacity: 0.4;
+  cursor: default;
+  background: rgba(26, 22, 18, 0.5);
+  border-color: rgba(26, 22, 18, 0.5);
+}
+
+/* ------------------------------------------------------------
+   VISTAS ÁGORA y BIBLIOTHEKA — placeholders paper full-screen
+   El switcher de vistas via data-view en <body>. POLIS = mapa
+   (canvas + chrome existente); ÁGORA / BIBLIOTHEKA = página paper.
+   ------------------------------------------------------------ */
+.view-page {
+  position: fixed;
+  top: 56px;
+  left: 0; right: 0; bottom: 0;
+  background: var(--paper-app);
+  overflow-y: auto;
+  z-index: 11;
+  padding: 28px 22px 60px 22px;
+  display: none;
+}
+body[data-view="agora"] #view-agora,
+body[data-view="bibliotheka"] #view-bibliotheka { display: block; }
+
+/* Cuando la vista no es POLIS, oculta el lienzo y la touchbar
+   sin tocar la app-topbar (que es el shell común). */
+body[data-view="agora"] #stage,
+body[data-view="bibliotheka"] #stage,
+body[data-view="agora"] .siluetas-strip,
+body[data-view="bibliotheka"] .siluetas-strip,
+body[data-view="agora"] .app-bottombar,
+body[data-view="bibliotheka"] .app-bottombar {
+  display: none !important;
+}
+
+.view-page h1 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 0 0 6px 0;
+}
+.view-page .vp-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: rgba(26, 22, 18, 0.55);
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+.view-page .vp-card {
+  background: rgba(184, 134, 70, 0.08);
+  border: 1px solid rgba(184, 134, 70, 0.25);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.view-page .vp-card-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+.view-page .vp-card-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(26, 22, 18, 0.55);
+  margin-bottom: 8px;
+}
+.view-page .vp-card-body {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(26, 22, 18, 0.85);
+}
+.view-page .vp-cta {
+  appearance: none;
+  background: var(--ink);
+  color: var(--paper-app);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.view-page .vp-cta:hover { background: #2a2218; }
+.view-page .vp-empty {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: rgba(26, 22, 18, 0.5);
+  padding: 24px 0;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------
+   SILUETAS-STRIP — fila horizontal con las 7 islas como mini SVG
+   Posicionado bajo el topbar, fondo transparente sobre canvas dark.
+   Cada chip es un botón de ~36-40px con la silueta en ocre dim.
+   El chip activo (isla actual) se ilumina con ocre-brand.
+   ------------------------------------------------------------ */
+.siluetas-strip {
+  position: fixed;
+  top: 56px;                    /* inmediatamente bajo app-topbar (56px) */
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 8px;
+  height: 36px;
+  background: var(--paper-app);  /* banda paper continua con el topbar */
+  border-bottom: 1px solid rgba(26, 22, 18, 0.08);
+  /* z-index 14 igual que app-topbar para asentarse sobre la
+     archipielago-float (12) y resto de overlays. */
+  z-index: 14;
+  pointer-events: auto;
+}
+body:not(.skin-ocre) .siluetas-strip { display: none; }
+
+/* Sobre canvas paper los chips se ven ocre dim — refinamos contraste */
+body.skin-ocre .silueta-chip svg path {
+  fill: rgba(163, 121, 69, 0.75);    /* ocre dim sobre paper */
+  stroke: rgba(26, 22, 18, 0.25);    /* hairline ink sutil */
+}
+body.skin-ocre .silueta-chip.active svg path {
+  fill: var(--ocre-brand);
+  stroke: var(--ink);
+}
+
+/* Membrete original sigue activo: lo empujamos abajo para que no choque
+   con app-topbar (56px) + siluetas-strip (36px) = 92px. */
+body.skin-ocre .membrete { top: 100px; }
+/* Cog-toggle y back-btn legacy también se posicionaban a top:56px; los
+   muevo bajo el strip por consistencia. ITB v2 los reubicó dentro del
+   hud-toolbar inferior — estas reglas afectan sólo a los huérfanos. */
+body.skin-ocre .back-btn,
+body.skin-ocre .cog-toggle { top: 100px; }
+
+/* App-bottombar y zoom-fab: redundantes con hud-toolbar + dashboard
+   ITB v2. Los apagamos completamente. */
+.app-bottombar { display: none !important; }
+.zoom-fab { display: none !important; }
+
+.silueta-chip {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 28px;
+  opacity: 0.55;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.silueta-chip:hover { opacity: 0.85; transform: translateY(-1px); }
+.silueta-chip.active { opacity: 1; }
+.silueta-chip.active svg path {
+  fill: var(--ocre-brand);
+  stroke: var(--paper-app);
+  stroke-width: 0.5;
+}
+
+.silueta-chip svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.silueta-chip svg path {
+  fill: rgba(184, 134, 70, 0.7);   /* ocre dim */
+  stroke: rgba(245, 232, 200, 0.35);
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ============================================================
+   SKIN · VERNACULAR OCRE  (2026-05-28)
+   Botones e interfaz terracota/almagre, redondeados, con sombras
+   suaves de color. Dirección B del mockup (mockup-botones.html),
+   elegida por Pancho. Overrides ADITIVOS scoped a body.skin-ocre
+   (la piel de POLIS) — no tocan ÁGORA/BIBLIOTHEKA ni otras skins.
+   ============================================================ */
+body.skin-ocre {
+  --terracota:    #A0522D;
+  --terracota-dk: #7A3D20;
+  --terracota-sh: rgba(122, 61, 32, 0.40);
+  --terracota-tint: rgba(160, 82, 45, 0.14);
+}
+
+/* FAB unificado → círculo terracota, icono claro, sombra cálida */
+body.skin-ocre .unified-fab {
+  background: var(--terracota);
+  color: #FFF;
+  box-shadow: 0 4px 14px var(--terracota-sh);
+}
+
+/* "Entrar" → píldora terracota rellena y redondeada */
+body.skin-ocre .app-topbar-enter {
+  background: var(--terracota);
+  color: #FFF;
+  border: none;
+  border-radius: 22px;
+  padding: 6px 18px;
+  box-shadow: 0 2px 0 var(--terracota-sh);
+}
+body.skin-ocre .app-topbar-enter:hover { background: var(--terracota-dk); color: #FFF; }
+
+/* Icon-btn del topbar (cog) → circular, acento terracota */
+body.skin-ocre .app-topbar-iconbtn { border-radius: 50%; }
+body.skin-ocre .app-topbar-iconbtn:hover { background: var(--terracota-tint); color: var(--terracota); }
+body.skin-ocre .app-topbar-iconbtn.active { background: var(--terracota); color: #FFF; }
+
+/* Back / search flotantes → círculo blanco, borde + icono terracota */
+body.skin-ocre .app-membrete-back,
+body.skin-ocre .app-membrete-search {
+  background: #FFF;
+  border: 2px solid var(--terracota);
+  color: var(--terracota);
+  box-shadow: 0 2px 8px var(--terracota-sh);
+}
+body.skin-ocre .app-membrete-back:hover,
+body.skin-ocre .app-membrete-search:hover { background: #FFF6F0; }
+body.skin-ocre .app-membrete-search.active {
+  background: var(--terracota);
+  color: #FFF;
+  border-color: var(--terracota);
+}
+
+/* Tabs del drawer → activo terracota, pill redondeado */
+body.skin-ocre .unified-drawer-tab { border-radius: 16px; }
+body.skin-ocre .unified-drawer-tab.active { background: var(--terracota); color: #FFF; }
+
+/* Tarjetas de gesto (.ud-toggle) → redondeadas, activo terracota */
+body.skin-ocre .ud-toggle {
+  border-radius: 16px;
+  border-color: rgba(160, 82, 45, 0.30);
+  background: rgba(160, 82, 45, 0.07);
+}
+body.skin-ocre .ud-toggle:hover {
+  background: var(--terracota-tint);
+  border-color: rgba(160, 82, 45, 0.55);
+}
+body.skin-ocre .ud-toggle.on {
+  background: var(--terracota);
+  border-color: var(--terracota);
+  color: #FFF;
+  box-shadow: 0 3px 0 var(--terracota-sh);
+}
+body.skin-ocre .ud-toggle.on .ud-toggle-icon { color: #F4D9C0; }
+body.skin-ocre .ud-toggle.on .ud-toggle-sub  { opacity: 0.85; }
+/* Line-art: terracota cuando inactivo, claro cuando el gesto está activo */
+body.skin-ocre .ud-toggle-art { color: var(--terracota); }
+body.skin-ocre .ud-toggle.on .ud-toggle-art { color: #F4D9C0; }
+
+/* Acciones del pane: Aplicar (primaria) terracota píldora, Limpiar redondeada */
+body.skin-ocre .ud-action-primary {
+  background: var(--terracota);
+  border-color: var(--terracota);
+  border-radius: 22px;
+  box-shadow: 0 2px 0 var(--terracota-sh);
+}
+body.skin-ocre .ud-action-primary:hover:not([disabled]) { background: var(--terracota-dk); }
+body.skin-ocre .ud-action-secondary {
+  border-radius: 22px;
+  border-color: rgba(160, 82, 45, 0.40);
+  color: var(--terracota-dk);
+}
+body.skin-ocre .ud-action-secondary:hover:not([disabled]) { background: var(--terracota-tint); }
+
+/* Sinergias → acento terracota en vez de ocre-brand */
+body.skin-ocre .ud-synergies { border-left-color: var(--terracota); }
+body.skin-ocre .ud-synergies-head,
+body.skin-ocre .ud-synergy::before { color: var(--terracota); }
+
+/* Capas: capa activa terracota, punto-acento contrastado */
+body.skin-ocre .layer-panel .lp-layer { border-radius: 9px; }
+body.skin-ocre .layer-panel .lp-layer.active {
+  background: var(--terracota);
+  color: #FFF;
+  border-color: var(--terracota);
+}
+body.skin-ocre .layer-panel .lp-layer.active .lp-dot { background: #F4D9C0; }
+
+/* Sub-chips de filtro → píldora; activo borde+texto terracota */
+body.skin-ocre .lp-chip { border-radius: 14px; }
+
+/* Silueta de isla activa → acento terracota (coincide con el resto) */
+body.skin-ocre .silueta-chip.active svg path { fill: var(--terracota); }
+
+/* Line-art en polilíneas en las tarjetas de verbo de la hoja de gestos
+   (#gestos-sheet). Sustituye al emoji; el trazo hereda currentColor. */
+#gestos-sheet-grid .ambito-glifo svg { width: 48px; height: 30px; display: block; }
+#gestos-sheet-grid .ambito-glifo { line-height: 0; }
+body.skin-ocre #gestos-sheet-grid .ambito-glifo { color: var(--terracota); }
+
+/* ══════════════════════════════════════════════════════════════════
+   Subgrid FLOTANTE de gestos (verbo → sectores multi-toggle + Aceptar)
+   ══════════════════════════════════════════════════════════════════ */
+.gsg-backdrop {
+  position: fixed; inset: 0; z-index: 10050;
+  background: rgba(20, 16, 10, 0.45);
+}
+.gsg-backdrop[hidden] { display: none; }
+
+.gsg-panel {
+  position: fixed; z-index: 10051;
+  left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(440px, 92vw); max-height: 80vh;
+  display: flex; flex-direction: column;
+  background: var(--paper); color: var(--ink);
+  border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  border-radius: 4px;
+}
+.gsg-panel[hidden] { display: none; }
+
+.gsg-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px; border-bottom: 2px solid var(--ink);
+}
+.gsg-title { font-weight: 700; font-size: 1.05rem; letter-spacing: 0.3px; }
+.gsg-close {
+  background: none; border: none; color: var(--ink);
+  font-size: 1.5rem; line-height: 1; cursor: pointer; padding: 0 4px;
+}
+
+.gsg-toggles {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  padding: 14px; overflow-y: auto;
+}
+.gsg-toggle, .gsg-go {
+  display: flex; align-items: center; gap: 8px;
+  padding: 11px 12px; cursor: pointer; text-align: left;
+  background: var(--paper); color: var(--ink);
+  border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+  font-family: inherit; font-size: 0.9rem; border-radius: 3px;
+  transition: transform 80ms ease;
+}
+.gsg-toggle:active, .gsg-go:active { transform: translate(2px, 2px); box-shadow: none; }
+.gsg-glifo { font-size: 1.15rem; line-height: 1; }
+.gsg-lbl { flex: 1 1 auto; }
+.gsg-arrow { opacity: 0.6; }
+
+/* Marcado: inversión brutalista (tinta sólida) */
+.gsg-toggle.on {
+  background: var(--ink); color: var(--paper);
+  box-shadow: inset 2px 2px 0 rgba(255,255,255,0.18);
+}
+.gsg-toggle.on::after { content: "✓"; margin-left: 4px; font-weight: 700; }
+
+/* Sector "pronto" (web/pendiente): atenuado, no marcable */
+.gsg-toggle:disabled {
+  opacity: 0.45; cursor: not-allowed; box-shadow: none;
+  border-style: dashed;
+}
+.gsg-soon {
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em;
+  opacity: 0.7; margin-left: auto;
+}
+.gsg-go { border-style: solid; }
+
+.gsg-foot {
+  display: flex; gap: 8px; justify-content: flex-end;
+  padding: 12px 14px; border-top: 2px solid var(--ink);
+}
+.gsg-cancel, .gsg-accept {
+  padding: 9px 18px; cursor: pointer; font-family: inherit; font-weight: 600;
+  border: 2px solid var(--ink); border-radius: 3px;
+}
+.gsg-cancel { background: var(--paper); color: var(--ink); }
+.gsg-accept { background: var(--ink); color: var(--paper); box-shadow: 2px 2px 0 rgba(0,0,0,0.25); }
+.gsg-accept:active { transform: translate(2px, 2px); box-shadow: none; }
+
+@media (max-width: 380px) { .gsg-toggles { grid-template-columns: 1fr; } }

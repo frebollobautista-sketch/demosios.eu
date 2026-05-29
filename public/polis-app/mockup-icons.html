@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OCRE · Set de iconos vernacular v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper:      #F5E8C8;
+      --paper-app:  #FBF7EE;
+      --ocre:       #C89968;
+      --ocre-brand: #B88646;
+      --ocre-dk:    #A37945;
+      --sand:       #E2C99A;
+      --ink:        #1A1612;
+      --accent-cyan: #2EE8E0;
+      --accent-red:  #E63946;
+      --font-serif:  Georgia, "Times New Roman", serif;
+      --font-mono:   "IBM Plex Mono", "SF Mono", Menlo, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper-app);
+      color: var(--ink);
+      font-family: var(--font-serif);
+      padding: 24px 16px 80px 16px;
+    }
+    h1 {
+      font-size: 22px;
+      font-style: italic;
+      margin: 0 0 4px 0;
+      letter-spacing: 0.01em;
+    }
+    .sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ocre-brand);
+      margin-bottom: 28px;
+    }
+    .group {
+      margin-bottom: 36px;
+    }
+    .group-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.6;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(26,22,18,0.12);
+      margin-bottom: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--paper);
+      border: 1px solid rgba(26,22,18,0.12);
+      border-radius: 10px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .scales {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      padding: 6px 0;
+    }
+    .scale {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .scale svg { display: block; }
+    .scale-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--ocre-dk);
+      opacity: 0.7;
+    }
+    .name {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .meta {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 11px;
+      color: var(--ink);
+      opacity: 0.65;
+      text-align: center;
+      line-height: 1.35;
+    }
+    /* iconos inherit currentColor para fácil tinting */
+    svg.icon { color: var(--ocre-dk); }
+    svg.icon .accent { fill: var(--ink); }
+    svg.icon .light  { fill: var(--ocre); }
+    .dark-bg .card { background: var(--ink); border-color: rgba(184,134,70,0.3); }
+    .dark-bg .name, .dark-bg .meta { color: var(--paper-app); }
+    .dark-bg .scale-label { color: var(--ocre); }
+    .dark-bg svg.icon { color: var(--ocre); }
+    .dark-bg svg.icon .accent { fill: var(--paper-app); }
+    .dark-bg svg.icon .light  { fill: var(--ocre-dk); }
+
+    .legend {
+      background: var(--paper);
+      border: 1px dashed rgba(26,22,18,0.2);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+    .legend strong { color: var(--ocre-brand); }
+  </style>
+</head>
+<body>
+  <h1>Iconografía vernacular canaria · v1</h1>
+  <div class="sub">F1 · 16 SVGs · paleta paper-ocre-ink · silueta rellena · sin gradientes</div>
+
+  <div class="legend">
+    <strong>Reglas del set:</strong>
+    Silueta plana en ocre principal · detalles en ink (siempre fill, nunca stroke salvo línea de detalle interno).
+    Cada icono diseñado para leer a <strong>24px</strong> y mantener carácter vernacular a <strong>64px</strong>.
+    Viewbox uniforme 0 0 24 24. Padding interior 2px para que la silueta no toque el borde.
+    Sin texto dentro del icono — los glifos 2-char se mantienen sólo en pins de overlay.
+  </div>
+
+  <!-- ============================================================
+       GRUPO 1: Topbar + acciones UI (8 iconos)
+       ============================================================ -->
+  <div class="group">
+    <div class="group-title">1 · Topbar + acciones de UI</div>
+    <div class="grid">
+
+      <!-- BACK · Flecha estilo grabado con punta triangular -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M11.2 4.5L3.5 12l7.7 7.5v-4.2h9.3v-6.6H11.2z"/>
+              <path class="accent" d="M11.2 6.5v3.2h7.3v4.6h-7.3v3.2L5.5 12z" opacity="0.3"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M11.2 4.5L3.5 12l7.7 7.5v-4.2h9.3v-6.6H11.2z"/>
+              <path class="accent" d="M11.2 6.5v3.2h7.3v4.6h-7.3v3.2L5.5 12z" opacity="0.3"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M11.2 4.5L3.5 12l7.7 7.5v-4.2h9.3v-6.6H11.2z"/>
+              <path class="accent" d="M11.2 6.5v3.2h7.3v4.6h-7.3v3.2L5.5 12z" opacity="0.3"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Back</div>
+        <div class="meta">Punta de flecha sólida tipo grabado</div>
+      </div>
+
+      <!-- LUPA · Mango curvo no recto -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+              <path fill="currentColor" d="M14.5 14.5l5 5q.7.7 0 1.4t-1.4 0l-5-5z"/>
+              <circle cx="10" cy="10" r="3" fill="currentColor" opacity="0.18"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+              <path fill="currentColor" d="M14.5 14.5l5 5q.7.7 0 1.4t-1.4 0l-5-5z"/>
+              <circle cx="10" cy="10" r="3" fill="currentColor" opacity="0.18"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+              <path fill="currentColor" d="M14.5 14.5l5 5q.7.7 0 1.4t-1.4 0l-5-5z"/>
+              <circle cx="10" cy="10" r="3" fill="currentColor" opacity="0.18"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Lupa</div>
+        <div class="meta">Lente con halo interior + mango sólido</div>
+      </div>
+
+      <!-- AJUSTES · Engranaje con dientes triangulares -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 1.5l1.5 2.6h3l1.5 2.6-1.5 2.6 1.5 2.6-1.5 2.6h-3l-1.5 2.6-1.5-2.6h-3l-1.5-2.6 1.5-2.6-1.5-2.6 1.5-2.6h3z" transform="scale(0.85) translate(2.1 2.1)"/>
+              <circle cx="12" cy="12" r="3.2" fill="var(--paper)"/>
+              <circle cx="12" cy="12" r="1.2" class="accent"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 1.5l1.5 2.6h3l1.5 2.6-1.5 2.6 1.5 2.6-1.5 2.6h-3l-1.5 2.6-1.5-2.6h-3l-1.5-2.6 1.5-2.6-1.5-2.6 1.5-2.6h3z" transform="scale(0.85) translate(2.1 2.1)"/>
+              <circle cx="12" cy="12" r="3.2" fill="var(--paper)"/>
+              <circle cx="12" cy="12" r="1.2" class="accent"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 1.5l1.5 2.6h3l1.5 2.6-1.5 2.6 1.5 2.6-1.5 2.6h-3l-1.5 2.6-1.5-2.6h-3l-1.5-2.6 1.5-2.6-1.5-2.6 1.5-2.6h3z" transform="scale(0.85) translate(2.1 2.1)"/>
+              <circle cx="12" cy="12" r="3.2" fill="var(--paper)"/>
+              <circle cx="12" cy="12" r="1.2" class="accent"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Ajustes</div>
+        <div class="meta">Estrella de 8 puntas tipo molino aruco + ojo central</div>
+      </div>
+
+      <!-- GRID (FAB) · Retícula tipo mapa antiguo -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" fill="currentColor" rx="1"/>
+              <circle cx="12" cy="12" r="1.2" class="accent"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" fill="currentColor" rx="1"/>
+              <circle cx="12" cy="12" r="1.2" class="accent"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" fill="currentColor" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" fill="currentColor" rx="1"/>
+              <circle cx="12" cy="12" r="1.2" class="accent"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Capas (FAB)</div>
+        <div class="meta">Retícula 2×2 con ojo del cartógrafo</div>
+      </div>
+
+      <!-- PLUS · Cruz canaria con brazos ligeramente bulb -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M10 3h4v6q1.6 0 3 .7v4.6q-1.4.7-3 .7v6h-4v-6q-1.6 0-3-.7v-4.6q1.4-.7 3-.7z"/>
+              <circle cx="12" cy="12" r="1.5" class="accent" opacity="0.4"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M10 3h4v6q1.6 0 3 .7v4.6q-1.4.7-3 .7v6h-4v-6q-1.6 0-3-.7v-4.6q1.4-.7 3-.7z"/>
+              <circle cx="12" cy="12" r="1.5" class="accent" opacity="0.4"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M10 3h4v6q1.6 0 3 .7v4.6q-1.4.7-3 .7v6h-4v-6q-1.6 0-3-.7v-4.6q1.4-.7 3-.7z"/>
+              <circle cx="12" cy="12" r="1.5" class="accent" opacity="0.4"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Dejar gesto / Añadir</div>
+        <div class="meta">Cruz terrera con núcleo (inspirada en cruz de Antigua)</div>
+      </div>
+
+      <!-- SHARE · Flecha curva tipo viento -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="5" cy="18" r="2.5" fill="currentColor"/>
+              <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M5 18C8 15 11 11 16 8"/>
+              <path fill="currentColor" d="M16.5 4l5 4-5 4z"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <circle cx="5" cy="18" r="2.5" fill="currentColor"/>
+              <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M5 18C8 15 11 11 16 8"/>
+              <path fill="currentColor" d="M16.5 4l5 4-5 4z"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <circle cx="5" cy="18" r="2.5" fill="currentColor"/>
+              <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M5 18C8 15 11 11 16 8"/>
+              <path fill="currentColor" d="M16.5 4l5 4-5 4z"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Compartir</div>
+        <div class="meta">Trayectoria del alisio: origen + arco + punta</div>
+      </div>
+
+      <!-- CERRAR · Aspa con extremos redondeados -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Cerrar</div>
+        <div class="meta">Aspa simple — la única excepción line-art</div>
+      </div>
+
+      <!-- HANDLE · 3 líneas con extremos curvos -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <rect x="4" y="6" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+              <rect x="4" y="11" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+              <rect x="4" y="16" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <rect x="4" y="6" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+              <rect x="4" y="11" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+              <rect x="4" y="16" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <rect x="4" y="6" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+              <rect x="4" y="11" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+              <rect x="4" y="16" width="16" height="2.4" rx="1.2" fill="currentColor"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Menú / Handle</div>
+        <div class="meta">Tres marcas tipo cuño</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GRUPO 2: Ámbitos cívicos (8 iconos vernaculares)
+       ============================================================ -->
+  <div class="group">
+    <div class="group-title">2 · 8 ámbitos cívicos · iconografía vernacular canaria</div>
+    <div class="grid">
+
+      <!-- MOVILIDAD · Guagua silhouette + rueda -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3 8h18v8q0 1.2-1.2 1.2H4.2Q3 17.2 3 16z"/>
+              <rect x="5" y="9.5" width="5" height="3.5" fill="var(--paper)"/>
+              <rect x="11.5" y="9.5" width="5" height="3.5" fill="var(--paper)"/>
+              <rect x="18" y="9.5" width="2" height="3.5" fill="var(--paper)"/>
+              <circle cx="7" cy="18" r="2" class="accent"/>
+              <circle cx="17" cy="18" r="2" class="accent"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3 8h18v8q0 1.2-1.2 1.2H4.2Q3 17.2 3 16z"/>
+              <rect x="5" y="9.5" width="5" height="3.5" fill="var(--paper)"/>
+              <rect x="11.5" y="9.5" width="5" height="3.5" fill="var(--paper)"/>
+              <rect x="18" y="9.5" width="2" height="3.5" fill="var(--paper)"/>
+              <circle cx="7" cy="18" r="2" class="accent"/>
+              <circle cx="17" cy="18" r="2" class="accent"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3 8h18v8q0 1.2-1.2 1.2H4.2Q3 17.2 3 16z"/>
+              <rect x="5" y="9.5" width="5" height="3.5" fill="var(--paper)"/>
+              <rect x="11.5" y="9.5" width="5" height="3.5" fill="var(--paper)"/>
+              <rect x="18" y="9.5" width="2" height="3.5" fill="var(--paper)"/>
+              <circle cx="7" cy="18" r="2" class="accent"/>
+              <circle cx="17" cy="18" r="2" class="accent"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Movilidad</div>
+        <div class="meta">Silueta de guagua Global con dos ventanales</div>
+      </div>
+
+      <!-- VIVIENDA · Casa terrera con balcón -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 3l8.5 6V21H3.5V9z"/>
+              <rect x="6" y="13" width="4" height="6" fill="var(--paper)"/>
+              <rect x="13" y="13" width="5" height="3" fill="var(--paper)"/>
+              <path d="M3 9l9-6 9 6" fill="none" stroke="var(--ink)" stroke-width="1.2" opacity="0.4"/>
+              <rect x="5" y="18.5" width="14" height="1.6" class="accent" opacity="0.5"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 3l8.5 6V21H3.5V9z"/>
+              <rect x="6" y="13" width="4" height="6" fill="var(--paper)"/>
+              <rect x="13" y="13" width="5" height="3" fill="var(--paper)"/>
+              <path d="M3 9l9-6 9 6" fill="none" stroke="var(--ink)" stroke-width="1.2" opacity="0.4"/>
+              <rect x="5" y="18.5" width="14" height="1.6" class="accent" opacity="0.5"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 3l8.5 6V21H3.5V9z"/>
+              <rect x="6" y="13" width="4" height="6" fill="var(--paper)"/>
+              <rect x="13" y="13" width="5" height="3" fill="var(--paper)"/>
+              <path d="M3 9l9-6 9 6" fill="none" stroke="var(--ink)" stroke-width="1.2" opacity="0.4"/>
+              <rect x="5" y="18.5" width="14" height="1.6" class="accent" opacity="0.5"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Vivienda</div>
+        <div class="meta">Casa terrera con balcón corrido + portón + ventana</div>
+      </div>
+
+      <!-- SALUD · Hoja de drago pentafida -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 21q-2-3-4-5q-1.5-1.5 0-3q1-1 2.5-0.5q-1-2 0-4q1-2 1.5-5q0.5 3 1.5 5q1 2 0 4q1.5-0.5 2.5 0.5q1.5 1.5 0 3q-2 2-4 5z"/>
+              <path d="M12 6v15" stroke="var(--paper)" stroke-width="0.8" fill="none" opacity="0.5"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 21q-2-3-4-5q-1.5-1.5 0-3q1-1 2.5-0.5q-1-2 0-4q1-2 1.5-5q0.5 3 1.5 5q1 2 0 4q1.5-0.5 2.5 0.5q1.5 1.5 0 3q-2 2-4 5z"/>
+              <path d="M12 6v15" stroke="var(--paper)" stroke-width="0.8" fill="none" opacity="0.5"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 21q-2-3-4-5q-1.5-1.5 0-3q1-1 2.5-0.5q-1-2 0-4q1-2 1.5-5q0.5 3 1.5 5q1 2 0 4q1.5-0.5 2.5 0.5q1.5 1.5 0 3q-2 2-4 5z"/>
+              <path d="M12 6v15" stroke="var(--paper)" stroke-width="0.8" fill="none" opacity="0.5"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Salud</div>
+        <div class="meta">Hoja de drago (planta sanadora tradicional)</div>
+      </div>
+
+      <!-- ALIMENTACIÓN · Espiga de millo -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <rect x="11" y="3" width="2" height="18" fill="currentColor"/>
+              <ellipse cx="9" cy="6"  rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="6"  rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="9.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="9.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="13" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="13" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="16.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="16.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <circle cx="12" cy="6" r="0.6" class="accent"/>
+              <circle cx="12" cy="9.5" r="0.6" class="accent"/>
+              <circle cx="12" cy="13" r="0.6" class="accent"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <rect x="11" y="3" width="2" height="18" fill="currentColor"/>
+              <ellipse cx="9" cy="6"  rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="6"  rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="9.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="9.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="13" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="13" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="16.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="16.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <circle cx="12" cy="6" r="0.6" class="accent"/>
+              <circle cx="12" cy="9.5" r="0.6" class="accent"/>
+              <circle cx="12" cy="13" r="0.6" class="accent"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <rect x="11" y="3" width="2" height="18" fill="currentColor"/>
+              <ellipse cx="9" cy="6"  rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="6"  rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="9.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="9.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="13" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="13" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="9" cy="16.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <ellipse cx="15" cy="16.5" rx="2.5" ry="1.2" fill="currentColor"/>
+              <circle cx="12" cy="6" r="0.6" class="accent"/>
+              <circle cx="12" cy="9.5" r="0.6" class="accent"/>
+              <circle cx="12" cy="13" r="0.6" class="accent"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Alimentación</div>
+        <div class="meta">Espiga de millo con granos centrales en ink</div>
+      </div>
+
+      <!-- CULTURA · Timple silueta -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M9.5 14q-3.5 0-3.5 4t3.5 4q3.5 0 5-3v-3l-2-1z"/>
+              <rect x="11.5" y="3" width="2.5" height="13" fill="currentColor"/>
+              <circle cx="12.5" cy="3.5" r="1.4" fill="currentColor"/>
+              <circle cx="9.5" cy="18" r="1.1" class="accent"/>
+              <path stroke="var(--paper)" stroke-width="0.5" d="M11.5 5v11M14 5v11" opacity="0.3"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M9.5 14q-3.5 0-3.5 4t3.5 4q3.5 0 5-3v-3l-2-1z"/>
+              <rect x="11.5" y="3" width="2.5" height="13" fill="currentColor"/>
+              <circle cx="12.5" cy="3.5" r="1.4" fill="currentColor"/>
+              <circle cx="9.5" cy="18" r="1.1" class="accent"/>
+              <path stroke="var(--paper)" stroke-width="0.5" d="M11.5 5v11M14 5v11" opacity="0.3"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M9.5 14q-3.5 0-3.5 4t3.5 4q3.5 0 5-3v-3l-2-1z"/>
+              <rect x="11.5" y="3" width="2.5" height="13" fill="currentColor"/>
+              <circle cx="12.5" cy="3.5" r="1.4" fill="currentColor"/>
+              <circle cx="9.5" cy="18" r="1.1" class="accent"/>
+              <path stroke="var(--paper)" stroke-width="0.5" d="M11.5 5v11M14 5v11" opacity="0.3"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Cultura y ocio</div>
+        <div class="meta">Timple canario — caja + clavijero + bocal</div>
+      </div>
+
+      <!-- ESPACIO PÚBLICO · Drago -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <rect x="10" y="13" width="4" height="9" fill="currentColor"/>
+              <path fill="currentColor" d="M12 3q-4 0-5 4q-3 0-3 3q0 3 3 3.5q1 2 5 2q4 0 5-2q3-0.5 3-3.5q0-3-3-3q-1-4-5-4z"/>
+              <path d="M9 14v6M15 14v6" stroke="var(--paper)" stroke-width="0.6" opacity="0.4"/>
+              <circle cx="8" cy="9"  r="0.6" class="accent"/>
+              <circle cx="16" cy="9" r="0.6" class="accent"/>
+              <circle cx="12" cy="7" r="0.6" class="accent"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <rect x="10" y="13" width="4" height="9" fill="currentColor"/>
+              <path fill="currentColor" d="M12 3q-4 0-5 4q-3 0-3 3q0 3 3 3.5q1 2 5 2q4 0 5-2q3-0.5 3-3.5q0-3-3-3q-1-4-5-4z"/>
+              <path d="M9 14v6M15 14v6" stroke="var(--paper)" stroke-width="0.6" opacity="0.4"/>
+              <circle cx="8" cy="9"  r="0.6" class="accent"/>
+              <circle cx="16" cy="9" r="0.6" class="accent"/>
+              <circle cx="12" cy="7" r="0.6" class="accent"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <rect x="10" y="13" width="4" height="9" fill="currentColor"/>
+              <path fill="currentColor" d="M12 3q-4 0-5 4q-3 0-3 3q0 3 3 3.5q1 2 5 2q4 0 5-2q3-0.5 3-3.5q0-3-3-3q-1-4-5-4z"/>
+              <path d="M9 14v6M15 14v6" stroke="var(--paper)" stroke-width="0.6" opacity="0.4"/>
+              <circle cx="8" cy="9"  r="0.6" class="accent"/>
+              <circle cx="16" cy="9" r="0.6" class="accent"/>
+              <circle cx="12" cy="7" r="0.6" class="accent"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Espacio público</div>
+        <div class="meta">Drago — tronco grueso, copa abovedada, frutos rojos</div>
+      </div>
+
+      <!-- EDUCACIÓN · Libro abierto con calado -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3 5q4-1 9 1v15q-5-2-9-1z"/>
+              <path fill="currentColor" d="M21 5q-4-1-9 1v15q5-2 9-1z"/>
+              <path d="M5 9h5M5 12h5M5 15h5" stroke="var(--paper)" stroke-width="0.8"/>
+              <path d="M14 9h5M14 12h5M14 15h5" stroke="var(--paper)" stroke-width="0.8"/>
+              <path d="M12 6v15" stroke="var(--ink)" stroke-width="0.6" opacity="0.4"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3 5q4-1 9 1v15q-5-2-9-1z"/>
+              <path fill="currentColor" d="M21 5q-4-1-9 1v15q5-2 9-1z"/>
+              <path d="M5 9h5M5 12h5M5 15h5" stroke="var(--paper)" stroke-width="0.8"/>
+              <path d="M14 9h5M14 12h5M14 15h5" stroke="var(--paper)" stroke-width="0.8"/>
+              <path d="M12 6v15" stroke="var(--ink)" stroke-width="0.6" opacity="0.4"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3 5q4-1 9 1v15q-5-2-9-1z"/>
+              <path fill="currentColor" d="M21 5q-4-1-9 1v15q5-2 9-1z"/>
+              <path d="M5 9h5M5 12h5M5 15h5" stroke="var(--paper)" stroke-width="0.8"/>
+              <path d="M14 9h5M14 12h5M14 15h5" stroke="var(--paper)" stroke-width="0.8"/>
+              <path d="M12 6v15" stroke="var(--ink)" stroke-width="0.6" opacity="0.4"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Educación</div>
+        <div class="meta">Libro abierto con líneas tipo calado canario</div>
+      </div>
+
+      <!-- TEJIDO SOCIAL · Nudo trenzado -->
+      <div class="card">
+        <div class="scales">
+          <div class="scale">
+            <svg class="icon" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M6 8q3 4 6 0t6 0M6 16q3-4 6 0t6 0"/>
+              <circle cx="6" cy="8"  r="2" fill="currentColor"/>
+              <circle cx="18" cy="8" r="2" fill="currentColor"/>
+              <circle cx="6" cy="16" r="2" fill="currentColor"/>
+              <circle cx="18" cy="16" r="2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2.2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="0.9" class="accent"/>
+            </svg>
+            <div class="scale-label">24</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M6 8q3 4 6 0t6 0M6 16q3-4 6 0t6 0"/>
+              <circle cx="6" cy="8"  r="2" fill="currentColor"/>
+              <circle cx="18" cy="8" r="2" fill="currentColor"/>
+              <circle cx="6" cy="16" r="2" fill="currentColor"/>
+              <circle cx="18" cy="16" r="2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2.2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="0.9" class="accent"/>
+            </svg>
+            <div class="scale-label">36</div>
+          </div>
+          <div class="scale">
+            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M6 8q3 4 6 0t6 0M6 16q3-4 6 0t6 0"/>
+              <circle cx="6" cy="8"  r="2" fill="currentColor"/>
+              <circle cx="18" cy="8" r="2" fill="currentColor"/>
+              <circle cx="6" cy="16" r="2" fill="currentColor"/>
+              <circle cx="18" cy="16" r="2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="2.2" fill="currentColor"/>
+              <circle cx="12" cy="12" r="0.9" class="accent"/>
+            </svg>
+            <div class="scale-label">64</div>
+          </div>
+        </div>
+        <div class="name">Tejido social</div>
+        <div class="meta">Nudo de cestería canaria — 4 vínculos + núcleo común</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GRUPO 3: Test contraste sobre fondo dark
+       ============================================================ -->
+  <div class="group dark-bg">
+    <div class="group-title" style="color: var(--ocre);">3 · Test contraste sobre fondo ink (modo dark / canvas oscuro)</div>
+    <div class="grid">
+      <div class="card">
+        <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3 8h18v8q0 1.2-1.2 1.2H4.2Q3 17.2 3 16z"/>
+          <rect x="5" y="9.5" width="5" height="3.5" fill="var(--ink)"/>
+          <rect x="11.5" y="9.5" width="5" height="3.5" fill="var(--ink)"/>
+          <rect x="18" y="9.5" width="2" height="3.5" fill="var(--ink)"/>
+          <circle cx="7" cy="18" r="2" fill="var(--paper-app)"/>
+          <circle cx="17" cy="18" r="2" fill="var(--paper-app)"/>
+        </svg>
+        <div class="name">Movilidad</div>
+      </div>
+      <div class="card">
+        <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 21q-2-3-4-5q-1.5-1.5 0-3q1-1 2.5-0.5q-1-2 0-4q1-2 1.5-5q0.5 3 1.5 5q1 2 0 4q1.5-0.5 2.5 0.5q1.5 1.5 0 3q-2 2-4 5z"/>
+        </svg>
+        <div class="name">Salud</div>
+      </div>
+      <div class="card">
+        <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+          <rect x="10" y="13" width="4" height="9" fill="currentColor"/>
+          <path fill="currentColor" d="M12 3q-4 0-5 4q-3 0-3 3q0 3 3 3.5q1 2 5 2q4 0 5-2q3-0.5 3-3.5q0-3-3-3q-1-4-5-4z"/>
+        </svg>
+        <div class="name">Espacio público</div>
+      </div>
+      <div class="card">
+        <svg class="icon" width="36" height="36" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M9.5 14q-3.5 0-3.5 4t3.5 4q3.5 0 5-3v-3l-2-1z"/>
+          <rect x="11.5" y="3" width="2.5" height="13" fill="currentColor"/>
+          <circle cx="12.5" cy="3.5" r="1.4" fill="currentColor"/>
+        </svg>
+        <div class="name">Cultura</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend" style="margin-top: 24px;">
+    <strong>Notas para iteración:</strong>
+    Cada SVG se puede pintar en cualquier color usando <code>currentColor</code> (el wrapper define <code>color: #A37945</code>).
+    Los detalles ink usan clase <code>.accent</code>. Para los pins de overlay heredan la categoría color.
+    Si te gusta una dirección concreta puedo: (a) pulir el carácter de la silueta más débil (drago, hoja, timple los tres son los que más merecen revisión), (b) preparar la versión "tampón/estampa" para badges, (c) producir el set en .svg files independientes listos para importar.
+  </div>
+</body>
+</html>

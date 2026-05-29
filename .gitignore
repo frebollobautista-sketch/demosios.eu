@@ -51,6 +51,13 @@ yarn-error.log*
 # Datos brutos descargados desde portales públicos (fuente, no versionar)
 /scripts/raw/
 
+# Artefactos de trabajo (logs, backups) — no versionar (2026-05-29)
+/logs/
+/public/buildings_backup_catastro/
+/public/data/_*.log
+/public/data/*backup*.json
+/public/data/*.placeholder-backup.json
+
 # POLIS-APP runtime data (v1.5.3 — primer push)
 # Las sections_pack pesan 279MB total; aquí solo subimos LPGC (mun=016, ~111MB)
 # para mantener el deploy bajo el límite de Vercel free (100MB compressed).

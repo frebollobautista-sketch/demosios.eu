@@ -4,26 +4,331 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>KOINOS · POLIS — runtime iso v0</title>
-  <link rel="stylesheet" href="./style.css" />
+  <!-- [I] ITB v2: IBM Plex Mono para números / HUD metric. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css?v=20260529-lineart" />
 </head>
-<body>
+<body class="skin-ocre" data-view="polis">
   <header class="banner">
     <div class="banner-title">KOINOS · POLIS</div>
     <div class="banner-sub" id="banner-sub">cargando…</div>
   </header>
 
-  <button id="back-btn" class="back-btn" aria-label="Volver al nivel anterior" title="Volver">←</button>
+  <!-- [OCRE-SKIN 2026-05-25] Top bar paper reestructurada con 5 acciones:
+       - Izquierda: ← back + 🪨 OCRE ▾ (vistas POLIS/ÁGORA/BIBLIOTHEKA)
+       - Derecha: 🔍 lupa + ⚙ ajustes + Entrar -->
+  <header class="app-topbar" id="app-topbar">
+    <div class="app-topbar-left">
+      <div class="app-topbar-brand" id="app-topbar-brand" role="button" tabindex="0" aria-haspopup="menu" aria-expanded="false">
+        <span class="brand-icon" aria-hidden="true"></span>
+        <span class="brand-text">OCRE</span>
+        <span class="brand-caret" aria-hidden="true">▾</span>
+      </div>
+    </div>
 
-  <nav class="breadcrumb" id="breadcrumb" aria-label="Navegación jerárquica">
-    <button class="bc-seg" data-level="isla">Gran Canaria</button>
+    <div class="app-topbar-menu" id="app-topbar-menu" role="menu" aria-hidden="true">
+      <button class="atm-item atm-active" role="menuitem" data-view="polis">
+        <span class="atm-dot" aria-hidden="true"></span>
+        <span class="atm-text">
+          <span class="atm-name">POLIS</span>
+          <span class="atm-desc">El mapa cívico</span>
+        </span>
+      </button>
+      <button class="atm-item" role="menuitem" data-view="agora">
+        <span class="atm-dot" aria-hidden="true"></span>
+        <span class="atm-text">
+          <span class="atm-name">ÁGORA</span>
+          <span class="atm-desc">Asambleas y debate</span>
+        </span>
+      </button>
+      <button class="atm-item" role="menuitem" data-view="bibliotheka">
+        <span class="atm-dot" aria-hidden="true"></span>
+        <span class="atm-text">
+          <span class="atm-name">BIBLIOTHEKA</span>
+          <span class="atm-desc">Archivo cívico y memoria</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="app-topbar-right">
+      <button class="app-topbar-iconbtn" id="app-topbar-cog" type="button" aria-label="Ajustes" title="Ajustes">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+      <button class="app-topbar-enter" id="app-topbar-enter" type="button">Entrar</button>
+    </div>
+  </header>
+
+  <!-- [OCRE-SKIN 2026-05-25 v6] Back arrow y lupa flotan FLANQUEANDO la
+       membreta (Canarias / Tenerife / etc) en lugar de vivir en el
+       topbar. Pancho: "estarían a la derecha e izquierda de donde ahora
+       pone Canarias". Posicionados a la altura del chip membrete. -->
+  <button class="app-membrete-back" id="app-topbar-back" type="button" aria-label="Volver al nivel anterior" title="Volver">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M19 12H5"/>
+      <path d="M12 19l-7-7 7-7"/>
+    </svg>
+  </button>
+  <button class="app-membrete-search" id="app-topbar-search" type="button" aria-label="Buscar" title="Buscar">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+  </button>
+
+  <!-- [OCRE-SKIN 2026-05-25] Bocadillo de búsqueda flotante.
+       Anclado al borde derecho de la pantalla, crece hacia la
+       izquierda. Sale FUERA del topbar para no quedar atrapado por
+       el flex-wrap y para que su z-index domine sobre la strip. -->
+  <div class="app-search-bubble" id="app-search-bubble" aria-hidden="true">
+    <div class="asb-input-row">
+      <svg class="asb-input-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" class="asb-input" id="app-search-input"
+             placeholder="Buscar municipios, barrios, calles, asociaciones…"
+             autocomplete="off" spellcheck="false" />
+      <button class="asb-clear" id="app-search-clear" type="button" aria-label="Limpiar">×</button>
+    </div>
+    <div class="asb-results" id="app-search-results">
+      <div class="asb-hint">Escribe para buscar…</div>
+    </div>
+  </div>
+
+  <!-- [OCRE-SKIN F5b] Siluetas-strip permanente: las 7 islas como mini-
+       paths SVG. Build dinámico en app.js tras loadArchipielago(). El
+       chip activo refleja state.lodLevel; tap salta a esa isla
+       (enterIsla) o vuelve al archipielago (chip "Canarias"). -->
+  <div id="siluetas-strip" class="siluetas-strip" aria-label="Islas"></div>
+
+  <!-- [revert 2026-05-24] bottom sheet + zoom-fab eliminados. Volvemos
+       al dashboard dock derecho + hud-toolbar inferior de ITB v2. -->
+
+  <!-- [OCRE-SKIN 2026-05-25] FAB unificado que reemplaza ≡ capas, 📊
+       datos y ✋ gestos. Posición: borde izquierdo a ~3/5 del borde
+       inferior. Tap abre drawer con 3 pestañas. -->
+  <button class="unified-fab" id="unified-fab" type="button" aria-label="Datos, gestos y capas">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/>
+    </svg>
+  </button>
+
+  <div class="unified-drawer" id="unified-drawer" aria-hidden="true">
+    <div class="unified-drawer-head">
+      <div class="unified-drawer-tabs">
+        <button class="unified-drawer-tab active" data-pane="gestos" type="button">Gestos</button>
+        <button class="unified-drawer-tab" data-pane="datos" type="button">Datos</button>
+        <button class="unified-drawer-tab" data-pane="capas" type="button">Capas</button>
+      </div>
+      <button class="unified-drawer-close" id="unified-drawer-close" type="button" aria-label="Cerrar">×</button>
+    </div>
+    <div class="unified-drawer-body">
+      <div class="ud-pane active" data-pane="gestos" id="ud-pane-gestos">
+        <div class="vp-empty">Cargando gestos…</div>
+      </div>
+      <div class="ud-pane" data-pane="datos" id="ud-pane-datos">
+        <div class="vp-empty">Datos del nivel actual</div>
+      </div>
+      <div class="ud-pane" data-pane="capas" id="ud-pane-capas">
+        <div class="vp-empty">Capas de datos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [OCRE-SKIN 2026-05-25] Vista ÁGORA — placeholder paper full-screen.
+       Activada por body[data-view="agora"]. -->
+  <section class="view-page" id="view-agora" aria-label="Ágora">
+    <h1>Ágora</h1>
+    <div class="vp-sub">Asambleas · debate · decisiones colectivas</div>
+    <div class="vp-card">
+      <div class="vp-card-title">Próximas asambleas</div>
+      <div class="vp-card-meta">Convocadas en tu isla</div>
+      <div class="vp-empty">Aún no hay asambleas convocadas en tu nivel.</div>
+      <button class="vp-cta" type="button">Convocar asamblea aquí</button>
+    </div>
+    <div class="vp-card">
+      <div class="vp-card-title">Debates abiertos</div>
+      <div class="vp-card-meta">Temas en discusión activa</div>
+      <div class="vp-empty">Sin debates por ahora.</div>
+    </div>
+    <div class="vp-card">
+      <div class="vp-card-title">Decisiones recientes</div>
+      <div class="vp-card-meta">Lo que la asamblea ha resuelto</div>
+      <div class="vp-empty">Aún sin decisiones registradas.</div>
+    </div>
+  </section>
+
+  <!-- [OCRE-SKIN 2026-05-25] Vista BIBLIOTHEKA — placeholder paper full-screen. -->
+  <section class="view-page" id="view-bibliotheka" aria-label="Bibliotheka">
+    <h1>Bibliotheka</h1>
+    <div class="vp-sub">Archivo cívico · memoria · documentos comunes</div>
+    <div class="vp-card">
+      <div class="vp-card-title">Memoria del territorio</div>
+      <div class="vp-card-meta">Gestos cívicos registrados</div>
+      <div class="vp-empty">El archivo se llenará con los gestos que dejéis en POLIS.</div>
+    </div>
+    <div class="vp-card">
+      <div class="vp-card-title">Documentos y actas</div>
+      <div class="vp-card-meta">Resoluciones de asamblea, planeamiento, ordenanzas</div>
+      <div class="vp-empty">Sin documentos publicados todavía.</div>
+    </div>
+    <div class="vp-card">
+      <div class="vp-card-title">Cartografía histórica</div>
+      <div class="vp-card-meta">Mapas, fotos aéreas, planos catastrales</div>
+      <div class="vp-empty">Próximamente — fuentes IDECanarias, ULL, archivos locales.</div>
+    </div>
+  </section>
+
+
+  <!-- [I] ITB v2 — HUD toolbar inferior agrupada. Los botones de antes
+       (back, cog, gestos, layer, zoom) viven aquí, con sus IDs originales
+       preservados para no romper handlers. Visual: barra ink translúcida
+       con esquinas chaflanadas, dividers entre grupos semánticos. La
+       toolbar se monta en :root al final del body para que su z-index
+       quede sobre el canvas pero por debajo de overlays modales. -->
+  <div id="hud-toolbar" class="hud-toolbar" aria-label="Controles">
+    <!-- Grupo 3 (cámara — orden visual izq.): back -->
+    <button id="back-btn" class="back-btn tool-btn" aria-label="Volver al nivel anterior" title="Volver">←</button>
+    <span class="tool-divider" aria-hidden="true"></span>
+    <!-- Grupo 1: acciones del jugador -->
+    <button id="gestos-toggle" class="gestos-toggle tool-btn" type="button"
+            aria-label="Lo que está en mis manos" aria-expanded="false"
+            title="Lo que está en mis manos">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7 11V6a1.5 1.5 0 0 1 3 0v5"/>
+        <path d="M10 11V4.5a1.5 1.5 0 0 1 3 0V11"/>
+        <path d="M13 11V5a1.5 1.5 0 0 1 3 0v6"/>
+        <path d="M16 11V8a1.5 1.5 0 0 1 3 0v6.5a6.5 6.5 0 0 1-13 0v-3a1.5 1.5 0 0 1 3 0V13"/>
+      </svg>
+    </button>
+    <button id="cog-toggle" class="cog-toggle tool-btn" aria-label="Preferencias" title="Preferencias">⚙</button>
+    <span class="tool-divider" aria-hidden="true"></span>
+    <!-- Grupo 2: datos -->
+    <button id="layer-panel-toggle" class="layer-panel-toggle tool-btn" type="button"
+            aria-label="Modo datos" aria-expanded="false"
+            title="Modo datos (capas individuales)">≡</button>
+    <span class="tool-divider" aria-hidden="true"></span>
+    <!-- Grupo 3: cámara (zoom) -->
+    <button id="btn-zoom-out" class="tool-btn" title="Alejar">−</button>
+    <button id="btn-zoom-in" class="tool-btn" title="Acercar">+</button>
+  </div>
+
+  <!-- Menú de preferencias (cog) — sustituye a los antiguos botones
+       sueltos search-toggle / registro-toggle / admin-badge. Click en
+       el cog despliega un menu rectangular con las 3 acciones (y
+       cerrar). Click fuera o ESC lo cierran. -->
+  <div id="cog-menu" class="cog-menu" aria-hidden="true">
+    <!-- Acciones rápidas -->
+    <button class="cog-item" data-cog-action="search">🔍 Buscar</button>
+    <button class="cog-item" data-cog-action="registro">+ Registrar mi sitio</button>
+    <div class="cog-sep" aria-hidden="true"></div>
+    <!-- Cuenta / usuario -->
+    <button class="cog-item" data-cog-action="cuenta">👤 Cuenta</button>
+    <button class="cog-item" data-cog-action="privacidad">🔒 Privacidad</button>
+    <div class="cog-sep" aria-hidden="true"></div>
+    <!-- Configuración -->
+    <button class="cog-item" data-cog-action="tema">🎨 Tema y escala</button>
+    <button class="cog-item" data-cog-action="info">ℹ️ Info y créditos</button>
+    <div class="cog-sep" aria-hidden="true"></div>
+    <!-- Admin (oculto por defecto) -->
+    <button class="cog-item cog-admin" data-cog-action="admin" hidden>🛠️ ADMIN</button>
+    <button class="cog-item cog-close" data-cog-action="close">Cerrar</button>
+  </div>
+
+  <!-- Buscador transversal: indexa muns, eventos, distritos y venues.
+       El botón se invoca ahora desde el menú cog. ESC y click
+       fuera lo cierran. Cmd/Ctrl-K también lo abre. -->
+  <button id="search-toggle" class="search-toggle" aria-label="Buscar" title="Buscar (⌘K)" hidden>🔍</button>
+  <div id="search-overlay" class="search-overlay" aria-hidden="true">
+    <div class="search-box">
+      <input type="text" id="search-input" class="search-input"
+             placeholder="Buscar municipios, eventos, distritos…"
+             autocomplete="off" spellcheck="false" />
+      <div class="search-results" id="search-results"></div>
+      <div class="search-hint">↑↓ para navegar · ↵ para abrir · ESC para cerrar</div>
+    </div>
+  </div>
+
+  <!-- Membrete flotante (sustituye al pill breadcrumb). Estilo papel
+       oficial sobre el render. Línea superior: cadena de padres con ›
+       (cada segmento clicable). Línea inferior: nivel actual en italic
+       bold + meta (ej. "Manzana 5 · 19 edificios"). En nivel isla
+       muestra solo "Gran Canaria". -->
+  <nav class="membrete" id="breadcrumb" aria-label="Navegación jerárquica">
+    <div class="mb-parents" id="mb-parents"></div>
+    <div class="mb-current" id="mb-current">Canarias</div>
   </nav>
 
-  <button id="dist-prev" class="dist-side-btn left" aria-label="Distrito anterior" title="Distrito anterior">‹</button>
-  <button id="dist-next" class="dist-side-btn right" aria-label="Distrito siguiente" title="Distrito siguiente">›</button>
-
   <div id="dist-label" class="dist-label" aria-hidden="true"></div>
+  <div id="barrio-label" class="dist-label" aria-hidden="true"></div>
 
   <canvas id="stage" aria-label="Mapa isométrico"></canvas>
+
+  <!-- Grid de archipiélago (2026-05-21) — sustituye al render iso del
+       nivel "archipielago". Disposición geográfica respetada en 4 cols
+       × 3 filas, con áreas nombradas (lp/lg/eh oeste, tf/gc centro,
+       fv/lz este). Cada tarjeta lleva mini-silueta iso + nombre +
+       espacio reservado para chascarrillo. Visible solo cuando
+       lodLevel === "archipielago"; el canvas se oculta entonces. -->
+  <!-- Concepto FLOTANTE (2026-05-21 v2) — sustituye al grid. Las 7 islas
+       flotan con bobbing ambient en posiciones random. Al hover, la
+       isla anima hacia su posición geográfica real (sobre el mapa-
+       fantasma de fondo) y se ilumina. El usuario debe ARRASTRAR la
+       silueta hasta su hueco-ghost para confirmar la elección.
+       Mobile fallback: tap simple = enterIsla directo. -->
+  <section id="archipielago-float" class="archipielago-float" aria-label="Selector de isla" hidden>
+    <!-- Capa de huecos-fantasma (contorno tenue del archipiélago real).
+         Se rellenan dinámicamente al montar con la silueta de cada isla
+         en su posición geográfica. -->
+    <div class="float-ghosts" aria-hidden="true"></div>
+    <!-- Capa de siluetas flotantes (rellenadas dinámicamente, una por isla). -->
+    <div class="float-islands"></div>
+    <!-- Mensaje hint inicial — desaparece tras la primera interacción. -->
+    <div class="float-hint" aria-live="polite">Arrastra cada isla a su sitio</div>
+  </section>
+
+  <section id="archipielago-grid" class="archipielago-grid" aria-label="Selector de isla (grid)" hidden>
+    <button type="button" class="isla-card" data-isla="lp" style="grid-area:lp">
+      <canvas class="isla-card-canvas" aria-hidden="true"></canvas>
+      <span class="isla-card-name">La Palma</span>
+      <span class="isla-card-tag"></span>
+    </button>
+    <button type="button" class="isla-card" data-isla="lz" style="grid-area:lz">
+      <canvas class="isla-card-canvas" aria-hidden="true"></canvas>
+      <span class="isla-card-name">Lanzarote</span>
+      <span class="isla-card-tag"></span>
+    </button>
+    <button type="button" class="isla-card" data-isla="lg" style="grid-area:lg">
+      <canvas class="isla-card-canvas" aria-hidden="true"></canvas>
+      <span class="isla-card-name">La Gomera</span>
+      <span class="isla-card-tag"></span>
+    </button>
+    <button type="button" class="isla-card" data-isla="tf" style="grid-area:tf">
+      <canvas class="isla-card-canvas" aria-hidden="true"></canvas>
+      <span class="isla-card-name">Tenerife</span>
+      <span class="isla-card-tag"></span>
+    </button>
+    <button type="button" class="isla-card" data-isla="gc" style="grid-area:gc">
+      <canvas class="isla-card-canvas" aria-hidden="true"></canvas>
+      <span class="isla-card-name">Gran Canaria</span>
+      <span class="isla-card-tag"></span>
+    </button>
+    <button type="button" class="isla-card" data-isla="fv" style="grid-area:fv">
+      <canvas class="isla-card-canvas" aria-hidden="true"></canvas>
+      <span class="isla-card-name">Fuerteventura</span>
+      <span class="isla-card-tag"></span>
+    </button>
+    <button type="button" class="isla-card" data-isla="eh" style="grid-area:eh">
+      <canvas class="isla-card-canvas" aria-hidden="true"></canvas>
+      <span class="isla-card-name">El Hierro</span>
+      <span class="isla-card-tag"></span>
+    </button>
+  </section>
 
   <!-- HUD: el contenido se inyecta desde renderer.js consumiendo
        state.indicators. Mientras Supabase/Next.js no lo rellenen el HUD
@@ -43,11 +348,228 @@
 
   <div class="lod-pill" id="lod-pill">LOD: sección</div>
 
-  <div class="zoom-bar" id="zoom-bar">
-    <button id="btn-zoom-out" title="Alejar">−</button>
-    <button id="btn-zoom-reset" title="Reset">○</button>
-    <button id="btn-zoom-in" title="Acercar">+</button>
+  <!-- Tablero cívico (dashboard.js) — panel persistente con 4 ámbitos
+       de derecho fundamental: espacio, movilidad, alimentación, cultura.
+       Cada card muestra una métrica agregada de la zona visible y un
+       botón de acción que captura un compromiso vía openCompromiso. -->
+  <aside id="dashboard" class="dashboard" aria-label="Tablero cívico"></aside>
+
+  <!-- Botón mano: entrada principal a "Lo que está en mis manos" — el
+       sheet de gestos cívicos reencuadrados como actividades del usuario
+       (coger guagua, reconocer productor, etc.). Sustituye al `≡` como
+       botón visible; el `≡` sigue existiendo oculto y se invoca desde
+       el footer del sheet para conservar el modo datos avanzado.
+       [I] Botón gestos movido arriba al hud-toolbar. -->
+
+  <!-- Panel de capas cívicas — modo avanzado. mountPanel() inyecta los
+       toggles por overlay. [I] Botón ≡ movido al hud-toolbar; el aside
+       sigue aquí con su contenido. -->
+  <aside id="layer-panel" class="layer-panel" aria-label="Panel de capas cívicas"></aside>
+
+  <!-- Sheet de gestos: bottom-sheet alto con grid de ámbitos. Cada
+       tarjeta es una familia de acciones cívicas. Nivel 0 = ámbitos
+       top-level (política pública). Nivel 1 (futuro) = actividades
+       concretas. Nivel 2 = capa visual + sujeto + gestos atómicos. -->
+  <div id="gestos-sheet" class="gestos-sheet" aria-hidden="true">
+    <header class="gestos-sheet-head">
+      <h2 class="gestos-sheet-title">Lo que está en mis manos</h2>
+      <button class="close" id="gestos-sheet-close" aria-label="Cerrar">×</button>
+    </header>
+    <!-- Grid de VERBOS cívicos + subgrid de sectores: lo puebla
+         app.js (bindGestosSheet) desde shared/taxonomia.js. -->
+    <div class="gestos-sheet-grid" id="gestos-sheet-grid"></div>
+    <footer class="gestos-sheet-foot">
+      <span class="gestos-sheet-hint">Toca un verbo para ver sus sectores</span>
+      <button class="gestos-sheet-data" id="gestos-data-toggle" type="button">Ver capas de datos</button>
+    </footer>
   </div>
+
+  <!-- Popup de compromiso: aparece al pulsar la acción de un ámbito.
+       Captura nombre+email+intención del usuario para procesar cuando
+       el backend (Next.js+Supabase) esté disponible. Mientras tanto
+       guarda en localStorage como mock. -->
+  <div id="compromiso-overlay" class="compromiso-overlay" aria-hidden="true">
+    <div class="compromiso-box">
+      <button class="close" id="compromiso-close" aria-label="Cerrar">×</button>
+      <div class="cp-derecho" id="cp-derecho"></div>
+      <h2 class="cp-titulo" id="cp-titulo"></h2>
+      <p class="cp-explica" id="cp-explica"></p>
+      <label class="cp-field">
+        <span>Tu nombre o alias</span>
+        <input type="text" id="cp-nombre" autocomplete="name" />
+      </label>
+      <label class="cp-field">
+        <span>Email para confirmarte</span>
+        <input type="email" id="cp-email" autocomplete="email" />
+      </label>
+      <button class="cp-submit" id="cp-submit" type="button">Confirmar compromiso</button>
+      <div class="cp-result" id="cp-result" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- Popup de REPORTE categorizado por ámbito. Anónimo (solo UID
+       interno para moderación). Lista de categorías preset según el
+       ámbito. 3 clicks max. -->
+  <div id="reporte-overlay" class="compromiso-overlay" aria-hidden="true">
+    <div class="compromiso-box">
+      <button class="close" id="reporte-close" aria-label="Cerrar">×</button>
+      <div class="cp-derecho">Reporte anónimo · <span id="rp-derecho"></span></div>
+      <h2 class="cp-titulo" id="rp-titulo">Reportar problema</h2>
+      <p class="cp-explica">
+        Selecciona qué pasa en la zona visible. El reporte queda
+        anónimo. Los admin pueden amonestar si se demuestra falsedad.
+      </p>
+      <div class="rp-options" id="rp-options"></div>
+      <div class="cp-result" id="rp-result" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- Popup de REGISTRO DE ENTIDAD. Auto-alta de un centro cívico,
+       cooperativa, espacio cultural, productor… Pide validadores
+       externos (URL, NIF, nº de registro). Quedará "pendiente" hasta
+       que la moderación lo valide. -->
+  <div id="registro-overlay" class="compromiso-overlay" aria-hidden="true">
+    <div class="compromiso-box">
+      <button class="close" id="registro-close" aria-label="Cerrar">×</button>
+      <div class="cp-derecho">Auto-registro de entidad</div>
+      <h2 class="cp-titulo">Registrar mi sitio en POLIS</h2>
+      <p class="cp-explica">
+        Apunta una cooperativa, asociación, espacio cultural o pequeño
+        productor para que aparezca en el mapa. Aportar al menos UN
+        validador externo permite verificar la entidad.
+      </p>
+      <label class="cp-field">
+        <span>Nombre de la entidad</span>
+        <input type="text" id="rg-nombre" />
+      </label>
+      <label class="cp-field">
+        <span>Categoría</span>
+        <select id="rg-categoria"></select>
+      </label>
+      <label class="cp-field">
+        <span>Municipio</span>
+        <input type="text" id="rg-municipio" />
+      </label>
+      <label class="cp-field">
+        <span>Qué hace (1 frase)</span>
+        <input type="text" id="rg-que" maxlength="180" />
+      </label>
+      <label class="cp-field">
+        <span>Página web oficial (validador)</span>
+        <input type="url" id="rg-url" placeholder="https://" />
+      </label>
+      <label class="cp-field">
+        <span>NIF / Nº de registro (validador opcional)</span>
+        <input type="text" id="rg-nif" />
+      </label>
+      <label class="cp-field">
+        <span>Tu email de contacto (para confirmar)</span>
+        <input type="email" id="rg-email" autocomplete="email" />
+      </label>
+      <button class="cp-submit" id="rg-submit" type="button">Enviar para validación</button>
+      <div class="cp-result" id="rg-result" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- v1.7: registro-toggle y admin-badge legacy. Quedan en el DOM
+       para que los handlers existentes sigan funcionando, pero
+       hidden por defecto — su entrada vive ahora en el menú cog. -->
+  <button id="registro-toggle" class="registro-toggle" aria-label="Registrar mi sitio"
+          title="Registrar mi sitio (cooperativa / espacio / productor)" hidden>+</button>
+  <button id="admin-badge" class="admin-badge" hidden
+          title="Modo admin activo · Cmd+Shift+A para salir">ADMIN</button>
+
+  <!-- Botón flotante que aparece SOLO cuando hay una sección iluminada
+       (state.selectedSeccionCusec). Abre el popup-desplegable con datos
+       agregados de la sección + actividades cerca + atajos de acción. -->
+  <button id="seccion-detalle-toggle" class="seccion-detalle-toggle" hidden
+          aria-label="Ver detalle de la sección seleccionada">
+    <span class="sdt-text">Datos y actividades</span>
+    <span class="sdt-arrow">↗</span>
+  </button>
+
+  <!-- Popup desplegable con resumen de sección: 3 zonas (datos /
+       actividades cerca / accesos a gestos). Cada actividad es
+       clickable y reusa los popups existentes; los gestos delegan a
+       openReportePopup / openCompromisoPopup con el ámbito elegido. -->
+  <aside id="seccion-detalle-popup" class="seccion-detalle-popup" aria-hidden="true">
+    <button class="close" id="sd-close" aria-label="Cerrar">×</button>
+    <header class="sd-head">
+      <div class="sd-derecho">SECCIÓN CENSAL · <span id="sd-cusec"></span></div>
+      <h2 class="sd-titulo" id="sd-titulo">Datos y actividades</h2>
+      <div class="sd-zona" id="sd-zona"></div>
+    </header>
+    <section class="sd-section">
+      <h3>Resumen</h3>
+      <dl class="sd-datos" id="sd-datos"></dl>
+    </section>
+    <section class="sd-section">
+      <h3>Actividades cerca</h3>
+      <!-- Chips de filtro cross-cutting: tipo + sub-categoría. Persisten
+           a nivel global y también afectan a los pins en el mapa. -->
+      <div class="sd-filters">
+        <div class="sd-chip-row" id="sd-chips-tipo" role="tablist"
+             aria-label="Filtrar por tipo"></div>
+        <div class="sd-chip-row sd-chip-row--sub" id="sd-chips-subcat"
+             role="group" aria-label="Filtrar por categoría"></div>
+      </div>
+      <div class="sd-actividades" id="sd-actividades"></div>
+    </section>
+    <section class="sd-section">
+      <h3>Tu gesto aquí</h3>
+      <div class="sd-acciones" id="sd-acciones"></div>
+    </section>
+  </aside>
+
+  <!-- Panel admin — vista del REGISTRO NOMINAL de gestos. Solo accesible
+       con isAdmin()=true. Permite ver userId pseudónimo + acciones de
+       moderación (marcar falso, amonestar). -->
+  <div id="admin-overlay" class="admin-overlay" aria-hidden="true">
+    <div class="admin-box">
+      <button class="close" id="admin-close" aria-label="Cerrar">×</button>
+      <header class="ad-head">
+        <h2>Registro nominal · moderación</h2>
+        <div class="ad-sub">
+          Las medidas cuantitativas públicas ganan nombre aquí. Cada
+          gesto muestra su <code>userId</code> pseudónimo. NO compartir
+          este registro fuera de moderación. Ver
+          <code>docs/ADMIN-PROTOCOL.md</code>.
+        </div>
+      </header>
+      <div class="ad-filters">
+        <select id="ad-tipo">
+          <option value="">Todos los tipos</option>
+          <option value="senal">Señal</option>
+          <option value="reporte">Reporte</option>
+          <option value="compromiso">Compromiso</option>
+          <option value="registro_entidad">Registro entidad</option>
+        </select>
+        <select id="ad-ambito">
+          <option value="">Todos los ámbitos</option>
+          <option value="espacio">Cuidado del espacio</option>
+          <option value="movilidad">Movilidad</option>
+          <option value="alimentacion">Alimentación</option>
+          <option value="cultura">Cultura</option>
+        </select>
+        <input type="text" id="ad-zona" placeholder="zona (mun/distrito/cusec)" />
+      </div>
+      <div class="ad-table-wrap">
+        <table class="ad-table" id="ad-table">
+          <thead>
+            <tr>
+              <th>Tipo</th><th>Ámbito</th><th>Zona</th>
+              <th>Detalle</th><th>userId</th><th>Cuando</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="ad-summary" id="ad-summary"></div>
+    </div>
+  </div>
+
+  <!-- [I] zoom-bar movido al hud-toolbar arriba. El contenedor #zoom-bar
+       ya no existe; los botones individuales conservan IDs. -->
 
   <aside class="side-panel" id="side-panel" aria-hidden="true">
     <button class="close" id="side-close" aria-label="Cerrar">×</button>
@@ -55,10 +577,98 @@
     <dl id="sp-body"></dl>
   </aside>
 
+  <!-- Backdrop tenue para el popup de municipio: capta el click fuera y
+       cierra el popup sin disparar el tap del canvas. -->
+  <div class="mun-popup-backdrop" id="mun-popup-backdrop" aria-hidden="true"></div>
+
+  <!-- Popup que aparece al hacer tap sobre un pin de evento cultural.
+       Datos: data/events-cultural.geojson · overlays/eventos.js -->
+  <aside class="evento-popup" id="evento-popup" aria-hidden="true">
+    <button class="close" id="evento-popup-close" aria-label="Cerrar">×</button>
+    <div class="ep-cat" id="ep-cat"></div>
+    <h2 class="ep-titulo" id="ep-titulo"></h2>
+    <div class="ep-when" id="ep-when"></div>
+    <div class="ep-where" id="ep-where"></div>
+    <p class="ep-desc" id="ep-desc"></p>
+  </aside>
+
+  <!-- Modal de lista de eventos (P5 — 2026-05-21): cuando un cluster de
+       pins acumula varios eventos, se abre esta lista para que el usuario
+       elija cuál ver en detalle. Tap en un item abre #evento-popup. -->
+  <aside id="evento-list-modal" class="evento-list-modal" aria-hidden="true">
+    <button class="close" id="elm-close" aria-label="Cerrar">×</button>
+    <header class="elm-head">
+      <div class="elm-derecho">EVENTOS EN ESTE PUNTO</div>
+      <h2 class="elm-titulo"><span id="elm-count">0</span> eventos</h2>
+    </header>
+    <div class="elm-list" id="elm-list" role="list"></div>
+  </aside>
+
+  <!-- Popup que aparece al hacer tap sobre un pin de productor local.
+       Datos: data/productores-locales.geojson · overlays/productores.js -->
+  <aside class="productor-popup" id="productor-popup" aria-hidden="true">
+    <button class="close" id="productor-popup-close" aria-label="Cerrar">×</button>
+    <div class="pp-oficio" id="pp-oficio"></div>
+    <h2 class="pp-nombre" id="pp-nombre"></h2>
+    <div class="pp-where" id="pp-where"></div>
+    <p class="pp-que" id="pp-que"></p>
+    <div class="pp-gestos" id="pp-gestos"></div>
+  </aside>
+
+  <!-- Popup tejido social: cooperativa / asociación / espacio comunitario.
+       Datos: data/tejido-social.geojson · overlays/tejido-social.js -->
+  <aside class="tejido-popup" id="tejido-popup" aria-hidden="true">
+    <button class="close" id="tejido-popup-close" aria-label="Cerrar">×</button>
+    <div class="tp-cat" id="tp-cat"></div>
+    <h2 class="tp-nombre" id="tp-nombre"></h2>
+    <div class="tp-where" id="tp-where"></div>
+    <p class="tp-que" id="tp-que"></p>
+  </aside>
+
+  <!-- Popup registro oficial: asociaciones/fundaciones del Registro de
+       Asociaciones de Canarias (raw, 25k entidades).
+       Datos: data/entidades/*.json · overlays/registro.js -->
+  <aside class="registro-popup" id="registro-popup" aria-hidden="true">
+    <button class="close" id="registro-popup-close" aria-label="Cerrar">×</button>
+    <div class="rp-tipo" id="rp-tipo"></div>
+    <h2 class="rp-nombre" id="rp-nombre"></h2>
+    <div class="rp-actividad" id="rp-actividad"></div>
+    <div class="rp-where" id="rp-where"></div>
+    <div class="rp-links" id="rp-links"></div>
+  </aside>
+
+  <!-- Popup que aparece al hacer tap sobre un municipio en la vista isla.
+       Muestra nombre, lema, población y un chascarrillo identitario, con
+       un botón "Entrar" que dispara enterMunicipio. Datos: data/municipios-info.json -->
+  <aside class="mun-popup" id="mun-popup" aria-hidden="true">
+    <button class="close" id="mun-popup-close" aria-label="Cerrar">×</button>
+    <div class="mp-escudo" id="mp-escudo" aria-hidden="true"></div>
+    <h2 class="mp-nombre" id="mp-nombre"></h2>
+    <div class="mp-lema" id="mp-lema"></div>
+    <dl class="mp-stats" id="mp-stats"></dl>
+    <p class="mp-chascarrillo" id="mp-chascarrillo"></p>
+    <button class="mp-enter" id="mp-enter" type="button">Entrar al municipio →</button>
+  </aside>
+
   <div id="loader" class="loader">
     <div class="loader-inner">cargando data pack…</div>
   </div>
 
-  <script type="module" src="./app.js"></script>
+  <!-- 2026-05-26 — Modal genérico para items del cog (cuenta, privacidad,
+       tema, info). Body se inyecta dinámicamente por cog-modal.js. -->
+  <div id="cog-modal" class="cog-modal" aria-hidden="true" role="dialog" aria-labelledby="cog-modal-title">
+    <div class="cog-modal-backdrop" data-cog-close></div>
+    <div class="cog-modal-card">
+      <header class="cog-modal-head">
+        <h2 id="cog-modal-title">—</h2>
+        <button class="cog-modal-x" type="button" data-cog-close aria-label="Cerrar">×</button>
+      </header>
+      <div id="cog-modal-body" class="cog-modal-body">
+        <!-- inyectado dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js?v=20260529-lineart"></script>
 </body>
 </html>

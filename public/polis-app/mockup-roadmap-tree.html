@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OCRE · POLIS · Árbol roadmap de datos cívicos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F5E8C8;
+      --paper-app: #FBF7EE;
+      --ocre: #C89968;
+      --ocre-brand: #B88646;
+      --ocre-dk: #A37945;
+      --ocre-lt: #D9B58A;
+      --sand: #E2C99A;
+      --ink: #1A1612;
+      --accent-cyan: #2EE8E0;
+      --accent-red: #E63946;
+      --accent-green: #6FA56F;
+      --accent-amber: #E68A4F;
+      --font-serif: Georgia, "Times New Roman", serif;
+      --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper-app);
+      color: var(--ink);
+      font-family: var(--font-serif);
+      padding: 0 0 120px 0;
+    }
+    .head {
+      background: var(--ink);
+      color: var(--paper-app);
+      padding: 16px 18px 14px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .head h1 {
+      margin: 0;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .head .sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ocre-brand);
+      margin-top: 2px;
+    }
+    .counters {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .ctr {
+      display: flex; align-items: baseline; gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.06);
+    }
+    .ctr .num { font-size: 14px; font-weight: 600; }
+    .ctr.accept .num { color: var(--accent-green); }
+    .ctr.postpone .num { color: var(--accent-amber); }
+    .ctr.reject .num { color: var(--accent-red); }
+    .ctr.pending .num { color: var(--paper-app); opacity: 0.6; }
+    .ctr.total .num { color: var(--accent-cyan); }
+
+    .body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 12px 0 12px;
+    }
+
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 10px 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .toolbar .filter-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.6;
+      margin-right: 4px;
+    }
+    .toolbar button {
+      appearance: none;
+      background: transparent;
+      border: 1px solid rgba(26,22,18,0.2);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .toolbar button.on {
+      background: var(--ink);
+      color: var(--paper-app);
+      border-color: var(--ink);
+    }
+
+    /* Categoría (acordeón) */
+    .cat {
+      background: var(--paper);
+      border: 1px solid rgba(26,22,18,0.1);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .cat-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      cursor: pointer;
+      user-select: none;
+      background: linear-gradient(135deg, rgba(184,134,70,0.08), transparent);
+    }
+    .cat-head:hover { background: rgba(184,134,70,0.14); }
+    .cat-caret {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      opacity: 0.6;
+      width: 12px;
+      transition: transform 0.15s;
+    }
+    .cat.open .cat-caret { transform: rotate(90deg); }
+    .cat-icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: rgba(184,134,70,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      color: var(--ocre-dk);
+      flex-shrink: 0;
+    }
+    .cat-name {
+      flex: 1;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .cat-stat {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      opacity: 0.55;
+    }
+    .cat-stat .a { color: var(--accent-green); font-weight: 600; }
+    .cat-stat .p { color: var(--accent-amber); font-weight: 600; }
+    .cat-stat .r { color: var(--accent-red); font-weight: 600; }
+
+    .cat-body {
+      display: none;
+      padding: 0 8px 12px 8px;
+    }
+    .cat.open .cat-body { display: block; }
+
+    /* Dataset row */
+    .ds {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      margin: 4px 0;
+      background: rgba(251,247,238,0.6);
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .ds.accept { background: rgba(111,165,111,0.14); border-color: rgba(111,165,111,0.45); }
+    .ds.postpone { background: rgba(230,138,79,0.12); border-color: rgba(230,138,79,0.45); }
+    .ds.reject { background: rgba(230,57,70,0.08); border-color: rgba(230,57,70,0.35); opacity: 0.65; }
+
+    .ds-id {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ocre-brand);
+      background: rgba(184,134,70,0.12);
+      padding: 3px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      min-width: 56px;
+      text-align: center;
+    }
+    .ds-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .ds-name {
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      line-height: 1.3;
+    }
+    .ds-meta {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.04em;
+    }
+    .chip-ola1 { background: var(--accent-cyan); color: var(--ink); }
+    .chip-ola2 { background: var(--ocre-brand); color: var(--paper-app); }
+    .chip-ola3 { background: var(--ocre-lt); color: var(--ink); opacity: 0.85; }
+    .chip-no-ola { background: rgba(26,22,18,0.12); color: var(--ink); opacity: 0.7; }
+    .chip-esfuerzo { background: transparent; border: 1px solid rgba(26,22,18,0.25); color: var(--ink); opacity: 0.75; }
+    .chip-impacto-Crítico { background: var(--accent-red); color: var(--paper-app); }
+    .chip-impacto-Alto { background: var(--accent-amber); color: var(--ink); }
+    .chip-impacto-Medio { background: rgba(26,22,18,0.18); color: var(--ink); }
+    .chip-impacto-Bajo { background: transparent; border: 1px solid rgba(26,22,18,0.25); color: var(--ink); opacity: 0.6; }
+
+    /* Tri-state acción */
+    .actions {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .act {
+      appearance: none;
+      background: transparent;
+      border: 1px solid rgba(26,22,18,0.18);
+      width: 30px; height: 30px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .act:hover { background: rgba(26,22,18,0.06); }
+    .act.on.accept { background: var(--accent-green); border-color: var(--accent-green); color: white; }
+    .act.on.postpone { background: var(--accent-amber); border-color: var(--accent-amber); color: white; }
+    .act.on.reject { background: var(--accent-red); border-color: var(--accent-red); color: white; }
+
+    /* Footer fijo */
+    .foot {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--paper-app);
+      border-top: 1px solid rgba(26,22,18,0.12);
+      padding: 12px 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.1);
+      z-index: 19;
+    }
+    .foot-meta {
+      flex: 1;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--ink);
+      opacity: 0.8;
+    }
+    .foot-meta strong { color: var(--accent-green); font-style: normal; font-family: var(--font-mono); }
+    .foot button {
+      appearance: none;
+      font-family: var(--font-serif);
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      border: 1px solid rgba(26,22,18,0.25);
+      background: transparent;
+      color: var(--ink);
+    }
+    .foot button.primary {
+      background: var(--ink);
+      color: var(--paper-app);
+      border-color: var(--ink);
+      font-weight: 600;
+    }
+    .foot button.primary:hover { background: #2a2218; }
+
+    /* Modal export */
+    .modal-bg {
+      position: fixed; inset: 0;
+      background: rgba(26,22,18,0.65);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 30;
+      padding: 20px;
+    }
+    .modal-bg.on { display: flex; }
+    .modal {
+      background: var(--paper-app);
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 540px;
+      width: 100%;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal h2 { margin: 0 0 8px 0; font-size: 16px; font-style: italic; }
+    .modal pre {
+      background: var(--ink);
+      color: var(--paper-app);
+      padding: 12px;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      overflow: auto;
+      flex: 1;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+  </style>
+</head>
+<body>
+
+  <header class="head">
+    <h1>Roadmap datos cívicos · OCRE</h1>
+    <div class="sub">83 indicadores · 13 categorías · aceptar / posponer / rechazar</div>
+    <div class="counters" id="counters"></div>
+  </header>
+
+  <div class="body">
+    <div class="toolbar">
+      <span class="filter-label">Filtrar por ola</span>
+      <button class="filter-btn on" data-filter="all">Todas</button>
+      <button class="filter-btn" data-filter="ola1">Ola 1 (12)</button>
+      <button class="filter-btn" data-filter="ola2">Ola 2 (32)</button>
+      <button class="filter-btn" data-filter="ola3">Ola 3 (23)</button>
+      <button class="filter-btn" data-filter="no-ola">Sin priorizar (16)</button>
+    </div>
+
+    <div id="tree"></div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot-meta" id="foot-meta">0 aceptados · 0 pospuestos · 0 rechazados · sin pendientes</div>
+    <button id="btn-clear">Limpiar todo</button>
+    <button id="btn-export" class="primary">Exportar selección</button>
+  </footer>
+
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal">
+      <h2>Selección exportada</h2>
+      <div style="font-size:12px;opacity:0.7;font-style:italic;">JSON con los datasets aceptados (y opcionalmente pospuestos / rechazados). Copia y pasa al chat siguiente.</div>
+      <pre id="modal-content"></pre>
+      <div class="modal-actions">
+        <button id="modal-copy">Copiar al portapapeles</button>
+        <button id="modal-close" class="primary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // Catálogo de 83 datasets, derivado de
+    // docs/DATOS-CIVICOS-ROADMAP.md (Pancho · 2026-05-26)
+    // ============================================================
+    const CATEGORIES = [
+      { id: "MOV", icon: "⇄", name: "Movilidad sostenible" },
+      { id: "VIV", icon: "⌂", name: "Vivienda y derecho a la ciudad" },
+      { id: "SAL", icon: "+", name: "Salud y cuidados" },
+      { id: "EDU", icon: "▤", name: "Educación a lo largo de la vida" },
+      { id: "CUL", icon: "♪", name: "Cultura, ocio y patrimonio" },
+      { id: "ALI", icon: "◉", name: "Alimentación soberana" },
+      { id: "ESP", icon: "✻", name: "Espacio público, naturaleza y clima" },
+      { id: "TEJ", icon: "⊕", name: "Tejido social y cuidados comunitarios" },
+      { id: "TRA", icon: "⚒", name: "Trabajo y economía local" },
+      { id: "PAR", icon: "✦", name: "Participación democrática" },
+      { id: "DIG", icon: "◇", name: "Brecha digital y derecho al acceso" },
+      { id: "MEM", icon: "✜", name: "Memoria histórica e identidad canaria" },
+      { id: "RIE", icon: "⚠", name: "Riesgos ambientales y resiliencia" }
+    ];
+
+    // 83 datasets. ola: 1|2|3|null (sin priorizar). esfuerzo: XS/S/M/L/XL.
+    // impacto: Bajo/Medio/Alto/Crítico
+    const DATASETS = [
+      // MOVILIDAD (6)
+      { id: "MOV-01", cat: "MOV", name: "Paradas Titsa con líneas reales (itinerarios)", ola: 2, esfuerzo: "S",  impacto: "Alto" },
+      { id: "MOV-02", cat: "MOV", name: "Carriles bici, peatonales y zonas 30 (OSM)",    ola: 1, esfuerzo: "S",  impacto: "Alto" },
+      { id: "MOV-03", cat: "MOV", name: "Aparcabicis + estaciones recarga + Sítycleta",  ola: 1, esfuerzo: "S",  impacto: "Medio" },
+      { id: "MOV-04", cat: "MOV", name: "Tráfico medio diario y siniestralidad vial",    ola: null, esfuerzo: "M", impacto: "Alto" },
+      { id: "MOV-05", cat: "MOV", name: "Metrotranvía TF + proyecto tren sur",           ola: 2, esfuerzo: "S",  impacto: "Crítico" },
+      { id: "MOV-06", cat: "MOV", name: "Aparcamientos disuasorios (P+R)",               ola: null, esfuerzo: "S", impacto: "Medio" },
+
+      // VIVIENDA (7)
+      { id: "VIV-01", cat: "VIV", name: "Catastro INSPIRE — edificios, parcelas, direcciones", ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "VIV-02", cat: "VIV", name: "Vivienda pública (ICAVI + parque municipal)",    ola: 3, esfuerzo: "L", impacto: "Crítico" },
+      { id: "VIV-03", cat: "VIV", name: "Desahucios judiciales por partido judicial",     ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "VIV-04", cat: "VIV", name: "Precio medio alquiler por sección",              ola: 3, esfuerzo: "L", impacto: "Crítico" },
+      { id: "VIV-05", cat: "VIV", name: "Vivienda vacía detectada (consumo eléctrico)",   ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "VIV-06", cat: "VIV", name: "Suelo público disponible / patrimonio municipal", ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "VIV-07", cat: "VIV", name: "Planeamiento urbanístico vigente (SITCAN PGOU)", ola: 2, esfuerzo: "M", impacto: "Crítico" },
+
+      // SALUD (6)
+      { id: "SAL-01", cat: "SAL", name: "Centros AP con horarios y especialidades (SCS)", ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "SAL-02", cat: "SAL", name: "Hospitales públicos y concertados",              ola: null, esfuerzo: "S", impacto: "Alto" },
+      { id: "SAL-03", cat: "SAL", name: "Farmacias con guardia rotatoria",                ola: null, esfuerzo: "S", impacto: "Medio" },
+      { id: "SAL-04", cat: "SAL", name: "Dependencia + residencias mayores",              ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "SAL-05", cat: "SAL", name: "Bancos leche · centros mujer · salud mental",    ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "SAL-06", cat: "SAL", name: "Cribados y vacunación por zona básica salud",    ola: 3, esfuerzo: "L", impacto: "Alto" },
+
+      // EDUCACIÓN (6)
+      { id: "EDU-01", cat: "EDU", name: "Centros educativos prov 38 (Tenerife)",          ola: 1, esfuerzo: "S",  impacto: "Alto" },
+      { id: "EDU-02", cat: "EDU", name: "Comedores escolares (gratuito/concertado) + becas", ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "EDU-03", cat: "EDU", name: "Escuelas infantiles 0-3 + lista espera",         ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "EDU-04", cat: "EDU", name: "Educación de adultos (CEPA, EOI, UNED)",         ola: null, esfuerzo: "S", impacto: "Medio" },
+      { id: "EDU-05", cat: "EDU", name: "Universidades, campus, centros adscritos",       ola: null, esfuerzo: "S", impacto: "Medio" },
+      { id: "EDU-06", cat: "EDU", name: "Bibliotecas escolares y municipales (enriquecer)", ola: 1, esfuerzo: "XS", impacto: "Medio" },
+
+      // CULTURA (6)
+      { id: "CUL-01", cat: "CUL", name: "Bienes Interés Cultural (BIC) + patrimonio catalogado", ola: 1, esfuerzo: "S", impacto: "Alto" },
+      { id: "CUL-02", cat: "CUL", name: "Patrimonio inmaterial (romerías, bailes, bajadas)", ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "CUL-03", cat: "CUL", name: "Centros artesanos (FEDAC GC + FEDAC TF)",        ola: null, esfuerzo: "S", impacto: "Medio" },
+      { id: "CUL-04", cat: "CUL", name: "Programación viva: cines, teatros, festivales",  ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "CUL-05", cat: "CUL", name: "Museos con horarios y precios + entrada gratuita", ola: null, esfuerzo: "S", impacto: "Medio" },
+      { id: "CUL-06", cat: "CUL", name: "Capa fantasma: antiguos cines, casinos cerrados", ola: 3, esfuerzo: "XL", impacto: "Alto" },
+
+      // ALIMENTACIÓN (5)
+      { id: "ALI-01", cat: "ALI", name: "Mercados municipales + ferias semanales",        ola: 1, esfuerzo: "S",  impacto: "Alto" },
+      { id: "ALI-02", cat: "ALI", name: "Huertos urbanos comunitarios",                   ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "ALI-03", cat: "ALI", name: "Cooperativas y grupos de consumo",               ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "ALI-04", cat: "ALI", name: "Comedores sociales y bancos de alimentos",       ola: null, esfuerzo: "S", impacto: "Crítico" },
+      { id: "ALI-05", cat: "ALI", name: "Mapa de cultivos de Canarias",                   ola: null, esfuerzo: "M", impacto: "Medio" },
+
+      // ESPACIO PÚBLICO (7)
+      { id: "ESP-01", cat: "ESP", name: "Espacios Naturales Protegidos + Red Natura 2000", ola: 2, esfuerzo: "S",  impacto: "Alto" },
+      { id: "ESP-02", cat: "ESP", name: "Playas bandera azul + accesibilidad + socorrismo", ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "ESP-03", cat: "ESP", name: "Calidad del aire tiempo real (CEGCA / AQICN)",   ola: 1, esfuerzo: "S",  impacto: "Crítico" },
+      { id: "ESP-04", cat: "ESP", name: "Calidad agua: playas no aptas + acuíferos",      ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "ESP-05", cat: "ESP", name: "Árboles singulares Canarias (dragos, etc)",      ola: 1, esfuerzo: "S",  impacto: "Medio" },
+      { id: "ESP-06", cat: "ESP", name: "Verdes accesibles vs privados",                  ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "ESP-07", cat: "ESP", name: "Mobiliario urbano: bancos · fuentes · sombras",  ola: 1, esfuerzo: "S",  impacto: "Medio" },
+
+      // TEJIDO SOCIAL (6)
+      { id: "TEJ-01", cat: "TEJ", name: "Bancos del tiempo y monedas locales",            ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "TEJ-02", cat: "TEJ", name: "Centros sociales okupados / autogestionados",    ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "TEJ-03", cat: "TEJ", name: "AMPAS y federaciones por centro",                ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "TEJ-04", cat: "TEJ", name: "Centros cívicos municipales + casas juventud",   ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "TEJ-05", cat: "TEJ", name: "Grupos cuidados peer (dependencia, infancia, SM)", ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "TEJ-06", cat: "TEJ", name: "Voluntariado: Cruz Roja · Cáritas · Open Arms",   ola: null, esfuerzo: "S", impacto: "Alto" },
+
+      // TRABAJO (5)
+      { id: "TRA-01", cat: "TRA", name: "Paro registrado por municipio (ISTAC)",          ola: 1, esfuerzo: "XS", impacto: "Crítico" },
+      { id: "TRA-02", cat: "TRA", name: "Empresas activas por epígrafe IAE (SABI/DIRCE)", ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "TRA-03", cat: "TRA", name: "Convocatorias empleo público (oposiciones)",     ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "TRA-04", cat: "TRA", name: "Comercio local agremiado + zonas comerciales",   ola: null, esfuerzo: "S", impacto: "Medio" },
+      { id: "TRA-05", cat: "TRA", name: "IRPF municipalizado AEAT (renta mercado)",       ola: 2, esfuerzo: "S",  impacto: "Alto" },
+
+      // PARTICIPACIÓN DEMOCRÁTICA (10)
+      { id: "PAR-01", cat: "PAR", name: "Resultados electorales por sección (Generales, Auto, Munic, Euro)", ola: 1, esfuerzo: "M", impacto: "Crítico" },
+      { id: "PAR-02", cat: "PAR", name: "Presupuestos participativos LPGC (decide.laspalmasgc.es)", ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "PAR-03", cat: "PAR", name: "Plenos municipales: actas, votaciones nominales, asistencia", ola: 3, esfuerzo: "XL", impacto: "Crítico" },
+      { id: "PAR-04", cat: "PAR", name: "Contratación pública (PLACSP)",                  ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "PAR-05", cat: "PAR", name: "Subvenciones GobCan concedidas + ayuntamientos", ola: 1, esfuerzo: "S",  impacto: "Alto" },
+      { id: "PAR-06", cat: "PAR", name: "Declaraciones bienes/actividades cargos públicos", ola: 3, esfuerzo: "XL", impacto: "Crítico" },
+      { id: "PAR-07", cat: "PAR", name: "Mociones aprobadas/rechazadas + asistencia nominal", ola: null, esfuerzo: "L", impacto: "Alto" },
+      { id: "PAR-08", cat: "PAR", name: "Consultas ciudadanas activas (info pública)",    ola: 2, esfuerzo: "M", impacto: "Alto" },
+      { id: "PAR-09", cat: "PAR", name: "Iniciativas Legislativas Populares + firmas",    ola: null, esfuerzo: "M", impacto: "Alto" },
+      { id: "PAR-10", cat: "PAR", name: "Convocatorias asambleas vecinales (crowdsourced)", ola: 3, esfuerzo: "XL", impacto: "Crítico" },
+
+      // DIGITAL (4)
+      { id: "DIG-01", cat: "DIG", name: "Cobertura fibra óptica por sección (Min Banda Ancha)", ola: 2, esfuerzo: "S", impacto: "Alto" },
+      { id: "DIG-02", cat: "DIG", name: "WiFi público municipal",                         ola: null, esfuerzo: "S", impacto: "Medio" },
+      { id: "DIG-03", cat: "DIG", name: "Telecentros y Aulas Mentor",                     ola: 2, esfuerzo: "S",  impacto: "Alto" },
+      { id: "DIG-04", cat: "DIG", name: "Equipamiento informático en escuelas",           ola: 3, esfuerzo: "L", impacto: "Medio" },
+
+      // MEMORIA (7)
+      { id: "MEM-01", cat: "MEM", name: "Lugares de memoria democrática (Ley 19/2022)",   ola: 2, esfuerzo: "S",  impacto: "Crítico" },
+      { id: "MEM-02", cat: "MEM", name: "Toponimia tradicional vs oficial",               ola: 3, esfuerzo: "XL", impacto: "Alto" },
+      { id: "MEM-03", cat: "MEM", name: "Heredamientos de agua (concejil canario)",       ola: 3, esfuerzo: "L", impacto: "Alto" },
+      { id: "MEM-04", cat: "MEM", name: "Yacimientos arqueológicos prehispánicos",        ola: 3, esfuerzo: "L", impacto: "Crítico" },
+      { id: "MEM-05", cat: "MEM", name: "Cascos históricos protegidos",                   ola: 2, esfuerzo: "S",  impacto: "Alto" },
+      { id: "MEM-06", cat: "MEM", name: "Casas personajes canarios + lugares evento histórico", ola: null, esfuerzo: "M", impacto: "Medio" },
+      { id: "MEM-07", cat: "MEM", name: "Migración: embarques, retornos, pateras llegadas", ola: 3, esfuerzo: "L", impacto: "Crítico" },
+
+      // RIESGOS (8)
+      { id: "RIE-01", cat: "RIE", name: "Inundación SNCZI (Sistema Nacional Cartografía)", ola: 2, esfuerzo: "S",  impacto: "Crítico" },
+      { id: "RIE-02", cat: "RIE", name: "Riesgo volcánico (PEVOLCA + Hub La Palma)",      ola: 2, esfuerzo: "S",  impacto: "Crítico" },
+      { id: "RIE-03", cat: "RIE", name: "Riesgo sísmico",                                 ola: 2, esfuerzo: "S",  impacto: "Alto" },
+      { id: "RIE-04", cat: "RIE", name: "Incendio forestal (índices diarios + zonas)",    ola: 2, esfuerzo: "M", impacto: "Crítico" },
+      { id: "RIE-05", cat: "RIE", name: "Calima/polvo tiempo real (NAAPS, AQICN)",        ola: 2, esfuerzo: "S",  impacto: "Alto" },
+      { id: "RIE-06", cat: "RIE", name: "Olas calor + escuelas/residencias en zona crítica", ola: 3, esfuerzo: "M", impacto: "Crítico" },
+      { id: "RIE-07", cat: "RIE", name: "Subida nivel mar IPCC adaptada a Canarias",      ola: 3, esfuerzo: "L", impacto: "Crítico" },
+      { id: "RIE-08", cat: "RIE", name: "Puntos encuentro emergencia + zonas seguras",    ola: 3, esfuerzo: "L", impacto: "Crítico" }
+    ];
+
+    const STORAGE_KEY = "ocre_roadmap_decisions_v1";
+
+    let decisions = loadDecisions();          // { [id]: 'accept'|'postpone'|'reject' }
+    let currentFilter = "all";                 // 'all' | 'ola1' | 'ola2' | 'ola3' | 'no-ola'
+
+    function loadDecisions() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+      catch (_) { return {}; }
+    }
+    function saveDecisions() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(decisions));
+    }
+    function setDecision(id, value) {
+      if (decisions[id] === value) {
+        delete decisions[id];
+      } else {
+        decisions[id] = value;
+      }
+      saveDecisions();
+      renderAll();
+    }
+
+    function chipOla(o) {
+      if (o === 1) return '<span class="chip chip-ola1">Ola 1</span>';
+      if (o === 2) return '<span class="chip chip-ola2">Ola 2</span>';
+      if (o === 3) return '<span class="chip chip-ola3">Ola 3</span>';
+      return '<span class="chip chip-no-ola">Sin priorizar</span>';
+    }
+    function chipImpacto(i) {
+      return `<span class="chip chip-impacto-${i}">${i}</span>`;
+    }
+    function chipEsfuerzo(e) {
+      return `<span class="chip chip-esfuerzo">${e}</span>`;
+    }
+
+    function matchesFilter(d) {
+      if (currentFilter === "all") return true;
+      if (currentFilter === "no-ola") return d.ola == null;
+      const n = parseInt(currentFilter.replace("ola",""), 10);
+      return d.ola === n;
+    }
+
+    function renderTree() {
+      const tree = document.getElementById("tree");
+      tree.innerHTML = "";
+      for (const cat of CATEGORIES) {
+        const allInCat = DATASETS.filter(d => d.cat === cat.id);
+        const ds = allInCat.filter(matchesFilter);
+        if (!ds.length) continue;
+        // Conteo por estado
+        let a=0, p=0, r=0;
+        for (const d of allInCat) {
+          if (decisions[d.id] === "accept") a++;
+          else if (decisions[d.id] === "postpone") p++;
+          else if (decisions[d.id] === "reject") r++;
+        }
+        const pending = allInCat.length - a - p - r;
+        const openByDefault = (currentFilter !== "all");
+        const catEl = document.createElement("div");
+        catEl.className = "cat" + (openByDefault ? " open" : "");
+        catEl.innerHTML = `
+          <div class="cat-head">
+            <span class="cat-caret">›</span>
+            <span class="cat-icon">${cat.icon}</span>
+            <span class="cat-name">${cat.name}</span>
+            <span class="cat-stat">
+              ${allInCat.length} ·
+              <span class="a">${a}✓</span> <span class="p">${p}⌛</span> <span class="r">${r}✗</span>
+              <span style="opacity:0.5">${pending}–</span>
+            </span>
+          </div>
+          <div class="cat-body">
+            ${ds.map(d => renderDataset(d)).join("")}
+          </div>
+        `;
+        catEl.querySelector(".cat-head").addEventListener("click", () => {
+          catEl.classList.toggle("open");
+        });
+        catEl.querySelectorAll(".act").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const dsRow = btn.closest(".ds");
+            const id = dsRow.dataset.id;
+            const action = btn.dataset.action;
+            setDecision(id, action);
+          });
+        });
+        tree.appendChild(catEl);
+      }
+    }
+
+    function renderDataset(d) {
+      const decision = decisions[d.id] || "";
+      return `
+        <div class="ds ${decision}" data-id="${d.id}">
+          <span class="ds-id">${d.id}</span>
+          <div class="ds-text">
+            <div class="ds-name">${d.name}</div>
+            <div class="ds-meta">
+              ${chipOla(d.ola)}
+              ${chipEsfuerzo(d.esfuerzo)}
+              ${chipImpacto(d.impacto)}
+            </div>
+          </div>
+          <div class="actions">
+            <button class="act accept ${decision==='accept'?'on':''}" data-action="accept" title="Aceptar">✓</button>
+            <button class="act postpone ${decision==='postpone'?'on':''}" data-action="postpone" title="Posponer">⌛</button>
+            <button class="act reject ${decision==='reject'?'on':''}" data-action="reject" title="Rechazar">✗</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCounters() {
+      let a=0, p=0, r=0;
+      for (const d of DATASETS) {
+        if (decisions[d.id] === "accept") a++;
+        else if (decisions[d.id] === "postpone") p++;
+        else if (decisions[d.id] === "reject") r++;
+      }
+      const pending = DATASETS.length - a - p - r;
+      document.getElementById("counters").innerHTML = `
+        <div class="ctr total"><span class="num">${DATASETS.length}</span> total</div>
+        <div class="ctr accept"><span class="num">${a}</span> aceptados</div>
+        <div class="ctr postpone"><span class="num">${p}</span> pospuestos</div>
+        <div class="ctr reject"><span class="num">${r}</span> rechazados</div>
+        <div class="ctr pending"><span class="num">${pending}</span> sin decidir</div>
+      `;
+      document.getElementById("foot-meta").innerHTML =
+        `<strong>${a}</strong> aceptados · ${p} pospuestos · ${r} rechazados · ${pending} sin decidir`;
+    }
+
+    function renderAll() {
+      renderTree();
+      renderCounters();
+    }
+
+    // ============================================================
+    // Wires
+    // ============================================================
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentFilter = btn.dataset.filter;
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("on"));
+        btn.classList.add("on");
+        renderAll();
+      });
+    });
+
+    document.getElementById("btn-clear").addEventListener("click", () => {
+      if (!confirm("¿Limpiar todas las decisiones?")) return;
+      decisions = {};
+      saveDecisions();
+      renderAll();
+    });
+
+    document.getElementById("btn-export").addEventListener("click", () => {
+      const accepted = DATASETS.filter(d => decisions[d.id] === "accept");
+      const postponed = DATASETS.filter(d => decisions[d.id] === "postpone");
+      const rejected = DATASETS.filter(d => decisions[d.id] === "reject");
+      const payload = {
+        exported_at: new Date().toISOString(),
+        total: DATASETS.length,
+        accepted_count: accepted.length,
+        postponed_count: postponed.length,
+        rejected_count: rejected.length,
+        accepted: accepted.map(d => ({ id: d.id, cat: d.cat, name: d.name, ola: d.ola, esfuerzo: d.esfuerzo, impacto: d.impacto })),
+        postponed: postponed.map(d => d.id),
+        rejected: rejected.map(d => d.id)
+      };
+      document.getElementById("modal-content").textContent = JSON.stringify(payload, null, 2);
+      document.getElementById("modal-bg").classList.add("on");
+    });
+
+    document.getElementById("modal-close").addEventListener("click", () => {
+      document.getElementById("modal-bg").classList.remove("on");
+    });
+    document.getElementById("modal-copy").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(document.getElementById("modal-content").textContent);
+        document.getElementById("modal-copy").textContent = "✓ Copiado";
+        setTimeout(() => document.getElementById("modal-copy").textContent = "Copiar al portapapeles", 1500);
+      } catch (_) {
+        alert("No se pudo copiar — selecciona manualmente");
+      }
+    });
+
+    renderAll();
+  </script>
+
+</body>
+</html>

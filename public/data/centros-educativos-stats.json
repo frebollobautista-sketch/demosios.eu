@@ -1,1 +1,240 @@
-/Users/panch/KOINOS/public/data/centros-educativos-stats.json
+{
+  "AGAETE": {
+    "total": 6,
+    "publico": 6,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "AGÜIMES": {
+    "total": 22,
+    "publico": 20,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "ANTIGUA": {
+    "total": 5,
+    "publico": 5,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "ARRECIFE": {
+    "total": 26,
+    "publico": 24,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "ARTENARA": {
+    "total": 1,
+    "publico": 1,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "ARUCAS": {
+    "total": 26,
+    "publico": 18,
+    "concertado": 8,
+    "privado": 0,
+    "otro": 0
+  },
+  "FIRGAS": {
+    "total": 4,
+    "publico": 4,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "GÁLDAR": {
+    "total": 29,
+    "publico": 28,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "HARÍA": {
+    "total": 6,
+    "publico": 6,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "INGENIO": {
+    "total": 17,
+    "publico": 16,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "MOGÁN": {
+    "total": 14,
+    "publico": 13,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "MOYA": {
+    "total": 10,
+    "publico": 10,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "LA OLIVA": {
+    "total": 18,
+    "publico": 16,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "PÁJARA": {
+    "total": 13,
+    "publico": 12,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "LAS PALMAS DE GRAN CANARIA": {
+    "total": 221,
+    "publico": 133,
+    "concertado": 88,
+    "privado": 0,
+    "otro": 0
+  },
+  "PUERTO DEL ROSARIO": {
+    "total": 32,
+    "publico": 30,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "SAN BARTOLOMÉ": {
+    "total": 12,
+    "publico": 10,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "SAN BARTOLOMÉ DE TIRAJANA": {
+    "total": 32,
+    "publico": 23,
+    "concertado": 9,
+    "privado": 0,
+    "otro": 0
+  },
+  "LA ALDEA DE SAN NICOLÁS": {
+    "total": 10,
+    "publico": 10,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "SANTA BRÍGIDA": {
+    "total": 16,
+    "publico": 12,
+    "concertado": 4,
+    "privado": 0,
+    "otro": 0
+  },
+  "SANTA LUCÍA DE TIRAJANA": {
+    "total": 40,
+    "publico": 39,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "SANTA MARÍA DE GUÍA DE GRAN CANARIA": {
+    "total": 18,
+    "publico": 17,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "TEGUISE": {
+    "total": 17,
+    "publico": 15,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "TEJEDA": {
+    "total": 1,
+    "publico": 1,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "TELDE": {
+    "total": 72,
+    "publico": 60,
+    "concertado": 12,
+    "privado": 0,
+    "otro": 0
+  },
+  "TEROR": {
+    "total": 10,
+    "publico": 10,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "TÍAS": {
+    "total": 10,
+    "publico": 7,
+    "concertado": 3,
+    "privado": 0,
+    "otro": 0
+  },
+  "TINAJO": {
+    "total": 5,
+    "publico": 5,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "TUINEJE": {
+    "total": 16,
+    "publico": 14,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "VALSEQUILLO DE GRAN CANARIA": {
+    "total": 10,
+    "publico": 10,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "VALLESECO": {
+    "total": 2,
+    "publico": 2,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "VEGA DE SAN MATEO": {
+    "total": 12,
+    "publico": 12,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "YAIZA": {
+    "total": 12,
+    "publico": 10,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "BETANCURIA": {
+    "total": 2,
+    "publico": 2,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  }
+}

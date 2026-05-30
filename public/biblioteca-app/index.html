@@ -4,23 +4,50 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Biblioteca — feed formativo</title>
-  <link rel="stylesheet" href="../shared/navbar.css?v=20260527h">
-  <link rel="stylesheet" href="style.css?v=20260527d">
-  <link rel="stylesheet" href="sillas-conocimiento.css?v=20260527d">
-  <link rel="stylesheet" href="quorums-lectura.css?v=20260527d">
-  <link rel="stylesheet" href="pulso-palacios.css?v=20260527d">
-  <link rel="stylesheet" href="descubre.css?v=20260527g">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20260530-touchbar-v2">
+  <link rel="stylesheet" href="sillas-conocimiento.css?v=20260530-touchbar-v2">
+  <link rel="stylesheet" href="quorums-lectura.css?v=20260530-touchbar-v2">
+  <link rel="stylesheet" href="pulso-palacios.css?v=20260530-touchbar-v2">
+  <link rel="stylesheet" href="descubre.css?v=20260530-touchbar-v2">
 </head>
 <body>
-  <header class="topbar">
-    <h1>Biblioteca</h1>
-    <div class="topbar-right">
-      <button id="btn-descubre" title="Descubre una idea — modo serendípico formativo">✦ Descubre</button>
-      <button id="btn-nueva-sintesis" title="Crear síntesis (G2)">✎ Síntesis</button>
-      <button id="btn-nueva-mision" class="primary">+ Misión</button>
-      <span class="uid" title="Tu identidad anónima estable (UID)">UID <span id="uid">…</span></span>
-    </div>
-  </header>
+  <!-- [INDIGO-SKIN 2026-05-29] Header OCRE portado de POLIS (mismo shell que
+       agora-app, ver IDEAS.md "Tablero de aficiones"). Skin índigo: papel
+       índigo oscuro / tinta clara / acento azul-pizarra + oro PHAROS. -->
+  <div class="biblio-topshell">
+    <header class="app-topbar" id="app-topbar">
+      <div class="app-topbar-left">
+        <div class="app-topbar-brand">
+          <span class="brand-icon" aria-hidden="true"></span>
+          <span class="brand-text">OCRE</span>
+        </div>
+        <code id="uid" class="topbar-uid-code" hidden></code>
+      </div>
+
+      <!-- Pilares visibles (interconexión siempre a la vista, no dropdown). -->
+      <nav class="app-pillars" aria-label="Saltar entre pilares">
+        <a class="pillar pillar-polis"      href="../polis-app/">POLIS</a>
+        <a class="pillar pillar-agora"      href="../agora-app/">ÁGORA</a>
+        <a class="pillar pillar-biblioteca is-active" href="../biblioteca-app/" aria-current="page">BIBLIOTHEKA</a>
+      </nav>
+
+      <div class="app-topbar-right">
+        <button id="btn-descubre" class="app-topbar-iconbtn" type="button"
+                aria-label="Descubre" title="Descubre una idea — modo serendípico formativo">✦</button>
+        <button id="btn-nueva-sintesis" class="app-topbar-iconbtn" type="button"
+                aria-label="Síntesis" title="Crear síntesis (G2)">✎</button>
+        <button id="btn-nueva-mision" class="app-topbar-enter primary" type="button">+ Misión</button>
+      </div>
+    </header>
+
+    <!-- Tira "multitouch": placeholder por ahora (banda visual continua con
+         el header). Cuando biblioteca defina sus ejes de contexto
+         (secciones PHAROS / grados del cursus / temas mnemoHACK), van aquí. -->
+    <div id="biblio-strip" class="biblio-strip" role="tablist" aria-label="Biblioteca"></div>
+  </div>
 
   <main class="app">
 
@@ -110,6 +137,6 @@
     </div>
   </div>
 
-  <script type="module" src="app.js?v=20260527h"></script>
+  <script type="module" src="app.js?v=20260530-touchbar-v2"></script>
 </body>
 </html>

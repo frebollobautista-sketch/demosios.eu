@@ -84,6 +84,61 @@ export function mapearDims(items, ultimoTemaId) {
   });
 }
 
+// ─────────── Touchbar v2 — loaders por lente de compromiso ───────────
+// 2026-05-30: Los chips Píldora y Hilo cargan colecciones separadas
+// (no se mezclan con epígrafes en state.items, para mantener rank()
+// limpio por lente y paginación independiente). Si el JSON no existe
+// o es inválido, devolvemos [] silenciosamente — el feed muestra el
+// empty-invite normal sin caída.
+
+export async function cargarPildoras() {
+  try {
+    const arr = await fetch("../data/biblioteca/seed-pildoras.json")
+      .then(r => r.ok ? r.json() : []);
+    if (!Array.isArray(arr)) return [];
+    return arr.filter(p => p && p.id && p.kind === "pildora").map(p => ({
+      ...p,
+      // dims por defecto si el seed no las trae explícitas. Las píldoras
+      // son cortas y mixtas en origen (canónicas y críticas conviven en
+      // el mismo chip): dejamos los tres ejes en cero excepto compañía,
+      // que es solitaria por naturaleza (las lees tú solo).
+      _dims_estaticas: p._dims_estaticas || {
+        dominio: 0, canonico: 0, compania: -1
+      }
+    }));
+  } catch { return []; }
+}
+
+export async function cargarHilos() {
+  try {
+    const arr = await fetch("../data/biblioteca/seed-hilos.json")
+      .then(r => r.ok ? r.json() : []);
+    if (!Array.isArray(arr)) return [];
+    return arr.filter(h => h && h.id && h.kind === "hilo").map(h => ({
+      ...h,
+      // Los hilos son editoriales del equipo OCRE: canónicos por
+      // curaduría propia, solitarios por defecto (lectura individual;
+      // si entran en un quórum de lectura, el módulo correspondiente
+      // se encarga de mostrar la dimensión social).
+      _dims_estaticas: h._dims_estaticas || {
+        dominio: 0, canonico: -1, compania: -1
+      }
+    }));
+  } catch { return []; }
+}
+
+// Aplica navegacion dinámico (mismo patrón que mapearDims de epígrafes)
+// a una colección arbitraria de items con campo `tags` o `asignatura_id`.
+// Por ahora la navegacion para píldoras/hilos = 0 (sin "último visto"
+// equivalente todavía; pasaremos a usar última asignatura visitada
+// cuando exista el catálogo de asignaturas cableado).
+export function mapearDimsGenerico(items) {
+  return items.map(item => ({
+    ...item,
+    dims: { ...item._dims_estaticas, navegacion: 0 }
+  }));
+}
+
 // Strip HTML para preview corto. Conserva texto, descarta etiquetas.
 // Usado en cards colapsadas y en el dropdown de fuentes del modal de
 // síntesis.

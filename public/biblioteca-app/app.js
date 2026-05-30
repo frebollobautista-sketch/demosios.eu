@@ -18,7 +18,10 @@ import { rank } from "../shared/rank.js?v=20260527a";
 import { mountHud, HUD_CSS } from "../shared/hud.js?v=20260527a";
 import { honestyMeter } from "../shared/loops.js?v=20260527a";
 
-import { cargarItems, mapearDims, stripHtml } from "./data.js?v=20260527a";
+import {
+  cargarItems, mapearDims, stripHtml,
+  cargarPildoras, cargarHilos, mapearDimsGenerico
+} from "./data.js?v=20260530-touchbar-v2";
 
 // Módulos masa crítica (v3).
 import {
@@ -30,7 +33,6 @@ import {
 import { abrirPulsoPalacios } from "./pulso-palacios.js?v=20260527d";
 import { registrarSintesis, reconciliarTokens, renderTokensBlock } from "./tokens.js?v=20260527d";
 import { abrirDescubre } from "./descubre.js?v=20260527g";
-import { mountNavbar } from "../shared/navbar.js?v=20260527h";
 
 // ─────────────────── CONSTANTES ───────────────────
 
@@ -52,18 +54,63 @@ const DEFAULT_SLIDERS = {
 const KEY_SLIDERS  = "biblioteca-sliders";
 const KEY_MISIONES = "biblioteca-misiones";
 const KEY_ULTIMO   = "biblioteca-ultimo-tema";
+const KEY_LENS     = "biblioteca-lens";
 
 const PAGE_SIZE = 12;
+
+// ─────────── Touchbar v2 — 5 niveles de compromiso ───────────
+// Decisión 2026-05-30 con Panch: la tira #biblio-strip no son
+// "fuentes" ni "modos de saber" (mi primera propuesta mezclaba ejes
+// ortogonales), sino NIVELES DE COMPROMISO ordenados por inversión.
+//   Píldora  (≤30 s)  → citas y tweets de figuras (Curie, MLK, Galdós…)
+//   Hilo     (2-5 min) → desarrollos de 1-3 párrafos
+//   Epígrafe (5-15 min) → los 21 resúmenes mnemoHACK que ya cargamos
+//   Vídeo    (5-20 min) → explicativos curados, sin autoplay (no-Reels)
+//   Curso    (semanas)  → multi-módulo secuencial gamificable
+//
+// `soon: true` = sin seed todavía → renderiza un empty-state honesto
+// con copy explícito + CTA a volver a la lente que sí tiene contenido.
+// Las otras herramientas (Sillas, Quórums, Pulso de palacios, Síntesis,
+// Descubre) NO son lentes — son gestos / fuentes / acciones transversales
+// que aparecen DENTRO de cualquier lente y mantienen sus puntos de
+// entrada propios (drawer / topbar / botones laterales).
+const LENSES = [
+  { id: "pildora",  label: "Píldora",  glifo: "◌", soon: false },
+  { id: "hilo",     label: "Hilo",     glifo: "≡", soon: false },
+  { id: "epigrafe", label: "Epígrafe", glifo: "¶", soon: false },
+  { id: "video",    label: "Vídeo",    glifo: "▷", soon: true  },
+  { id: "curso",    label: "Curso",    glifo: "▣", soon: true  }
+];
+const DEFAULT_LENS = "epigrafe";
+
+// Copy de empty-state por lente "próximamente". Honesto: explica qué es
+// y qué falta, sin prometer fecha. Termina con CTA a Epígrafes (la única
+// lente que hoy tiene contenido) para no dejar al usuario en callejón.
+const COPY_LENS_SOON = {
+  pildora: "Citas y tweets atribuidos a figuras (Marie Curie, MLK, Galdós, Federica Montseny, Mariana Mazzucato…). 1-3 líneas, lectura de bolsillo. Estamos curando el seed inicial: ~20 píldoras mezclando referentes canarios e internacionales.",
+  hilo:    "Desarrollos de 1-3 párrafos — una idea, una secuencia, sin paginación. Próximamente: hilos sobre libertad como no-dominación (Pettit), Egalite republicana aplicada a Canarias, y memoria insular.",
+  video:   "Vídeos explicativos curados, con duración explícita en la card y sin autoplay. No es Reels: estás aquí para aprender, no para deslizar. Próximamente piezas cortas (5-20 min) ancladas a las 8 asignaturas base.",
+  curso:   "Cursos multi-módulo con quórum de lectura colectiva y síntesis G2 al cerrar. El Curso 0 — «Por qué Canarias y por qué república» (4 módulos × ~30 min) — está en diseño como onboarding del proyecto."
+};
 
 // ─────────────────── ESTADO ───────────────────
 
 const state = {
-  items: [],          // cargados de data.js
+  items: [],          // cargados de data.js — epígrafes (lente por defecto)
   sliders: cargarSliders(),
   misiones: cargarMisiones(),
   ultimoTema: cargarUltimoTema(),
+  activeLens: cargarLens(),  // touchbar v2 (lente de compromiso activa)
   page: 0,
-  ranked: []          // último resultado de rank()
+  ranked: [],         // último resultado de rank() para epígrafes
+  // 2026-05-30: Colecciones separadas por lente. Mantengo state.items/
+  // state.ranked/state.page intactos para que Epígrafe siga igual; las
+  // lentes nuevas viven aparte para no contaminar rank() y para tener
+  // paginación independiente (cada chip recuerda en qué página estabas).
+  feedsByLens: {
+    pildora: { items: [], ranked: [], page: 0 },
+    hilo:    { items: [], ranked: [], page: 0 }
+  }
 };
 
 function cargarSliders() {
@@ -103,19 +150,35 @@ function guardarUltimoTema(t) {
     else localStorage.removeItem(KEY_ULTIMO);
   } catch { /**/ }
 }
+function cargarLens() {
+  try {
+    const raw = localStorage.getItem(KEY_LENS);
+    // Sólo aceptamos lentes conocidas; cualquier otro valor cae a default.
+    if (raw && LENSES.find(L => L.id === raw)) return raw;
+  } catch { /**/ }
+  return DEFAULT_LENS;
+}
+function guardarLens() {
+  try { localStorage.setItem(KEY_LENS, state.activeLens); } catch { /**/ }
+}
 
 function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
 // ─────────────────── RE-RANK + RENDER ───────────────────
 
 function reRank() {
-  const itemsConDims = mapearDims(state.items, state.ultimoTema);
   const estado = {
     sliders: state.sliders,
     misiones: state.misiones.map(m => m.id),
     dimsMeta: DIMS_META
   };
-  state.ranked = rank(estado, itemsConDims);
+  // Epígrafe: con `navegacion` dinámico según último tema visitado.
+  state.ranked = rank(estado, mapearDims(state.items, state.ultimoTema));
+  // Lentes nuevas (Píldora, Hilo): `navegacion` neutra de momento
+  // (sin "último tema visto" equivalente todavía).
+  const fbl = state.feedsByLens;
+  fbl.pildora.ranked = rank(estado, mapearDimsGenerico(fbl.pildora.items));
+  fbl.hilo.ranked    = rank(estado, mapearDimsGenerico(fbl.hilo.items));
   renderFeed();
 }
 
@@ -149,19 +212,207 @@ function renderSliders() {
   }
 }
 
+// ─────────────────── TOUCHBAR (lentes de compromiso) ───────────────────
+
+function montarStripBiblio() {
+  const strip = document.getElementById("biblio-strip");
+  if (!strip) return;
+  strip.innerHTML = "";
+  for (const L of LENSES) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.dataset.lens = L.id;
+    btn.setAttribute("role", "tab");
+    const isActive = (L.id === state.activeLens);
+    btn.setAttribute("aria-selected", isActive ? "true" : "false");
+    btn.className = "biblio-chip"
+      + (isActive ? " is-active" : "")
+      + (L.soon ? " is-soon" : "");
+    btn.title = L.soon ? `${L.label} — próximamente` : L.label;
+    btn.innerHTML =
+      `<span class="biblio-chip-glifo" aria-hidden="true">${L.glifo}</span>` +
+      `<span class="biblio-chip-label">${L.label}</span>`;
+    btn.addEventListener("click", () => setActiveLens(L.id));
+    strip.appendChild(btn);
+  }
+}
+
+function setActiveLens(lensId) {
+  if (!LENSES.find(L => L.id === lensId)) return;
+  if (state.activeLens === lensId) return;
+  state.activeLens = lensId;
+  guardarLens();
+  // Sincronizar los chips sin re-montar la tira entera (preserva
+  // posición de scroll horizontal en móvil si hay overflow).
+  document.querySelectorAll("#biblio-strip .biblio-chip").forEach(b => {
+    const on = (b.dataset.lens === lensId);
+    b.classList.toggle("is-active", on);
+    b.setAttribute("aria-selected", on ? "true" : "false");
+  });
+  renderFeed();
+}
+
+// Devuelve la "vista" activa: la colección rankeada y su paginación
+// según la lente seleccionada. Centraliza el dispatch para que renderFeed
+// y los paginadores no tengan que conocer la estructura interna del state.
+// Devuelve null si la lente está en modo "soon" (sin contenido).
+function getLensFeedView() {
+  const lens = state.activeLens;
+  if (lens === "epigrafe") {
+    return {
+      ranked: state.ranked,
+      page:   state.page,
+      setPage: (p) => { state.page = p; }
+    };
+  }
+  const fbl = state.feedsByLens[lens];
+  if (fbl) {
+    return {
+      ranked: fbl.ranked,
+      page:   fbl.page,
+      setPage: (p) => { fbl.page = p; }
+    };
+  }
+  return null;
+}
+
+// ─────────── Cards de las nuevas lentes (Píldora / Hilo) ───────────
+
+function renderCardPildora(item, scoreTxt) {
+  const card = document.createElement("article");
+  card.className = "card-pildora";
+  card.dataset.id = item.id;
+  const verifBadge = (item.verificacion && /verificada/i.test(item.verificacion))
+    ? ""
+    : `<span class="pildora-verif" title="${escapeHtml(item.verificacion || 'fuente no verificada')}">⚠ atribuida</span>`;
+  card.innerHTML = `
+    <div class="pildora-quote-mark" aria-hidden="true">"</div>
+    <blockquote class="pildora-texto">${escapeHtml(item.texto || "")}</blockquote>
+    <footer class="pildora-meta">
+      <div class="pildora-autor">
+        <strong>${escapeHtml(item.autor || "—")}</strong>
+        ${item.autor_breve ? `<span class="pildora-autor-breve"> — ${escapeHtml(item.autor_breve)}</span>` : ""}
+      </div>
+      <div class="pildora-fuente">
+        ${item.fecha ? `<span class="pildora-fecha">${escapeHtml(item.fecha)}</span>` : ""}
+        ${item.fuente ? `<span class="pildora-fuente-text"> · ${escapeHtml(item.fuente)}</span>` : ""}
+        ${verifBadge}
+      </div>
+      <div class="pildora-score" aria-hidden="true">${scoreTxt}</div>
+    </footer>`;
+  return card;
+}
+
+function renderCardHilo(item, scoreTxt) {
+  const card = document.createElement("article");
+  card.className = "card-hilo collapsed";
+  card.dataset.id = item.id;
+  const preview = (item.parrafos?.[0] || "").slice(0, 220);
+  card.innerHTML = `
+    <header class="hilo-head">
+      <h3 class="hilo-titulo">${escapeHtml(item.titulo || "")}</h3>
+      <div class="hilo-meta">
+        ${item.autor_hilo ? `<span class="hilo-autor">${escapeHtml(item.autor_hilo)}</span>` : ""}
+        ${item.fecha_pub  ? `<span class="hilo-fecha"> · ${escapeHtml(item.fecha_pub)}</span>` : ""}
+        ${item.lectura_min ? `<span class="hilo-lectura"> · ${item.lectura_min} min</span>` : ""}
+        <span class="hilo-score"> · ${scoreTxt}</span>
+      </div>
+    </header>
+    <div class="hilo-body">
+      <p class="hilo-preview">${escapeHtml(preview)}…</p>
+    </div>
+    <div class="hilo-toggle">▾ leer hilo completo</div>`;
+  const body = card.querySelector(".hilo-body");
+  const toggle = card.querySelector(".hilo-toggle");
+  toggle.addEventListener("click", () => {
+    const colapsado = card.classList.contains("collapsed");
+    if (colapsado) {
+      body.innerHTML = (item.parrafos || []).map(p =>
+        `<p class="hilo-parrafo">${escapeHtml(p)}</p>`
+      ).join("");
+      if (item.fuente_principal) {
+        body.innerHTML += `
+          <div class="hilo-fuente-principal">
+            <span class="hilo-fuente-label">fuente principal:</span>
+            <span class="hilo-fuente-text">${escapeHtml(item.fuente_principal)}</span>
+          </div>`;
+      }
+      if (item.lecturas_complementarias?.length) {
+        body.innerHTML += `
+          <div class="hilo-complementarias">
+            <span class="hilo-complementarias-label">lecturas complementarias:</span>
+            <ul>${item.lecturas_complementarias.map(lc =>
+              `<li>${escapeHtml(lc)}</li>`
+            ).join("")}</ul>
+          </div>`;
+      }
+      card.classList.remove("collapsed");
+      toggle.textContent = "▴ plegar";
+    } else {
+      body.innerHTML = `<p class="hilo-preview">${escapeHtml(preview)}…</p>`;
+      card.classList.add("collapsed");
+      toggle.textContent = "▾ leer hilo completo";
+    }
+  });
+  return card;
+}
+
+function renderLensComingSoon(lensDef) {
+  const root  = document.getElementById("feed");
+  const stats = document.getElementById("feed-stats");
+  const empty = document.getElementById("feed-empty");
+  if (stats) stats.textContent = `lente: ${lensDef.label} (próximamente)`;
+  if (root)  root.innerHTML = "";
+  if (!empty) return;
+  empty.hidden = false;
+  empty.innerHTML = `
+    <div class="lens-soon">
+      <div class="lens-soon-glifo" aria-hidden="true">${lensDef.glifo}</div>
+      <h3 class="lens-soon-title">${lensDef.label} — próximamente</h3>
+      <p class="lens-soon-copy">${COPY_LENS_SOON[lensDef.id] || "Estamos curando el seed inicial para esta lente."}</p>
+      <button class="lens-soon-cta" type="button">← Volver a Epígrafes</button>
+    </div>`;
+  empty.querySelector(".lens-soon-cta")
+    ?.addEventListener("click", () => setActiveLens(DEFAULT_LENS));
+}
+
 // ─────────────────── FEED ───────────────────
 
 function renderFeed() {
+  // Dispatch por lente activa. Si la lente no tiene seed todavía
+  // (soon=true), pintamos un empty-state honesto y salimos sin tocar
+  // state.ranked (que sigue siendo el de epígrafes — la lente por
+  // defecto vuelve a usarlo al hacer click en "Volver a Epígrafes").
+  const lensDef = LENSES.find(L => L.id === state.activeLens)
+               || LENSES.find(L => L.id === DEFAULT_LENS);
+  if (lensDef && lensDef.soon) {
+    renderLensComingSoon(lensDef);
+    return;
+  }
+
+  const view = getLensFeedView();
+  if (!view) {
+    // Defensa: si lens es desconocido pero no soon, vuelve a Epígrafe.
+    setActiveLens(DEFAULT_LENS);
+    return;
+  }
+
   const root = document.getElementById("feed");
   const stats = document.getElementById("feed-stats");
   const empty = document.getElementById("feed-empty");
-  const total = state.ranked.length;
-  const desde = state.page * PAGE_SIZE;
+  const total = view.ranked.length;
+  const desde = view.page * PAGE_SIZE;
   const hasta = Math.min(desde + PAGE_SIZE, total);
 
+  // Prefijo de stats con el nombre de la lente activa cuando NO es Epígrafe,
+  // para que el usuario sepa qué está leyendo (especialmente útil en móvil
+  // donde la touchbar puede haber scrolleado fuera de vista).
+  const lensPrefix = (state.activeLens === DEFAULT_LENS)
+    ? ""
+    : `${lensDef.label}: `;
   stats.textContent = total > 0
-    ? `${desde + 1}–${hasta} de ${total}`
-    : "sin items";
+    ? `${lensPrefix}${desde + 1}–${hasta} de ${total}`
+    : `${lensPrefix}sin items`;
 
   root.innerHTML = "";
 
@@ -177,14 +428,20 @@ function renderFeed() {
   }
 
   for (let i = desde; i < hasta; i++) {
-    const res = state.ranked[i];
+    const res = view.ranked[i];
     const item = res.item;
     const kind = item?.kind;
     let card;
+    const scoreTxt = (res.score === Infinity) ? "misión" : res.score.toFixed(2);
 
-    // Dispatch por kind: sillas y quórums llevan render custom; el
+    // Dispatch por kind. Lentes nuevas (Píldora/Hilo) tienen su propio
+    // renderer; sillas y quórums llevan render custom (existente); el
     // resto sigue el flujo clásico de epígrafes mnemoHACK.
-    if (kind === "silla_epigrafe" || kind === "silla_fuente") {
+    if (kind === "pildora") {
+      card = renderCardPildora(item, scoreTxt);
+    } else if (kind === "hilo") {
+      card = renderCardHilo(item, scoreTxt);
+    } else if (kind === "silla_epigrafe" || kind === "silla_fuente") {
       card = renderSillaConocimientoCard(item, {
         onEmpezar: (p) => onSillaEmpezar(p),
         onSintetizarCon: (p) => onSillaSintetizarCon(p)
@@ -253,21 +510,25 @@ function renderFeed() {
     root.appendChild(card);
   }
 
-  // Pager
+  // Pager (usa view.setPage para escribir en la página de la lente activa)
   const pager = document.createElement("div");
   pager.className = "feed-pager";
   if (total > PAGE_SIZE) {
-    if (state.page > 0) {
+    if (view.page > 0) {
       const btn = document.createElement("button");
       btn.textContent = "‹ anteriores";
-      btn.addEventListener("click", () => { state.page--; renderFeed(); window.scrollTo(0,0); });
+      btn.addEventListener("click", () => {
+        view.setPage(view.page - 1); renderFeed(); window.scrollTo(0, 0);
+      });
       pager.appendChild(btn);
     }
     if (hasta < total) {
       const btn = document.createElement("button");
       btn.textContent = "siguientes 12 ›";
       btn.style.marginLeft = "0.6em";
-      btn.addEventListener("click", () => { state.page++; renderFeed(); window.scrollTo(0,0); });
+      btn.addEventListener("click", () => {
+        view.setPage(view.page + 1); renderFeed(); window.scrollTo(0, 0);
+      });
       pager.appendChild(btn);
     }
   }
@@ -645,21 +906,30 @@ function escapeHtml(s) {
 // ─────────────────── RECARGA FEED (con sillas + quorums) ─────
 
 async function recargarFeed() {
-  let mnemo = [];
-  try { mnemo = await cargarItems(); }
-  catch (e) { console.warn("[biblioteca] mnemo:", e); }
-
-  let sillas = [];
-  try { sillas = await loadSillasConocimiento({ max_epigrafes: 20, max_fuentes: 12 }); }
-  catch (e) { console.warn("[biblioteca] sillas:", e); }
+  // Cargamos las 5 colecciones en paralelo (3 para lente Epígrafe + 2
+  // para las lentes nuevas Píldora y Hilo). Promise.all no rechaza si
+  // alguna falla porque cada loader hace su propio try/catch interno
+  // y devuelve [] como fallback.
+  const [mnemo, sillas, pildoras, hilos] = await Promise.all([
+    cargarItems().catch(e => { console.warn("[biblioteca] mnemo:", e);    return []; }),
+    loadSillasConocimiento({ max_epigrafes: 20, max_fuentes: 12 })
+      .catch(e => { console.warn("[biblioteca] sillas:", e);   return []; }),
+    cargarPildoras().catch(e => { console.warn("[biblioteca] pildoras:", e); return []; }),
+    cargarHilos().catch(e   => { console.warn("[biblioteca] hilos:", e);    return []; })
+  ]);
 
   let quorums = [];
   try { quorums = loadQuorumsLectura(); }
   catch (e) { console.warn("[biblioteca] quorums:", e); }
 
-  // Merge — rank() ordena. Quorums arriba para que se vean los
-  // termómetros al abrir.
+  // Lente Epígrafe: merge en state.items igual que antes. Quórums arriba
+  // para que se vean los termómetros al abrir.
   state.items = [...quorums, ...mnemo, ...sillas];
+
+  // Lentes nuevas (touchbar v2): colecciones independientes.
+  state.feedsByLens.pildora.items = pildoras;
+  state.feedsByLens.hilo.items    = hilos;
+
   reRank();
 }
 
@@ -870,21 +1140,47 @@ function debeForzarOnboarding() {
   return true;
 }
 
+// ─────────────────── HEADER: DROPDOWN OCRE ▾ ───────────────
+
+function montarBrandMenu() {
+  const brand = document.getElementById("app-topbar-brand");
+  const menu  = document.getElementById("app-topbar-menu");
+  if (!brand || !menu) return;
+  const set = (open) => {
+    menu.classList.toggle("open", open);
+    brand.setAttribute("aria-expanded", open ? "true" : "false");
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+  };
+  brand.addEventListener("click", () => set(!menu.classList.contains("open")));
+  brand.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); set(!menu.classList.contains("open")); }
+  });
+  document.addEventListener("click", (ev) => {
+    if (!menu.contains(ev.target) && !brand.contains(ev.target)) set(false);
+  });
+  document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") set(false); });
+}
+
 // ─────────────────── BOOTSTRAP ───────────────────
 
 async function init() {
-  // Barra superior compartida (faceta Biblioteca, acento índigo).
-  mountNavbar("biblioteca");
+  // Header OCRE ▾ (shell portado de POLIS): dropdown POLIS/ÁGORA/BIBLIOTHEKA.
+  montarBrandMenu();
 
   // Inyectar CSS del HUD una vez.
   document.head.insertAdjacentHTML("beforeend", `<style>${HUD_CSS}</style>`);
 
-  // UID en topbar.
+  // UID (oculto en el header, persiste como traza).
   document.getElementById("uid").textContent = getUserId();
 
   // Listeners de header.
   document.getElementById("btn-nueva-mision").addEventListener("click", () => abrirModalNuevaMision());
   document.getElementById("btn-nueva-sintesis").addEventListener("click", () => abrirModalSintesis());
+
+  // Touchbar v2 (5 niveles de compromiso). Se monta antes de cargar
+  // items porque renderFeed() consulta state.activeLens en cada repintado
+  // y necesita los chips ya en el DOM para reflejar el activo.
+  montarStripBiblio();
 
   renderSliders();
   renderMisiones();
@@ -902,11 +1198,9 @@ async function init() {
   // Carga combinada: mnemo + sillas + quorums.
   await recargarFeed();
 
-  // Onboarding: forzar primera misión si procede. Lo hacemos al final
-  // para que el usuario vea el feed cargado de fondo (no en vacío).
-  if (debeForzarOnboarding()) {
-    abrirModalNuevaMision({ forzado: true });
-  }
+  // Onboarding suave: si no hay misiones, el bloque `feed-empty` invita
+  // a crear la primera, pero NO bloqueamos el feed con un modal forzado
+  // (antes lanzaba abrirModalNuevaMision({forzado:true}) que tapaba todo).
 }
 
 init();

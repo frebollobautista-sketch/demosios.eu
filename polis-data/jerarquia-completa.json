@@ -1,0 +1,238 @@
+{
+  "municipio": {
+    "nombre": "Las Palmas de Gran Canaria",
+    "codigo_ine": "35016",
+    "admin_level_osm": 8
+  },
+  "niveles_disponibles": {
+    "nivel_1_distritos": {
+      "descripcion": "5 distritos municipales (Wikipedia)",
+      "fuente": "Wikipedia / Ayuntamiento",
+      "datos_geo": "NO disponibles aún",
+      "lista": [
+        {
+          "cod": "01",
+          "nombre": "Vegueta, Cono Sur y Tafira",
+          "pob": 73243
+        },
+        {
+          "cod": "02",
+          "nombre": "Centro",
+          "pob": 86867
+        },
+        {
+          "cod": "03",
+          "nombre": "Puerto-Canteras",
+          "pob": 71412
+        },
+        {
+          "cod": "04",
+          "nombre": "Ciudad Alta",
+          "pob": 104128
+        },
+        {
+          "cod": "05",
+          "nombre": "Tamaraceite-San Lorenzo",
+          "pob": 45114
+        }
+      ]
+    },
+    "nivel_2_sectores": {
+      "descripcion": "16 sectores (coinciden aprox con OSM admin_level=9)",
+      "fuente": "Wikipedia + OSM",
+      "datos_geo": "12 de 16 con polígono OSM",
+      "lista": [
+        {
+          "cod": "01",
+          "nombre": "Marzagán",
+          "distrito": "01",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "02",
+          "nombre": "San Cristóbal",
+          "distrito": "01",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "03",
+          "nombre": "Vegueta-Triana",
+          "distrito": "01/02",
+          "tiene_poligono": true,
+          "nota": "OSM tiene Vegueta y Triana como polígonos separados"
+        },
+        {
+          "cod": "04",
+          "nombre": "Arenales",
+          "distrito": "02",
+          "tiene_poligono": true,
+          "nota": "OSM tiene: Canalejas, Ciudad del Mar, Ciudad Jardín, Fincas Unidas, Lugo"
+        },
+        {
+          "cod": "05",
+          "nombre": "Santa Catalina",
+          "distrito": "02/03",
+          "tiene_poligono": true,
+          "nota": "OSM tiene: Alcaravaneras, Santa Catalina-Canteras"
+        },
+        {
+          "cod": "06",
+          "nombre": "La Isleta",
+          "distrito": "03",
+          "tiene_poligono": true
+        },
+        {
+          "cod": "07",
+          "nombre": "Guanarteme",
+          "distrito": "03",
+          "tiene_poligono": true
+        },
+        {
+          "cod": "08",
+          "nombre": "Los Riscos",
+          "distrito": "01/02",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "09",
+          "nombre": "Las Rehoyas",
+          "distrito": "02/04",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "10",
+          "nombre": "Schamann",
+          "distrito": "04",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "11",
+          "nombre": "Escaleritas",
+          "distrito": "04",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "12",
+          "nombre": "Tafira",
+          "distrito": "01",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "13",
+          "nombre": "La Paterna",
+          "distrito": "02/04",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "14",
+          "nombre": "Las Torres",
+          "distrito": "04",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "15",
+          "nombre": "Tamaraceite",
+          "distrito": "05",
+          "tiene_poligono": false
+        },
+        {
+          "cod": "16",
+          "nombre": "San Lorenzo",
+          "distrito": "05",
+          "tiene_poligono": false
+        }
+      ]
+    },
+    "nivel_3_barrios": {
+      "descripcion": "122 barrios (nivel fino - Wikipedia)",
+      "fuente": "Wikipedia / INE secciones censales",
+      "datos_geo": "NO disponibles (necesitan INE/ISTAC/GRAFCAN)"
+    },
+    "nivel_alternativo_secciones_censales": {
+      "descripcion": "Secciones censales del INE - unidad mínima legal con polígono",
+      "fuente": "INE (ine.es) / datos.gob.es",
+      "codigo_formato": "35016-DD-SSSS (provincia 35, municipio 016, distrito DD, seccion SSSS)",
+      "datos_geo": "Descargable desde INE GeoServer o datos.gob.es - BLOQUEADO por proxy",
+      "urls": [
+        "https://www.ine.es/geoserver/ogc/features/v1/collections",
+        "https://datos.gob.es/en/catalogo/e0dat0002-secciones-censales-de-espana",
+        "https://datos.canarias.es/catalogos/estadisticas/dataset/secciones-de-canarias-a-01-01-2023"
+      ]
+    }
+  },
+  "osm_poligonos_disponibles": [
+    {
+      "nombre": "Canalejas",
+      "sector": "04. Arenales",
+      "distrito": "02. Centro",
+      "puntos": 107
+    },
+    {
+      "nombre": "Ciudad del Mar",
+      "sector": "04. Arenales",
+      "distrito": "02. Centro",
+      "puntos": 85
+    },
+    {
+      "nombre": "Triana",
+      "sector": "03. Vegueta-Triana",
+      "distrito": "02. Centro",
+      "puntos": 98
+    },
+    {
+      "nombre": "Vegueta",
+      "sector": "03. Vegueta-Triana",
+      "distrito": "01. Vegueta, Cono Sur y Tafira",
+      "puntos": 80
+    },
+    {
+      "nombre": "Guanarteme",
+      "sector": "07. Guanarteme",
+      "distrito": "03. Puerto-Canteras",
+      "puntos": 83
+    },
+    {
+      "nombre": "Alcaravaneras",
+      "sector": "05. Santa Catalina",
+      "distrito": "02. Centro",
+      "puntos": 113
+    },
+    {
+      "nombre": "Santa Catalina-Canteras",
+      "sector": "05. Santa Catalina",
+      "distrito": "03. Puerto-Canteras",
+      "puntos": 130
+    },
+    {
+      "nombre": "La Isleta",
+      "sector": "06. La Isleta",
+      "distrito": "03. Puerto-Canteras",
+      "puntos": 1298
+    },
+    {
+      "nombre": "Fincas Unidas",
+      "sector": "04. Arenales",
+      "distrito": "02. Centro",
+      "puntos": 171
+    },
+    {
+      "nombre": "Lugo",
+      "sector": "04. Arenales",
+      "distrito": "02. Centro",
+      "puntos": 61
+    },
+    {
+      "nombre": "Ciudad Jardín",
+      "sector": "04. Arenales",
+      "distrito": "02. Centro",
+      "puntos": 233
+    },
+    {
+      "nombre": "Vega de San José",
+      "sector": "02. San Cristóbal",
+      "distrito": "01. Vegueta, Cono Sur y Tafira",
+      "puntos": 12
+    }
+  ],
+  "recomendacion": "La unidad mínima con geometría oficial es la SECCIÓN CENSAL del INE. Pancho necesita descargar el shapefile de secciones censales desde datos.gob.es o el GeoServer del INE, filtrar por municipio 35016, y proporcionarlo a Claude para generar los PNGs con códigos oficiales."
+}

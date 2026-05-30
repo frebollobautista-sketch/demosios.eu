@@ -1,0 +1,110 @@
+/**
+ * KOINOS · tokens canónicos
+ * =========================
+ * Copia portable y standalone de los design tokens. Espejo de
+ * /src/app/globals.css para que /design pueda compartirse como hub
+ * autocontenido sin necesidad de abrir el código de la app.
+ *
+ * Si hay drift entre este archivo y globals.css, GANA globals.css —
+ * es el que ejecuta. Sincronizar este archivo después de cualquier
+ * cambio de tokens es responsabilidad del autor del cambio.
+ *
+ * Versión: v1 · 2026-05-09.
+ * Documento maestro: SISTEMA.md
+ */
+
+:root {
+  /* ── paleta canónica (14 tokens) ──────────────────────────────── */
+  --paper:      #fbf4dd;  /* papel cálido, fondo de marca */
+  --cream:      #f4ead4;  /* superficie secundaria, bandas */
+  --sand-lt:    #f0e0c0;  /* hover, top-faces iso, highlights */
+  --sand:       #c8b898;  /* tono base de edificio iso, acentos suaves */
+  --ocre:       #b07840;  /* pigmento mid-warm, links, énfasis ocre */
+  --ocre-dk:    #8a5a2a;  /* sombra ocre, sub-marks, eyebrow text */
+  --terracotta: #c85438;  /* acento rojo plebeyo, alertas suaves */
+  --sangre:     #6e2a1e;  /* terracota oscuro, danger / depth */
+  --aegean:     #5b9aa8;  /* agua mediterránea */
+  --blue-dk:    #3a5878;  /* imperial profundo, info */
+  --laurel:     #7c8a4a;  /* verde cívico, success */
+  --gold:       #d8a44a;  /* oro patricio, premio, warning */
+  --piedra:     #6d6458;  /* gris cálido, texto secundario */
+  --volcanic:   #221d18;  /* outline universal, tinta principal */
+
+  /* ── alias semánticos ─────────────────────────────────────────── */
+  --bg:         var(--paper);
+  --bg-soft:    var(--cream);
+  --surface:    #ffffff;
+  --ink:        var(--volcanic);
+  --ink-muted:  var(--piedra);
+  --line:       #e5e1d6;
+  --link:       var(--ocre);
+  --danger:     var(--terracotta);
+  --success:    var(--laurel);
+  --warning:    var(--gold);
+  --info:       var(--blue-dk);
+
+  /* ── escala tipográfica ──────────────────────────────────────── */
+  --text-display:  84px;   /* hero, wordmark suelto */
+  --text-h1:       48px;   /* portada de página */
+  --text-h2:       32px;   /* sección */
+  --text-h3:       24px;   /* sub-sección */
+  --text-lg:       18px;   /* lead, intro */
+  --text-base:     16px;   /* prosa por defecto */
+  --text-sm:       14px;   /* UI secundaria, descripciones */
+  --text-xs:       12px;   /* etiquetas, captions, metadatos */
+  --text-eyebrow:  11px;   /* overline (uppercase + tracking 0.18em) */
+
+  --leading-tight:    1.1;
+  --leading-snug:     1.3;
+  --leading-normal:   1.5;
+  --leading-relaxed:  1.6;
+
+  /* ── escala de espaciado · base 4 px ─────────────────────────── */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-12:  48px;
+  --space-16:  64px;
+  --space-24:  96px;
+
+  /* ── radios ──────────────────────────────────────────────────── */
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-xl:    16px;
+  --radius-full:  9999px;
+
+  /* ── motion ──────────────────────────────────────────────────── */
+  --duration-fast:   120ms;
+  --duration-base:   240ms;
+  --duration-slow:   400ms;
+  --ease-out:        cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out:     cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── sombras ─────────────────────────────────────────────────── */
+  --shadow-sutil:  0 1px 2px rgba(34, 29, 24, 0.06);
+  --shadow-carta:  0 6px 24px -8px rgba(34, 29, 24, 0.16);
+  --shadow-foco:   0 0 0 3px rgba(176, 120, 64, 0.25);
+
+  /* ── tipografía: stacks ──────────────────────────────────────── */
+  --font-display: 'Archivo Black', Archivo, 'Helvetica Neue', sans-serif;
+  --font-sans:    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+/* ── paleta categórica · features de mapa ──────────────────────── */
+/* Fijada en SISTEMA.md §2 — coherente con polis-juego/. NO cambiar
+   sin actualizar las visualizaciones de POIs en el visor. */
+:root {
+  --cat-restauracion:  var(--terracotta);  /* #c85438 */
+  --cat-comercio:      var(--blue-dk);     /* #3a5878 */
+  --cat-alojamiento:   var(--sangre);      /* #6e2a1e */
+  --cat-salud:         var(--laurel);      /* #7c8a4a */
+  --cat-finanzas:      var(--gold);        /* #d8a44a */
+  --cat-residencial:   var(--ocre);        /* #b07840 */
+  --cat-publico:       var(--aegean);      /* #5b9aa8 */
+  --cat-monumento:     var(--volcanic);    /* #221d18 */
+}

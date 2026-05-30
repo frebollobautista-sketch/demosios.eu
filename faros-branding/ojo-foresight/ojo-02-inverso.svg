@@ -1,0 +1,7 @@
+<svg width="200" height="140" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Foresight - ojo inverso</title>
+  <desc>Contorno amarillo, pupila azul. Variante invertida.</desc>
+  <path d="M 22 70 C 56 22, 144 22, 178 70 C 144 118, 56 118, 22 70 Z"
+        fill="none" stroke="#FFCB05" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="100" cy="70" r="22" fill="#1750C5"/>
+</svg>

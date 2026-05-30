@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mêtis — árbol de habilidades de OCRE (mockup)</title>
+<style>
+  :root{
+    --paper:#F4ECDD; --paper2:#EFE3CC; --ink:#2B241B; --muted:#7a6c52;
+    --koi:#A14B2A;  /* capital social  · Koinonía */
+    --pai:#B4832E;  /* capital cultural · Paideía  */
+    --pol:#5B7A3E;  /* capital político · Politeía */
+    --syn:#C98A1A;  /* Synousía / práxis */
+    --lock:#d8cbb1; --lockln:#b3a589;
+    --line:#cdbf9f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;}
+  header{padding:18px 26px 10px;border-bottom:1px solid var(--line);}
+  header h1{margin:0;font-size:23px;letter-spacing:.3px}
+  header .gr{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--syn)}
+  header p{margin:5px 0 0;font-size:13px;color:var(--muted);max-width:720px;line-height:1.5}
+  .wrap{display:grid;grid-template-columns:236px 1fr 286px;gap:0;min-height:560px}
+  .col{padding:18px 20px}
+  .side{background:var(--paper2);border-right:1px solid var(--line)}
+  .detail{background:var(--paper2);border-left:1px solid var(--line)}
+  h2.sec{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+    margin:18px 0 9px;font-weight:normal}
+  h2.sec:first-child{margin-top:0}
+  /* citizen card */
+  .cit{border:1px solid var(--line);background:var(--paper);border-radius:6px;padding:11px 13px}
+  .cit .grade{font-size:20px}
+  .cit .lat{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+  .cls{display:inline-block;margin-top:6px;font-size:11px;padding:2px 9px;border-radius:10px;
+    background:var(--syn);color:#fff;letter-spacing:.5px}
+  .tp{font-size:12px;color:var(--muted);margin-top:7px}
+  /* bars */
+  .bar{margin:9px 0}
+  .bar .lab{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px}
+  .bar .lab b{font-weight:normal}
+  .track{height:9px;background:#e4d8bd;border-radius:5px;overflow:hidden}
+  .fill{height:100%;border-radius:5px;transition:width .35s}
+  .praxis .track{height:13px;background:#e4d8bd}
+  .praxis .fill{background:repeating-linear-gradient(45deg,var(--syn),var(--syn) 6px,#d89e2e 6px,#d89e2e 12px)}
+  .hint{font-size:10.5px;color:var(--muted);line-height:1.45;margin-top:3px}
+  /* action buttons */
+  button{font-family:inherit;cursor:pointer}
+  .act{display:block;width:100%;text-align:left;margin:6px 0;padding:7px 10px;
+    border:1px solid var(--lockln);background:var(--paper);border-radius:5px;font-size:12px;color:var(--ink)}
+  .act:hover{background:#fff}
+  .act small{color:var(--muted)}
+  .week{background:var(--syn);color:#fff;border-color:var(--syn);text-align:center;font-size:12px}
+  .reset{background:none;border:none;color:var(--muted);font-size:11px;text-decoration:underline;padding:4px 0}
+  /* tree */
+  .treewrap{display:flex;align-items:center;justify-content:center}
+  svg{max-width:100%;height:auto}
+  .nodeC{cursor:pointer}
+  .nlabel{font-size:9px;fill:var(--ink);text-anchor:middle;pointer-events:none}
+  .tlabel{font-size:9px;fill:var(--muted);text-anchor:end;letter-spacing:1px}
+  .ntier{font-size:11px;font-weight:bold;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+  /* detail panel */
+  .dempty{font-size:12.5px;color:var(--muted);line-height:1.6}
+  .leg{display:flex;align-items:center;gap:7px;font-size:11.5px;margin:5px 0}
+  .dot{width:13px;height:13px;border-radius:50%;flex:none}
+  .dcard h3{margin:0;font-size:17px}
+  .dcard .branch{font-size:10px;letter-spacing:2px;text-transform:uppercase;margin:3px 0 10px}
+  .dcard p{font-size:12.5px;line-height:1.5}
+  .req{border:1px solid var(--line);border-radius:6px;padding:9px 11px;background:var(--paper);margin:9px 0;font-size:12px}
+  .req .row{display:flex;justify-content:space-between;margin:3px 0}
+  .ok{color:var(--pol)} .no{color:var(--koi)}
+  .activar{width:100%;padding:9px;border-radius:6px;font-size:13px;border:1px solid var(--pol);
+    background:var(--pol);color:#fff;margin-top:4px}
+  .activar:disabled{background:var(--lock);border-color:var(--lockln);color:var(--muted);cursor:not-allowed}
+  .activado{text-align:center;font-size:12px;color:var(--pol);padding:8px;border:1px dashed var(--pol);border-radius:6px}
+  .coact{font-size:11.5px;margin:8px 0;display:flex;gap:6px;align-items:flex-start;color:var(--muted)}
+  footer{padding:9px 26px;border-top:1px solid var(--line);font-size:10.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div class="gr">Mêtis · ἐπιστήμη + τέχνη</div>
+  <h1>Árbol de habilidades de OCRE</h1>
+  <p>Mockup interactivo. Dos ramas — <b>Epistḗmē</b> (savant, saber por qué) y
+  <b>Téchnē</b> (fabricant, saber cómo) — y un tronco <b>Synousía</b> donde se
+  cruzan. Haz crecer tu capital con acciones cotidianas, gasta <b>práxis</b> para
+  encender nodos. El grado y la clase se derivan del árbol. Datos de ejemplo.</p>
+</header>
+
+<div class="wrap">
+  <!-- ░░ SIDEBAR ░░ -->
+  <div class="col side">
+    <h2 class="sec">Tu ciudadanía</h2>
+    <div class="cit">
+      <div class="grade" id="grade">Polítes</div>
+      <div class="lat" id="gradeLat">POLITES · ciudadano/a</div>
+      <span class="cls" id="clase">—</span>
+      <div class="tp" id="treep">0 puntos de árbol</div>
+    </div>
+
+    <h2 class="sec">Capital acumulado · umbral</h2>
+    <div class="bar"><div class="lab"><b>Social · Koinonía</b><span id="vkoi">0</span></div>
+      <div class="track"><div class="fill" id="bkoi" style="background:var(--koi);width:0"></div></div></div>
+    <div class="bar"><div class="lab"><b>Cultural · Paideía</b><span id="vpai">0</span></div>
+      <div class="track"><div class="fill" id="bpai" style="background:var(--pai);width:0"></div></div></div>
+    <div class="bar"><div class="lab"><b>Político · Politeía</b><span id="vpol">0</span></div>
+      <div class="track"><div class="fill" id="bpol" style="background:var(--pol);width:0"></div></div></div>
+    <div class="hint">No se gasta nunca. Es la prueba de recorrido que abre cada nodo.</div>
+
+    <h2 class="sec">Práxis · recurso renovable</h2>
+    <div class="bar praxis"><div class="lab"><b>Práxis disponible</b><span id="vprx">0 / 40</span></div>
+      <div class="track"><div class="fill" id="bprx" style="width:0"></div></div></div>
+    <div class="hint">Se gasta al encender un nodo. La recargan la semana y lo cotidiano.</div>
+
+    <h2 class="sec">Lo cotidiano (genera tejido)</h2>
+    <button class="act" data-do="pec">Dar un PEC <small>· +4 social · +3 práxis</small></button>
+    <button class="act" data-do="agora">Responder en el Ágora <small>· +2 social +2 cultural · +3 práxis</small></button>
+    <button class="act" data-do="pub">Publicar vídeo / recurso <small>· +8 cultural +2 social · +1 práxis</small></button>
+    <button class="act" data-do="polis">Acción en Polis <small>· +8 político +2 social · +1 práxis</small></button>
+    <button class="act week" data-do="week">▸ Pasa una semana (+14 práxis)</button>
+    <button class="reset" data-do="reset">reiniciar mockup</button>
+  </div>
+
+  <!-- ░░ TREE ░░ -->
+  <div class="col treewrap">
+    <svg id="tree" viewBox="0 0 760 650" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+
+  <!-- ░░ DETAIL ░░ -->
+  <div class="col detail" id="detail"></div>
+</div>
+
+<footer>OCRE · KOINOS — mockup de diseño del árbol Mêtis. Mecánica híbrida: capital acumulado (umbral) + práxis (gasto). El árbol absorbe los 7 grados del cursus honorum.</footer>
+
+<script>
+/* ── Catálogo del árbol ─────────────────────────────────────────── */
+const TIERVAL = {1:1, 2:3, 3:6, 4:10, 5:16};
+const TIERY   = {1:512, 2:406, 3:300, 4:196, 5:92};
+
+// branch: E=Epistḗmē(savant)  T=Téchnē(fabricant)  S=Synousía(tronco)
+const NODES = [
+ // ── Epistḗmē (savant) ──
+ {id:'E1a',branch:'E',tier:1,x:118,name:'Lectura',full:'Lectura del común',
+   abre:'Leer las capas de datos de POLIS y seguir hilos con contexto.',
+   umbral:{pai:8,koi:4},praxis:4,parents:['root']},
+ {id:'E1b',branch:'E',tier:1,x:214,name:'Aprendiz',full:'Aprendiz',
+   abre:'Completar itinerarios de Bibliotheka; marcar recursos leídos.',
+   umbral:{pai:10,koi:4},praxis:4,parents:['root']},
+ {id:'E2a',branch:'E',tier:2,x:118,name:'Diagnóstico',full:'Diagnóstico de barrio',
+   abre:'Anotar capas de datos en POLIS y publicar un análisis en Bibliotheka.',
+   umbral:{pai:30,koi:12},praxis:8,parents:['E1a']},
+ {id:'E2b',branch:'E',tier:2,x:214,name:'Memoria',full:'Memoria',
+   abre:'Documentar el patrimonio de un bloque; crear su ficha.',
+   umbral:{pai:28,koi:14},praxis:8,parents:['E1b']},
+ {id:'E3a',branch:'E',tier:3,x:118,name:'Didáctica',full:'Didáctica',
+   abre:'Abrir serie propia en el Cursus de vídeo; proponer un currículo.',
+   umbral:{pai:60,koi:25},praxis:14,parents:['E2a']},
+ {id:'E3b',branch:'E',tier:3,x:214,name:'Contraste',full:'Contraste',
+   abre:'Revisar y contestar el saber de otros (peer review cívico).',
+   umbral:{pai:55,koi:30},praxis:14,parents:['E2b']},
+ {id:'E4',branch:'E',tier:4,x:166,name:'Cátedra',full:'Cátedra',
+   abre:'Sostener una disciplina; fijar un hilo de referencia en Ágora.',
+   umbral:{pai:100,koi:45},praxis:22,parents:['E3a','E3b']},
+ {id:'E5',branch:'E',tier:5,x:166,name:'Episteme',full:'Episteme del común',
+   abre:'Síntesis territorial; formar a otros savants.',
+   umbral:{pai:160,koi:70},praxis:32,parents:['E4']},
+ // ── Téchnē (fabricant) ──
+ {id:'T1a',branch:'T',tier:1,x:546,name:'Manos',full:'Manos',
+   abre:'Marcar pines en POLIS y reportar desperfectos al mapa común.',
+   umbral:{pol:8,koi:4},praxis:4,parents:['root']},
+ {id:'T1b',branch:'T',tier:1,x:642,name:'Oficio',full:'Oficio',
+   abre:'Registrar un servicio o recurso verificado en Koiná.',
+   umbral:{pol:6,koi:8},praxis:4,parents:['root']},
+ {id:'T2a',branch:'T',tier:2,x:546,name:'Convocar',full:'Convocatoria',
+   abre:'Organizar quedadas y talleres de barrio.',
+   umbral:{pol:25,koi:18},praxis:8,parents:['T1a']},
+ {id:'T2b',branch:'T',tier:2,x:642,name:'Cartografía',full:'Cartografía',
+   abre:'Liderar misiones de mapeo en POLIS.',
+   umbral:{pol:30,koi:12},praxis:8,parents:['T1b']},
+ {id:'T3a',branch:'T',tier:3,x:546,name:'Coordinar',full:'Coordinación',
+   abre:'Dirigir una cuadrilla / cooperativa pequeña de varios oikonómoi.',
+   umbral:{pol:55,koi:30},praxis:14,parents:['T2a']},
+ {id:'T3b',branch:'T',tier:3,x:642,name:'Movilizar',full:'Movilización',
+   abre:'Convocar votaciones de barrio; recoger apoyos.',
+   umbral:{pol:60,koi:25},praxis:14,parents:['T2b']},
+ {id:'T4',branch:'T',tier:4,x:594,name:'Campaña',full:'Campaña',
+   abre:'Abrir un proceso formal de recuperación de un bloque.',
+   umbral:{pol:100,koi:45},praxis:22,parents:['T3a','T3b']},
+ {id:'T5',branch:'T',tier:5,x:594,name:'Téchne',full:'Téchne del común',
+   abre:'Sostener una intervención a escala de municipio.',
+   umbral:{pol:160,koi:70},praxis:32,parents:['T4']},
+ // ── Synousía (tronco) ──
+ {id:'S2',branch:'S',tier:2,x:380,name:'Encuentro',full:'Encuentro',
+   abre:'Abrir una ficha de proyecto: un diagnóstico se cruza con unas manos.',
+   umbral:{koi:25,pai:25,pol:25},praxis:12,parents:[]},
+ {id:'S3',branch:'S',tier:3,x:380,name:'Prototipo',full:'Prototipo',
+   abre:'Convertir un diagnóstico en una intervención piloto.',
+   umbral:{koi:45,pai:45,pol:45},praxis:20,parents:[]},
+ {id:'S4',branch:'S',tier:4,x:380,name:'Mandato',full:'Mandato',
+   abre:'Una deliberación del Ágora que se ejecuta y se mide.',
+   umbral:{koi:80,pai:80,pol:80},praxis:30,parents:[]},
+ {id:'S5',branch:'S',tier:5,x:380,name:'Institución',full:'Institución del común',
+   abre:'Un proyecto que se vuelve permanente: cooperativa, equipamiento recuperado.',
+   umbral:{koi:130,pai:130,pol:130},praxis:44,parents:[]},
+];
+NODES.forEach(n=>n.y=TIERY[n.tier]);
+const byId=Object.fromEntries(NODES.map(n=>[n.id,n]));
+const ROOT={x:380,y:600};
+
+const EDGES=[
+ ['root','E1a'],['root','E1b'],['root','T1a'],['root','T1b'],
+ ['E1a','E2a'],['E1b','E2b'],['E2a','E3a'],['E2b','E3b'],['E3a','E4'],['E3b','E4'],['E4','E5'],
+ ['T1a','T2a'],['T1b','T2b'],['T2a','T3a'],['T2b','T3b'],['T3a','T4'],['T3b','T4'],['T4','T5'],
+];
+// puentes Synousía (discontinuos) hacia las ramas del mismo tier
+const BRIDGES=[['S2','E2a'],['S2','T2a'],['S3','E3a'],['S3','T3a'],['S4','E4'],['S4','T4'],['S5','E5'],['S5','T5']];
+
+const GRADOS=[
+ {min:0, n:'Polítes',   lat:'POLITES · ciudadano/a'},
+ {min:2, n:'Oikonómos', lat:'OIKONOMOS · gestor/a del hogar'},
+ {min:6, n:'Ergátes',   lat:'ERGATES · trabajador/a cualificado/a'},
+ {min:14,n:'Didáskalos',lat:'DIDASKALOS · maestro/a'},
+ {min:26,n:'Bouleutés', lat:'BOULEUTES · consejero/a del barrio'},
+ {min:50,n:'Strategós', lat:'STRATEGOS · estratega'},
+ {min:90,n:'Árchon',    lat:'ARCHON · arconte (elegible)'},
+];
+const BRANCHCOL={E:'var(--pai)',T:'var(--pol)',S:'var(--syn)'};
+const BRANCHNAME={E:'Epistḗmē · savant',T:'Téchnē · fabricant',S:'Synousía · tronco'};
+
+/* ── Estado ─────────────────────────────────────────────────────── */
+const START={capital:{koi:20,pai:16,pol:12},praxis:22,lit:['root','E1a','E1b','T1a']};
+let S;
+function reset(){
+  S={capital:{...START.capital},praxis:START.praxis,praxisMax:40,
+     lit:new Set(START.lit),selected:null,coact:false};
+  render();
+}
+
+/* ── Lógica ─────────────────────────────────────────────────────── */
+function treePoints(){let p=0;S.lit.forEach(id=>{if(byId[id])p+=TIERVAL[byId[id].tier]});return p;}
+function branchPoints(b){let p=0;S.lit.forEach(id=>{const n=byId[id];if(n&&n.branch===b)p+=TIERVAL[n.tier]});return p;}
+function grado(){const p=treePoints();let g=GRADOS[0];GRADOS.forEach(x=>{if(p>=x.min)g=x});return g;}
+function clase(){
+  const e=branchPoints('E'),t=branchPoints('T'),s=branchPoints('S');
+  if(e+t+s===0)return '—';
+  if(s>=e&&s>=t&&s>0)return 'sinérgeta';
+  if(e===t)return 'equilibrada';
+  return e>t?'savant':'fabricant';
+}
+function praxisCost(n){return (n.branch==='S'&&S.coact)?Math.ceil(n.praxis/2):n.praxis;}
+function parentsOk(n){return n.parents.length===0||n.parents.some(p=>S.lit.has(p));}
+function pairOk(n){
+  if(n.branch!=='S')return true;
+  const e=NODES.some(x=>x.branch==='E'&&x.tier===n.tier&&S.lit.has(x.id));
+  const t=NODES.some(x=>x.branch==='T'&&x.tier===n.tier&&S.lit.has(x.id));
+  return e&&t;
+}
+function capOk(n){
+  return (S.capital.koi>=(n.umbral.koi||0))&&
+         (S.capital.pai>=(n.umbral.pai||0))&&
+         (S.capital.pol>=(n.umbral.pol||0));
+}
+function nodeState(n){
+  if(S.lit.has(n.id))return 'lit';
+  if(!parentsOk(n)||!pairOk(n))return 'blocked';
+  if(!capOk(n))return 'needcap';
+  if(S.praxis<praxisCost(n))return 'needprx';
+  return 'ready';
+}
+function activar(n){
+  if(nodeState(n)!=='ready')return;
+  S.praxis-=praxisCost(n);
+  S.lit.add(n.id);
+  render();
+}
+
+/* ── Acciones cotidianas ────────────────────────────────────────── */
+function doAction(k){
+  const cap=S.capital;
+  if(k==='pec'){cap.koi+=4;S.praxis+=3;}
+  else if(k==='agora'){cap.koi+=2;cap.pai+=2;S.praxis+=3;}
+  else if(k==='pub'){cap.pai+=8;cap.koi+=2;S.praxis+=1;}
+  else if(k==='polis'){cap.pol+=8;cap.koi+=2;S.praxis+=1;}
+  else if(k==='week'){S.praxis+=14;}
+  else if(k==='reset'){reset();return;}
+  S.praxis=Math.min(S.praxis,S.praxisMax);
+  render();
+}
+
+/* ── Render ─────────────────────────────────────────────────────── */
+const BARMAX=200;
+function render(){
+  const g=grado();
+  document.getElementById('grade').textContent=g.n;
+  document.getElementById('gradeLat').textContent=g.lat;
+  document.getElementById('clase').textContent=clase();
+  document.getElementById('treep').textContent=treePoints()+' puntos de árbol';
+  const cap=S.capital;
+  for(const[e,bg]of[['koi','koi'],['pai','pai'],['pol','pol']]){
+    document.getElementById('v'+e).textContent=cap[e];
+    document.getElementById('b'+e).style.width=Math.min(100,cap[e]/BARMAX*100)+'%';
+  }
+  document.getElementById('vprx').textContent=S.praxis+' / '+S.praxisMax;
+  document.getElementById('bprx').style.width=(S.praxis/S.praxisMax*100)+'%';
+  drawTree();
+  drawDetail();
+}
+
+function drawTree(){
+  let s='';
+  // trunk aesthetic
+  s+=`<path d="M380 605 Q372 430 380 90" stroke="#e0d2b1" stroke-width="20" fill="none" stroke-linecap="round"/>`;
+  // tier guides
+  for(let t=1;t<=5;t++) s+=`<text class="tlabel" x="60" y="${TIERY[t]+3}">tier ${t}</text>`;
+  // edges
+  EDGES.forEach(([a,b])=>{
+    const A=a==='root'?ROOT:byId[a], B=byId[b];
+    const both=(a==='root'||S.lit.has(a))&&S.lit.has(b);
+    s+=`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" stroke="${both?BRANCHCOL[B.branch]:'var(--line)'}" stroke-width="${both?3:1.6}"/>`;
+  });
+  // bridges
+  BRIDGES.forEach(([a,b])=>{
+    const A=byId[a],B=byId[b];
+    const both=S.lit.has(a)&&S.lit.has(b);
+    s+=`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" stroke="${both?'var(--syn)':'var(--line)'}" stroke-width="${both?2:1.2}" stroke-dasharray="3 4"/>`;
+  });
+  // root
+  s+=`<g class="nodeC" data-id="root">
+      <circle cx="${ROOT.x}" cy="${ROOT.y}" r="20" fill="#6b5836" stroke="#4c3e25" stroke-width="2"/>
+      <text class="ntier" x="${ROOT.x}" y="${ROOT.y}" fill="#fff" style="font-size:9px">πολ</text>
+      <text class="nlabel" x="${ROOT.x}" y="${ROOT.y+33}">Polítes</text></g>`;
+  // nodes
+  NODES.forEach(n=>{
+    const st=nodeState(n), col=BRANCHCOL[n.branch];
+    let fill,stroke,dash='',tcol;
+    if(st==='lit'){fill=col;stroke=col;tcol='#fff';}
+    else if(st==='ready'){fill='#fff8ea';stroke=col;tcol=col;}
+    else if(st==='needcap'||st==='needprx'){fill='var(--lock)';stroke=col;dash='stroke-dasharray="3 3"';tcol=col;}
+    else {fill='var(--lock)';stroke='var(--lockln)';tcol='var(--lockln)';}
+    const sel=S.selected===n.id;
+    s+=`<g class="nodeC" data-id="${n.id}">`;
+    if(sel)s+=`<circle cx="${n.x}" cy="${n.y}" r="26" fill="none" stroke="var(--syn)" stroke-width="2.5"/>`;
+    s+=`<circle cx="${n.x}" cy="${n.y}" r="21" fill="${fill}" stroke="${stroke}" stroke-width="2.4" ${dash}/>`;
+    s+=`<text class="ntier" x="${n.x}" y="${n.y}" fill="${tcol}">${st==='lit'?'✦':n.tier}</text>`;
+    s+=`<text class="nlabel" x="${n.x}" y="${n.y+34}">${n.name}</text></g>`;
+  });
+  const svg=document.getElementById('tree');
+  svg.innerHTML=s;
+  svg.querySelectorAll('.nodeC').forEach(g=>{
+    g.addEventListener('click',()=>{
+      const id=g.getAttribute('data-id');
+      S.selected=(id==='root')?null:id; S.coact=false; render();
+    });
+  });
+}
+
+function umbralRow(label,have,need,col){
+  if(!need)return '';
+  const ok=have>=need;
+  return `<div class="row"><span>${label}</span>
+    <span class="${ok?'ok':'no'}">${have} / ${need} ${ok?'✓':''}</span></div>`;
+}
+function drawDetail(){
+  const d=document.getElementById('detail');
+  if(!S.selected){
+    d.innerHTML=`<h2 class="sec">Leyenda</h2>
+      <div class="leg"><span class="dot" style="background:var(--pai)"></span> Epistḗmē — rama savant (saber por qué)</div>
+      <div class="leg"><span class="dot" style="background:var(--pol)"></span> Téchnē — rama fabricant (saber cómo)</div>
+      <div class="leg"><span class="dot" style="background:var(--syn)"></span> Synousía — tronco (el cruce de las dos)</div>
+      <div class="leg"><span class="dot" style="background:var(--lock);border:2px solid var(--lockln)"></span> Bloqueado</div>
+      <div class="leg"><span class="dot" style="background:#fff8ea;border:2px solid var(--pai)"></span> Disponible para encender</div>
+      <div class="leg"><span class="dot" style="background:var(--pai)"></span> Encendido (✦)</div>
+      <p class="dempty" style="margin-top:14px">Cada nodo pide <b>umbral de capital</b>
+      (acumulado, no se gasta) <b>y</b> un coste de <b>práxis</b> (sí se gasta).
+      Los nodos <b>Synousía</b> exigen tener un nodo encendido en <i>cada</i> rama
+      del mismo tier — y se pueden co-activar con un vecino para repartir la práxis.
+      <br><br>Pulsa un nodo para ver su detalle.</p>`;
+    return;
+  }
+  const n=byId[S.selected], st=nodeState(n), cost=praxisCost(n);
+  let s=`<div class="dcard"><h3>${n.full}</h3>
+    <div class="branch" style="color:${BRANCHCOL[n.branch]}">${BRANCHNAME[n.branch]} · tier ${n.tier}</div>
+    <p><b>Abre:</b> ${n.abre}</p>
+    <div class="req"><div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Umbral de capital · acumulado</div>
+      ${umbralRow('Social · Koinonía',S.capital.koi,n.umbral.koi,'koi')}
+      ${umbralRow('Cultural · Paideía',S.capital.pai,n.umbral.pai,'pai')}
+      ${umbralRow('Político · Politeía',S.capital.pol,n.umbral.pol,'pol')}
+    </div>`;
+  if(n.branch==='S'){
+    s+=`<label class="coact"><input type="checkbox" id="cx" ${S.coact?'checked':''}>
+      <span>Co-activar con un vecino savant/fabricant — reparte la práxis a la mitad.</span></label>`;
+  }
+  s+=`<div class="req"><div class="row"><span>Coste de práxis</span>
+      <span class="${S.praxis>=cost?'ok':'no'}">${cost} ${S.coact&&n.branch==='S'?'(½)':''} · tienes ${S.praxis}</span></div></div>`;
+  if(st==='lit'){
+    s+=`<div class="activado">✦ Nodo encendido</div>`;
+  }else{
+    let msg='Encender este nodo';
+    if(st==='blocked')msg = n.branch==='S' ? 'Falta un nodo de cada rama en este tier' : 'Bloqueado: enciende antes el nodo anterior';
+    else if(st==='needcap')msg='Te falta capital acumulado';
+    else if(st==='needprx')msg='Te falta práxis';
+    s+=`<button class="activar" id="btnAct" ${st==='ready'?'':'disabled'}>${msg}</button>`;
+  }
+  s+=`</div>`;
+  d.innerHTML=s;
+  const cx=document.getElementById('cx');
+  if(cx)cx.addEventListener('change',e=>{S.coact=e.target.checked;render();});
+  const b=document.getElementById('btnAct');
+  if(b)b.addEventListener('click',()=>activar(n));
+}
+
+document.querySelectorAll('[data-do]').forEach(btn=>{
+  btn.addEventListener('click',()=>doAction(btn.getAttribute('data-do')));
+});
+reset();
+</script>
+</body>
+</html>

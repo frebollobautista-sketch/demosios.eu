@@ -1,0 +1,27 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Mercado de Vegueta"
+config/description="Prototipo 3D pixel art del Mercado de Vegueta (1858). KOINOS/POLIS."
+run/main_scene="res://scenes/mercado.tscn"
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/stretch/mode="viewport"
+
+[rendering]
+
+textures/default_filters/use_nearest_mipmap_filter=true

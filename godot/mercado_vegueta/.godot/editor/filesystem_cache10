@@ -1,0 +1,8 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1775920065
+icon.svg::CompressedTexture2D::6359093669029246654::1775918424::1775920066::1::::<><><>0<>0<>f7bd120805fe2ec225ba1f3dd3835e16<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+::res://scenes/::1775918445
+mercado.tscn::PackedScene::-1::1775918445::0::1::::<><><>0<>0<><>::res://scripts/mercado_builder.gd
+::res://scripts/::1775918417
+mercado_builder.gd::GDScript::6850209002567011509::1775918417::0::1::::<>Node3D<><>0<>0<><>::
+pixel_art_styles.gd::GDScript::4161385706483403276::1775918384::0::1::::PixelArtStyles<>Resource<><>0<>0<><>::

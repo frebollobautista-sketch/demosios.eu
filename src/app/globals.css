@@ -1,69 +1,167 @@
 @import "tailwindcss";
 
-/* ─── OCRE tokens ──────────────────────────────────────────────── */
-/* Paleta sobria ocre: papiro, tierra, terracota, carbón. */
+/* ─── Fuentes oficiales — terna libre OFL ──────────────────────── */
+/* Display: Archivo Black (wordmark, titulares, hero).
+   Sans:    Inter (UI, prosa, navegación).
+   Mono:    JetBrains Mono (datos, números, código).
+   Las tres son SIL Open Font License — uso desktop, web y comercial sin coste. */
+@import "@fontsource/archivo-black/400.css";
+@import "@fontsource/archivo/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/jetbrains-mono/400.css";
+
+/* ─── KOINOS · sistema de diseño v1 ────────────────────────────── */
+/* Paleta consolidada que reemplaza la anterior (papiro/carbón/piedra
+   pasan a alias para no romper código existente). Doce tokens nombrados
+   más alias semánticos. La fuente única de verdad para color, tipo,
+   espaciado, radios y motion. Documento de referencia: design/SISTEMA.md */
 
 :root {
-  /* superficies — variante blanca (v1) */
-  --color-papiro: #FFFFFF;      /* fondo principal: blanco puro */
-  --color-papiro-soft: #F5F2EA; /* bandas y divisores: crema muy sutil */
-  --color-papiro-ink: #1A1714;  /* tinta oscura para contraste alto */
-  --color-surface: #FFFFFF;     /* tarjetas: mismo blanco, se distinguen por borde */
+  /* ── paleta canónica (12 tokens nombrados) ── */
+  --paper:      #fbf4dd;  /* papel cálido, fondo de marca */
+  --cream:      #f4ead4;  /* superficie secundaria, bandas */
+  --sand-lt:    #f0e0c0;  /* hover, top-faces iso, highlights */
+  --sand:       #c8b898;  /* tono base de edificio iso, acentos suaves */
+  --ocre:       #b07840;  /* pigmento mid-warm, links, énfasis ocre */
+  --ocre-dk:    #8a5a2a;  /* sombra ocre, sub-marks, eyebrow text */
+  --terracotta: #c85438;  /* acento rojo plebeyo, alertas suaves */
+  --sangre:     #6e2a1e;  /* terracota oscuro, danger / depth */
+  --aegean:     #5b9aa8;  /* agua mediterránea */
+  --blue-dk:    #3a5878;  /* imperial profundo, info */
+  --laurel:     #7c8a4a;  /* verde cívico, success */
+  --gold:       #d8a44a;  /* oro patricio, premio, warning */
+  --piedra:     #6d6458;  /* gris cálido, texto secundario */
+  --volcanic:   #221d18;  /* outline universal, tinta principal */
 
-  /* tierras — se mantienen como acento cálido */
-  --color-ocre: #B4832E;
-  --color-ocre-deep: #8A5E1F;
-  --color-siena: #A14B2A;
-  --color-sangre: #6E2A1E;
+  /* ── alias semánticos ── */
+  --bg:           var(--paper);
+  --bg-soft:      var(--cream);
+  --surface:      #ffffff;
+  --ink:          var(--volcanic);
+  --ink-muted:    var(--piedra);
+  --line:         #e5e1d6;
+  --link:         var(--ocre);
+  --danger:       var(--terracotta);
+  --success:      var(--laurel);
+  --warning:      var(--gold);
+  --info:         var(--blue-dk);
 
-  /* neutros — línea un punto más marcada para que las tarjetas blancas
-     recorten bien sobre fondo blanco */
-  --color-carbon: #1C1915;
-  --color-piedra: #6D6458;
-  --color-piedra-clara: #9C9283;
-  --color-linea: #E5E1D6;
+  /* ── alias retro-compat con código existente OCRE ── */
+  --color-papiro:        var(--paper);
+  --color-papiro-soft:   var(--cream);
+  --color-papiro-ink:    var(--ink);
+  --color-surface:       var(--surface);
+  --color-ocre:          var(--ocre);
+  --color-ocre-deep:     var(--ocre-dk);
+  --color-siena:         var(--terracotta);
+  --color-sangre:        var(--sangre);
+  --color-carbon:        var(--volcanic);
+  --color-piedra:        var(--piedra);
+  --color-piedra-clara:  #9c9283;
+  --color-linea:         var(--line);
+  --color-oliva:         var(--laurel);
+  --color-ambar:         var(--gold);
 
-  /* semánticos ligeros */
-  --color-oliva: #5B7A3E;
-  --color-ambar: #C98A1A;
+  /* ── escala tipográfica ── */
+  --text-display:  84px;   /* hero, wordmark suelto */
+  --text-h1:       48px;   /* portada de página */
+  --text-h2:       32px;   /* sección */
+  --text-h3:       24px;   /* sub-sección */
+  --text-lg:       18px;   /* lead, intro */
+  --text-base:     16px;   /* prosa por defecto */
+  --text-sm:       14px;   /* UI secundaria, descripciones */
+  --text-xs:       12px;   /* etiquetas, captions, metadatos */
+  --text-eyebrow:  11px;   /* eyebrow / overline (uppercase + tracking 0.18em) */
 
-  /* sombras */
-  --shadow-sutil: 0 1px 2px rgba(28, 25, 21, 0.05);
-  --shadow-carta: 0 6px 24px -8px rgba(28, 25, 21, 0.14);
+  --leading-tight:    1.1;
+  --leading-snug:     1.3;
+  --leading-normal:   1.5;
+  --leading-relaxed:  1.6;
+
+  /* ── escala de espaciado · base 4 px ── */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-12:  48px;
+  --space-16:  64px;
+  --space-24:  96px;
+
+  /* ── radios ── */
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-xl:    16px;
+  --radius-full:  9999px;
+
+  /* ── motion ── */
+  --duration-fast:   120ms;
+  --duration-base:   240ms;
+  --duration-slow:   400ms;
+  --ease-out:        cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out:     cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── sombras ── */
+  --shadow-sutil:  0 1px 2px rgba(34, 29, 24, 0.06);
+  --shadow-carta:  0 6px 24px -8px rgba(34, 29, 24, 0.16);
+  --shadow-foco:   0 0 0 3px rgba(176, 120, 64, 0.25);
+
+  /* ── tipografía: stacks ── */
+  --font-display-stack: 'Archivo Black', Archivo, 'Helvetica Neue', sans-serif;
+  --font-sans-stack:    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono-stack:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif-stack:   var(--font-display-stack); /* alias retro-compat */
 }
 
 @theme inline {
-  --color-papiro: var(--color-papiro);
-  --color-papiro-soft: var(--color-papiro-soft);
-  --color-papiro-ink: var(--color-papiro-ink);
-  --color-surface: var(--color-surface);
-  --color-ocre: var(--color-ocre);
-  --color-ocre-deep: var(--color-ocre-deep);
-  --color-siena: var(--color-siena);
-  --color-sangre: var(--color-sangre);
-  --color-carbon: var(--color-carbon);
-  --color-piedra: var(--color-piedra);
-  --color-piedra-clara: var(--color-piedra-clara);
-  --color-linea: var(--color-linea);
-  --color-oliva: var(--color-oliva);
-  --color-ambar: var(--color-ambar);
+  /* paleta canónica + alias retro-compat — todo expuesto a Tailwind */
+  --color-paper:        var(--paper);
+  --color-cream:        var(--cream);
+  --color-sand-lt:      var(--sand-lt);
+  --color-sand:         var(--sand);
+  --color-ocre:         var(--ocre);
+  --color-ocre-dk:      var(--ocre-dk);
+  --color-terracotta:   var(--terracotta);
+  --color-sangre:       var(--sangre);
+  --color-aegean:       var(--aegean);
+  --color-blue-dk:      var(--blue-dk);
+  --color-laurel:       var(--laurel);
+  --color-gold:         var(--gold);
+  --color-piedra:       var(--piedra);
+  --color-volcanic:     var(--volcanic);
+  --color-ink:          var(--ink);
+  --color-line:         var(--line);
 
-  --font-serif: var(--font-serif-stack);
-  --font-sans: var(--font-sans-stack);
-  --font-mono: var(--font-mono-stack);
-}
+  /* alias retro-compat — para no romper código que ya usa estos nombres */
+  --color-papiro:       var(--paper);
+  --color-papiro-soft:  var(--cream);
+  --color-papiro-ink:   var(--ink);
+  --color-surface:      var(--surface);
+  --color-ocre-deep:    var(--ocre-dk);
+  --color-siena:        var(--terracotta);
+  --color-carbon:       var(--volcanic);
+  --color-piedra-clara: #9c9283;
+  --color-linea:        var(--line);
+  --color-oliva:        var(--laurel);
+  --color-ambar:        var(--gold);
 
-:root {
-  --font-serif-stack: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
-  --font-sans-stack: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  --font-mono-stack: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* tipografía */
+  --font-display: var(--font-display-stack);
+  --font-sans:    var(--font-sans-stack);
+  --font-mono:    var(--font-mono-stack);
+  --font-serif:   var(--font-display-stack); /* alias retro-compat */
 }
 
 html,
 body {
-  background: var(--color-papiro);
-  color: var(--color-papiro-ink);
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--font-sans-stack);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -73,18 +171,27 @@ body {
   min-height: 100svh;
 }
 
-/* Tipografía display — romana sobria para rótulos */
+/* Tipografía display — Archivo Black para rótulos y wordmark */
 .display {
-  font-family: var(--font-serif-stack);
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-family: var(--font-display-stack);
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 .eyebrow {
-  font-size: 0.68rem;
+  font-family: var(--font-sans-stack);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-piedra);
+  color: var(--ocre-dk);
+}
+
+/* Datos numéricos con tabular-nums automático */
+.mono,
+.tabular {
+  font-family: var(--font-mono-stack);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Divisor estilo grabado */

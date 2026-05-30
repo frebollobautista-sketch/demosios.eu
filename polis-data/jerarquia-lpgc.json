@@ -1,0 +1,752 @@
+{
+  "distritos": [
+    {
+      "nombre": "01. Vegueta, Cono Sur y Tafira",
+      "sectores": [
+        {
+          "nombre": "01. Marzagán",
+          "barrios": [
+            {
+              "nombre": "Cuesta Ramón",
+              "poblacion": 606,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de Los Hoyos",
+              "poblacion": 249,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de Marzagán",
+              "poblacion": 8,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Jinámar (Fase III)",
+              "poblacion": 4318,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Data",
+              "poblacion": 213,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Llano de Las Nieves",
+              "poblacion": 1698,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Llanos de La Barrera",
+              "poblacion": 278,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Lomo de Enmedio",
+              "poblacion": 61,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Lomo El Sabinal",
+              "poblacion": 178,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Los Hoyos",
+              "poblacion": 925,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Marzagán",
+              "poblacion": 389,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Mercalaspalmas",
+              "poblacion": 0,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Montequemado",
+              "poblacion": 319,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Santa Margarita",
+              "poblacion": 598,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "02. San Cristóbal",
+          "barrios": [
+            {
+              "nombre": "Casablanca I",
+              "poblacion": 3247,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Lasso",
+              "poblacion": 2895,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Hoya de La Plata",
+              "poblacion": 1777,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Pedro Hidalgo",
+              "poblacion": 3721,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "San Cristóbal",
+              "poblacion": 821,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Tres Palmas",
+              "poblacion": 1429,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Vega de San José",
+              "poblacion": 11387,
+              "tiene_poligono": true
+            },
+            {
+              "nombre": "Zárate",
+              "poblacion": 4010,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "03. Vegueta-Triana",
+          "barrios": [
+            {
+              "nombre": "Vegueta",
+              "poblacion": 4272,
+              "tiene_poligono": true
+            }
+          ]
+        },
+        {
+          "nombre": "08. Los Riscos",
+          "barrios": [
+            {
+              "nombre": "El Batán",
+              "poblacion": 3591,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "San Juan - San José",
+              "poblacion": 7750,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "San Roque",
+              "poblacion": 3286,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "12. Tafira",
+          "barrios": [
+            {
+              "nombre": "Campus Universitario",
+              "poblacion": 25,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de La Montañeta",
+              "poblacion": 50,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de Tafira",
+              "poblacion": 51,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Fondillo",
+              "poblacion": 898,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Secadero",
+              "poblacion": 945,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Calzada",
+              "poblacion": 438,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Cantera",
+              "poblacion": 408,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Montañeta",
+              "poblacion": 423,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Lomo Blanco",
+              "poblacion": 3858,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Lomo Verdejo",
+              "poblacion": 734,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Monteluz",
+              "poblacion": 401,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Pico Viento",
+              "poblacion": 234,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Salto del Negro",
+              "poblacion": 1377,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "San Francisco de Paula",
+              "poblacion": 596,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Tafira Alta",
+              "poblacion": 2865,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Tafira Baja",
+              "poblacion": 1537,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Zurbarán",
+              "poblacion": 377,
+              "tiene_poligono": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "02. Centro",
+      "sectores": [
+        {
+          "nombre": "03. Vegueta-Triana",
+          "barrios": [
+            {
+              "nombre": "Triana",
+              "poblacion": 9641,
+              "tiene_poligono": true
+            }
+          ]
+        },
+        {
+          "nombre": "04. Arenales",
+          "barrios": [
+            {
+              "nombre": "Canalejas",
+              "poblacion": 8304,
+              "tiene_poligono": true
+            },
+            {
+              "nombre": "Ciudad del Mar",
+              "poblacion": 4437,
+              "tiene_poligono": true
+            },
+            {
+              "nombre": "Ciudad Jardín",
+              "poblacion": 5299,
+              "tiene_poligono": true
+            },
+            {
+              "nombre": "Fincas Unidas",
+              "poblacion": 4349,
+              "tiene_poligono": true
+            },
+            {
+              "nombre": "Lugo",
+              "poblacion": 9650,
+              "tiene_poligono": true
+            }
+          ]
+        },
+        {
+          "nombre": "05. Santa Catalina",
+          "barrios": [
+            {
+              "nombre": "Alcaravaneras",
+              "poblacion": 13542,
+              "tiene_poligono": true
+            }
+          ]
+        },
+        {
+          "nombre": "08. Los Riscos",
+          "barrios": [
+            {
+              "nombre": "Diseminado de Las Palmas",
+              "poblacion": 18,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "San Francisco - San Nicolás",
+              "poblacion": 3251,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "09. Las Rehoyas",
+          "barrios": [
+            {
+              "nombre": "Lomo Apolinario",
+              "poblacion": 3026,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Miller",
+              "poblacion": 8816,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Miller Industrial",
+              "poblacion": 439,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "13. La Paterna",
+          "barrios": [
+            {
+              "nombre": "Casablanca III",
+              "poblacion": 4668,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Paterna",
+              "poblacion": 8547,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Los Tarahales",
+              "poblacion": 2880,
+              "tiene_poligono": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "03. Puerto-Canteras",
+      "sectores": [
+        {
+          "nombre": "05. Santa Catalina",
+          "barrios": [
+            {
+              "nombre": "Santa Catalina - Canteras",
+              "poblacion": 19360,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "06. La Isleta",
+          "barrios": [
+            {
+              "nombre": "La Isleta",
+              "poblacion": 24101,
+              "tiene_poligono": true
+            }
+          ]
+        },
+        {
+          "nombre": "07. Guanarteme",
+          "barrios": [
+            {
+              "nombre": "Guanarteme",
+              "poblacion": 27951,
+              "tiene_poligono": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "04. Ciudad Alta",
+      "sectores": [
+        {
+          "nombre": "09. Las Rehoyas",
+          "barrios": [
+            {
+              "nombre": "Las Rehoyas",
+              "poblacion": 13214,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Rehoyas Altas",
+              "poblacion": 2267,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "10. Schamann",
+          "barrios": [
+            {
+              "nombre": "San Antonio",
+              "poblacion": 1880,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Schamann",
+              "poblacion": 16386,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Chumberas",
+              "poblacion": 4338,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "11. Escaleritas",
+          "barrios": [
+            {
+              "nombre": "La Minilla",
+              "poblacion": 3692,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Escaleritas",
+              "poblacion": 23976,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Don Zoilo",
+              "poblacion": 1564,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Altavista",
+              "poblacion": 659,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "13. La Paterna",
+          "barrios": [
+            {
+              "nombre": "Cuevas Torres",
+              "poblacion": 3502,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "14. Las Torres",
+          "barrios": [
+            {
+              "nombre": "Díaz Casanova",
+              "poblacion": 66,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Cardón",
+              "poblacion": 965,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Feria",
+              "poblacion": 14207,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Las Torres",
+              "poblacion": 7985,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Las Torres Industrial",
+              "poblacion": 18,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "San Lázaro (Urb. Siete Palmas)",
+              "poblacion": 9409,
+              "tiene_poligono": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "05. Tamaraceite-San Lorenzo",
+      "sectores": [
+        {
+          "nombre": "15. Tamaraceite",
+          "barrios": [
+            {
+              "nombre": "Cañada Honda",
+              "poblacion": 277,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Casa Ayala",
+              "poblacion": 1930,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Ciudad del Campo",
+              "poblacion": 619,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Costa Ayala",
+              "poblacion": 538,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Cruz del Ovejero",
+              "poblacion": 323,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Cuevas Blancas",
+              "poblacion": 1,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de Los Giles",
+              "poblacion": 79,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de Tamaraceite",
+              "poblacion": 147,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de Tenoya",
+              "poblacion": 73,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Toscón",
+              "poblacion": 776,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Isla Perdida",
+              "poblacion": 1143,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Cazuela",
+              "poblacion": 443,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Galera",
+              "poblacion": 859,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Suerte",
+              "poblacion": 1058,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Ladera Alta",
+              "poblacion": 1623,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Las Majadillas",
+              "poblacion": 911,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Las Mesas",
+              "poblacion": 2504,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Las Perreras",
+              "poblacion": 312,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Lomo Los Frailes",
+              "poblacion": 4745,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Los Giles",
+              "poblacion": 434,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Piletas",
+              "poblacion": 1420,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Tamaraceite",
+              "poblacion": 10862,
+              "tiene_poligono": false
+            }
+          ]
+        },
+        {
+          "nombre": "16. San Lorenzo",
+          "barrios": [
+            {
+              "nombre": "Almatriche Alto",
+              "poblacion": 1498,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Almatriche Bajo",
+              "poblacion": 1930,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de Almatriche",
+              "poblacion": 269,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Diseminado de San Lorenzo",
+              "poblacion": 284,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Dragonal Alto",
+              "poblacion": 139,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Dragonal Bajo",
+              "poblacion": 235,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Pintor",
+              "poblacion": 422,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Román",
+              "poblacion": 332,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Roque",
+              "poblacion": 84,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "El Zardo",
+              "poblacion": 737,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Hoya Andrea",
+              "poblacion": 2319,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Cruz",
+              "poblacion": 67,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Milagrosa",
+              "poblacion": 390,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "La Palma",
+              "poblacion": 224,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Tenoya",
+              "poblacion": 2462,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Las Cuevas",
+              "poblacion": 116,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Llanos de Mª Rivera",
+              "poblacion": 146,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Lomo Corcobado",
+              "poblacion": 56,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Masapez",
+              "poblacion": 37,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Risco Negro",
+              "poblacion": 383,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "San José del Álamo",
+              "poblacion": 205,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "San Lorenzo",
+              "poblacion": 1321,
+              "tiene_poligono": false
+            },
+            {
+              "nombre": "Siete Puertas",
+              "poblacion": 381,
+              "tiene_poligono": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "total_distritos": 5,
+    "total_sectores": 16,
+    "total_barrios": 122,
+    "barrios_con_poligono": 12,
+    "barrios_solo_punto": 22,
+    "barrios_sin_dato_geo": 111
+  }
+}

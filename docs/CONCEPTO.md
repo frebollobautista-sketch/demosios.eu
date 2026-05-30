@@ -21,13 +21,26 @@ Donde KOINOS es una plataforma cívica multimodal (TOUCH, FEED, POLIS), OCRE es 
 
 ## Secciones
 
-- **Inicio** — navegador isla → municipio → barrio, presentación del común.
-- **Ágora** (Ἀγορά) — deliberación pública, hilos por sección PHAROS.
-- **Bibliotheka** (Βιβλιοθήκη) — dos alas:
-  - *Cursus honorum*: canal de vídeos ciudadanos, graduación cívica.
-  - *τὰ Κοινά (Koiná)*: recursos del común (guías, plantillas, servicios).
-- **Polis** (Πόλις) — mapa de bloques por tipo de capital, candidatos a recuperación.
-- **Perfil** — avatar, capital acumulado, nivel en el cursus.
+Demos iOS / OCRE se organiza por **pronombres del habla común** (decisión 2026-05-02; ver [`IDEAS.md → Arquitectura del proyecto`](./IDEAS.md#arquitectura-del-proyecto)). Cada módulo encarna un modo gramatical distinto. La división no es decorativa: define UI, expectativas del usuario y arquitectura de notificaciones.
+
+- **Inicio** — pantalla "mi quiosco": mezcla etiquetada de los cuatro mundos según las preferencias del usuario.
+
+- **El YO** — Twitter / Instagram. Posts personales, expresión cotidiana.
+  - **FEED** = el yo público.
+  - **TOUCH** = el yo íntimo (invite-only, círculos de 3 niveles).
+
+- **El NOSOTROS** — Reddit con sentido de base de datos. Deliberación temática.
+  - **Ágora** (Ἀγορά) = el nosotros que delibera. Hilos por sección PHAROS, anclados a categoría local + territorio. Tres modalidades dentro del foro: debate, propuesta votable (Decidim), mapeo de consenso (Polis-style).
+
+- **El ELLO** — Substack. Herramienta libre para publicar obra acabada.
+  - **Bibliotheka** (Βιβλιοθήκη) = el ello que se publica. Cursus honorum (vídeos ciudadanos), Grapheion (ensayos largos), guías y plantillas reusables del común.
+
+- **Polis** (Πόλις) — fuera del eje pronominal porque su unidad significativa es el **lugar**. Tres funciones:
+  - Mapa cívico canario (digital twin, edificios 3D, capital por bloque).
+  - Intercambio práctico anclado al territorio (coche compartido, oficios cerca, ofertas geo-localizadas).
+  - Registro territorial colectivo (un bloque pasa a un fondo, una plaza cambia de uso, un comercio cierra).
+
+- **Perfil** — avatar, capital acumulado, nivel en el cursus, huella participativa por sección.
 
 ## Elementos persistentes de UI
 

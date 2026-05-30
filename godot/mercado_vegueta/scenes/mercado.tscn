@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/mercado_builder.gd" id="1_builder"]
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 1
+background_color = Color(0.62, 0.78, 0.88, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 0.96, 0.86, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.6
+
+[sub_resource type="CameraAttributesPractical" id="CamAttr_1"]
+
+[node name="Mercado" type="Node3D"]
+script = ExtResource("1_builder")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7, -0.5, 0.5, 0, 0.707, 0.707, -0.7, -0.5, 0.5, 0, 20, 0)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.866, -0.25, 0.433, 0, 0.866, 0.5, -0.5, -0.433, 0.75, 40, 35, 55)
+attributes = SubResource("CamAttr_1")
+fov = 55.0
+current = true

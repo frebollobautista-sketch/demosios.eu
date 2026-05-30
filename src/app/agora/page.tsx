@@ -1,28 +1,12 @@
 import Link from "next/link";
+
+import { contarHilosPorSeccion } from "@/lib/agora/queries";
 import { SECCIONES } from "@/lib/pharos/secciones";
-import { createClient } from "@/lib/supabase/server";
-import { getCountHilosPorSeccion } from "@/lib/agora/queries";
 
-export const metadata = {
-  title: "Ágora",
-  description:
-    "Plaza de deliberación cívica de OCRE. Hilos abiertos por las 8 secciones temáticas heredadas de PHAROS.",
-};
+export const dynamic = "force-dynamic";
 
-/**
- * /agora — listado de las 8 secciones PHAROS con contador de hilos
- * abiertos en cada una. Cada tarjeta linka a /agora/[seccion].
- *
- * Server Component: lee los conteos de Supabase en el servidor para
- * que la primera carga ya muestre los números (mejor SEO + perceived
- * performance).
- */
 export default async function AgoraPage() {
-  const supabase = await createClient();
-  const counts = await getCountHilosPorSeccion(supabase).catch(
-    () => ({}) as Record<string, number>,
-  );
-  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  const conteos = await contarHilosPorSeccion();
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 pb-40">
@@ -38,25 +22,23 @@ export default async function AgoraPage() {
         style={{ color: "var(--color-piedra)" }}
       >
         Plaza de deliberación. Los hilos se organizan por las 8 secciones
-        temáticas heredadas de PHAROS. Pulsa una sección para ver los hilos
-        abiertos o iniciar uno nuevo.
+        temáticas heredadas de PHAROS y se anclan opcionalmente a un
+        territorio (isla, municipio, barrio) y a una categoría local.
       </p>
 
-      <div className="my-6 flex flex-wrap items-center gap-3 text-[0.85rem]">
+      <div className="mt-6 flex items-center gap-3">
         <Link
           href="/agora/nuevo"
-          className="px-4 py-2 rounded-md font-semibold"
+          className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
           style={{
-            background: "var(--color-ocre-deep)",
-            color: "var(--color-surface)",
+            background: "var(--color-papiro-ink)",
+            color: "var(--color-papiro)",
           }}
         >
-          Iniciar hilo
+          <span aria-hidden>＋</span> Abrir un hilo
         </Link>
-        <span style={{ color: "var(--color-piedra-clara)" }}>
-          {total === 0
-            ? "Aún no hay hilos abiertos."
-            : `${total} hilos abiertos en total`}
+        <span className="eyebrow" style={{ color: "var(--color-piedra-clara)" }}>
+          {totalHilos(conteos)} hilos abiertos
         </span>
       </div>
 
@@ -64,19 +46,19 @@ export default async function AgoraPage() {
 
       <ul className="grid md:grid-cols-2 gap-3">
         {SECCIONES.map((s) => {
-          const n = counts[s.id] || 0;
+          const n = conteos[s.id] ?? 0;
           return (
             <li key={s.id}>
               <Link
                 href={`/agora/${s.id}`}
-                className="block rounded-xl p-5 transition-colors hover:opacity-90"
+                className="block rounded-xl p-5 transition-colors hover:opacity-95"
                 style={{
                   background: s.color,
                   border: "1px solid var(--color-linea)",
                 }}
               >
                 <div className="flex items-start gap-3">
-                  <span className="text-xl shrink-0" aria-hidden>
+                  <span className="text-xl" aria-hidden>
                     {s.icono}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -98,9 +80,7 @@ export default async function AgoraPage() {
                     >
                       {n === 0
                         ? "0 hilos · sé el primero"
-                        : n === 1
-                          ? "1 hilo abierto"
-                          : `${n} hilos abiertos`}
+                        : `${n} ${n === 1 ? "hilo abierto" : "hilos abiertos"}`}
                     </div>
                   </div>
                 </div>
@@ -111,4 +91,8 @@ export default async function AgoraPage() {
       </ul>
     </div>
   );
+}
+
+function totalHilos(c: Record<string, number>): number {
+  return Object.values(c).reduce((s, v) => s + v, 0);
 }

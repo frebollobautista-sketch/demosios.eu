@@ -4,28 +4,10 @@
 // colisión con edificios, anotación cívica con PEC.
 //
 // El motor se carga dinámicamente (ssr:false) porque R3F + three.js
-// no soportan SSR — necesitan el navegador.
+// no soportan SSR — necesitan el navegador. En Next 16 el dynamic con
+// ssr:false vive en un Client Component aparte (JuegoPolisClient).
 
-import dynamic from "next/dynamic";
-
-const JuegoPolis = dynamic(
-  () => import("@/components/polis-juego/JuegoPolis").then((m) => m.JuegoPolis),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        className="rounded-xl p-6 text-center"
-        style={{
-          background: "var(--color-papiro-soft)",
-          border: "1px dashed var(--color-linea)",
-          color: "var(--color-piedra)",
-        }}
-      >
-        <p className="display italic">Preparando el motor 3D…</p>
-      </div>
-    ),
-  },
-);
+import JuegoPolis from "./JuegoPolisClient";
 
 export const metadata = {
   title: "Polis · Juego — mapeo cívico de campo",

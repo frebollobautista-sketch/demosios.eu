@@ -23,7 +23,7 @@
 // Datos puros + estado en localStorage. Vanilla ES module, sin deps de
 // UI. taxonomia.js se importa en SÓLO-LECTURA (otra sesión es su dueña).
 
-import { TAXONOMIA } from "./taxonomia.js?v=20260529a";
+import { TAXONOMIA } from "./taxonomia.js?v=20260529-agora-verde";
 
 // =============================================================
 // FAMILIA HOBBY — paleta de entretenimiento.

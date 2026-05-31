@@ -1,12 +1,14 @@
 import Link from "next/link";
 
-import { contarHilosPorSeccion } from "@/lib/agora/queries";
+import { createClient } from "@/lib/supabase/server";
+import { getCountHilosPorSeccion } from "@/lib/agora/queries";
 import { SECCIONES } from "@/lib/pharos/secciones";
 
 export const dynamic = "force-dynamic";
 
 export default async function AgoraPage() {
-  const conteos = await contarHilosPorSeccion();
+  const supabase = await createClient();
+  const conteos = await getCountHilosPorSeccion(supabase);
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 pb-40">

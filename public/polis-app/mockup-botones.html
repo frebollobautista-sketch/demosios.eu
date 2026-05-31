@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OCRE · Mockup de botones e interfaz</title>
+<style>
+  :root{
+    /* Paleta OCRE / papel */
+    --paper:#EDE4CF; --paper-2:#E4D9BE; --paper-3:#F4EEDF;
+    --ink:#1A1612; --ink-soft:#3a322a;
+    --ocre:#B88646; --ocre-dk:#8A6238; --ocre-lt:#D9C18A;
+    --terracota:#A0522D; --verde:#4A7B5A; --azul:#3D5A80;
+    --line:#1A1612;
+    --serif:Georgia,'Times New Roman',serif;
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+       padding:32px 28px 80px;line-height:1.4}
+  h1{font-size:26px;margin:0 0 4px}
+  h1 .star{color:var(--ocre)}
+  .lede{font-style:italic;color:var(--ink-soft);margin:0 0 28px}
+  h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-family:var(--mono);
+     margin:38px 0 4px;color:var(--ocre-dk)}
+  .sub{font-size:13px;color:var(--ink-soft);margin:0 0 16px;font-style:italic}
+  .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+  .swatch{font-family:var(--mono);font-size:10px;color:var(--ink-soft);width:100%;margin-top:2px}
+  hr{border:0;border-top:1px solid rgba(26,22,18,.15);margin:40px 0 0}
+
+  /* ============ A · SELLO / CUÑO (letterpress) ============ */
+  .a-btn{font-family:var(--serif);font-size:16px;font-weight:700;padding:11px 22px;
+    background:var(--paper-3);color:var(--ink);border:1.5px solid var(--ink);
+    border-radius:3px;box-shadow:2px 2px 0 var(--ink);cursor:pointer;transition:.08s}
+  .a-btn:active{transform:translate(2px,2px);box-shadow:none}
+  .a-btn.primary{background:var(--ocre);color:var(--paper-3)}
+  .a-icon{width:46px;height:46px;border:1.5px solid var(--ink);border-radius:3px;
+    background:var(--paper-3);box-shadow:2px 2px 0 var(--ink);display:grid;place-items:center;
+    font-size:20px;cursor:pointer}
+  .a-fab{width:58px;height:58px;border-radius:3px;background:var(--ink);color:var(--paper);
+    border:none;box-shadow:3px 3px 0 var(--ocre-dk);font-size:22px;cursor:pointer}
+  .a-chip{font-family:var(--mono);font-size:12px;padding:6px 13px;border:1.5px solid var(--ink);
+    border-radius:3px;background:var(--paper-3);box-shadow:1.5px 1.5px 0 var(--ink);cursor:pointer}
+  .a-chip.on{background:var(--ink);color:var(--paper)}
+
+  /* ============ B · VERNACULAR OCRE (terracota, redondeado, cálido) ============ */
+  .b-btn{font-family:var(--serif);font-size:16px;padding:12px 24px;border:none;
+    background:var(--terracota);color:#fff;border-radius:22px;cursor:pointer;
+    box-shadow:0 3px 0 rgba(120,50,20,.55);transition:.1s}
+  .b-btn:active{transform:translateY(3px);box-shadow:0 0 0 rgba(0,0,0,0)}
+  .b-btn.ghost{background:transparent;color:var(--terracota);border:2px solid var(--terracota);box-shadow:none}
+  .b-icon{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--terracota);
+    color:var(--terracota);display:grid;place-items:center;font-size:20px;cursor:pointer}
+  .b-fab{width:60px;height:60px;border-radius:50%;background:var(--terracota);color:#fff;border:none;
+    box-shadow:0 4px 12px rgba(120,50,20,.4);font-size:24px;cursor:pointer}
+  .b-chip{font-size:14px;padding:8px 16px;border-radius:18px;background:#fff;
+    border:1.5px solid var(--ocre);color:var(--ocre-dk);cursor:pointer}
+  .b-chip.on{background:var(--ocre);color:#fff;border-color:var(--ocre)}
+
+  /* ============ C · BRUTALIST CÍVICO (alto contraste, mono, institucional) ============ */
+  .c-btn{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;
+    padding:13px 22px;background:var(--ink);color:var(--paper);border:2px solid var(--ink);
+    border-radius:0;cursor:pointer}
+  .c-btn.inv{background:var(--paper-3);color:var(--ink)}
+  .c-icon{width:46px;height:46px;border:2px solid var(--ink);border-radius:0;background:var(--paper-3);
+    display:grid;place-items:center;font-size:20px;cursor:pointer}
+  .c-fab{width:58px;height:58px;border-radius:0;background:var(--ink);color:var(--paper);border:none;
+    font-size:22px;cursor:pointer}
+  .c-chip{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+    padding:7px 12px;border:2px solid var(--ink);border-radius:0;background:var(--paper-3);cursor:pointer}
+  .c-chip.on{background:var(--ink);color:var(--paper)}
+
+  /* ============ D · MINIMAL MODERNO (flat, sombra suave, neutro) ============ */
+  .d-btn{font-family:var(--serif);font-size:16px;padding:12px 22px;border:none;border-radius:10px;
+    background:var(--ocre);color:#fff;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+  .d-btn.soft{background:rgba(184,134,70,.16);color:var(--ocre-dk)}
+  .d-icon{width:44px;height:44px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,.1);
+    display:grid;place-items:center;font-size:19px;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+  .d-fab{width:56px;height:56px;border-radius:18px;background:var(--ink);color:#fff;border:none;
+    font-size:22px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+  .d-chip{font-size:13px;padding:8px 15px;border-radius:9px;background:#fff;
+    border:1px solid rgba(0,0,0,.12);color:var(--ink-soft);cursor:pointer}
+  .d-chip.on{background:var(--ocre);color:#fff;border-color:var(--ocre)}
+
+  /* gesto card (común, para comparar dentro de cada dirección) */
+  .gcard{background:var(--paper-3);border:1px solid rgba(26,22,18,.18);border-radius:10px;
+    padding:16px 18px;min-width:210px}
+  .gcard .ic{font-size:22px}
+  .gcard .t{font-family:var(--serif);font-weight:700;font-size:19px;margin:6px 0 3px}
+  .gcard .d{font-size:12px;color:var(--ink-soft)}
+  .gcard.sello{border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);border-radius:3px}
+  .gcard.bru{border:2px solid var(--ink);border-radius:0}
+  .gcard.min{box-shadow:0 2px 8px rgba(0,0,0,.08);border-color:transparent}
+
+  /* tool accents */
+  .tool{display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:8px;
+    font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:#fff;cursor:pointer}
+  .t-polis{background:var(--azul)} .t-agora{background:var(--terracota)}
+  .t-biblio{background:var(--verde)} .t-ocre{background:var(--ink)}
+</style>
+</head>
+<body>
+  <h1><span class="star">✦</span> OCRE · botones e interfaz <span style="font-size:13px;font-family:var(--mono);color:var(--ocre-dk)">— 4 direcciones</span></h1>
+  <p class="lede">Mismas piezas (botón, icono, FAB, chip, tarjeta de gesto) en cuatro lenguajes visuales. Compara y elige.</p>
+
+  <!-- A -->
+  <h2>A · Sello / Cuño <span style="text-transform:none;letter-spacing:0">(letterpress)</span></h2>
+  <p class="sub">Tinta sobre papel, sombra dura desplazada, esquinas casi rectas. Táctil, artesanal, "imprenta cívica". Evoluciona lo actual.</p>
+  <div class="row">
+    <button class="a-btn primary">Entrar</button>
+    <button class="a-btn">Dejar gesto</button>
+    <div class="a-icon">⚙</div>
+    <div class="a-icon">🔍</div>
+    <button class="a-fab">▦</button>
+    <span class="a-chip on">Movilidad</span>
+    <span class="a-chip">Salud</span>
+    <span class="a-chip">Recordar</span>
+    <div class="gcard sello"><div class="ic">⇄</div><div class="t">Moverme</div><div class="d">Guaguas · bici · recarga</div></div>
+  </div>
+
+  <hr>
+  <!-- B -->
+  <h2>B · Vernacular OCRE <span style="text-transform:none;letter-spacing:0">(terracota cálido)</span></h2>
+  <p class="sub">Redondeado, terracota/almagre, sombras suaves de color. Amable, isleño, cercano. Casa con el iconset canario.</p>
+  <div class="row">
+    <button class="b-btn">Entrar</button>
+    <button class="b-btn ghost">Dejar gesto</button>
+    <div class="b-icon">⚙</div>
+    <div class="b-icon">🔍</div>
+    <button class="b-fab">▦</button>
+    <span class="b-chip on">Movilidad</span>
+    <span class="b-chip">Salud</span>
+    <span class="b-chip">Recordar</span>
+    <div class="gcard min"><div class="ic">⇄</div><div class="t">Moverme</div><div class="d">Guaguas · bici · recarga</div></div>
+  </div>
+
+  <hr>
+  <!-- C -->
+  <h2>C · Brutalist cívico <span style="text-transform:none;letter-spacing:0">(institucional)</span></h2>
+  <p class="sub">Monospace en mayúsculas, bordes gruesos, cero redondez, alto contraste. Serio, transparente, "documento oficial".</p>
+  <div class="row">
+    <button class="c-btn">ENTRAR</button>
+    <button class="c-btn inv">DEJAR GESTO</button>
+    <div class="c-icon">⚙</div>
+    <div class="c-icon">🔍</div>
+    <button class="c-fab">▦</button>
+    <span class="c-chip on">Movilidad</span>
+    <span class="c-chip">Salud</span>
+    <span class="c-chip">Recordar</span>
+    <div class="gcard bru"><div class="ic">⇄</div><div class="t" style="font-family:var(--mono);font-size:15px;text-transform:uppercase">Moverme</div><div class="d" style="font-family:var(--mono);font-size:10px">GUAGUAS · BICI · RECARGA</div></div>
+  </div>
+
+  <hr>
+  <!-- D -->
+  <h2>D · Minimal moderno <span style="text-transform:none;letter-spacing:0">(flat suave)</span></h2>
+  <p class="sub">Plano, esquinas suaves, sombras tenues, neutro. Familiar tipo app de producto. Menos personalidad, más "estándar".</p>
+  <div class="row">
+    <button class="d-btn">Entrar</button>
+    <button class="d-btn soft">Dejar gesto</button>
+    <div class="d-icon">⚙</div>
+    <div class="d-icon">🔍</div>
+    <button class="d-fab">▦</button>
+    <span class="d-chip on">Movilidad</span>
+    <span class="d-chip">Salud</span>
+    <span class="d-chip">Recordar</span>
+    <div class="gcard min"><div class="ic">⇄</div><div class="t">Moverme</div><div class="d">Guaguas · bici · recarga</div></div>
+  </div>
+
+  <hr>
+  <!-- Tools accent -->
+  <h2>Acento por herramienta</h2>
+  <p class="sub">Cada herramienta del ecosistema OCRE con su color, manteniendo la misma familia de botón.</p>
+  <div class="row">
+    <div class="tool t-ocre">✦ OCRE</div>
+    <div class="tool t-polis">▦ POLIS</div>
+    <div class="tool t-agora">◉ ÁGORA</div>
+    <div class="tool t-biblio">▤ BIBLIOTHEKA</div>
+  </div>
+</body>
+</html>

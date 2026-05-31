@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>POLIS — Mockup roads suaves + audit edificios</title>
+  <style>
+    :root {
+      --paper: #fbf4dd;
+      --paper-warm: #f4ead4;
+      --sand: #c8b898;
+      --ocre: #b07840;
+      --ocre-lt: #d4a675;
+      --ocre-dk: #8a5a2a;
+      --ink: #221d18;
+      --accent: #c85438;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    body { display: flex; flex-direction: column; }
+    header {
+      padding: 12px 18px;
+      background: var(--ink);
+      color: var(--paper);
+      display: flex;
+      gap: 24px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 18px; }
+    header .meta { font-size: 12px; opacity: .7; }
+    .controls {
+      padding: 10px 18px;
+      background: var(--paper-warm);
+      border-bottom: 1px solid var(--ink);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      font-size: 13px;
+    }
+    .controls label { display: inline-flex; align-items: center; gap: 6px; }
+    .controls input[type=range] { width: 140px; }
+    .controls .val { font-family: "IBM Plex Mono", Menlo, monospace; min-width: 36px; text-align: right; }
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 0;
+    }
+    .panel {
+      position: relative;
+      border-right: 1px solid #ccc;
+      overflow: hidden;
+    }
+    .panel:last-child { border-right: none; }
+    .panel-title {
+      position: absolute;
+      top: 10px; left: 10px;
+      padding: 4px 10px;
+      background: rgba(34, 29, 24, 0.85);
+      color: var(--paper);
+      font-size: 12px;
+      font-style: italic;
+      border-radius: 4px;
+      z-index: 2;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .legend {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      background: rgba(251, 244, 221, 0.92);
+      border: 1px solid var(--ink);
+      padding: 6px 10px;
+      font-size: 11px;
+      max-width: 50%;
+      line-height: 1.4;
+    }
+    .legend b { font-weight: 600; }
+    .info {
+      padding: 10px 18px;
+      background: var(--paper-warm);
+      border-top: 1px solid var(--ink);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .info code {
+      background: rgba(34,29,24,0.08);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: "IBM Plex Mono", Menlo, monospace;
+      font-size: 11px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--ocre);
+      color: white;
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      margin: 0 2px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>POLIS · Mockup A/B — Roads suaves + Audit edificios</h1>
+    <div class="meta">cusec <code>3803803001</code> · SC Tenerife centro · 6 manzanas, 130 edificios, 113 roads (sample real)</div>
+  </header>
+  <div class="controls">
+    <label>Road α actual: <input id="alpha-actual" type="range" min="0" max="1" step="0.05" value="1.0"><span class="val" id="va">1.00</span></label>
+    <label>Road α propuesto: <input id="alpha-soft" type="range" min="0" max="1" step="0.05" value="0.18"><span class="val" id="vb">0.18</span></label>
+    <label>Road width factor: <input id="width-factor" type="range" min="0.2" max="2" step="0.05" value="0.5"><span class="val" id="vw">0.5</span></label>
+    <label>Build α: <input id="build-alpha" type="range" min="0.2" max="1" step="0.05" value="1.0"><span class="val" id="vba">1.0</span></label>
+    <label><input id="ground-grid" type="checkbox"> Mostrar grilla suelo</label>
+    <label><input id="culling-fix" type="checkbox" checked> Fix culling (mostrar todas las caras)</label>
+  </div>
+  <main>
+    <div class="panel" id="panel-current">
+      <div class="panel-title">ACTUAL (cómo se ve hoy)</div>
+      <canvas id="cv-current"></canvas>
+      <div class="legend">Roads ink 100% sobre el suelo · edificios con back-face culling estándar.</div>
+    </div>
+    <div class="panel" id="panel-soft">
+      <div class="panel-title">PROPUESTO (roads atenuados)</div>
+      <canvas id="cv-soft"></canvas>
+      <div class="legend">Roads α reducido + grosor fino · edificios mantienen contraste · grilla suelo opcional para anclar.</div>
+    </div>
+  </main>
+  <div class="info">
+    <b>Audit edificios "no llegan al suelo":</b>
+    El base de cada edificio se dibuja en <code>y=0</code> (línea de suelo iso). Si ves "flotación" probablemente sea
+    el <code>drawFlatShadow</code> proyectando sombra (2m east, 2m south) que extiende un trozo negro detrás del edificio,
+    o el back-face culling (<code>nx+nz&lt;=0 ⇒ skip</code>) que oculta caras del lado norte/oeste. Toggle el checkbox
+    <i>"Fix culling"</i> para ver TODAS las caras (debug visual). Si después del toggle aún ves edificios flotantes,
+    es un problema de coordenadas Z del polígono (no de render).
+  </div>
+
+  <script>
+    const ALPHA_A = document.getElementById('alpha-actual');
+    const ALPHA_B = document.getElementById('alpha-soft');
+    const WIDTH_F = document.getElementById('width-factor');
+    const BUILD_A = document.getElementById('build-alpha');
+    const VA = document.getElementById('va');
+    const VB = document.getElementById('vb');
+    const VW = document.getElementById('vw');
+    const VBA = document.getElementById('vba');
+    const GRID = document.getElementById('ground-grid');
+    const CULL_FIX = document.getElementById('culling-fix');
+
+    let DATA = null;
+
+    // ── iso projection (igual que el visor) ────────────────────────────
+    const ANGLE_X = 30 * Math.PI / 180;
+    const ANGLE_Y = 30 * Math.PI / 180;
+    const COS_A = Math.cos(ANGLE_X);
+    const SIN_A = 0.5;
+    function projectIso(x, y, z, view) {
+      // x = east, y = up, z = south
+      const sxy = view.scale;
+      const sz = view.scale * 1.4;
+      const px = view.cx + (x - z) * COS_A * sxy;
+      const py = view.cy + (x + z) * SIN_A * sxy - y * sz;
+      return [px, py];
+    }
+
+    // ── road styling per type ─────────────────────────────────────────
+    const ROAD_W = {
+      primary: 5.5, secondary: 4.5, tertiary: 3.5,
+      residential: 2.5, service: 1.8, pedestrian: 2.0,
+      footway: 1.3, track: 1.3,
+    };
+
+    // ── color por categoría/altura ─────────────────────────────────────
+    const CAT_COLORS = {
+      residencial: { wall: '#5a4226', roof: '#a07a4e' },
+      comercio:    { wall: '#3a4a66', roof: '#7a92b8' },
+      restauracion:{ wall: '#7a3a1a', roof: '#c47038' },
+      alojamiento: { wall: '#52326e', roof: '#9a72c4' },
+      publico:     { wall: '#4d2e1c', roof: '#a06544' },
+      finanzas:    { wall: '#6e5e1c', roof: '#c4a850' },
+      salud:       { wall: '#1c5e3a', roof: '#5ec48c' },
+    };
+
+    // ── drawer ──────────────────────────────────────────────────────
+    function buildView(canvas) {
+      const bb = DATA.bbox;  // [minx, miny, maxx, maxy] in local meters
+      const W = canvas.clientWidth, H = canvas.clientHeight - 30;
+      // fit
+      const spanW = (bb[2] - bb[0] + (bb[3] - bb[1])) * COS_A;
+      const spanH = (bb[2] - bb[0] + (bb[3] - bb[1])) * SIN_A + 60;  // some headroom for tall buildings
+      const m = 40;
+      const scale = Math.min((W - 2*m)/spanW, (H - 2*m)/spanH);
+      // center
+      const mx = (bb[0]+bb[2])/2, mz = (bb[1]+bb[3])/2;
+      return {
+        scale,
+        cx: W/2 - (mx - mz) * COS_A * scale,
+        cy: 30 + H/2 - (mx + mz) * SIN_A * scale - 20,
+      };
+    }
+
+    function drawGroundGrid(ctx, view) {
+      // 10m grid covering bbox
+      const bb = DATA.bbox;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(180,160,120,0.45)';
+      ctx.lineWidth = 0.6;
+      const step = 10;
+      const x0 = Math.floor(bb[0]/step)*step;
+      const x1 = Math.ceil(bb[2]/step)*step;
+      const z0 = Math.floor(bb[1]/step)*step;
+      const z1 = Math.ceil(bb[3]/step)*step;
+      for (let x = x0; x <= x1; x += step) {
+        ctx.beginPath();
+        const [px0,py0] = projectIso(x, 0, z0, view);
+        const [px1,py1] = projectIso(x, 0, z1, view);
+        ctx.moveTo(px0,py0); ctx.lineTo(px1,py1);
+        ctx.stroke();
+      }
+      for (let z = z0; z <= z1; z += step) {
+        ctx.beginPath();
+        const [px0,py0] = projectIso(x0, 0, z, view);
+        const [px1,py1] = projectIso(x1, 0, z, view);
+        ctx.moveTo(px0,py0); ctx.lineTo(px1,py1);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawSection(ctx, view, options) {
+      const { roadAlpha, roadWidthFactor, buildAlpha, showGrid, fixCulling } = options;
+      const W = ctx.canvas.width, H = ctx.canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#fbf4dd';
+      ctx.fillRect(0, 0, W, H);
+
+      if (showGrid) drawGroundGrid(ctx, view);
+
+      // manzanas como sombra suave del polígono
+      ctx.save();
+      ctx.fillStyle = 'rgba(180, 160, 120, 0.10)';
+      for (const m of DATA.manzanas) {
+        ctx.beginPath();
+        for (let i = 0; i < m.ring.length; i++) {
+          const [px, py] = projectIso(m.ring[i][0], 0, m.ring[i][1], view);
+          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // roads
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      const roadColorBase = `34, 29, 24`;  // ink
+      for (const r of DATA.roads) {
+        const w = (ROAD_W[r.type] || 1.8) * roadWidthFactor;
+        ctx.lineWidth = Math.max(0.4, w);
+        ctx.strokeStyle = `rgba(${roadColorBase}, ${roadAlpha})`;
+        const c = r.line;
+        if (c.length < 2) continue;
+        ctx.beginPath();
+        for (let i = 0; i < c.length; i++) {
+          const [px, py] = projectIso(c[i][0], 0, c[i][1], view);
+          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // buildings — sort painter-style por (x + z) creciente para que los del fondo
+      // se dibujen primero
+      const sorted = DATA.buildings.slice().sort((a, b) => {
+        const ca = centroid(a.ring), cb = centroid(b.ring);
+        return (ca[0] + ca[1]) - (cb[0] + cb[1]);
+      });
+      ctx.save();
+      ctx.globalAlpha = buildAlpha;
+      for (const b of sorted) drawBuilding(ctx, b, view, fixCulling);
+      ctx.restore();
+    }
+
+    function centroid(ring) {
+      let cx = 0, cz = 0;
+      for (const [x,z] of ring) { cx += x; cz += z; }
+      return [cx/ring.length, cz/ring.length];
+    }
+
+    function drawBuilding(ctx, b, view, fixCulling) {
+      let pts = b.ring;
+      // unclose
+      if (pts.length >= 2 && pts[0][0] === pts[pts.length-1][0] && pts[0][1] === pts[pts.length-1][1]) {
+        pts = pts.slice(0, -1);
+      }
+      const m = pts.length;
+      if (m < 3) return;
+      const h = Math.max(3, b.h || 6);
+      const colors = CAT_COLORS[b.cat] || CAT_COLORS.residencial;
+      const wallColor = colors.wall;
+      const roofColor = colors.roof;
+
+      const bot = new Array(m), top = new Array(m);
+      for (let i = 0; i < m; i++) {
+        bot[i] = projectIso(pts[i][0], 0, pts[i][1], view);
+        top[i] = projectIso(pts[i][0], h, pts[i][1], view);
+      }
+
+      // base "marker" — pequeña línea oscura en el suelo bajo el footprint
+      // para anclar visualmente el edificio al suelo (cura percepción "flotante")
+      ctx.save();
+      ctx.strokeStyle = 'rgba(34,29,24,0.55)';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      for (let i = 0; i < m; i++) {
+        const [px, py] = bot[i];
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.stroke();
+      ctx.restore();
+
+      // sides
+      ctx.lineWidth = 0.6;
+      ctx.strokeStyle = '#1A1612';
+      for (let k = 0; k < m; k++) {
+        const [ax, az] = pts[k];
+        const [bx, bz] = pts[(k+1) % m];
+        const nx = bz - az;
+        const nz = -(bx - ax);
+        const isVisible = nx + nz > 0;
+        if (!isVisible && !fixCulling) continue;
+        ctx.fillStyle = isVisible ? wallColor : 'rgba(120, 100, 80, 0.45)';
+        ctx.beginPath();
+        ctx.moveTo(bot[k][0], bot[k][1]);
+        ctx.lineTo(bot[(k+1) % m][0], bot[(k+1) % m][1]);
+        ctx.lineTo(top[(k+1) % m][0], top[(k+1) % m][1]);
+        ctx.lineTo(top[k][0], top[k][1]);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      // roof
+      ctx.fillStyle = roofColor;
+      ctx.beginPath();
+      ctx.moveTo(top[0][0], top[0][1]);
+      for (let i = 1; i < m; i++) ctx.lineTo(top[i][0], top[i][1]);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function render() {
+      if (!DATA) return;
+      const ca = parseFloat(ALPHA_A.value);
+      const cb = parseFloat(ALPHA_B.value);
+      const wf = parseFloat(WIDTH_F.value);
+      const ba = parseFloat(BUILD_A.value);
+      VA.textContent = ca.toFixed(2);
+      VB.textContent = cb.toFixed(2);
+      VW.textContent = wf.toFixed(2);
+      VBA.textContent = ba.toFixed(2);
+      const showGrid = GRID.checked;
+      const fixCulling = CULL_FIX.checked;
+
+      for (const id of ['cv-current','cv-soft']) {
+        const cv = document.getElementById(id);
+        const dpr = window.devicePixelRatio || 1;
+        cv.width = cv.clientWidth * dpr;
+        cv.height = cv.clientHeight * dpr;
+        const ctx = cv.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const view = buildView(cv);
+        const isSoft = id === 'cv-soft';
+        drawSection(ctx, view, {
+          roadAlpha: isSoft ? cb : ca,
+          roadWidthFactor: isSoft ? wf : 1.0,
+          buildAlpha: ba,
+          showGrid: showGrid,
+          fixCulling: fixCulling,
+        });
+      }
+    }
+
+    [ALPHA_A, ALPHA_B, WIDTH_F, BUILD_A].forEach(el => el.addEventListener('input', render));
+    [GRID, CULL_FIX].forEach(el => el.addEventListener('change', render));
+    window.addEventListener('resize', render);
+
+    fetch('./mockup-roads-soft-data.json')
+      .then(r => r.json())
+      .then(d => { DATA = d; render(); })
+      .catch(err => {
+        document.body.innerHTML = `<div style="padding:20px;color:red">Error cargando datos: ${err}<br>Asegúrate de que ./mockup-roads-soft-data.json existe.</div>`;
+      });
+  </script>
+</body>
+</html>

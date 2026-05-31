@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>OCRE · Mockup filtros streamlineados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F5E8C8;
+      --paper-app: #FBF7EE;
+      --ocre: #C89968;
+      --ocre-brand: #B88646;
+      --ocre-dk: #A37945;
+      --ink: #1A1612;
+      --accent-cyan: #2EE8E0;
+      --accent-red: #E63946;
+      --font-serif: Georgia, "Times New Roman", serif;
+      --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      background: #2a2218;
+      color: var(--ink);
+      font-family: var(--font-serif);
+      -webkit-user-select: none; user-select: none;
+    }
+    .mockup-wrap {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 16px 8px 24px 8px;
+    }
+    .mockup-title {
+      color: var(--paper-app);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      padding: 4px 12px;
+      margin-bottom: 12px;
+    }
+    .mockup-state {
+      background: var(--paper-app);
+      border-radius: 12px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .mockup-state-label {
+      background: var(--ink);
+      color: var(--paper-app);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .mockup-state-label em { color: var(--ocre-brand); font-style: normal; }
+
+    /* ---- Phone frame ---- */
+    .phone {
+      width: 100%;
+      aspect-ratio: 375 / 720;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ---- Top bar paper común ---- */
+    .ph-topbar {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--paper-app);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 12px;
+      z-index: 5;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+    .ph-brand {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .ph-brand-icon {
+      width: 16px; height: 20px;
+      background: var(--ocre-brand);
+      clip-path: polygon(35% 0, 65% 0, 65% 18%, 75% 28%, 75% 38%, 65% 46%, 65% 78%, 80% 90%, 80% 100%, 20% 100%, 20% 90%, 35% 78%, 35% 46%, 25% 38%, 25% 28%, 35% 18%);
+    }
+    .ph-brand-caret { font-family: var(--font-mono); font-size: 10px; opacity: 0.55; margin-left: 2px; }
+    .ph-top-right { display: flex; align-items: center; gap: 4px; }
+    .ph-icon-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .ph-entrar {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      padding: 4px 10px;
+      border: 1px solid var(--ink);
+      border-radius: 5px;
+      background: transparent;
+    }
+
+    /* ---- Membrete ---- */
+    .ph-membrete {
+      position: absolute; top: 76px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .ph-mb-parent {
+      background: rgba(245,232,200,0.92);
+      border: 1px solid var(--ink);
+      padding: 2px 10px;
+      font-size: 11px;
+      font-style: italic;
+      border-radius: 3px;
+    }
+    .ph-mb-current {
+      background: var(--ink); color: var(--paper);
+      font-size: 14px; font-style: italic; font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 3px;
+    }
+    .ph-mb-current span { color: var(--accent-cyan); font-family: var(--font-mono); font-size: 11px; margin-left: 6px; }
+
+    /* ---- Back / lupa flotantes ---- */
+    .ph-back, .ph-lupa {
+      position: absolute; top: 90px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(251,247,238,0.85);
+      border: 1px solid rgba(26,22,18,0.14);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      z-index: 4;
+    }
+    .ph-back { left: 8px; }
+    .ph-lupa { right: 8px; }
+
+    /* ---- Mapa fake ---- */
+    .ph-map {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 65% 35% at 50% 60%, #B88646 0%, transparent 70%),
+        radial-gradient(ellipse 40% 25% at 30% 75%, #A37945 0%, transparent 70%),
+        radial-gradient(ellipse 35% 22% at 70% 45%, #D9B58A 0%, transparent 70%),
+        var(--paper);
+    }
+    .ph-map::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, transparent 40%, rgba(26,22,18,0.08) 40.5%, transparent 41%),
+        linear-gradient(80deg, transparent 60%, rgba(26,22,18,0.06) 60.3%, transparent 60.6%);
+      pointer-events: none;
+    }
+
+    /* ---- FAB unificado ---- */
+    .ph-fab {
+      position: absolute;
+      left: 12px;
+      bottom: 40%;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--paper);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      z-index: 6;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.32);
+    }
+
+    /* ====================================================================
+       STATE 1 — Mapa limpio, sin filtros (sin chip)
+       ==================================================================== */
+
+    /* ====================================================================
+       STATE 2 — Drawer abierto, eligiendo filtros (paneles colapsables)
+       ==================================================================== */
+    .ph-drawer {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      background: var(--paper-app);
+      z-index: 7;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      box-shadow: 0 -8px 28px rgba(0,0,0,0.3);
+      max-height: 78%;
+      display: flex; flex-direction: column;
+    }
+    .ph-drawer-head {
+      padding: 12px 16px 8px 16px;
+      border-bottom: 1px solid rgba(26,22,18,0.08);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ph-drawer-title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .ph-drawer-close { font-size: 18px; opacity: 0.6; }
+    .ph-drawer-body { padding: 8px 12px 16px 12px; overflow-y: auto; }
+
+    /* Ámbito row (collapsed) */
+    .amb-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .amb-row:hover { background: rgba(184,134,70,0.08); }
+    .amb-row.open { background: rgba(184,134,70,0.1); margin-bottom: 4px; }
+    .amb-row-icon {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      background: rgba(184,134,70,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: var(--ocre-dk);
+      flex-shrink: 0;
+    }
+    .amb-row-text { flex: 1; }
+    .amb-row-name { font-size: 14px; font-weight: 600; }
+    .amb-row-count {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      opacity: 0.55;
+      margin-top: 1px;
+    }
+    .amb-row-count .num { color: var(--ocre-brand); font-weight: 500; }
+    .amb-row-caret {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      opacity: 0.5;
+      transition: transform 0.15s;
+    }
+    .amb-row.open .amb-row-caret { transform: rotate(90deg); }
+
+    /* Sub-layers (cuando ámbito expandido) */
+    .sub-list {
+      display: none;
+      flex-direction: column;
+      margin: 0 0 12px 50px;
+      padding: 4px 0;
+      border-left: 1px solid rgba(184,134,70,0.4);
+    }
+    .amb-row.open + .sub-list { display: flex; }
+    .sub-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    .sub-check {
+      width: 18px; height: 18px;
+      border-radius: 4px;
+      border: 1.5px solid rgba(26,22,18,0.4);
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--paper-app);
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .sub-row.on .sub-check {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+    .sub-name {
+      font-size: 13px; font-weight: 500;
+      flex: 1;
+    }
+    .sub-count {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink);
+      opacity: 0.5;
+    }
+    .sub-row.on .sub-count { color: var(--ocre-brand); opacity: 1; }
+
+    /* Footer drawer with action */
+    .drawer-foot {
+      border-top: 1px solid rgba(26,22,18,0.08);
+      padding: 12px 16px;
+      display: flex; gap: 10px; align-items: center;
+    }
+    .foot-meta {
+      flex: 1;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 12px;
+      color: var(--ink);
+      opacity: 0.7;
+    }
+    .foot-action {
+      background: var(--ink);
+      color: var(--paper-app);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .foot-action[disabled] { opacity: 0.4; }
+
+    /* ====================================================================
+       STATE 3 — Filtros aplicados, fila de chips bajo el membrete
+       ==================================================================== */
+    .ph-chiprow {
+      position: absolute;
+      top: 130px; left: 0; right: 0;
+      z-index: 3;
+      padding: 4px 10px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .ph-chiprow::-webkit-scrollbar { display: none; }
+    .ph-chip {
+      flex-shrink: 0;
+      background: var(--ink);
+      color: var(--paper-app);
+      border-radius: 14px;
+      padding: 4px 8px 4px 10px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px;
+      font-family: var(--font-serif);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    }
+    .ph-chip-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .ph-chip-count {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      opacity: 0.75;
+    }
+    .ph-chip-x {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-left: 2px;
+      padding: 0 2px;
+    }
+    .ph-chip-clear {
+      flex-shrink: 0;
+      background: transparent;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-family: var(--font-serif);
+      font-style: italic;
+    }
+
+    /* Pins simulados sobre el mapa en state 3 */
+    .ph-pin {
+      position: absolute;
+      width: 24px; height: 24px;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      border: 1.5px solid var(--ink);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+    .ph-pin::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px; height: 6px;
+      background: var(--ink);
+    }
+
+    /* Notas laterales */
+    .note {
+      color: var(--paper-app);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+      opacity: 0.7;
+      padding: 8px 12px 0 12px;
+    }
+    .note strong { color: var(--ocre-brand); font-weight: 600; }
+    .note em { color: var(--accent-cyan); font-style: normal; }
+  </style>
+</head>
+<body>
+  <div class="mockup-wrap">
+    <div class="mockup-title">OCRE · POLIS · Mockup filtros streamlineados</div>
+
+    <!-- =======================================================
+         STATE 1 — Mapa limpio
+         ======================================================= -->
+    <div class="mockup-state">
+      <div class="mockup-state-label">
+        Estado 1 · <em>Mapa limpio</em>
+      </div>
+      <div class="phone">
+        <div class="ph-map"></div>
+
+        <div class="ph-topbar">
+          <div class="ph-brand">
+            <span class="ph-brand-icon"></span>OCRE<span class="ph-brand-caret">▾</span>
+          </div>
+          <div class="ph-top-right">
+            <button class="ph-icon-btn">⚙</button>
+            <button class="ph-entrar">Entrar</button>
+          </div>
+        </div>
+
+        <div class="ph-membrete">
+          <div class="ph-mb-parent"><em style="font-style:italic;">Canarias ▾ › Gran Canaria ▾</em></div>
+          <div class="ph-mb-current">LPGC <span>274 secciones</span></div>
+        </div>
+
+        <button class="ph-back">←</button>
+        <button class="ph-lupa">🔍</button>
+
+        <button class="ph-fab">▦</button>
+      </div>
+      <div class="note">
+        Sin chips activos. El usuario ve el mapa sin ruido. <strong>Tap en el FAB ▦</strong> abre el drawer (estado 2).
+      </div>
+    </div>
+
+    <!-- =======================================================
+         STATE 2 — Drawer abierto, eligiendo
+         ======================================================= -->
+    <div class="mockup-state">
+      <div class="mockup-state-label">
+        Estado 2 · <em>Elegir capas (cultura expandida, 2 sub-capas marcadas)</em>
+      </div>
+      <div class="phone">
+        <div class="ph-map" style="filter: brightness(0.7);"></div>
+
+        <div class="ph-topbar">
+          <div class="ph-brand">
+            <span class="ph-brand-icon"></span>OCRE<span class="ph-brand-caret">▾</span>
+          </div>
+          <div class="ph-top-right">
+            <button class="ph-icon-btn">⚙</button>
+            <button class="ph-entrar">Entrar</button>
+          </div>
+        </div>
+
+        <div class="ph-drawer">
+          <div class="ph-drawer-head">
+            <div class="ph-drawer-title">Filtrar el mapa</div>
+            <div class="ph-drawer-close">×</div>
+          </div>
+          <div class="ph-drawer-body">
+            <!-- Ámbito Movilidad — colapsado -->
+            <div class="amb-row">
+              <div class="amb-row-icon">⇄</div>
+              <div class="amb-row-text">
+                <div class="amb-row-name">Movilidad</div>
+                <div class="amb-row-count">2 capas · <span class="num">1.421</span> puntos</div>
+              </div>
+              <div class="amb-row-caret">›</div>
+            </div>
+
+            <!-- Ámbito Cultura — EXPANDIDO con sub-capas -->
+            <div class="amb-row open">
+              <div class="amb-row-icon">♪</div>
+              <div class="amb-row-text">
+                <div class="amb-row-name">Cultura y ocio</div>
+                <div class="amb-row-count">3 capas · <span class="num">2 activas · 132 puntos</span></div>
+              </div>
+              <div class="amb-row-caret">›</div>
+            </div>
+            <div class="sub-list">
+              <div class="sub-row on">
+                <div class="sub-check">✓</div>
+                <div class="sub-name">Bibliotecas</div>
+                <div class="sub-count">8 en LPGC</div>
+              </div>
+              <div class="sub-row on">
+                <div class="sub-check">✓</div>
+                <div class="sub-name">Teatros</div>
+                <div class="sub-count">4 en LPGC</div>
+              </div>
+              <div class="sub-row">
+                <div class="sub-check"></div>
+                <div class="sub-name">Eventos próximos</div>
+                <div class="sub-count">120 esta semana</div>
+              </div>
+            </div>
+
+            <!-- Otros ámbitos colapsados -->
+            <div class="amb-row">
+              <div class="amb-row-icon">+</div>
+              <div class="amb-row-text">
+                <div class="amb-row-name">Salud</div>
+                <div class="amb-row-count">1 capa · <span class="num">38</span> centros</div>
+              </div>
+              <div class="amb-row-caret">›</div>
+            </div>
+            <div class="amb-row">
+              <div class="amb-row-icon">⌂</div>
+              <div class="amb-row-text">
+                <div class="amb-row-name">Vivienda</div>
+                <div class="amb-row-count">1 capa · <span class="num">5.412</span> apartamentos</div>
+              </div>
+              <div class="amb-row-caret">›</div>
+            </div>
+            <div class="amb-row">
+              <div class="amb-row-icon">⊕</div>
+              <div class="amb-row-text">
+                <div class="amb-row-name">Tejido social</div>
+                <div class="amb-row-count">1 capa · <span class="num">135</span> asociaciones</div>
+              </div>
+              <div class="amb-row-caret">›</div>
+            </div>
+          </div>
+          <div class="drawer-foot">
+            <div class="foot-meta">2 capas seleccionadas · <em style="color:var(--ocre-brand);font-style:normal;">12 puntos</em> en este mun</div>
+            <button class="foot-action">Aplicar</button>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        Cada ámbito muestra <strong>conteo de capas</strong> y <strong>número de puntos en el nivel actual</strong>. El usuario expande Cultura, marca <em>Bibliotecas</em> y <em>Teatros</em> pero NO <em>Eventos</em> (se evitan 120 puntos extras). Footer dice "12 puntos en este mun" — sabe exactamente lo que va a aparecer.
+      </div>
+    </div>
+
+    <!-- =======================================================
+         STATE 3 — Capas aplicadas, chips visibles, pocos pins
+         ======================================================= -->
+    <div class="mockup-state">
+      <div class="mockup-state-label">
+        Estado 3 · <em>Aplicado — chips encima del mapa, pins controlados</em>
+      </div>
+      <div class="phone">
+        <div class="ph-map"></div>
+
+        <div class="ph-topbar">
+          <div class="ph-brand">
+            <span class="ph-brand-icon"></span>OCRE<span class="ph-brand-caret">▾</span>
+          </div>
+          <div class="ph-top-right">
+            <button class="ph-icon-btn">⚙</button>
+            <button class="ph-entrar">Entrar</button>
+          </div>
+        </div>
+
+        <div class="ph-membrete">
+          <div class="ph-mb-parent"><em style="font-style:italic;">Canarias ▾ › Gran Canaria ▾</em></div>
+          <div class="ph-mb-current">LPGC <span>274 secciones</span></div>
+        </div>
+
+        <button class="ph-back">←</button>
+        <button class="ph-lupa">🔍</button>
+
+        <!-- Chips de capas activas (scroll horizontal si hay muchos) -->
+        <div class="ph-chiprow" style="top: 168px;">
+          <div class="ph-chip">
+            <span class="ph-chip-dot" style="background:#3D5A80;"></span>
+            <span>Bibliotecas</span>
+            <span class="ph-chip-count">8</span>
+            <span class="ph-chip-x">×</span>
+          </div>
+          <div class="ph-chip">
+            <span class="ph-chip-dot" style="background:#E63946;"></span>
+            <span>Teatros</span>
+            <span class="ph-chip-count">4</span>
+            <span class="ph-chip-x">×</span>
+          </div>
+          <button class="ph-chip-clear">Limpiar</button>
+        </div>
+
+        <!-- Pins simulados (solo 12 puntos, no 1000) -->
+        <div class="ph-pin" style="background:#3D5A80; top: 260px; left: 32%;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 350px; left: 22%;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 420px; left: 56%;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 290px; left: 68%;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 480px; left: 30%;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 540px; left: 48%;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 380px; left: 80%;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 600px; left: 42%;">BB</div>
+        <div class="ph-pin" style="background:#E63946; top: 320px; left: 50%;">Te</div>
+        <div class="ph-pin" style="background:#E63946; top: 460px; left: 64%;">Te</div>
+        <div class="ph-pin" style="background:#E63946; top: 580px; left: 28%;">Te</div>
+        <div class="ph-pin" style="background:#E63946; top: 380px; left: 38%;">Te</div>
+
+        <button class="ph-fab">▦</button>
+      </div>
+      <div class="note">
+        <strong>Chips horizontales</strong> bajo el membrete muestran qué capas están activas. Cada chip tiene <em>×</em> para quitarse independientemente. <em>Tap en el cuerpo del chip</em> = modo solo (mute el resto). Botón <em>"Limpiar"</em> vacía todas. Solo 12 pins en pantalla — mapa legible.
+      </div>
+    </div>
+
+    <!-- =======================================================
+         STATE 4 — Solo mode activado (tap en chip "Teatros")
+         ======================================================= -->
+    <div class="mockup-state">
+      <div class="mockup-state-label">
+        Estado 4 · <em>Modo solo — tap en chip Teatros, las bibliotecas se atenúan</em>
+      </div>
+      <div class="phone">
+        <div class="ph-map"></div>
+
+        <div class="ph-topbar">
+          <div class="ph-brand">
+            <span class="ph-brand-icon"></span>OCRE<span class="ph-brand-caret">▾</span>
+          </div>
+          <div class="ph-top-right">
+            <button class="ph-icon-btn">⚙</button>
+            <button class="ph-entrar">Entrar</button>
+          </div>
+        </div>
+
+        <div class="ph-membrete">
+          <div class="ph-mb-parent"><em style="font-style:italic;">Canarias ▾ › Gran Canaria ▾</em></div>
+          <div class="ph-mb-current">LPGC <span>274 secciones</span></div>
+        </div>
+
+        <button class="ph-back">←</button>
+        <button class="ph-lupa">🔍</button>
+
+        <div class="ph-chiprow" style="top: 168px;">
+          <div class="ph-chip" style="opacity:0.45;">
+            <span class="ph-chip-dot" style="background:#3D5A80;"></span>
+            <span>Bibliotecas</span>
+            <span class="ph-chip-count">8</span>
+            <span class="ph-chip-x">×</span>
+          </div>
+          <div class="ph-chip" style="background:#E63946; box-shadow: 0 0 0 2px var(--accent-cyan);">
+            <span class="ph-chip-dot" style="background:white;"></span>
+            <span>Teatros (solo)</span>
+            <span class="ph-chip-count">4</span>
+            <span class="ph-chip-x">×</span>
+          </div>
+          <button class="ph-chip-clear">Limpiar</button>
+        </div>
+
+        <!-- Bibliotecas atenuadas -->
+        <div class="ph-pin" style="background:#3D5A80; top: 260px; left: 32%; opacity:0.18;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 350px; left: 22%; opacity:0.18;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 420px; left: 56%; opacity:0.18;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 290px; left: 68%; opacity:0.18;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 480px; left: 30%; opacity:0.18;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 540px; left: 48%; opacity:0.18;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 380px; left: 80%; opacity:0.18;">BB</div>
+        <div class="ph-pin" style="background:#3D5A80; top: 600px; left: 42%; opacity:0.18;">BB</div>
+        <!-- Teatros destacados -->
+        <div class="ph-pin" style="background:#E63946; top: 320px; left: 50%; transform: scale(1.15);">Te</div>
+        <div class="ph-pin" style="background:#E63946; top: 460px; left: 64%; transform: scale(1.15);">Te</div>
+        <div class="ph-pin" style="background:#E63946; top: 580px; left: 28%; transform: scale(1.15);">Te</div>
+        <div class="ph-pin" style="background:#E63946; top: 380px; left: 38%; transform: scale(1.15);">Te</div>
+
+        <button class="ph-fab">▦</button>
+      </div>
+      <div class="note">
+        Click <em>en el cuerpo</em> del chip Teatros → "modo solo": teatros agrandados con halo cyan, bibliotecas atenuadas al 18%. Segundo click vuelve al estado normal. El chip activo tiene <strong>borde cyan</strong> y dice <em>(solo)</em>.
+      </div>
+    </div>
+
+    <div class="note" style="margin-top: 20px;">
+      <strong>Resumen de cambios vs UX actual</strong>
+      <br>1) Granularidad: cada ámbito se EXPANDE a sub-capas (museos, bibliotecas, teatros, cines independientes)
+      <br>2) Conteo previo: ANTES de aplicar ves cuántos puntos van a aparecer en el nivel actual
+      <br>3) Chips activos siempre visibles bajo el membrete — entiendes qué capas tienes encendidas sin abrir el drawer
+      <br>4) Modo solo: tap en el cuerpo del chip aísla esa capa (mute el resto) → análisis focalizado
+      <br>5) Cierre granular: cada chip tiene ×, no tienes que abrir el drawer para quitar UNA capa
+      <br>6) Sin sinergias automáticas si no las pides: el "ruido" actual desaparece porque el usuario decide layer por layer
+    </div>
+  </div>
+</body>
+</html>

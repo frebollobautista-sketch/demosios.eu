@@ -43,13 +43,28 @@ PUBLIC = ROOT / "public"
 DEFAULT_OUT = PUBLIC / "sections_pack"
 CANTERAS_SECTIONS = ROOT / "godot" / "polis_walk" / "canteras_sections.json"
 
-# Mapeos de islas a códigos de municipio (3 dígitos, sin el prefijo 35).
+# Mapeos de islas a códigos de municipio (3 dígitos, sin el prefijo).
+# Prov 35 (gc/fv/lz) y Prov 38 (tf/lp/lg/eh) — 2026-05-19.
 ISLA_MUNS = {
     "gc": {"001", "002", "005", "006", "008", "009", "011", "012", "013",
            "016", "019", "020", "021", "022", "023", "025", "026", "027",
            "031", "032", "033"},
     "fv": {"003", "007", "014", "015", "017", "030"},
     "lz": {"004", "010", "018", "024", "028", "029", "034"},
+    # 2026-05-20: códigos corregidos según SECC_CE 2019 real (no la lista
+    # INE moderna que yo recordaba — diferían).
+    "tf": {"001","004","005","006","010","011","012","015","017","018",
+           "019","020","022","023","025","026","028","031","032","034",
+           "035","038","039","040","041","042","043","044","046","051",
+           "052"},
+    "lp": {"007","008","009","014","016","024","027","029","030","033",
+           "037","045","047","053"},
+    "lg": {"002","003","021","036","049","050"},
+    "eh": {"013","048","901"},
+}
+ISLA_PROV = {
+    "gc": "35", "fv": "35", "lz": "35",
+    "tf": "38", "lp": "38", "lg": "38", "eh": "38",
 }
 
 

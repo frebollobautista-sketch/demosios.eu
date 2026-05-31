@@ -92,6 +92,33 @@ hr.drawer-sep {
   font-family: var(--font-mono); color: var(--text-dim);
 }
 
+/* Pilares visibles (interconexión siempre a la vista). Posicionados en
+   el centro absoluto del topbar para que no dependan del ancho de los
+   bloques izquierda/derecha. */
+.app-pillars {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 18px;
+}
+.pillar {
+  font-family: var(--font-serif);
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 4px 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.pillar:hover { color: var(--text); }
+.pillar.is-active { color: var(--text); font-weight: 600; }
+.pillar-polis.is-active      { border-bottom-color: var(--ocre); }
+.pillar-agora.is-active      { border-bottom-color: var(--verde); }
+.pillar-biblioteca.is-active { border-bottom-color: #7a95c8; }
+@media (max-width: 600px) {
+  .app-pillars { gap: 10px; font-size: 11px; }
+}
+
 .app-topbar-iconbtn {
   appearance: none; background: transparent; border: none;
   width: 36px; height: 36px; padding: 0;

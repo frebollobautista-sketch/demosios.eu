@@ -22,7 +22,7 @@
 // feature. La política está concentrada en detectarReclamadas() para que
 // la UI pueda reutilizarla en otros contextos (ej: highlight en mapas).
 
-import { getAllGestos } from "../shared/gestos.js?v=20260527a";
+import { getAllGestos } from "../shared/gestos.js?v=20260529-agora-verde";
 
 // =============================================================
 // CONFIGURACIÓN POR DEFECTO

@@ -16,8 +16,8 @@
 //
 // Todo entra por `ctx`. El módulo no conoce el estado de la app.
 
-import { pickStumble, aprenderDeFeedback, describirDiff } from "../shared/stumble.js?v=20260527e";
-import { mountHud, HUD_CSS } from "../shared/hud.js?v=20260527a";
+import { pickStumble, aprenderDeFeedback, describirDiff } from "../shared/stumble.js?v=20260529-agora-verde";
+import { mountHud, HUD_CSS } from "../shared/hud.js?v=20260529-agora-verde";
 
 const KEY_CONFIG = "agora-descubre-config";   // { preset, intereses: [] }
 const KEY_LEGEND = "agora-descubre-legend";   // "1" cuando ya se mostró la leyenda

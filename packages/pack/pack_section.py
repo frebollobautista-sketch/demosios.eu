@@ -113,15 +113,21 @@ def _safe_intersection(geom, other):
             return None
 
 # ----------------------------------------------------------------- paths
+# 2026-05-19 — Override por env vars para soportar prov 38:
+#   KOINOS_SECCIONES_FILE, KOINOS_OSM_DIR (apunta a osm-gc/ o osm-prov38/).
+import os as _os
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 PUBLIC = ROOT / "public"
 BUILDINGS_DIR = PUBLIC / "buildings"
-SECCIONES_FILE = PUBLIC / "gc-secciones-lite.json"
+SECCIONES_FILE = pathlib.Path(_os.environ.get(
+    "KOINOS_SECCIONES_FILE", str(PUBLIC / "gc-secciones-lite.json")))
 SECCIONES_FULL = PUBLIC / "gc-secciones.json"
-ROADS_FILE = PUBLIC / "osm-gc" / "roads.json"
-POIS_FILE = PUBLIC / "osm-gc" / "pois.json"
-PARKS_FILE = PUBLIC / "osm-gc" / "parks.json"
-WATER_FILE = PUBLIC / "osm-gc" / "water.json"
+_OSM_DIR = pathlib.Path(_os.environ.get(
+    "KOINOS_OSM_DIR", str(PUBLIC / "osm-gc")))
+ROADS_FILE = _OSM_DIR / "roads.json"
+POIS_FILE = _OSM_DIR / "pois.json"
+PARKS_FILE = _OSM_DIR / "parks.json"
+WATER_FILE = _OSM_DIR / "water.json"
 CANTERAS_DATA = ROOT / "godot" / "polis_walk" / "canteras_data.json"
 
 DEFAULT_OUT = PUBLIC / "sections_pack"

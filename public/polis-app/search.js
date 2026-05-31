@@ -54,6 +54,8 @@ function _normalize(s) {
 // ----------------------------------------------------------
 // Construcción del index (snapshot del estado actual).
 
+import { assetUrl } from "./assets-base.js";
+
 export async function buildIndex(state, ctx) {
   const out = [];
 
@@ -407,8 +409,8 @@ async function _loadCalles() {
       .then(_aggregateRoads)
       .catch(err => { console.warn("[search] callejero " + url + " fallo:", err); return []; });
   _callesLoadingPromise = Promise.all([
-    fetchFC("../osm-gc/roads.json"),
-    fetchFC("../osm-prov38/roads.json"),
+    fetchFC(assetUrl("../osm-gc/roads.json")),
+    fetchFC(assetUrl("../osm-prov38/roads.json")),
   ]).then(parts => {
     _callesCache = parts.flat();
     return _callesCache;
@@ -446,10 +448,10 @@ async function _loadBarrioPois(barrio) {
   // manzanas en state.barrio.manzanas están ya reproyectadas a anchor GC,
   // así que no sirven directamente.
   const fetches = cusecs.map(cusec => Promise.all([
-    fetch(`../sections_pack/${cusec}/pois.geojson`)
+    fetch(assetUrl(`../sections_pack/${cusec}/pois.geojson`))
       .then(r => r.ok ? r.json() : { features: [] })
       .catch(() => ({ features: [] })),
-    fetch(`../sections_pack/${cusec}/manzanas.geojson`)
+    fetch(assetUrl(`../sections_pack/${cusec}/manzanas.geojson`))
       .then(r => r.ok ? r.json() : { features: [] })
       .catch(() => ({ features: [] }))
   ]).then(([poisGj, manzGj]) => ({ cusec, poisGj, manzGj })));

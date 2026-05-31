@@ -7,11 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260529c">
-  <link rel="stylesheet" href="sillas.css?v=20260527c">
-  <link rel="stylesheet" href="quorums.css?v=20260527c">
-  <link rel="stylesheet" href="pulso.css?v=20260527c">
-  <link rel="stylesheet" href="descubre.css?v=20260527g">
+  <link rel="stylesheet" href="style.css?v=20260529-agora-verde">
+  <link rel="stylesheet" href="sillas.css?v=20260529-agora-verde">
+  <link rel="stylesheet" href="quorums.css?v=20260529-agora-verde">
+  <link rel="stylesheet" href="pulso.css?v=20260529-agora-verde">
+  <link rel="stylesheet" href="descubre.css?v=20260529-agora-verde">
 </head>
 <body>
   <!-- [VERDE-SKIN 2026-05-29] Header OCRE portado de POLIS (mismo shell):
@@ -21,29 +21,19 @@
   <div class="agora-topshell">
     <header class="app-topbar" id="app-topbar">
       <div class="app-topbar-left">
-        <div class="app-topbar-brand" id="app-topbar-brand" role="button" tabindex="0"
-             aria-haspopup="menu" aria-expanded="false">
+        <div class="app-topbar-brand">
           <span class="brand-icon" aria-hidden="true"></span>
           <span class="brand-text">OCRE</span>
-          <span class="brand-caret" aria-hidden="true">▾</span>
         </div>
         <code id="uid" class="topbar-uid-code" hidden></code>
       </div>
 
-      <div class="app-topbar-menu" id="app-topbar-menu" role="menu" aria-hidden="true">
-        <a class="atm-item" role="menuitem" href="../polis-app/">
-          <span class="atm-dot" aria-hidden="true"></span>
-          <span class="atm-text"><span class="atm-name">POLIS</span><span class="atm-desc">El mapa cívico</span></span>
-        </a>
-        <button class="atm-item atm-active" role="menuitem" type="button" aria-current="page">
-          <span class="atm-dot" aria-hidden="true"></span>
-          <span class="atm-text"><span class="atm-name">ÁGORA</span><span class="atm-desc">Asambleas y debate</span></span>
-        </button>
-        <a class="atm-item" role="menuitem" href="../biblioteca-app/">
-          <span class="atm-dot" aria-hidden="true"></span>
-          <span class="atm-text"><span class="atm-name">BIBLIOTHEKA</span><span class="atm-desc">Archivo cívico y memoria</span></span>
-        </a>
-      </div>
+      <!-- Pilares visibles (interconexión siempre a la vista, no dropdown). -->
+      <nav class="app-pillars" aria-label="Saltar entre pilares">
+        <a class="pillar pillar-polis"      href="../polis-app/">POLIS</a>
+        <a class="pillar pillar-agora is-active" href="../agora-app/"      aria-current="page">ÁGORA</a>
+        <a class="pillar pillar-biblioteca" href="../biblioteca-app/">BIBLIOTHEKA</a>
+      </nav>
 
       <div class="app-topbar-right">
         <button id="mode-descubre" class="app-topbar-iconbtn" type="button"
@@ -270,6 +260,6 @@
     </div>
   </div>
 
-  <script type="module" src="app.js?v=20260529e"></script>
+  <script type="module" src="app.js?v=20260529-agora-verde"></script>
 </body>
 </html>

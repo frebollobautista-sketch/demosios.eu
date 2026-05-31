@@ -26,6 +26,7 @@ import { fitView, project, pointInScreenPolygon, ringCentroid, ringBbox,
 import { simplifyRing, outerRing, annotateDepth, sortByDepth }
   from "./clustering.js";
 import { loadCatalog, classify } from "./archetypes.js";
+import { assetUrl } from "./assets-base.js";
 import { render } from "./renderer.js?v=20260529-drilldown";
 import { attach } from "./interaction.js?v=20260525-swipeback";
 import { initOverlays, setOverlayActive } from "./overlays/index.js?v=20260529-batch3";
@@ -1541,7 +1542,7 @@ async function loadMunicipio(mun) {
   // Cache buster: manifest se regeneró 2026-05-24 con las 1381 secciones
   // reales en disco (prov 35 + 38). Sin el query el navegador servía el
   // cache de 562 entries (sólo subset de prov 35).
-  const manifest = await fetch("../sections_pack/manifest.json?v=20260524-full")
+  const manifest = await fetch(assetUrl("../sections_pack/manifest.json?v=20260524-full"))
     .then(r => r.json());
   for (const s of manifest.sections) buildingsByCusec.set(s.cusec, s.buildings);
 
@@ -1899,7 +1900,7 @@ async function loadDistrito(distritoId) {
   const sectionPromises = distrito.secciones.map(async (sFeat) => {
     const cusec = sFeat.properties.cusec;
     try {
-      const base = `../sections_pack/${cusec}/`;
+      const base = assetUrl(`../sections_pack/${cusec}/`);
       const [meta, manzanasGj, buildingsGj, roadsGj] = await Promise.all([
         fetch(base + "meta.json").then(r => r.json()),
         fetch(base + "manzanas.geojson").then(r => r.json()),
@@ -2038,7 +2039,7 @@ async function loadBarrio(barrioId) {
   const sectionPromises = secciones.map(async (sFeat) => {
     const cusec = sFeat.properties.cusec;
     try {
-      const base = `../sections_pack/${cusec}/`;
+      const base = assetUrl(`../sections_pack/${cusec}/`);
       const [meta2, manzanasGj, buildingsGj, roadsGj] = await Promise.all([
         fetch(base + "meta.json").then(r => r.json()),
         fetch(base + "manzanas.geojson").then(r => r.json()),
@@ -2280,7 +2281,7 @@ function buildSeccionFromDistrictPack(pack) {
 }
 
 async function loadSeccion(cusec) {
-  const base = `../sections_pack/${cusec}/`;
+  const base = assetUrl(`../sections_pack/${cusec}/`);
   const [meta, manzanasGj, buildingsGj, roadsGj, poisGj, parksGj] = await Promise.all([
     fetch(base + "meta.json").then(r => r.json()),
     fetch(base + "manzanas.geojson").then(r => r.json()),
@@ -2939,7 +2940,7 @@ async function loadVecindario(focalCusec) {
   const packPromises = vecSecs.map(async (sFeat) => {
     const cusec = sFeat.properties.cusec;
     try {
-      const base = `../sections_pack/${cusec}/`;
+      const base = assetUrl(`../sections_pack/${cusec}/`);
       const [meta, manzanasGj, buildingsGj, roadsGj] = await Promise.all([
         fetch(base + "meta.json").then(r => r.json()),
         fetch(base + "manzanas.geojson").then(r => r.json()),

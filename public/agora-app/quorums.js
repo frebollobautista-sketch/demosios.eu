@@ -24,7 +24,7 @@ import {
   recordGesto,
   getAllGestos,
   getUserId
-} from "../shared/gestos.js?v=20260527a";
+} from "../shared/gestos.js?v=20260529-agora-verde";
 
 // =============================================================
 // QUORUMS_SEED — Convocatorias de demostración.

@@ -4368,3 +4368,31 @@ body.skin-ocre #gestos-sheet-grid .ambito-glifo { color: var(--terracota); }
 .gsg-accept:active { transform: translate(2px, 2px); box-shadow: none; }
 
 @media (max-width: 380px) { .gsg-toggles { grid-template-columns: 1fr; } }
+
+/* ── Pilares visibles (interconexión siempre a la vista). Hermano de los
+   pilares en agora-app y biblioteca-app. Colocado en el centro absoluto
+   del .app-topbar, independiente del dropdown OCRE ▾ existente. */
+.app-pillars {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 18px;
+  z-index: 14;
+}
+.app-pillars .pillar {
+  font-family: var(--font-serif);
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(26, 22, 18, 0.55);
+  text-decoration: none;
+  padding: 4px 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.app-pillars .pillar:hover { color: var(--ink); }
+.app-pillars .pillar.is-active { color: var(--ink); font-weight: 600; }
+.app-pillars .pillar-polis.is-active      { border-bottom-color: var(--ocre-brand); }
+.app-pillars .pillar-agora.is-active      { border-bottom-color: #6aa86a; }
+.app-pillars .pillar-biblioteca.is-active { border-bottom-color: #7a95c8; }
+@media (max-width: 600px) {
+  .app-pillars { gap: 10px; font-size: 11px; }
+}

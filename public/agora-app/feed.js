@@ -19,8 +19,8 @@
 // rate-limit, GeoJSON 404) NO tumba al resto. Promise.allSettled
 // + console.warn.
 
-import { getAllGestos } from "../shared/gestos.js?v=20260527a";
-import { clasificar } from "../shared/tablero.js?v=20260529b";
+import { getAllGestos } from "../shared/gestos.js?v=20260529-agora-verde";
+import { clasificar } from "../shared/tablero.js?v=20260529-agora-verde";
 
 // =============================================================
 // CONFIGURACIÓN POR DEFECTO

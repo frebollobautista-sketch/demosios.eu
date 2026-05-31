@@ -10,7 +10,7 @@
 // emisor + referencia al gesto de cierre. Por ahora son contadores +
 // historia local que ya se puede inspeccionar.
 
-import { recordGesto, getUserId, getAllGestos } from "../shared/gestos.js?v=20260527a";
+import { recordGesto, getUserId, getAllGestos } from "../shared/gestos.js?v=20260529-agora-verde";
 
 const KEY_TOKENS = "agora-tokens";
 

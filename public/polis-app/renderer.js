@@ -13,6 +13,7 @@
 import { project } from "./iso.js";
 import { drawArchetype, drawFootprint } from "./archetypes.js";
 import { drawActiveOverlays } from "./overlays/index.js";
+import { assetUrl } from "./assets-base.js";
 
 // 2026-05-24 — Paleta ITB v2 paper restaurada (revert OCRE-SKIN dark).
 // Sólo se conservan la top bar OCRE + siluetas-strip; el lienzo y los
@@ -544,8 +545,9 @@ function ensureCoastline(state) {
     lg: "../osm-prov38/coastline.json",
     eh: "../osm-prov38/coastline.json",
   };
-  const url = COASTLINE_SRC[state.isla.id];
-  if (!url) { state.isla.coastline = []; return; }
+  const rel = COASTLINE_SRC[state.isla.id];
+  if (!rel) { state.isla.coastline = []; return; }
+  const url = assetUrl(rel);
   state.isla._loadingCoast = true;
   fetch(url)
     .then(r => r.json())
@@ -1126,7 +1128,7 @@ function drawMunicipioRoads(ctx, state) {
   if (!state._roadsByIsla) state._roadsByIsla = new Map();
   const islaId = state.isla?.id || "gc";
   const PROV38 = islaId === "tf" || islaId === "lp" || islaId === "lg" || islaId === "eh";
-  const ROADS_URL = PROV38 ? "../osm-prov38/roads-main.json" : "../osm-gc/roads-main.json";
+  const ROADS_URL = assetUrl(PROV38 ? "../osm-prov38/roads-main.json" : "../osm-gc/roads-main.json");
   const cacheKey = PROV38 ? "prov38" : "gc";
 
   if (!state._roadsByIsla.has(cacheKey) && !state._loadingRoads?.[cacheKey]) {

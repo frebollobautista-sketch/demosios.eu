@@ -28,13 +28,14 @@
 // fill saturaría la lectura del tablero. Filtramos por bbox del nivel.
 
 import { project, lnglatToLocalMeters } from "../iso.js";
+import { assetUrl } from "../assets-base.js";
 
 // 2026-05-26 — Multi-isla: osm-gc/parks.json cubre prov 35 (GC+FV+LZ,
 // 12.881 features), osm-prov38/parks.json cubre prov 38 (TF/LP/LG/EH,
 // 32.242 features). Cargamos ambos y combinamos.
 const DATA_URLS = [
-  "../osm-gc/parks.json",
-  "../osm-prov38/parks.json",
+  assetUrl("../osm-gc/parks.json"),
+  assetUrl("../osm-prov38/parks.json"),
 ];
 const GC_ANCHOR = [-15.55, 28.05];
 

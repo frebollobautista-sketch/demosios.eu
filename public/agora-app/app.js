@@ -14,29 +14,29 @@
 //   - Tokens de invitación (1 por cada misión cerrada).
 //   - Pulso de zona (panel) y modal de convocatoria de quórum.
 
-import { recordGesto, getUserId, getAllGestos } from "../shared/gestos.js?v=20260527a";
-import { rank } from "../shared/rank.js?v=20260527a";
-import { mountHud, HUD_CSS } from "../shared/hud.js?v=20260527a";
+import { recordGesto, getUserId, getAllGestos } from "../shared/gestos.js?v=20260529-agora-verde";
+import { rank } from "../shared/rank.js?v=20260529-agora-verde";
+import { mountHud, HUD_CSS } from "../shared/hud.js?v=20260529-agora-verde";
 import {
   honestyMeter,
   detectarAperturasTejido,
   detectarReciprocidad
-} from "../shared/loops.js?v=20260527a";
+} from "../shared/loops.js?v=20260529-agora-verde";
 
-import { mountTablero } from "./sliders.js?v=20260529b";
+import { mountTablero } from "./sliders.js?v=20260529-agora-verde";
 import {
   loadTablero, saveTablero, dimsMetaDe, FAMILIAS, interleave, esItemCivico
-} from "../shared/tablero.js?v=20260529b";
+} from "../shared/tablero.js?v=20260529-agora-verde";
 import {
   loadAllSources, aplicarDims, DEFAULT_SOURCES_CONFIG
-} from "./feed.js?v=20260529b";
+} from "./feed.js?v=20260529-agora-verde";
 
 // Módulos de masa crítica (v3).
-import { loadSillasVacias, renderSillaCard, SILLAS_DEFAULT_CONFIG } from "./sillas.js?v=20260527c";
-import { loadQuorums, crearQuorum, firmarQuorum, renderQuorumCard } from "./quorums.js?v=20260527c";
-import { abrirPulso } from "./pulso.js?v=20260527c";
-import { registrarCierre, renderTokensBlock, reconciliarTokens } from "./tokens.js?v=20260527c";
-import { abrirDescubre } from "./descubre.js?v=20260527i";
+import { loadSillasVacias, renderSillaCard, SILLAS_DEFAULT_CONFIG } from "./sillas.js?v=20260529-agora-verde";
+import { loadQuorums, crearQuorum, firmarQuorum, renderQuorumCard } from "./quorums.js?v=20260529-agora-verde";
+import { abrirPulso } from "./pulso.js?v=20260529-agora-verde";
+import { registrarCierre, renderTokensBlock, reconciliarTokens } from "./tokens.js?v=20260529-agora-verde";
+import { abrirDescubre } from "./descubre.js?v=20260529-agora-verde";
 
 // ─────────────────── CONSTANTES ───────────────────
 
@@ -1095,9 +1095,8 @@ async function boot() {
   await recargarFuentes();
 
   // Onboarding al final.
-  if (necesitaOnboarding()) {
-    abrirModalMision({ forzado: true });
-  }
+  // Onboarding suave: el bloque `feed-empty` invita a la primera misión.
+  // Sin modal bloqueante (antes abría uno con `forzado:true` y tapaba todo).
 }
 
 document.addEventListener("DOMContentLoaded", boot);

@@ -16,7 +16,7 @@
 // Restricciones de diseño: vanilla ES modules, cero dependencias, todo
 // el dato proviene del log local de gestos.
 
-import { getAllGestos } from "../shared/gestos.js?v=20260527a";
+import { getAllGestos } from "../shared/gestos.js?v=20260529-agora-verde";
 
 // =============================================================
 // ZONAS PIVOTE

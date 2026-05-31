@@ -11,7 +11,7 @@
 
 import {
   FAMILIAS, temasDe, loadTablero, saveTablero
-} from "../shared/tablero.js?v=20260529b";
+} from "../shared/tablero.js?v=20260529-agora-verde";
 
 export function mountTablero(container, familia, onChange) {
   if (!container) return null;

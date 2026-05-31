@@ -52,6 +52,14 @@
       </button>
     </div>
 
+    <!-- [2026-05-29] Pilares visibles (interconexión siempre a la vista,
+         independiente del dropdown OCRE ▾ que sigue como vista interna). -->
+    <nav class="app-pillars" aria-label="Saltar entre pilares">
+      <a class="pillar pillar-polis is-active" href="./" aria-current="page">POLIS</a>
+      <a class="pillar pillar-agora"      href="../agora-app/">ÁGORA</a>
+      <a class="pillar pillar-biblioteca" href="../biblioteca-app/">BIBLIOTHEKA</a>
+    </nav>
+
     <div class="app-topbar-right">
       <button class="app-topbar-iconbtn" id="app-topbar-cog" type="button" aria-label="Ajustes" title="Ajustes">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -669,6 +677,14 @@
     </div>
   </div>
 
-  <script type="module" src="./app.js?v=20260529-drilldown"></script>
+  <!-- Base de assets pesados (sections_pack / osm-gc / osm-prov38).
+       En local → '' (rutas relativas a public/). En prod → bucket R2.
+       Public Development URL del bucket demosios-packs (r2.dev). -->
+  <script>
+    window.__ASSETS_BASE = (location.hostname === 'localhost' ||
+      location.hostname === '127.0.0.1') ? '' :
+      'https://pub-0c67711c0e0e4675b73de73f0e49a32c.r2.dev';
+  </script>
+  <script type="module" src="./app.js?v=20260530-r2"></script>
 </body>
 </html>

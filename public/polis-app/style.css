@@ -475,6 +475,13 @@ html[data-cog-fontscale="l"] { font-size: 18px; }
   align-items: center;
   gap: 4px;
 }
+
+/* 2026-06-01 — Ocultar el membrete negro (breadcrumb flotante "Canarias ▾"
+   + "Isla · N municipios/edificios"). La información de nivel y los
+   topónimos ya se manifiestan al hover / al acercarse, así que estos
+   chips negros sobran. La navegación se mantiene con el back-arrow y la
+   tira de siluetas. !important porque el JS alterna su display por nivel. */
+.membrete { display: none !important; }
 .membrete .mb-parents {
   font-size: 11px;
   color: var(--paper);

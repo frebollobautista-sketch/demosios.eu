@@ -171,8 +171,13 @@ export function fitView(bbox, canvasW, canvasH, padPx = 80, proj = "seccion") {
   // (split-view, paneles laterales) canvasW - 2·padPx podía volverse
   // negativo → baseScale negativo → scale negativo → render colapsado
   // (todo invertido, edificios invisibles). Garantizamos ≥40 px útiles.
+  // 2026-06-01 — Inset superior por las barras de chrome (OCRE topbar +
+  // tira de siluetas de islas) que se superponen sobre el #stage. Sin
+  // esto, los topónimos del borde superior del mapa quedan recortados
+  // bajo las barras. Centramos el mapa en el área visible bajo ellas.
+  const TOP_INSET = 120;
   const availW = Math.max(40, canvasW - 2 * padPx);
-  const availH = Math.max(40, canvasH - 2 * padPx - 60); // banner
+  const availH = Math.max(40, canvasH - 2 * padPx - 60 - TOP_INSET); // banner + barras
   const mx = (minx + maxx) / 2;
   const my = (miny + maxy) / 2;
 
@@ -189,7 +194,7 @@ export function fitView(bbox, canvasW, canvasH, padPx = 80, proj = "seccion") {
       maxScale: baseScale * maxZoomRatio,
       fitScale: baseScale,
       cx: canvasW / 2,
-      cy: canvasH / 2 + 24,
+      cy: (canvasH + TOP_INSET) / 2 + 24,
       tx: mx,
       ty: my,
       ax, ay, sz_factor

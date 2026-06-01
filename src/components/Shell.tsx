@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
+import { usePathname } from "next/navigation";
 import { Header } from "./Header";
 import { BannerSuscripcion } from "./BannerSuscripcion";
 import { useSession } from "@/lib/auth/useSession";
@@ -49,6 +50,11 @@ function fireChange() {
 export function Shell({ children }: { children: React.ReactNode }) {
   const cerrada = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const { user, cargando } = useSession();
+  const pathname = usePathname();
+
+  // La home (/) es el runtime POLIS a pantalla completa: no mostramos el
+  // header del sitio para que solo quede la barra propia del juego.
+  const ocultarHeader = pathname === "/";
 
   const abrir = useCallback(() => {
     if (typeof window !== "undefined") {
@@ -71,7 +77,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header onOpenSubscribe={abrir} />
+      {!ocultarHeader && <Header onOpenSubscribe={abrir} />}
       <main className="flex-1 w-full">{children}</main>
       {mostrarSuscripcion && (
         <BannerSuscripcion abierto={!cerrada} onAbrir={abrir} onCerrar={cerrar} />

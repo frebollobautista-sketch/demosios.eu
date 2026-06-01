@@ -7,19 +7,18 @@
  * del faro. Los datos pesados (sections_pack / osm) se sirven desde
  * Cloudflare R2 vía el wiring de assets-base.js dentro de polis-app.
  *
- * El iframe ocupa el alto restante bajo el Header (h-14 + nav ≈ 96px).
+ * En la home se oculta el Header del sitio (ver Shell.tsx), así que el
+ * iframe ocupa el viewport completo y solo se ve la barra propia del juego.
  */
-
-const HEADER_H = "96px";
 
 export default function InicioPage() {
   return (
     <div
       className="relative w-full overflow-hidden"
-      style={{ height: `calc(100vh - ${HEADER_H})`, background: "#0a0a0a" }}
+      style={{ height: "100dvh", background: "#0a0a0a" }}
     >
       <iframe
-        src="/polis-app/index.html?v=20260601-r2"
+        src="/polis-app/index.html?v=20260601-inset"
         title="POLIS — mapa cívico de Canarias"
         className="absolute inset-0 h-full w-full border-0 block"
         allow="fullscreen"

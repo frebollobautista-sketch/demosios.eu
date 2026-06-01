@@ -1,0 +1,50 @@
+{
+  "version": "v0-placeholder-2026-05-27",
+  "fuente": "TODO: integrar AEMET avisos (opendata.aemet.es) + BDRC dust.aemet.es (MONARCH netCDF) + NAAPS NRL como cross-check",
+  "fuente_pretendida": {
+    "primaria": "BDRC MONARCH (https://dust.aemet.es) — netCDF 0.1deg, 3h, 72h forecast, Dust Surface Concentration",
+    "secundaria": "AEMET opendata — avisos fenomeno=polvo&area=can (requiere API key gratis en opendata.aemet.es)",
+    "cross_check": "NAAPS NRL FNMOC (https://www.nrlmry.navy.mil/aerosol/) — sólo PNG, sin endpoint estable, scraping frágil",
+    "proxy_aqicn": "PM10 sostenido >50 µg/m³ varios días en estaciones canarias durante sequía => calima (fallback)"
+  },
+  "actualizado": "2026-05-27T11:27:06+00:00",
+  "nivel_actual": "moderado",
+  "valor_pm10_proxy": 65,
+  "afecta_islas": [
+    "fv",
+    "lz",
+    "gc",
+    "tf"
+  ],
+  "fecha_pronostico": "2026-05-27",
+  "horas_validez": 48,
+  "comentario": "Episodio primaveral de intrusion sahariana — afecta principalmente islas orientales (FV/LZ) con propagacion progresiva a GC/TF. LP/LG/EH quedan al margen del flujo en este escenario.",
+  "leyenda": {
+    "bajo": {
+      "pm10_min": 0,
+      "color": "#4aaa5a",
+      "desc": "Aire limpio"
+    },
+    "moderado": {
+      "pm10_min": 50,
+      "color": "#d4c44a",
+      "desc": "Polvo perceptible"
+    },
+    "alto": {
+      "pm10_min": 100,
+      "color": "#e68a4f",
+      "desc": "Episodio de calima"
+    },
+    "muy_alto": {
+      "pm10_min": 200,
+      "color": "#c45a4a",
+      "desc": "Calima intensa - cerrar ventanas"
+    },
+    "extremo": {
+      "pm10_min": 500,
+      "color": "#9f4fe6",
+      "desc": "Calima excepcional"
+    }
+  },
+  "_placeholder": true
+}

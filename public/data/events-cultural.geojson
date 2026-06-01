@@ -1,0 +1,3500 @@
+{
+  "type": "FeatureCollection",
+  "_meta": {
+    "fuente": "Multi-fuente. Scraped: cultura.grancanaria.com (Cabildo GC), lpacultura.com (Ayto LPGC), laganzua.net, canariasviaja.com, grancanaria.com/turismo (Patronato GC), auditoriodetenerife.com (Auditorio Adán Martín TF), teatenerife.es (TEA), tenerife.es (Cabildo TF), turismolanzarote.com (centros arte Manrique LZ), agendas ayuntamiento Telde/Gáldar/Arucas. Fiestas patronales recurrentes 2026.",
+    "actualizado": "2026-05-21",
+    "rango": "2026-05-19 a 2027-06-25",
+    "categorias": [
+      "exposicion",
+      "concierto",
+      "taller",
+      "festival",
+      "presentacion",
+      "evento_especial"
+    ],
+    "version": 5,
+    "nota_coords": "Coordenadas aproximadas del centro del venue. Refinar con dirección exacta si se quiere precisión por sección.",
+    "nota_curacion": "Ampliado 2026-05-21 con TF (Auditorio Adán Martín + TEA + Cabildo) y LZ (centros arte Manrique). Cobertura por isla: GC 109, TF 18, LZ 4 — desigual y reflejando agendas digitales reales."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4435,
+          27.9211
+        ]
+      },
+      "properties": {
+        "id": "evt-001",
+        "titulo": "Exposición: «Ingenio vista desde el arte»",
+        "fecha": "2026-05-12",
+        "hora_inicio": "09:00",
+        "lugar": "Fundación Canaria Nanino Díaz Cutillas",
+        "municipio": "Ingenio",
+        "categoria": "exposicion",
+        "descripcion": "Muestra colectiva sobre la mirada artística al municipio de Ingenio."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4172,
+          28.0006
+        ]
+      },
+      "properties": {
+        "id": "evt-002",
+        "titulo": "Exposición: «Hábitat y volcanes»",
+        "fecha": "2026-05-12",
+        "hora_inicio": "10:00",
+        "lugar": "Casa-Museo León y Castillo",
+        "municipio": "Telde",
+        "categoria": "exposicion",
+        "descripcion": "Obra de Máximo Riol Cimas sobre ecosistemas y fenómenos volcánicos canarios."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.581,
+          28.1093
+        ]
+      },
+      "properties": {
+        "id": "evt-003",
+        "titulo": "Exposición: «Alonso Quesada y la Escuela Luján Pérez»",
+        "fecha": "2026-05-12",
+        "hora_inicio": "10:00",
+        "lugar": "Casa-Museo Tomás Morales",
+        "municipio": "Moya",
+        "categoria": "exposicion",
+        "descripcion": "El escritor Alonso Quesada como inspiración para la Escuela Luján Pérez."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4181,
+          28.1057
+        ]
+      },
+      "properties": {
+        "id": "evt-004",
+        "titulo": "Exposición: «El animal que nos queda»",
+        "fecha": "2026-05-12",
+        "hora_inicio": "10:00",
+        "lugar": "Centro de Artes Plásticas (CAP)",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "exposicion",
+        "descripcion": "Instalación contemporánea de Augusto Vives sobre fauna y memoria."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.1015
+        ]
+      },
+      "properties": {
+        "id": "evt-005",
+        "titulo": "Taller: «Mapas del viento y del mar»",
+        "fecha": "2026-05-12",
+        "hora_inicio": "17:00",
+        "lugar": "Casa de Colón",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "taller",
+        "descripcion": "Personaliza tu propio cuadro a partir de cartografía histórica."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.1015
+        ]
+      },
+      "properties": {
+        "id": "evt-006",
+        "titulo": "Noche de puertas abiertas: «Casa de Colón en la noche»",
+        "fecha": "2026-05-13",
+        "hora_inicio": "20:00",
+        "lugar": "Casa de Colón",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Apertura nocturna gratuita del museo en Vegueta."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          28.0033
+        ]
+      },
+      "properties": {
+        "id": "evt-007",
+        "titulo": "Festival «Palabras contadas 2026»",
+        "fecha": "2026-05-14",
+        "hora_inicio": "18:00",
+        "lugar": "Espacio Cultural Jesús Arencibia",
+        "municipio": "Telde",
+        "categoria": "festival",
+        "descripcion": "Narración oral y acciones formativas. Festival de cuentería en Telde."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4189,
+          28.0997
+        ]
+      },
+      "properties": {
+        "id": "evt-008",
+        "titulo": "Presentación: «Tomo Cinco. Miscelánea, 1975-1979»",
+        "fecha": "2026-05-14",
+        "hora_inicio": "18:00",
+        "lugar": "Biblioteca Insular de Gran Canaria",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Acto de presentación de la publicación recopilatoria en Triana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4435,
+          27.9211
+        ]
+      },
+      "properties": {
+        "id": "evt-009",
+        "titulo": "Concierto: «Con Acervo Canario»",
+        "fecha": "2026-05-14",
+        "hora_inicio": "19:00",
+        "lugar": "Fundación Canaria Nanino Díaz Cutillas",
+        "municipio": "Ingenio",
+        "categoria": "concierto",
+        "descripcion": "Recital con repertorio de tradición insular en Ingenio."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4172,
+          28.0006
+        ]
+      },
+      "properties": {
+        "id": "evt-010",
+        "titulo": "Conferencia: «Matías Yánez Zurita — ideología y defensa de leyes ancestrales»",
+        "fecha": "2026-05-15",
+        "hora_inicio": "18:00",
+        "lugar": "Casa-Museo León y Castillo",
+        "municipio": "Telde",
+        "categoria": "presentacion",
+        "descripcion": "Charla sobre pensamiento político histórico de un canario destacado del siglo XIX."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5448,
+          28.0593
+        ]
+      },
+      "properties": {
+        "id": "evt-011",
+        "titulo": "Romería del Pino",
+        "fecha": "2026-09-07",
+        "hora_inicio": "11:00",
+        "lugar": "Basílica del Pino",
+        "municipio": "Teror",
+        "categoria": "festival",
+        "descripcion": "Fiesta patronal de Gran Canaria. Romería más importante del archipiélago, ofrenda a la Virgen del Pino."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          28.1
+        ]
+      },
+      "properties": {
+        "id": "evt-012",
+        "titulo": "Fiestas de la Naval",
+        "fecha": "2026-10-06",
+        "hora_inicio": "19:00",
+        "lugar": "Plaza de Santa Ana",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Conmemoración de la victoria contra Van der Does (1599). Procesión y conciertos en Vegueta."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          28.0998
+        ]
+      },
+      "properties": {
+        "id": "evt-013",
+        "titulo": "Festival Internacional de Cine de Las Palmas",
+        "fecha": "2026-09-15",
+        "hora_inicio": "20:00",
+        "lugar": "Cines Monopol",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Cine independiente y autoral. Proyecciones, retrospectivas y mesas redondas en varias sedes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.431,
+          28.137
+        ]
+      },
+      "properties": {
+        "id": "evt-014",
+        "titulo": "WOMAD Las Palmas",
+        "fecha": "2026-11-13",
+        "hora_inicio": "19:00",
+        "lugar": "Parque Santa Catalina",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Festival de músicas del mundo en el Puerto. Entrada gratuita, programación familiar."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5258,
+          28.1505
+        ]
+      },
+      "properties": {
+        "id": "evt-015",
+        "titulo": "Festival Bañaderos al Jazz",
+        "fecha": "2026-07-25",
+        "hora_inicio": "21:00",
+        "lugar": "Plaza de Bañaderos",
+        "municipio": "Arucas",
+        "categoria": "festival",
+        "descripcion": "Jazz frente al mar en el litoral norte. Programación durante tres noches."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6225,
+          27.9985
+        ]
+      },
+      "properties": {
+        "id": "evt-016",
+        "titulo": "Festival de Música Antigua de Tejeda",
+        "fecha": "2026-08-09",
+        "hora_inicio": "20:00",
+        "lugar": "Iglesia Nuestra Señora del Socorro",
+        "municipio": "Tejeda",
+        "categoria": "festival",
+        "descripcion": "Música medieval y barroca en el corazón de la cumbre. Programación en iglesia y plaza."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7838,
+          28.0058
+        ]
+      },
+      "properties": {
+        "id": "evt-017",
+        "titulo": "Fiestas del Charco",
+        "fecha": "2026-09-11",
+        "hora_inicio": "17:00",
+        "lugar": "Charco de La Aldea",
+        "municipio": "La Aldea de San Nicolás",
+        "categoria": "evento_especial",
+        "descripcion": "Tradición de origen aborigen. Captura masiva de mújoles en el charco al toque de caracola."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4175,
+          27.9988
+        ]
+      },
+      "properties": {
+        "id": "evt-018",
+        "titulo": "Noche de San Juan",
+        "fecha": "2026-06-23",
+        "hora_inicio": "22:00",
+        "lugar": "Playa de San Juan",
+        "municipio": "Telde",
+        "categoria": "evento_especial",
+        "descripcion": "Hogueras y baño ritual en la noche del 23 al 24 de junio. Música y verbena en la costa teldense."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7048,
+          28.1015
+        ]
+      },
+      "properties": {
+        "id": "evt-019",
+        "titulo": "Bajada de la Rama",
+        "fecha": "2026-08-04",
+        "hora_inicio": "17:00",
+        "lugar": "Puerto de las Nieves",
+        "municipio": "Agaete",
+        "categoria": "evento_especial",
+        "descripcion": "Patrimonio cultural inmaterial. Tradición milenaria con ramos de eucalipto que culmina en el mar."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.7158,
+          27.8208
+        ]
+      },
+      "properties": {
+        "id": "evt-020",
+        "titulo": "Procesión marítima de la Virgen del Carmen",
+        "fecha": "2026-07-16",
+        "hora_inicio": "19:00",
+        "lugar": "Puerto de Mogán",
+        "municipio": "Mogán",
+        "categoria": "evento_especial",
+        "descripcion": "Patrona de los pescadores. Procesión por mar al atardecer con barcas engalanadas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4432,
+          27.9215
+        ]
+      },
+      "properties": {
+        "id": "evt-021",
+        "titulo": "Taller de Calado Tradicional",
+        "fecha": "2026-06-15",
+        "hora_inicio": "17:00",
+        "lugar": "Museo de Piedras y Artesanía",
+        "municipio": "Ingenio",
+        "categoria": "taller",
+        "descripcion": "Iniciación al calado canario impartido por las maestras del museo. Plazas limitadas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6548,
+          28.1438
+        ]
+      },
+      "properties": {
+        "id": "evt-022",
+        "titulo": "Taller de cestería palmera",
+        "fecha": "2026-06-22",
+        "hora_inicio": "18:00",
+        "lugar": "Casa-Museo Antonio Padrón",
+        "municipio": "Gáldar",
+        "categoria": "taller",
+        "descripcion": "Cestería tradicional con la palmera autóctona. Para mayores de 14."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5448,
+          28.0585
+        ]
+      },
+      "properties": {
+        "id": "evt-023",
+        "titulo": "Taller infantil de timple",
+        "fecha": "2026-07-04",
+        "hora_inicio": "11:00",
+        "lugar": "Casa de la Cultura",
+        "municipio": "Teror",
+        "categoria": "taller",
+        "descripcion": "Iniciación al instrumento canario para niños y niñas de 6 a 12 años."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4905,
+          28.0058
+        ]
+      },
+      "properties": {
+        "id": "evt-024",
+        "titulo": "Taller de queso artesanal",
+        "fecha": "2026-09-05",
+        "hora_inicio": "10:00",
+        "lugar": "Centro Cultural Valsequillo",
+        "municipio": "Valsequillo de Gran Canaria",
+        "categoria": "taller",
+        "descripcion": "Elaboración guiada con maestros queseros — incluye cuajada, prensado y degustación."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6553,
+          28.1437
+        ]
+      },
+      "properties": {
+        "id": "evt-025",
+        "titulo": "Visita guiada: «Cueva Pintada»",
+        "fecha": "2026-06-01",
+        "hora_inicio": "10:00",
+        "lugar": "Museo y Parque Arqueológico Cueva Pintada",
+        "municipio": "Gáldar",
+        "categoria": "exposicion",
+        "descripcion": "Yacimiento aborigen — visita guiada al poblado prehispánico y a las pinturas geométricas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4185,
+          28.0998
+        ]
+      },
+      "properties": {
+        "id": "evt-026",
+        "titulo": "Exposición: «Memoria portuaria»",
+        "fecha": "2026-06-10",
+        "hora_inicio": "10:00",
+        "lugar": "CAAM — Centro Atlántico de Arte Moderno",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "exposicion",
+        "descripcion": "Fotografía histórica del Puerto de la Luz. Curaduría del CAAM."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4488,
+          27.905
+        ]
+      },
+      "properties": {
+        "id": "evt-027",
+        "titulo": "Exposición: «La sal canaria»",
+        "fecha": "2026-07-01",
+        "hora_inicio": "10:00",
+        "lugar": "Centro de Interpretación Las Salinas",
+        "municipio": "Agüimes",
+        "categoria": "exposicion",
+        "descripcion": "Recorrido por las salinas históricas del sureste. Patrimonio etnográfico salinero."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.581,
+          28.1093
+        ]
+      },
+      "properties": {
+        "id": "evt-028",
+        "titulo": "Exposición: «Tomás Morales — el poeta del mar»",
+        "fecha": "2026-08-15",
+        "hora_inicio": "10:00",
+        "lugar": "Casa-Museo Tomás Morales",
+        "municipio": "Moya",
+        "categoria": "exposicion",
+        "descripcion": "Fondo manuscrito y correspondencia del poeta modernista, natural de Moya."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.44,
+          28.1382
+        ]
+      },
+      "properties": {
+        "id": "evt-029",
+        "titulo": "Filarmónica de Gran Canaria — Mahler · Sinfonía 5",
+        "fecha": "2026-10-23",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio Alfredo Kraus",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Apertura de temporada 2026/27. Dirección Karel Mark Chichon."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          28.099
+        ]
+      },
+      "properties": {
+        "id": "evt-030",
+        "titulo": "Concierto solidario por Palestina",
+        "fecha": "2026-06-12",
+        "hora_inicio": "21:00",
+        "lugar": "Teatro Pérez Galdós",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Recital benéfico — músicos canarios y voces invitadas. Recaudación para ayuda humanitaria."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6225,
+          27.9985
+        ]
+      },
+      "properties": {
+        "id": "evt-031",
+        "titulo": "Concierto de Tradición Insular — Mestisay",
+        "fecha": "2026-08-23",
+        "hora_inicio": "20:30",
+        "lugar": "Plaza del Socorro",
+        "municipio": "Tejeda",
+        "categoria": "concierto",
+        "descripcion": "Repertorio de folías, isas y malagueñas en la cumbre. Conjunto Mestisay con invitados locales."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6422,
+          28.0148
+        ]
+      },
+      "properties": {
+        "id": "evt-032",
+        "titulo": "Concierto: «Voces de cumbre»",
+        "fecha": "2026-09-05",
+        "hora_inicio": "19:30",
+        "lugar": "Ermita de la Virgen de la Cuevita",
+        "municipio": "Artenara",
+        "categoria": "concierto",
+        "descripcion": "Música coral en el santuario excavado en la roca. Acústica única del macizo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6555,
+          28.1432
+        ]
+      },
+      "properties": {
+        "id": "evt-033",
+        "titulo": "Presentación del libro: «Pancho Guerra recuperado»",
+        "fecha": "2026-06-19",
+        "hora_inicio": "19:00",
+        "lugar": "Casa-Museo Antonio Padrón",
+        "municipio": "Gáldar",
+        "categoria": "presentacion",
+        "descripcion": "Recopilación de cuentos pejineros del autor. Editorial Mercurio."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5304,
+          28.0087
+        ]
+      },
+      "properties": {
+        "id": "evt-034",
+        "titulo": "Presentación: «Mujeres de las medianías»",
+        "fecha": "2026-07-12",
+        "hora_inicio": "19:00",
+        "lugar": "Centro Cultural San Mateo",
+        "municipio": "Vega de San Mateo",
+        "categoria": "presentacion",
+        "descripcion": "Investigación etnográfica sobre el trabajo femenino en la agricultura rural grancanaria."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.1015
+        ]
+      },
+      "properties": {
+        "id": "evt-035",
+        "titulo": "Presentación: «Cuadernos de Vegueta — patrimonio»",
+        "fecha": "2026-09-18",
+        "hora_inicio": "18:00",
+        "lugar": "Casa de Colón",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Nueva entrega del seminario sobre conservación urbana del casco histórico."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4192,
+          28.1031
+        ]
+      },
+      "properties": {
+        "id": "evt-036",
+        "titulo": "Cine al aire libre — Parque San Telmo",
+        "fecha": "2026-07-09",
+        "hora_inicio": "21:30",
+        "lugar": "Parque San Telmo",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Ciclo de cine canario al aire libre. Programación gratuita durante el verano."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          28.1003
+        ]
+      },
+      "properties": {
+        "id": "evt-037",
+        "titulo": "Noches de museos en Vegueta",
+        "fecha": "2026-08-29",
+        "hora_inicio": "20:00",
+        "lugar": "Casco histórico de Vegueta",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Apertura nocturna gratuita de museos y conciertos en las plazas del casco."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.571,
+          27.954
+        ]
+      },
+      "properties": {
+        "id": "evt-038",
+        "titulo": "Campeonato Insular de Lucha Canaria",
+        "fecha": "2026-08-08",
+        "hora_inicio": "17:00",
+        "lugar": "Terrero de Tunte",
+        "municipio": "San Bartolomé de Tirajana",
+        "categoria": "evento_especial",
+        "descripcion": "Final insular de la temporada. Equipos cumbreros y costeros en el terrero tradicional."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4485,
+          27.9055
+        ]
+      },
+      "properties": {
+        "id": "evt-039",
+        "titulo": "Festival de Teatro Clásico de Agüimes",
+        "fecha": "2026-09-19",
+        "hora_inicio": "21:00",
+        "lugar": "Teatro Auditorio de Agüimes",
+        "municipio": "Agüimes",
+        "categoria": "festival",
+        "descripcion": "Festival anual con representaciones del repertorio áureo y contemporáneo. 14ª edición."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          28.101
+        ]
+      },
+      "properties": {
+        "id": "evt-040",
+        "titulo": "Día de Canarias — actos institucionales",
+        "fecha": "2026-05-30",
+        "hora_inicio": "12:00",
+        "lugar": "Plaza de Santa Ana",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Acto institucional, pasacalles folclórico y verbena por el Día de Canarias."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.0001
+        ]
+      },
+      "properties": {
+        "id": "evt-041",
+        "titulo": "Taller didáctico: «Museo desde dentro. Del objeto a la vitrina»",
+        "fecha": "2026-05-19",
+        "hora_inicio": "10:00",
+        "lugar": "Casa-Museo León y Castillo",
+        "municipio": "Telde",
+        "categoria": "taller",
+        "descripcion": "Actividad educativa sobre museología y conservación de objetos.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.1015
+        ]
+      },
+      "properties": {
+        "id": "evt-042",
+        "titulo": "Música antigua en el patio: Capilla Santa Anna",
+        "fecha": "2026-05-19",
+        "hora_inicio": "19:00",
+        "lugar": "Casa de Colón",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Concierto de música antigua en el patio histórico de la Casa de Colón.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6555,
+          28.1432
+        ]
+      },
+      "properties": {
+        "id": "evt-043",
+        "titulo": "Acción educativa: «Pajaritas por la paz»",
+        "fecha": "2026-05-20",
+        "hora_inicio": "10:00",
+        "lugar": "Casa-Museo Antonio Padrón. Centro de Arte Indigenista",
+        "municipio": "Gáldar",
+        "categoria": "taller",
+        "descripcion": "Iniciativa educativa por la paz mediante expresión artística colectiva.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4189,
+          28.0997
+        ]
+      },
+      "properties": {
+        "id": "evt-044",
+        "titulo": "Jornadas literarias: «Los placeres de la literatura y el cine con piel de mujer»",
+        "fecha": "2026-05-20",
+        "hora_inicio": "16:00",
+        "lugar": "Biblioteca Insular de Gran Canaria",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Encuentro sobre literatura y cine desde perspectiva femenina.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6555,
+          28.1432
+        ]
+      },
+      "properties": {
+        "id": "evt-045",
+        "titulo": "Danza: «La necesidad de ir descalzas»",
+        "fecha": "2026-05-20",
+        "hora_inicio": "19:00",
+        "lugar": "Casa-Museo Antonio Padrón. Centro de Arte Indigenista",
+        "municipio": "Gáldar",
+        "categoria": "evento_especial",
+        "descripcion": "Espectáculo de danza contemporánea en el centro de arte indigenista.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6553,
+          28.1437
+        ]
+      },
+      "properties": {
+        "id": "evt-046",
+        "titulo": "Taller: «Culturas que nos alimentan»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "09:00",
+        "lugar": "Museo y Parque Arqueológico Cueva Pintada",
+        "municipio": "Gáldar",
+        "categoria": "taller",
+        "descripcion": "Actividad educativa sobre patrimonio alimentario y arqueología canaria.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6555,
+          28.1432
+        ]
+      },
+      "properties": {
+        "id": "evt-047",
+        "titulo": "Acción educativa: «Antonio Padrón: museo y escuela»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "10:00",
+        "lugar": "Casa-Museo Antonio Padrón. Centro de Arte Indigenista",
+        "municipio": "Gáldar",
+        "categoria": "taller",
+        "descripcion": "Propuesta educativa dedicada al artista Antonio Padrón.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4189,
+          28.0997
+        ]
+      },
+      "properties": {
+        "id": "evt-048",
+        "titulo": "Presentación: «La historia que eres — un viaje hacia ti» de Demelza",
+        "fecha": "2026-05-21",
+        "hora_inicio": "18:00",
+        "lugar": "Biblioteca Insular de Gran Canaria",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Acto de presentación de obra literaria.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.1015
+        ]
+      },
+      "properties": {
+        "id": "evt-049",
+        "titulo": "Conferencia: «Materia Americana. La mirada del indiano»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "19:00",
+        "lugar": "Casa de Colón",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Disertación sobre perspectivas americanas e indianas en la Casa de Colón.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4435,
+          27.9211
+        ]
+      },
+      "properties": {
+        "id": "evt-050",
+        "titulo": "Presentación: «Donde las manos — homenaje poético a los oficios»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "19:00",
+        "lugar": "Fundación Canaria Nanino Díaz Cutillas",
+        "municipio": "Ingenio",
+        "categoria": "presentacion",
+        "descripcion": "Obra que rinde tributo a los oficios tradicionales canarios.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4189,
+          28.0997
+        ]
+      },
+      "properties": {
+        "id": "evt-051",
+        "titulo": "Presentación: «¡¡Beñesmén!! — Las aventuras de Arminda»",
+        "fecha": "2026-05-22",
+        "hora_inicio": "19:00",
+        "lugar": "Biblioteca Insular de Gran Canaria",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Presentación de obra infantil de aventuras de raíz aborigen.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.0001
+        ]
+      },
+      "properties": {
+        "id": "evt-052",
+        "titulo": "Concierto: «La arquitectura musical barroca — catedrales sonoras»",
+        "fecha": "2026-05-22",
+        "hora_inicio": "20:00",
+        "lugar": "Casa-Museo León y Castillo",
+        "municipio": "Telde",
+        "categoria": "concierto",
+        "descripcion": "Música barroca por Adrián de la Nuez en espacio histórico.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6553,
+          28.1437
+        ]
+      },
+      "properties": {
+        "id": "evt-053",
+        "titulo": "Visita taller Cueva Pintada en familia: «Al calor del hogar»",
+        "fecha": "2026-05-22",
+        "hora_inicio": "11:00",
+        "lugar": "Museo y Parque Arqueológico Cueva Pintada",
+        "municipio": "Gáldar",
+        "categoria": "taller",
+        "descripcion": "Actividad familiar sobre la vida doméstica en arqueología canaria.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6553,
+          28.1437
+        ]
+      },
+      "properties": {
+        "id": "evt-054",
+        "titulo": "Visita con títeres: «titereANDO en Cueva Pintada»",
+        "fecha": "2026-05-22",
+        "hora_inicio": "12:00",
+        "lugar": "Museo y Parque Arqueológico Cueva Pintada",
+        "municipio": "Gáldar",
+        "categoria": "evento_especial",
+        "descripcion": "Visita teatralizada con títeres al yacimiento arqueológico.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          28.0995
+        ]
+      },
+      "properties": {
+        "id": "evt-055",
+        "titulo": "MUCHA MUCHACHA — Día de Canarias 2026",
+        "fecha": "2026-05-30",
+        "hora_inicio": "21:00",
+        "lugar": "El Real de Triana",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Concierto del colectivo MUCHA MUCHACHA por el Día de Canarias.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5942,
+          27.757
+        ]
+      },
+      "properties": {
+        "id": "evt-056",
+        "titulo": "Fete Island 2026 — Festival Gran Canaria",
+        "fecha": "2026-06-04",
+        "hora_inicio": "16:00",
+        "lugar": "Playa del Inglés",
+        "municipio": "San Bartolomé de Tirajana",
+        "categoria": "festival",
+        "descripcion": "Festival de música electrónica frente al mar. Tres días de programación.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.431,
+          28.135
+        ]
+      },
+      "properties": {
+        "id": "evt-057",
+        "titulo": "AI Direct Summit Gran Canaria",
+        "fecha": "2026-06-17",
+        "hora_inicio": "09:45",
+        "lugar": "Talleres Palermo",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Cumbre profesional sobre inteligencia artificial y aplicaciones locales.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.45,
+          28.138
+        ]
+      },
+      "properties": {
+        "id": "evt-058",
+        "titulo": "Int. Ocean Film Tour Vol12 — LPGC",
+        "fecha": "2026-06-07",
+        "hora_inicio": "18:00",
+        "lugar": "Cine Yelmo Las Arenas",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Ciclo internacional de cine oceánico — documentales sobre el océano.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.595,
+          27.76
+        ]
+      },
+      "properties": {
+        "id": "evt-059",
+        "titulo": "Pride Boat Party Maspalomas — Gay Pride Gran Canaria",
+        "fecha": "2026-10-30",
+        "hora_inicio": "13:30",
+        "lugar": "Yumbo Centre",
+        "municipio": "San Bartolomé de Tirajana",
+        "categoria": "festival",
+        "descripcion": "Una de las citas centrales del Gay Pride Maspalomas — desfile y fiesta.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.3895,
+          27.8625
+        ]
+      },
+      "properties": {
+        "id": "evt-060",
+        "titulo": "FAM MOVE Canarias — entrenamiento comunitario",
+        "fecha": "2026-05-24",
+        "hora_inicio": "10:00",
+        "lugar": "Muelle Arinaga",
+        "municipio": "Agüimes",
+        "categoria": "taller",
+        "descripcion": "Sesión abierta de entrenamiento y comunidad frente al mar.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4332,
+          28.1185
+        ]
+      },
+      "properties": {
+        "id": "evt-061",
+        "titulo": "«La última noche con mi hermano» — Alfredo Sanzol",
+        "fecha": "2026-05-16",
+        "hora_inicio": "19:30",
+        "lugar": "Teatro Cuyás",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Obra de Sanzol con función también el 17 de mayo. Drama familiar contemporáneo.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4332,
+          28.1185
+        ]
+      },
+      "properties": {
+        "id": "evt-062",
+        "titulo": "«El viento es salvaje»",
+        "fecha": "2026-06-05",
+        "hora_inicio": "19:30",
+        "lugar": "Teatro Cuyás",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Estreno teatral con doble función (5 y 6 de junio).",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4332,
+          28.1185
+        ]
+      },
+      "properties": {
+        "id": "evt-063",
+        "titulo": "«La vida extraordinaria»",
+        "fecha": "2026-06-12",
+        "hora_inicio": "19:30",
+        "lugar": "Teatro Cuyás",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Pieza teatral con doble función (12 y 13 de junio).",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4332,
+          28.1185
+        ]
+      },
+      "properties": {
+        "id": "evt-064",
+        "titulo": "«Las amistades peligrosas» — adaptación de Choderlos de Laclos",
+        "fecha": "2026-06-19",
+        "hora_inicio": "19:30",
+        "lugar": "Teatro Cuyás",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Adaptación del clásico epistolar. Doble función (19 y 20 de junio).",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4332,
+          28.1185
+        ]
+      },
+      "properties": {
+        "id": "evt-065",
+        "titulo": "Tigran Hamasyan — «Manifeste»",
+        "fecha": "2026-07-22",
+        "hora_inicio": "20:00",
+        "lugar": "Teatro Cuyás",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Concierto del pianista armenio en una de las salas más emblemáticas de la capital.",
+        "fuente": "scrape (cultura.grancanaria.com / eventbrite.es / teatrocuyas.com — 2026-05-20)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4222,
+          28.1145
+        ]
+      },
+      "properties": {
+        "id": "evt-066",
+        "titulo": "Exposición: «Serie pictórica Panza de burro»",
+        "fecha": "2026-05-20",
+        "hora_inicio": "",
+        "lugar": "Biblioteca Pública Municipal Alexis Ravelo",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "exposicion",
+        "descripcion": "Serie pictórica inspirada en la novela de Andrea Abreu — hasta el 3 de junio.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4575,
+          28.0708
+        ]
+      },
+      "properties": {
+        "id": "evt-067",
+        "titulo": "Ruta guiada: el casco histórico de Tafira",
+        "fecha": "2026-05-20",
+        "hora_inicio": "17:00",
+        "lugar": "Tafira",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Recorrido por el casco histórico de Tafira con interpretación patrimonial.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4222,
+          28.1145
+        ]
+      },
+      "properties": {
+        "id": "evt-068",
+        "titulo": "Presentación: «Inocencia salvaje» — las niñas jarrapas de Andrea Abreu",
+        "fecha": "2026-05-20",
+        "hora_inicio": "18:30",
+        "lugar": "Biblioteca Pública Municipal Alexis Ravelo",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Encuentro literario con la autora Andrea Abreu en Triana.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4291,
+          28.117
+        ]
+      },
+      "properties": {
+        "id": "evt-069",
+        "titulo": "12 noches de autor: Elena Saavedra",
+        "fecha": "2026-05-20",
+        "hora_inicio": "19:00",
+        "lugar": "Palacete Rodríguez Quegles",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Ciclo de música de cámara de autor en el palacete histórico.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.45,
+          28.138
+        ]
+      },
+      "properties": {
+        "id": "evt-070",
+        "titulo": "Cine Efecto: «Historias del buen valle»",
+        "fecha": "2026-05-20",
+        "hora_inicio": "19:00",
+        "lugar": "Yelmo cine Las Arenas",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Proyección dentro del ciclo Efecto Cinema con coloquio posterior.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.429,
+          28.11
+        ]
+      },
+      "properties": {
+        "id": "evt-071",
+        "titulo": "Taller infantil ¡A jugar!",
+        "fecha": "2026-05-21",
+        "hora_inicio": "18:00",
+        "lugar": "Biblioteca Pública Municipal Jane Millares Sall",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "taller",
+        "descripcion": "Taller de juego creativo para niños y niñas, sesiones semanales en bibliotecas.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.429,
+          28.117
+        ]
+      },
+      "properties": {
+        "id": "evt-072",
+        "titulo": "Taller: inteligencia emocional",
+        "fecha": "2026-05-07",
+        "hora_inicio": "18:00",
+        "lugar": "Biblioteca Pública Municipal Josefina de La Torre",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "taller",
+        "descripcion": "Ciclo de talleres sobre inteligencia emocional, hasta el 25 de junio.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4222,
+          28.1145
+        ]
+      },
+      "properties": {
+        "id": "evt-073",
+        "titulo": "Presentación: «Candela, el día que me miré»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "19:00",
+        "lugar": "Biblioteca Pública Municipal Alexis Ravelo",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Presentación literaria en la biblioteca de Triana.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.422,
+          28.1145
+        ]
+      },
+      "properties": {
+        "id": "evt-074",
+        "titulo": "Concierto: Domingo Rodríguez «El Colorao» — Tiempo de Zafra",
+        "fecha": "2026-05-21",
+        "hora_inicio": "20:00",
+        "lugar": "Plaza de España",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Música canaria en directo en la Plaza de España (Ciudad Jardín).",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          28.0033
+        ]
+      },
+      "properties": {
+        "id": "evt-075",
+        "titulo": "Teatro: «Y ahora qué…»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "20:00",
+        "lugar": "Espacio Cultural Jesús Arencibia",
+        "municipio": "Telde",
+        "categoria": "evento_especial",
+        "descripcion": "Pieza teatral en el espacio cultural teldense.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.11
+        ]
+      },
+      "properties": {
+        "id": "evt-076",
+        "titulo": "Festival: «Castillo de Mata siente y baila»",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Castillo de Mata",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Tres días de música y danza en el castillo histórico — hasta el 24 de mayo.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.429,
+          28.117
+        ]
+      },
+      "properties": {
+        "id": "evt-077",
+        "titulo": "Creative Mornings — sesión mensual",
+        "fecha": "2026-05-22",
+        "hora_inicio": "09:30",
+        "lugar": "Biblioteca Pública Municipal Josefina de La Torre",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "taller",
+        "descripcion": "Encuentro creativo mensual gratuito en biblioteca pública.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          28.0033
+        ]
+      },
+      "properties": {
+        "id": "evt-078",
+        "titulo": "«The Best of Bassi»",
+        "fecha": "2026-05-22",
+        "hora_inicio": "20:00",
+        "lugar": "Espacio Cultural Jesús Arencibia",
+        "municipio": "Telde",
+        "categoria": "evento_especial",
+        "descripcion": "Espectáculo en el espacio cultural teldense.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.11
+        ]
+      },
+      "properties": {
+        "id": "evt-079",
+        "titulo": "Exposición: «Rebel Walls. Urban Stories»",
+        "fecha": "2026-05-23",
+        "hora_inicio": "",
+        "lugar": "Castillo de Mata",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "exposicion",
+        "descripcion": "Exposición de arte urbano en el castillo histórico — hasta el 31 de diciembre.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.425,
+          28.113
+        ]
+      },
+      "properties": {
+        "id": "evt-080",
+        "titulo": "Concierto: Grupo Taller «Que corra la voz»",
+        "fecha": "2026-05-23",
+        "hora_inicio": "21:00",
+        "lugar": "Auditorio José Antonio Ramos",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Concierto del grupo Taller en el auditorio Ramos.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.418,
+          28.0033
+        ]
+      },
+      "properties": {
+        "id": "evt-081",
+        "titulo": "Ópera infantil: «El lago de los cisnes»",
+        "fecha": "2026-05-24",
+        "hora_inicio": "12:00",
+        "lugar": "Espacio Cultural Jesús Arencibia",
+        "municipio": "Telde",
+        "categoria": "evento_especial",
+        "descripcion": "Ópera adaptada para niños y niñas en formato familiar.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.429,
+          28.117
+        ]
+      },
+      "properties": {
+        "id": "evt-082",
+        "titulo": "Taller: Atrapa la colección",
+        "fecha": "2026-05-28",
+        "hora_inicio": "18:00",
+        "lugar": "Biblioteca Pública Municipal Josefina de La Torre",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "taller",
+        "descripcion": "Taller de mediación de lectura y caza de libros en biblioteca pública.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.429,
+          28.117
+        ]
+      },
+      "properties": {
+        "id": "evt-083",
+        "titulo": "Presentación: «Las amantes de Mambrú»",
+        "fecha": "2026-05-28",
+        "hora_inicio": "19:00",
+        "lugar": "Biblioteca Pública Municipal Josefina de La Torre",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "presentacion",
+        "descripcion": "Presentación literaria en biblioteca de barrio.",
+        "fuente": "lpacultura.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.417,
+          28.141
+        ]
+      },
+      "properties": {
+        "id": "evt-084",
+        "titulo": "Concierto: Juseph",
+        "fecha": "2026-05-22",
+        "hora_inicio": "21:00",
+        "lugar": "Real Club Náutico de Gran Canaria",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Concierto de Juseph en el Real Club Náutico de Gran Canaria.",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.431,
+          28.139
+        ]
+      },
+      "properties": {
+        "id": "evt-085",
+        "titulo": "Concierto: The Molotovs",
+        "fecha": "2026-06-07",
+        "hora_inicio": "21:00",
+        "lugar": "Sala Alboroto",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "The Molotovs en la sala Alboroto (Las Canteras).",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4525,
+          28.0825
+        ]
+      },
+      "properties": {
+        "id": "evt-086",
+        "titulo": "Concierto: Kany García",
+        "fecha": "2026-06-26",
+        "hora_inicio": "21:00",
+        "lugar": "Gran Canaria Arena",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Kany García en el Gran Canaria Arena (Siete Palmas).",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4565,
+          28.0995
+        ]
+      },
+      "properties": {
+        "id": "evt-087",
+        "titulo": "Granca Live Festival 2026",
+        "fecha": "2026-07-02",
+        "hora_inicio": "18:00",
+        "lugar": "Estadio de Gran Canaria",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Festival multitudinario en el estadio del UD Las Palmas. Tres días.",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          27.9988
+        ]
+      },
+      "properties": {
+        "id": "evt-088",
+        "titulo": "Concierto: La Reina del Flow",
+        "fecha": "2026-07-10",
+        "hora_inicio": "21:00",
+        "lugar": "Auditorio San Juan de Telde",
+        "municipio": "Telde",
+        "categoria": "concierto",
+        "descripcion": "Espectáculo musical La Reina del Flow en el auditorio teldense.",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          27.9988
+        ]
+      },
+      "properties": {
+        "id": "evt-089",
+        "titulo": "Concierto: Yandel",
+        "fecha": "2026-07-24",
+        "hora_inicio": "21:00",
+        "lugar": "Auditorio San Juan de Telde",
+        "municipio": "Telde",
+        "categoria": "concierto",
+        "descripcion": "Yandel en directo en el auditorio teldense.",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4525,
+          28.0825
+        ]
+      },
+      "properties": {
+        "id": "evt-090",
+        "titulo": "Concierto: Valeria Castro",
+        "fecha": "2026-07-26",
+        "hora_inicio": "21:00",
+        "lugar": "Gran Canaria Arena",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "La cantautora canaria en su tierra en Gran Canaria Arena.",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.431,
+          28.139
+        ]
+      },
+      "properties": {
+        "id": "evt-091",
+        "titulo": "Concierto: Wos",
+        "fecha": "2026-09-18",
+        "hora_inicio": "21:00",
+        "lugar": "Sala Alboroto",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "El rapero argentino Wos en la sala Alboroto.",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.44,
+          28.1395
+        ]
+      },
+      "properties": {
+        "id": "evt-092",
+        "titulo": "Sum Festival Gran Canaria 2026",
+        "fecha": "2026-10-02",
+        "hora_inicio": "16:00",
+        "lugar": "Las Canteras",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Sum Festival — música y cultura urbana en la playa de Las Canteras.",
+        "fuente": "laganzua.net"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4525,
+          28.0825
+        ]
+      },
+      "properties": {
+        "id": "evt-093",
+        "titulo": "Concierto: Sting — STING 3.0",
+        "fecha": "2026-07-09",
+        "hora_inicio": "21:30",
+        "lugar": "Gran Canaria Arena",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Sting en gira por las islas, parada en el Gran Canaria Arena.",
+        "fuente": "canariasviaja.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4525,
+          28.0825
+        ]
+      },
+      "properties": {
+        "id": "evt-094",
+        "titulo": "Concierto: UB40 — European Tour 2026",
+        "fecha": "2026-07-31",
+        "hora_inicio": "21:30",
+        "lugar": "Gran Canaria Arena",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "UB40 en gira europea — Gran Canaria Arena.",
+        "fuente": "canariasviaja.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4525,
+          28.0825
+        ]
+      },
+      "properties": {
+        "id": "evt-095",
+        "titulo": "Concierto: La Oreja de Van Gogh — «Tantas cosas que contar»",
+        "fecha": "2026-10-23",
+        "hora_inicio": "21:30",
+        "lugar": "Gran Canaria Arena",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Gira de reencuentro de La Oreja de Van Gogh con Amaia Montero.",
+        "fuente": "canariasviaja.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4525,
+          28.0825
+        ]
+      },
+      "properties": {
+        "id": "evt-096",
+        "titulo": "Concierto: Raphael — Raphaelísimo 2026",
+        "fecha": "2026-12-07",
+        "hora_inicio": "21:00",
+        "lugar": "Gran Canaria Arena",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "concierto",
+        "descripcion": "Raphael en su gira Raphaelísimo en el Gran Canaria Arena.",
+        "fuente": "canariasviaja.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.414,
+          28.143
+        ]
+      },
+      "properties": {
+        "id": "evt-097",
+        "titulo": "FIMAR — Feria Internacional del Mar",
+        "fecha": "2026-05-22",
+        "hora_inicio": "10:00",
+        "lugar": "Muelle Sanapú",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Feria Internacional del Mar — tres días con actividades náuticas, gastronomía y exposiciones.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          28.1
+        ]
+      },
+      "properties": {
+        "id": "evt-098",
+        "titulo": "Festival «La Isla de mi Vida» — Día de Canarias",
+        "fecha": "2026-05-29",
+        "hora_inicio": "19:30",
+        "lugar": "Plaza de Santa Ana",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Concierto popular en Plaza Santa Ana como preámbulo del Día de Canarias.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          28.1003
+        ]
+      },
+      "properties": {
+        "id": "evt-099",
+        "titulo": "Visita del Papa León XIV a Gran Canaria",
+        "fecha": "2026-06-11",
+        "hora_inicio": "11:00",
+        "lugar": "Vegueta",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Visita pastoral del Papa León XIV — eventos en Vegueta y Plaza de Santa Ana.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.44,
+          28.1395
+        ]
+      },
+      "properties": {
+        "id": "evt-100",
+        "titulo": "Sand Series Classic ITF Beach Tennis Gran Canaria 2026",
+        "fecha": "2026-05-19",
+        "hora_inicio": "10:00",
+        "lugar": "Las Canteras",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Torneo internacional de beach tennis en Las Canteras — hasta el 24 de mayo.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.44,
+          28.1395
+        ]
+      },
+      "properties": {
+        "id": "evt-101",
+        "titulo": "Gran Canaria Surf No Limit — Campeonato España Parasurfing",
+        "fecha": "2026-06-12",
+        "hora_inicio": "10:00",
+        "lugar": "La Cícer, Las Canteras",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Campeonato de España de Parasurfing en La Cícer (Las Canteras).",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5226,
+          28.117
+        ]
+      },
+      "properties": {
+        "id": "evt-102",
+        "titulo": "Feria KM.0 Gran Canaria — Arucas",
+        "fecha": "2026-06-20",
+        "hora_inicio": "09:00",
+        "lugar": "Parque de las Flores",
+        "municipio": "Arucas",
+        "categoria": "festival",
+        "descripcion": "Feria del producto local y de proximidad en el Parque de las Flores.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.55,
+          27.975
+        ]
+      },
+      "properties": {
+        "id": "evt-103",
+        "titulo": "Gran Canaria Walking Festival",
+        "fecha": "2026-10-15",
+        "hora_inicio": "08:00",
+        "lugar": "Varios municipios",
+        "municipio": "Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Festival senderista insular con rutas guiadas por todas las cumbres y costas.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          28.099
+        ]
+      },
+      "properties": {
+        "id": "evt-104",
+        "titulo": "Temporada de Ópera de Las Palmas — 59ª edición",
+        "fecha": "2026-05-22",
+        "hora_inicio": "20:00",
+        "lugar": "Teatro Pérez Galdós",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "evento_especial",
+        "descripcion": "Programación operística incluye «Negrín, la ópera» y «Faycán». Hasta junio.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5778,
+          28.0241
+        ]
+      },
+      "properties": {
+        "id": "evt-105",
+        "titulo": "Fiestas Patronales de San Vicente Ferrer",
+        "fecha": "2026-05-12",
+        "hora_inicio": "19:00",
+        "lugar": "Casco Histórico",
+        "municipio": "Valleseco",
+        "categoria": "festival",
+        "descripcion": "Fiestas patronales del municipio cumbre. Hasta el 20 de junio.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6548,
+          28.1432
+        ]
+      },
+      "properties": {
+        "id": "evt-106",
+        "titulo": "Gáldar en Flor — exposición de jardines",
+        "fecha": "2026-04-30",
+        "hora_inicio": "10:00",
+        "lugar": "Casco Histórico de Gáldar",
+        "municipio": "Gáldar",
+        "categoria": "evento_especial",
+        "descripcion": "El casco antiguo de Gáldar se llena de jardines temáticos y arte floral. Hasta el 24 de mayo.",
+        "fuente": "grancanaria.com/turismo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4178,
+          27.9988
+        ]
+      },
+      "properties": {
+        "id": "evt-107",
+        "titulo": "Premios Arkoiris Canarias 2026",
+        "fecha": "2026-06-21",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio Parque San Juan",
+        "municipio": "Telde",
+        "categoria": "evento_especial",
+        "descripcion": "Gala anual de los Premios Arkoiris LGBTIQ+ en el auditorio San Juan de Telde.",
+        "fuente": "ayto Telde"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.6548,
+          28.1438
+        ]
+      },
+      "properties": {
+        "id": "evt-108",
+        "titulo": "Festival Criterio Music Gran Canaria 2026",
+        "fecha": "2026-05-30",
+        "hora_inicio": "20:00",
+        "lugar": "Centro Cultural Guaires",
+        "municipio": "Gáldar",
+        "categoria": "festival",
+        "descripcion": "Festival de música emergente en Gáldar.",
+        "fuente": "ayto Gáldar"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.44,
+          28.1382
+        ]
+      },
+      "properties": {
+        "id": "evt-109",
+        "titulo": "Festival Internacional Canarias Jazz & Más",
+        "fecha": "2026-07-09",
+        "hora_inicio": "20:30",
+        "lugar": "Auditorio Alfredo Kraus",
+        "municipio": "Las Palmas de Gran Canaria",
+        "categoria": "festival",
+        "descripcion": "Festival de jazz internacional. Hasta el 21 de julio.",
+        "fuente": "auditorioalfredokraus.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-110",
+        "titulo": "Les Ballets Espagnols de La Argentina",
+        "fecha": "2026-06-04",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "Ballet Español de La Argentina en el Auditorio Adán Martín.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-111",
+        "titulo": "Concierto: Ramón Gener — Temporada 2026/27",
+        "fecha": "2026-06-17",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Presentación de la nueva temporada en formato divulgativo con Ramón Gener.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-112",
+        "titulo": "Bogotá — concierto",
+        "fecha": "2026-06-30",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "Concierto Bogotá en el auditorio.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-113",
+        "titulo": "Hamlet, Prince of Denmark",
+        "fecha": "2026-07-04",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "evento_especial",
+        "descripcion": "Hamlet en clave ópera/teatro musical.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-114",
+        "titulo": "HAMMER — concierto",
+        "fecha": "2026-07-11",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "HAMMER en el ciclo del Auditorio.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-115",
+        "titulo": "Ópera en minúscula",
+        "fecha": "2026-09-12",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "evento_especial",
+        "descripcion": "Programa familiar de ópera adaptada.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-116",
+        "titulo": "Le nozze di Figaro",
+        "fecha": "2026-10-11",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "evento_especial",
+        "descripcion": "Ópera de Mozart, temporada 2026/27 de Ópera de Tenerife.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-117",
+        "titulo": "Concierto: DJ Symphonic",
+        "fecha": "2026-10-25",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "DJ + orquesta sinfónica en el auditorio.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-118",
+        "titulo": "Lohengrin — Wagner",
+        "fecha": "2026-11-15",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "evento_especial",
+        "descripcion": "Ópera Lohengrin de Wagner — Ópera de Tenerife.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2447,
+          28.4567
+        ]
+      },
+      "properties": {
+        "id": "evt-119",
+        "titulo": "Tránsito — danza contemporánea",
+        "fecha": "2026-12-04",
+        "hora_inicio": "20:00",
+        "lugar": "Auditorio de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "evento_especial",
+        "descripcion": "Pieza coreográfica contemporánea.",
+        "fuente": "auditoriodetenerife.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2526,
+          28.4682
+        ]
+      },
+      "properties": {
+        "id": "evt-120",
+        "titulo": "Exposición: «Notas al pie»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "10:00",
+        "lugar": "TEA Tenerife Espacio de las Artes",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Muestra colectiva en TEA. Hasta el 5 de julio.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2526,
+          28.4682
+        ]
+      },
+      "properties": {
+        "id": "evt-121",
+        "titulo": "Exposición: Cándido Camacho — «Ritos del deseo»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "10:00",
+        "lugar": "TEA Tenerife Espacio de las Artes",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Retrospectiva del artista Cándido Camacho. Hasta el 14 de junio.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2526,
+          28.4682
+        ]
+      },
+      "properties": {
+        "id": "evt-122",
+        "titulo": "Exposición: «Para que podamos vivir»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "10:00",
+        "lugar": "TEA Tenerife Espacio de las Artes",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Muestra colectiva sobre ecología y memoria. Hasta el 5 de julio.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2526,
+          28.4682
+        ]
+      },
+      "properties": {
+        "id": "evt-123",
+        "titulo": "Exposición permanente: «Óscar Domínguez — Cartas a Marcelle Ferry»",
+        "fecha": "2026-05-21",
+        "hora_inicio": "10:00",
+        "lugar": "TEA Tenerife Espacio de las Artes",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Fondo Óscar Domínguez — sala permanente del TEA.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.252,
+          28.4683
+        ]
+      },
+      "properties": {
+        "id": "evt-124",
+        "titulo": "Exposición: Jaume Plensa — «Sombras y poemas»",
+        "fecha": "2026-06-13",
+        "hora_inicio": "10:00",
+        "lugar": "Fundación CajaCanarias",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Inauguración exposición de Jaume Plensa en Fundación CajaCanarias.",
+        "fuente": "tenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2519,
+          28.4636
+        ]
+      },
+      "properties": {
+        "id": "evt-125",
+        "titulo": "Festival Fimucité — 20º aniversario",
+        "fecha": "2026-07-19",
+        "hora_inicio": "20:00",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "festival",
+        "descripcion": "Festival Internacional de Música de Cine de Tenerife — edición 20.",
+        "fuente": "tenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.4338,
+          29.1574
+        ]
+      },
+      "properties": {
+        "id": "evt-126",
+        "titulo": "Noches de Jameos — espectáculo nocturno",
+        "fecha": "2026-06-06",
+        "hora_inicio": "20:30",
+        "lugar": "Jameos del Agua",
+        "municipio": "Haría",
+        "categoria": "evento_especial",
+        "descripcion": "Sesiones musicales nocturnas en el auditorio natural de Jameos del Agua, sábados de verano.",
+        "fuente": "turismolanzarote.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.7344,
+          28.9956
+        ]
+      },
+      "properties": {
+        "id": "evt-127",
+        "titulo": "Visita guiada: Montañas del Fuego (Timanfaya)",
+        "fecha": "2026-06-01",
+        "hora_inicio": "10:00",
+        "lugar": "Montañas del Fuego — Parque Nacional Timanfaya",
+        "municipio": "Yaiza",
+        "categoria": "evento_especial",
+        "descripcion": "Visita guiada al Parque Nacional con demostraciones geotérmicas. Programación diaria.",
+        "fuente": "turismolanzarote.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.4775,
+          29.1502
+        ]
+      },
+      "properties": {
+        "id": "evt-128",
+        "titulo": "Visita: Jardín de Cactus (Manrique)",
+        "fecha": "2026-06-01",
+        "hora_inicio": "10:00",
+        "lugar": "Jardín de Cactus",
+        "municipio": "Haría",
+        "categoria": "evento_especial",
+        "descripcion": "Recorrido por la obra de César Manrique con +1000 especies de cactus.",
+        "fuente": "turismolanzarote.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.4338,
+          29.1574
+        ]
+      },
+      "properties": {
+        "id": "evt-129",
+        "titulo": "Visita: Jameos del Agua (Manrique)",
+        "fecha": "2026-06-01",
+        "hora_inicio": "10:00",
+        "lugar": "Jameos del Agua",
+        "municipio": "Haría",
+        "categoria": "evento_especial",
+        "descripcion": "Visita al tubo volcánico transformado por César Manrique.",
+        "fuente": "turismolanzarote.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-130",
+        "titulo": "Sombras y poemas — Jaume Plensa",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Fundación CajaCanarias",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Muestra del escultor catalán Jaume Plensa, abierta hasta el 13 de junio.",
+        "fuente": "tenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-131",
+        "titulo": "Fimucité — 20º aniversario",
+        "fecha": "2026-07-03",
+        "hora_inicio": "",
+        "lugar": "Varias sedes",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "festival",
+        "descripcion": "Festival Internacional de Música de Cine de Tenerife celebra dos décadas hasta el 19 de julio.",
+        "fuente": "tenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-132",
+        "titulo": "Un mundo frágil y maravilloso",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Pieza escénica multidisciplinar en TEA, tres jornadas hasta el 24 de mayo.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-133",
+        "titulo": "Todo es un problema de la voz",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Performance sobre la expresión vocal, dos sesiones hasta el 23 de mayo.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-134",
+        "titulo": "El descanso — Iván López",
+        "fecha": "2026-05-27",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Presentación artística de Iván López en el espacio TEA.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-135",
+        "titulo": "Hijos del reloj",
+        "fecha": "2026-05-28",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Performance única en TEA dentro del ciclo de artes vivas.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-136",
+        "titulo": "¿Qué te dice esa naturaleza?",
+        "fecha": "2026-05-29",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "taller",
+        "descripcion": "Exploración artística sobre naturaleza, tres días hasta el 31 de mayo.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-137",
+        "titulo": "La lengua en la tierra — Luz Pichel",
+        "fecha": "2026-05-31",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Lectura/encuentro con la poeta gallega Luz Pichel.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-138",
+        "titulo": "El amigo silencioso",
+        "fecha": "2026-06-05",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Pieza teatral en TEA durante tres jornadas hasta el 7 de junio.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-139",
+        "titulo": "La memòria de les papallones",
+        "fecha": "2026-06-12",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Performance escénica extendida hasta el 14 de junio.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-140",
+        "titulo": "Notas al pie — Cabello/Carceller",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Exposición colaborativa del dúo Cabello/Carceller, abierta hasta el 5 de julio.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-141",
+        "titulo": "Cándido Camacho. Ritos del deseo",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Pinturas de Cándido Camacho sobre el deseo y el rito, hasta el 14 de junio.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-142",
+        "titulo": "Para que podamos vivir. La Laguna 1968–1983",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "TEA Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Exposición histórica sobre La Laguna durante la transición, hasta el 5 de julio.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2470, 28.4585]},
+      "properties": {
+        "id": "evt-143",
+        "titulo": "Óscar Domínguez. Cartas a Marcelle Ferry",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Gabinete Óscar Domínguez — TEA",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "exposicion",
+        "descripcion": "Correspondencia del surrealista Óscar Domínguez, abierta hasta marzo de 2027.",
+        "fuente": "teatenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-144",
+        "titulo": "Mayo Joven — XIX Festival Son21",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Plaza de La Candelaria",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "festival",
+        "descripcion": "Tercera edición de Mayo Joven con Son21 y Ñ de Añate, hasta el 24 de mayo.",
+        "fuente": "santacruzdetenerife.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-145",
+        "titulo": "Pedro Pastor en concierto",
+        "fecha": "2026-05-23",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "Cantautor madrileño Pedro Pastor en gira por la capital tinerfeña.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-146",
+        "titulo": "Sergio Dalma en concierto",
+        "fecha": "2026-05-30",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "El cantante catalán Sergio Dalma actúa en la capital dentro de su gira.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-147",
+        "titulo": "Galván Real en concierto",
+        "fecha": "2026-05-23",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "El artista flamenco Galván Real presenta su nuevo espectáculo.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-148",
+        "titulo": "Mägo de Oz en Tenerife",
+        "fecha": "2026-06-06",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "La banda de folk-metal Mägo de Oz dentro de su tour, hasta el 8 de julio.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-149",
+        "titulo": "Tenerife Music Festival 2026",
+        "fecha": "2026-06-12",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "festival",
+        "descripcion": "Festival de música con cartel internacional, dos jornadas hasta el 13 de junio.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-150",
+        "titulo": "The Jury Experience",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Experiencia inmersiva de juicio popular, en cartel hasta enero de 2027.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-151",
+        "titulo": "Candlelight — conciertos a la luz de las velas",
+        "fecha": "2026-05-21",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "Ciclo de conciertos íntimos a la luz de las velas, programación continua.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-152",
+        "titulo": "Camino a la Meca",
+        "fecha": "2026-05-21",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "presentacion",
+        "descripcion": "Espectáculo en cartel hasta el 25 de octubre en sala tinerfeña.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-153",
+        "titulo": "Miguel Miguel en directo",
+        "fecha": "2026-05-23",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "Espectáculo del humorista Miguel Miguel, en gira hasta enero 2027.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.2519, 28.4636]},
+      "properties": {
+        "id": "evt-154",
+        "titulo": "David Puerto en concierto",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de Tenerife",
+        "municipio": "Santa Cruz de Tenerife",
+        "categoria": "concierto",
+        "descripcion": "Concierto de David Puerto, programación hasta noviembre.",
+        "fuente": "taquilla.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.3164, 28.4853]},
+      "properties": {
+        "id": "evt-155",
+        "titulo": "Miniaturas arquitectónicas — exposición ULL",
+        "fecha": "2026-05-22",
+        "hora_inicio": "10:00",
+        "lugar": "Universidad de La Laguna",
+        "municipio": "San Cristóbal de La Laguna",
+        "categoria": "exposicion",
+        "descripcion": "Exposición divulgativa sobre arquitectura tradicional canaria, hasta el 5 de junio.",
+        "fuente": "ull.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.3164, 28.4853]},
+      "properties": {
+        "id": "evt-156",
+        "titulo": "Museo Nómada de la Fotografía",
+        "fecha": "2026-05-22",
+        "hora_inicio": "17:00",
+        "lugar": "Campus ULL",
+        "municipio": "San Cristóbal de La Laguna",
+        "categoria": "exposicion",
+        "descripcion": "Cámaras históricas y estereoscopios de los siglos XIX-XX, hasta el 12 de junio.",
+        "fuente": "ull.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.3164, 28.4853]},
+      "properties": {
+        "id": "evt-157",
+        "titulo": "SEVICIA — exposición de arte contemporáneo",
+        "fecha": "2026-05-22",
+        "hora_inicio": "17:00",
+        "lugar": "Paraninfo ULL",
+        "municipio": "San Cristóbal de La Laguna",
+        "categoria": "exposicion",
+        "descripcion": "Obra de artista tinerfeña con influencias modernista y expresionista, hasta el 18 de junio.",
+        "fuente": "ull.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.3392, 28.5294]},
+      "properties": {
+        "id": "evt-158",
+        "titulo": "Artes escénicas para la comunicación — curso ULL",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Tegueste — extensión ULL",
+        "municipio": "Tegueste",
+        "categoria": "taller",
+        "descripcion": "Curso municipal de técnicas dramáticas para competencias comunicativas, hasta el 23 de mayo.",
+        "fuente": "ull.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-16.3164, 28.4853]},
+      "properties": {
+        "id": "evt-159",
+        "titulo": "Nanofilología — curso de minirrelato",
+        "fecha": "2026-05-22",
+        "hora_inicio": "16:30",
+        "lugar": "ULL (online)",
+        "municipio": "San Cristóbal de La Laguna",
+        "categoria": "taller",
+        "descripcion": "Curso sobre microtextualidad y narrativa breve, hasta el 29 de mayo.",
+        "fuente": "ull.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.6757, 29.0641]},
+      "properties": {
+        "id": "evt-160",
+        "titulo": "NASAS — Muestra audiovisual de surf y bodyboard",
+        "fecha": "2026-05-22",
+        "hora_inicio": "20:00",
+        "lugar": "Teatro Municipal de Tinajo",
+        "municipio": "Tinajo",
+        "categoria": "evento_especial",
+        "descripcion": "Tercera edición de la muestra audiovisual de surf y bodyboard del municipio.",
+        "fuente": "tinajo.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.6757, 29.0641]},
+      "properties": {
+        "id": "evt-161",
+        "titulo": "Olga Cerpa y Mestisay en concierto",
+        "fecha": "2026-05-24",
+        "hora_inicio": "",
+        "lugar": "Tinajo",
+        "municipio": "Tinajo",
+        "categoria": "concierto",
+        "descripcion": "Actuación musical de Olga Cerpa y el grupo Mestisay en el municipio de Tinajo.",
+        "fuente": "tinajo.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.6757, 29.0641]},
+      "properties": {
+        "id": "evt-162",
+        "titulo": "Saboreando Tinajo — apertura de feria",
+        "fecha": "2026-05-29",
+        "hora_inicio": "19:00",
+        "lugar": "Recinto Ferial de Tinajo",
+        "municipio": "Tinajo",
+        "categoria": "festival",
+        "descripcion": "Apertura de la feria con presentación del libro \"Tierra Quemada\".",
+        "fuente": "tinajo.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.6757, 29.0641]},
+      "properties": {
+        "id": "evt-163",
+        "titulo": "Los Sabandeños — concierto 60 aniversario",
+        "fecha": "2026-05-31",
+        "hora_inicio": "",
+        "lugar": "Tinajo",
+        "municipio": "Tinajo",
+        "categoria": "concierto",
+        "descripcion": "Concierto conmemorativo del sexagésimo aniversario de Los Sabandeños.",
+        "fuente": "tinajo.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.8627, 28.5004]},
+      "properties": {
+        "id": "evt-164",
+        "titulo": "Piel, pulso y protesta — exposición interdisciplinar",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Centro de Arte Juan Ismael",
+        "municipio": "Puerto del Rosario",
+        "categoria": "exposicion",
+        "descripcion": "Proyecto interdisciplinar del alumnado del IES San Diego de Alcalá, abierta hasta el 30 de mayo.",
+        "fuente": "culturafuerteventura.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.8627, 28.5004]},
+      "properties": {
+        "id": "evt-165",
+        "titulo": "Talleres de baile gratuitos",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Sedes municipales",
+        "municipio": "Puerto del Rosario",
+        "categoria": "taller",
+        "descripcion": "Talleres de baile gratuitos de lunes a jueves en distintas sedes, hasta el 28 de mayo.",
+        "fuente": "culturafuerteventura.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.8627, 28.5004]},
+      "properties": {
+        "id": "evt-166",
+        "titulo": "Festival Mar Abierto — BEBE en concierto",
+        "fecha": "2026-05-23",
+        "hora_inicio": "20:00",
+        "lugar": "Puerto del Rosario",
+        "municipio": "Puerto del Rosario",
+        "categoria": "festival",
+        "descripcion": "Vigésima edición del Festival Mar Abierto con concierto de la artista Bebe.",
+        "fuente": "culturafuerteventura.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.8627, 28.5004]},
+      "properties": {
+        "id": "evt-167",
+        "titulo": "Sutura — Romina Rivero",
+        "fecha": "2026-05-28",
+        "hora_inicio": "",
+        "lugar": "Centro de Arte Juan Ismael",
+        "municipio": "Puerto del Rosario",
+        "categoria": "exposicion",
+        "descripcion": "Exposición de arte contemporáneo de Romina Rivero, hasta el 14 de agosto.",
+        "fuente": "culturafuerteventura.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.8627, 28.5004]},
+      "properties": {
+        "id": "evt-168",
+        "titulo": "Gran Baile de Taifas — Día de Canarias",
+        "fecha": "2026-05-29",
+        "hora_inicio": "20:00",
+        "lugar": "Recinto Ferial de Puerto del Rosario",
+        "municipio": "Puerto del Rosario",
+        "categoria": "festival",
+        "descripcion": "Baile de taifas conmemorativo del Día de Canarias, en homenaje a la primera sesión del Parlamento canario.",
+        "fuente": "cabildofuer.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-13.8627, 28.5004]},
+      "properties": {
+        "id": "evt-169",
+        "titulo": "Charla: Seguridad en el medio natural",
+        "fecha": "2026-06-26",
+        "hora_inicio": "18:00",
+        "lugar": "Centro Insular de Juventud",
+        "municipio": "Puerto del Rosario",
+        "categoria": "presentacion",
+        "descripcion": "Charla sobre seguridad y prácticas responsables en entornos naturales.",
+        "fuente": "cabildofuer.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.7644, 28.6852]},
+      "properties": {
+        "id": "evt-170",
+        "titulo": "Fiestas de Mayo de Santa Cruz de La Palma",
+        "fecha": "2026-05-25",
+        "hora_inicio": "",
+        "lugar": "Santa Cruz de La Palma",
+        "municipio": "Santa Cruz de La Palma",
+        "categoria": "festival",
+        "descripcion": "Celebración tradicional de las Fiestas de Mayo en honor a la Cruz, con actos religiosos y festivos.",
+        "fuente": "lapalmaviva.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.7800, 28.5944]},
+      "properties": {
+        "id": "evt-171",
+        "titulo": "Corpus Christi de Villa de Mazo",
+        "fecha": "2026-06-04",
+        "hora_inicio": "",
+        "lugar": "Villa de Mazo",
+        "municipio": "Villa de Mazo",
+        "categoria": "festival",
+        "descripcion": "Tradicional celebración del Corpus Christi en Mazo, célebre por sus alfombras florales y arcos.",
+        "fuente": "lapalmaviva.es"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.3375, 28.0992]},
+      "properties": {
+        "id": "evt-172",
+        "titulo": "Tradicional Bajada de Carros de Madera",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "La Gomera",
+        "municipio": "San Sebastián de la Gomera",
+        "categoria": "evento_especial",
+        "descripcion": "Bajada tradicional de carros de madera por la geografía gomera, dentro de la programación de mayo.",
+        "fuente": "lagomera.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.3375, 28.0992]},
+      "properties": {
+        "id": "evt-173",
+        "titulo": "Un paseo por La Calera",
+        "fecha": "2026-05-23",
+        "hora_inicio": "",
+        "lugar": "La Calera",
+        "municipio": "Valle Gran Rey",
+        "categoria": "evento_especial",
+        "descripcion": "Recorrido cultural guiado por La Calera, en Valle Gran Rey.",
+        "fuente": "lagomera.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.1107, 28.0915]},
+      "properties": {
+        "id": "evt-174",
+        "titulo": "Los Colores de la Música",
+        "fecha": "2026-05-24",
+        "hora_inicio": "",
+        "lugar": "La Gomera",
+        "municipio": "San Sebastián de la Gomera",
+        "categoria": "concierto",
+        "descripcion": "Espectáculo musical dentro de la programación cultural insular.",
+        "fuente": "lagomera.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.1107, 28.0915]},
+      "properties": {
+        "id": "evt-175",
+        "titulo": "Ballet NUIT en danse",
+        "fecha": "2026-05-29",
+        "hora_inicio": "",
+        "lugar": "La Gomera",
+        "municipio": "San Sebastián de la Gomera",
+        "categoria": "evento_especial",
+        "descripcion": "Espectáculo de ballet contemporáneo dentro de la agenda cultural gomera.",
+        "fuente": "lagomera.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.3375, 28.0992]},
+      "properties": {
+        "id": "evt-176",
+        "titulo": "Baile de Magos de Valle Gran Rey",
+        "fecha": "2026-05-30",
+        "hora_inicio": "",
+        "lugar": "Valle Gran Rey",
+        "municipio": "Valle Gran Rey",
+        "categoria": "festival",
+        "descripcion": "Celebración tradicional con indumentaria típica magos y verbena popular.",
+        "fuente": "lagomera.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.1932, 28.1716]},
+      "properties": {
+        "id": "evt-177",
+        "titulo": "Fiestas de San Juan en Hermigua",
+        "fecha": "2026-06-24",
+        "hora_inicio": "",
+        "lugar": "Hermigua",
+        "municipio": "Hermigua",
+        "categoria": "festival",
+        "descripcion": "Fiestas patronales de Hermigua en honor a San Juan, con verbenas y actos tradicionales.",
+        "fuente": "lagomera.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.1932, 28.1716]},
+      "properties": {
+        "id": "evt-178",
+        "titulo": "Fiestas de San Pedro en Hermigua",
+        "fecha": "2026-06-29",
+        "hora_inicio": "",
+        "lugar": "Hermigua",
+        "municipio": "Hermigua",
+        "categoria": "festival",
+        "descripcion": "Festividad de San Pedro en Hermigua, con celebraciones populares.",
+        "fuente": "lagomera.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.9156, 27.8082]},
+      "properties": {
+        "id": "evt-179",
+        "titulo": "La Villa Ciclo Cultural",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Valverde",
+        "municipio": "Valverde",
+        "categoria": "festival",
+        "descripcion": "Programación cultural extendida en Valverde, hasta el 13 de junio.",
+        "fuente": "elhierro.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-18.0205, 27.7541]},
+      "properties": {
+        "id": "evt-180",
+        "titulo": "Fiestas de Ntra. Sra. de La Consolación",
+        "fecha": "2026-05-22",
+        "hora_inicio": "",
+        "lugar": "Sabinosa",
+        "municipio": "Frontera",
+        "categoria": "festival",
+        "descripcion": "Fiestas tradicionales en Sabinosa en honor a la Virgen de la Consolación.",
+        "fuente": "elhierro.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.9156, 27.8082]},
+      "properties": {
+        "id": "evt-181",
+        "titulo": "MOVE Canarias en El Hierro",
+        "fecha": "2026-06-10",
+        "hora_inicio": "",
+        "lugar": "El Hierro",
+        "municipio": "Valverde",
+        "categoria": "festival",
+        "descripcion": "Encuentro cultural de cuatro días con programación itinerante por la isla, hasta el 13 de junio.",
+        "fuente": "elhierro.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.9745, 27.7058]},
+      "properties": {
+        "id": "evt-182",
+        "titulo": "Hogueras de San Juan en La Restinga",
+        "fecha": "2026-06-23",
+        "hora_inicio": "",
+        "lugar": "La Restinga",
+        "municipio": "El Pinar de El Hierro",
+        "categoria": "festival",
+        "descripcion": "Hogueras populares en La Restinga la noche de San Juan, con tradiciones marineras.",
+        "fuente": "elhierro.travel"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-17.9745, 27.7058]},
+      "properties": {
+        "id": "evt-183",
+        "titulo": "Fiestas del Carmen en El Pinar",
+        "fecha": "2026-07-16",
+        "hora_inicio": "",
+        "lugar": "El Pinar",
+        "municipio": "El Pinar de El Hierro",
+        "categoria": "festival",
+        "descripcion": "Fiestas patronales en honor a la Virgen del Carmen, con procesión y actos populares.",
+        "fuente": "elhierro.travel"
+      }
+    }
+  ]
+}

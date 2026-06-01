@@ -1,0 +1,380 @@
+{
+  "ADEJE": {
+    "total": 21,
+    "publico": 16,
+    "concertado": 5,
+    "privado": 0,
+    "otro": 0
+  },
+  "AGULO": {
+    "total": 3,
+    "publico": 3,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "ALAJERÓ": {
+    "total": 3,
+    "publico": 3,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "ARAFO": {
+    "total": 3,
+    "publico": 2,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "ARICO": {
+    "total": 7,
+    "publico": 7,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "ARONA": {
+    "total": 30,
+    "publico": 25,
+    "concertado": 5,
+    "privado": 0,
+    "otro": 0
+  },
+  "BARLOVENTO": {
+    "total": 3,
+    "publico": 3,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "BREÑA ALTA": {
+    "total": 7,
+    "publico": 7,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "BREÑA BAJA": {
+    "total": 5,
+    "publico": 5,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "BUENAVISTA DEL NORTE": {
+    "total": 5,
+    "publico": 5,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "CANDELARIA": {
+    "total": 15,
+    "publico": 11,
+    "concertado": 4,
+    "privado": 0,
+    "otro": 0
+  },
+  "FASNIA": {
+    "total": 1,
+    "publico": 1,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "FRONTERA": {
+    "total": 2,
+    "publico": 2,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "EL PINAR DE EL HIERRO": {
+    "total": 2,
+    "publico": 2,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "FUENCALIENTE DE LA PALMA": {
+    "total": 4,
+    "publico": 4,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "GARACHICO": {
+    "total": 4,
+    "publico": 4,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "GARAFÍA": {
+    "total": 2,
+    "publico": 2,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "GRANADILLA DE ABONA": {
+    "total": 25,
+    "publico": 22,
+    "concertado": 3,
+    "privado": 0,
+    "otro": 0
+  },
+  "LA GUANCHA": {
+    "total": 4,
+    "publico": 4,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "GUÍA DE ISORA": {
+    "total": 19,
+    "publico": 18,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "GÜÍMAR": {
+    "total": 15,
+    "publico": 11,
+    "concertado": 4,
+    "privado": 0,
+    "otro": 0
+  },
+  "HERMIGUA": {
+    "total": 2,
+    "publico": 2,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "ICOD DE LOS VINOS": {
+    "total": 20,
+    "publico": 17,
+    "concertado": 3,
+    "privado": 0,
+    "otro": 0
+  },
+  "SAN CRISTÓBAL DE LA LAGUNA": {
+    "total": 103,
+    "publico": 63,
+    "concertado": 40,
+    "privado": 0,
+    "otro": 0
+  },
+  "SANTA CRUZ DE TENERIFE": {
+    "total": 131,
+    "publico": 79,
+    "concertado": 52,
+    "privado": 0,
+    "otro": 0
+  },
+  "LOS LLANOS DE ARIDANE": {
+    "total": 18,
+    "publico": 15,
+    "concertado": 3,
+    "privado": 0,
+    "otro": 0
+  },
+  "LA MATANZA DE ACENTEJO": {
+    "total": 6,
+    "publico": 6,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "LA OROTAVA": {
+    "total": 29,
+    "publico": 22,
+    "concertado": 7,
+    "privado": 0,
+    "otro": 0
+  },
+  "EL PASO": {
+    "total": 6,
+    "publico": 6,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "PUERTO DE LA CRUZ": {
+    "total": 22,
+    "publico": 15,
+    "concertado": 7,
+    "privado": 0,
+    "otro": 0
+  },
+  "PUNTALLANA": {
+    "total": 5,
+    "publico": 5,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "LOS REALEJOS": {
+    "total": 22,
+    "publico": 17,
+    "concertado": 5,
+    "privado": 0,
+    "otro": 0
+  },
+  "PUNTAGORDA": {
+    "total": 3,
+    "publico": 3,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "EL ROSARIO": {
+    "total": 8,
+    "publico": 6,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "SAN ANDRÉS Y SAUCES": {
+    "total": 7,
+    "publico": 7,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "SAN JUAN DE LA RAMBLA": {
+    "total": 4,
+    "publico": 4,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "SAN MIGUEL DE ABONA": {
+    "total": 13,
+    "publico": 9,
+    "concertado": 4,
+    "privado": 0,
+    "otro": 0
+  },
+  "SAN SEBASTIÁN DE LA GOMERA": {
+    "total": 11,
+    "publico": 11,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "SANTA CRUZ DE LA PALMA": {
+    "total": 19,
+    "publico": 17,
+    "concertado": 2,
+    "privado": 0,
+    "otro": 0
+  },
+  "SANTA ÚRSULA": {
+    "total": 10,
+    "publico": 9,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "SANTIAGO DEL TEIDE": {
+    "total": 7,
+    "publico": 7,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "EL SAUZAL": {
+    "total": 9,
+    "publico": 6,
+    "concertado": 3,
+    "privado": 0,
+    "otro": 0
+  },
+  "LOS SILOS": {
+    "total": 9,
+    "publico": 9,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "TACORONTE": {
+    "total": 19,
+    "publico": 15,
+    "concertado": 4,
+    "privado": 0,
+    "otro": 0
+  },
+  "EL TANQUE": {
+    "total": 5,
+    "publico": 5,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "TAZACORTE": {
+    "total": 2,
+    "publico": 2,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "TEGUESTE": {
+    "total": 12,
+    "publico": 9,
+    "concertado": 3,
+    "privado": 0,
+    "otro": 0
+  },
+  "TIJARAFE": {
+    "total": 3,
+    "publico": 3,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "VALVERDE": {
+    "total": 11,
+    "publico": 11,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "VALLE GRAN REY": {
+    "total": 5,
+    "publico": 5,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "VALLEHERMOSO": {
+    "total": 4,
+    "publico": 4,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  },
+  "LA VICTORIA DE ACENTEJO": {
+    "total": 8,
+    "publico": 7,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "VILAFLOR DE CHASNA": {
+    "total": 3,
+    "publico": 2,
+    "concertado": 1,
+    "privado": 0,
+    "otro": 0
+  },
+  "VILLA DE MAZO": {
+    "total": 6,
+    "publico": 6,
+    "concertado": 0,
+    "privado": 0,
+    "otro": 0
+  }
+}

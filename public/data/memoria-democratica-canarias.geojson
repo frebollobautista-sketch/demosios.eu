@@ -1,0 +1,365 @@
+{
+  "type": "FeatureCollection",
+  "_meta": {
+    "fuente": "Curado a mano — lugares de memoria democrática en Canarias (Ley 19/2022). Sin JSON oficial nacional descargable a fecha 2026-05-27.",
+    "actualizado": "2026-05-27",
+    "version": 1,
+    "schema_tipos": [
+      "fosa_comun",
+      "carcel",
+      "lugar_simbolico",
+      "monumento_victimas",
+      "exilio_embarque"
+    ],
+    "schema_epocas": [
+      "Guerra Civil",
+      "Franquismo",
+      "Transición"
+    ],
+    "etica": "No se publican nombres individuales de víctimas. Cifras son estimaciones historiográficas — datos exhumados confirmados aparecen en `numero_exhumados`.",
+    "marco_legal": "Ley 19/2022 de Memoria Democrática (España)",
+    "uso": "Overlay `memoria-democratica` en polis-app/iso. Pin sobrio rojo apagado, sin animación."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.3961,
+          28.0479
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-001",
+        "nombre": "Sima de Jinámar",
+        "tipo": "fosa_comun",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "~cientos (estimación)",
+        "descripcion_corta": "Tubo volcánico de 76 m al que las 'Brigadas del Amanecer' arrojaron a republicanos detenidos en 1936-37. Símbolo central de la represión franquista en Gran Canaria. Primera intervención arqueológica halló restos óseos, cartuchería Mauser y objetos personales.",
+        "mun": "Telde",
+        "isla": "Gran Canaria",
+        "fuente": "ARMH / eldiario.es / Gob.Canarias",
+        "numero_exhumados": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.521,
+          28.119
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-002",
+        "nombre": "Pozo del Llano de las Brujas",
+        "tipo": "fosa_comun",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "~27 (estimación)",
+        "descripcion_corta": "Pozo de más de 50 m en Montaña Blanca. Primera fosa del franquismo exhumada en Canarias (desde 2008). Personas con manos atadas y disparo en la cabeza. Detenciones masivas de marzo de 1937.",
+        "mun": "Arucas",
+        "isla": "Gran Canaria",
+        "fuente": "Asoc. Memoria Histórica Arucas / ARMH",
+        "numero_exhumados": 24
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4843,
+          28.1248
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-003",
+        "nombre": "Pozo de Tenoya",
+        "tipo": "fosa_comun",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "~14+ (estimación)",
+        "descripcion_corta": "Uno de los 'Pozos del Olvido' de Arucas. Exhumación iniciada en 2013 complicada por galerías, escombros y vehículos arrojados. Restos de 14 personas localizados.",
+        "mun": "Las Palmas de Gran Canaria",
+        "isla": "Gran Canaria",
+        "fuente": "Asoc. Memoria Histórica Arucas / eldiario.es",
+        "numero_exhumados": 14
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.5236,
+          28.1117
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-004",
+        "nombre": "Pozo del Puente del Barranco de Arucas",
+        "tipo": "fosa_comun",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "desconocido",
+        "descripcion_corta": "Tercero de los 'Pozos del Olvido'. Sin exhumar. Detenciones falangistas de marzo de 1937.",
+        "mun": "Arucas",
+        "isla": "Gran Canaria",
+        "fuente": "Asoc. Memoria Histórica Arucas"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.518,
+          28.108
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-005",
+        "nombre": "Pozo de la Vuelta del Francés",
+        "tipo": "fosa_comun",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "desconocido",
+        "descripcion_corta": "Cuarto pozo del conjunto de Arucas vinculado a las desapariciones forzadas de 1937. Sin exhumar.",
+        "mun": "Arucas",
+        "isla": "Gran Canaria",
+        "fuente": "Asoc. Memoria Histórica Arucas"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4144,
+          28.1672
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-006",
+        "nombre": "Campo de concentración de La Isleta",
+        "tipo": "carcel",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "~1.100 reclusos",
+        "descripcion_corta": "Primer campo de concentración en Gran Canaria, sobre terreno militar de la península de La Isleta. Rodeado por triple alambrada. Campo de castigo y trabajo forzado (carreteras, baterías costeras). Funcionó hasta febrero de 1937, cuando se trasladó a Gando.",
+        "mun": "Las Palmas de Gran Canaria",
+        "isla": "Gran Canaria",
+        "fuente": "Tamaimos / Wikipedia / Canarias7"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.3858,
+          27.9352
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-007",
+        "nombre": "Lazareto de Gando (campo de concentración)",
+        "tipo": "carcel",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "~1.100 reclusos",
+        "descripcion_corta": "Antiguo lazareto reutilizado como campo de concentración tras el cierre de La Isleta (febrero 1937). Reclusos de toda la provincia, sometidos a trabajos forzados (emblemáticamente, acarreo de arena).",
+        "mun": "Telde",
+        "isla": "Gran Canaria",
+        "fuente": "Tamaimos / elpaiscanario.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.4243,
+          28.1379
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-008",
+        "nombre": "Cementerio de Las Palmas — fosa común sin exhumar",
+        "tipo": "fosa_comun",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "desconocido",
+        "descripcion_corta": "Fosa común en el cementerio municipal que contiene víctimas de la represión, entre ellas el periodista Manuel Fernández (asesinado en La Isleta, 1936). Exhumación bloqueada institucionalmente.",
+        "mun": "Las Palmas de Gran Canaria",
+        "isla": "Gran Canaria",
+        "fuente": "Diario de Lanzarote / ARMH"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -15.414,
+          28.1437
+        ]
+      },
+      "properties": {
+        "id": "mem-gc-009",
+        "nombre": "Muelle de Las Palmas — embarque del exilio",
+        "tipo": "exilio_embarque",
+        "epoca": "Guerra Civil",
+        "numero_victimas": null,
+        "descripcion_corta": "Punto de embarque para el exilio republicano canario (1936-1939). Miles de personas hacia América (México principalmente). Lugar simbólico de la diáspora republicana del archipiélago.",
+        "mun": "Las Palmas de Gran Canaria",
+        "isla": "Gran Canaria",
+        "fuente": "eldiario.es / bibliografía exilio canario-mexicano"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2526,
+          28.472
+        ]
+      },
+      "properties": {
+        "id": "mem-tf-001",
+        "nombre": "Prisión de Fyffes",
+        "tipo": "carcel",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "~4.000 reclusos en 12 años",
+        "descripcion_corta": "Antiguos almacenes plataneros de la compañía Fyffes habilitados como cárcel militar tras el golpe del 18 de julio de 1936. Hasta 1.500 presos simultáneos. Hacinamiento, tortura, ejecuciones sumarias y desapariciones forzadas. Símbolo central de la represión en Tenerife.",
+        "mun": "Santa Cruz de Tenerife",
+        "isla": "Tenerife",
+        "fuente": "Wikipedia / eltambor.es / ULL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2418,
+          28.4855
+        ]
+      },
+      "properties": {
+        "id": "mem-tf-002",
+        "nombre": "Fortaleza de Paso Alto",
+        "tipo": "carcel",
+        "epoca": "Guerra Civil",
+        "numero_victimas": null,
+        "descripcion_corta": "Antigua batería militar utilizada como lugar de ejecuciones y detención. Propuesta abierta para convertirla en Museo de la Memoria Histórica.",
+        "mun": "Santa Cruz de Tenerife",
+        "isla": "Tenerife",
+        "fuente": "Diario de Avisos / ULL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.2552,
+          28.4719
+        ]
+      },
+      "properties": {
+        "id": "mem-tf-003",
+        "nombre": "Cementerio de San Rafael y San Roque — fosa común",
+        "tipo": "fosa_comun",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "desconocido",
+        "descripcion_corta": "Cementerio histórico de Santa Cruz con fosa común que recoge víctimas de fusilamientos del 36-37, muchas procedentes de la prisión de Fyffes.",
+        "mun": "Santa Cruz de Tenerife",
+        "isla": "Tenerife",
+        "fuente": "Bibliografía ULL / repositorio RIULL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -17.846,
+          28.4853
+        ]
+      },
+      "properties": {
+        "id": "mem-lp-001",
+        "nombre": "Pino del Consuelo",
+        "tipo": "monumento_victimas",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "~52 (placas) / 8 exhumados",
+        "descripcion_corta": "Lugar de las primeras exhumaciones judiciales de víctimas de la dictadura en España (1994). Monumento oficial declarado Lugar de Memoria Histórica por el Gobierno de Canarias. Placas con 52 nombres de desaparecidos palmeros.",
+        "mun": "Fuencaliente de La Palma",
+        "isla": "La Palma",
+        "fuente": "Foro por la Memoria / Gob.Canarias",
+        "numero_exhumados": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -14.0392,
+          28.5641
+        ]
+      },
+      "properties": {
+        "id": "mem-fv-001",
+        "nombre": "Colonia Agrícola Penitenciaria de Tefía",
+        "tipo": "carcel",
+        "epoca": "Franquismo",
+        "numero_victimas": "~200 internos (Ley Vagos y Maleantes)",
+        "descripcion_corta": "Colonia penitenciaria 1954-1966 destinada al internamiento y 'reeducación' de varones homosexuales bajo la Ley de Vagos y Maleantes (1954). Trabajos forzados, malos tratos sistemáticos. Declarada Lugar de Memoria Democrática por el Gobierno de España (2025). Monumento LGTBIQ desde 2008.",
+        "mun": "Puerto del Rosario",
+        "isla": "Fuerteventura",
+        "fuente": "Min.PTMD / Wikipedia / Togayther"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.5479,
+          28.9627
+        ]
+      },
+      "properties": {
+        "id": "mem-lz-001",
+        "nombre": "Cementerio de Arrecife — fosa común",
+        "tipo": "fosa_comun",
+        "epoca": "Guerra Civil",
+        "numero_victimas": "desconocido",
+        "descripcion_corta": "Fosa común documentada en el cementerio de Arrecife con víctimas de la represión del 36 en Lanzarote, muchas tras paso por La Isleta o Gando. Pendiente de exhumación.",
+        "mun": "Arrecife",
+        "isla": "Lanzarote",
+        "fuente": "Diario de Lanzarote / Memoria de Lanzarote"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.546,
+          28.9636
+        ]
+      },
+      "properties": {
+        "id": "mem-lz-002",
+        "nombre": "Lugar de detenciones de la Guerra Civil — Arrecife",
+        "tipo": "lugar_simbolico",
+        "epoca": "Guerra Civil",
+        "numero_victimas": null,
+        "descripcion_corta": "Punto de concentración de detenidos lanzaroteños previo a su traslado a campos de Gran Canaria (La Isleta, Gando). Documentado en la ponencia marco 'La Guerra Civil en Lanzarote y Fuerteventura'.",
+        "mun": "Arrecife",
+        "isla": "Lanzarote",
+        "fuente": "Memoria de Lanzarote (bk.memoriadelanzarote.com)"
+      }
+    }
+  ]
+}

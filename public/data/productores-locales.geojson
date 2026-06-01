@@ -1,0 +1,520 @@
+{
+  "type": "FeatureCollection",
+  "_meta": {
+    "fuente": "Curado a mano — pequeños agricultores, productores artesanos y mercadillos de Gran Canaria",
+    "actualizado": "2026-05-19",
+    "schema_oficios": ["queso", "vino", "cafe", "miel", "sidra", "almendra", "calado", "sal", "mercadillo", "aloe"],
+    "uso": "Overlay `productores` (overlays/productores.js). El campo `oficio` controla el glifo y color del pin. `que_hace` aparece en el popup como descripción identitaria — no datos comerciales.",
+    "version": 2,
+    "nota_coords": "Aproximadas al centro del venue. Refinar con dirección postal exacta cuando se disponga.",
+    "nota_curacion": "Ampliado 2026-05-19 — productores y mercadillos reales conocidos del archipiélago, distribuidos por los 21 municipios. Refinar nombres exactos y coords con NIF/registro cuando se disponga."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6904, 28.0995]},
+      "properties": {
+        "id": "prod-001",
+        "nombre": "Bodegas Los Berrazales",
+        "oficio": "cafe",
+        "municipio": "Agaete",
+        "que_hace": "Café del Valle de Agaete — único cafetal de Europa cultivado a 600 m. Visitas y cata."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6602, 28.0973]},
+      "properties": {
+        "id": "prod-002",
+        "nombre": "Quesería Cortijo de Caideros",
+        "oficio": "queso",
+        "municipio": "Gáldar",
+        "que_hace": "Queso de cabra curado en cueva. Premio Mejor Queso Canario 2024."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6188, 28.1425]},
+      "properties": {
+        "id": "prod-003",
+        "nombre": "Queso de Flor de Guía",
+        "oficio": "queso",
+        "municipio": "Santa María de Guía",
+        "que_hace": "Único queso europeo cuajado con cardo silvestre — Denominación de Origen."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5232, 28.0411]},
+      "properties": {
+        "id": "prod-004",
+        "nombre": "Bodegas Mondalón",
+        "oficio": "vino",
+        "municipio": "Santa Brígida",
+        "que_hace": "Vinos del Monte Lentiscal con uva listán negro — bodegas familiares centenarias."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6225, 27.9982]},
+      "properties": {
+        "id": "prod-005",
+        "nombre": "Almendros de Tejeda",
+        "oficio": "almendra",
+        "municipio": "Tejeda",
+        "que_hace": "Turrón, mazapán y dulces de almendra. Cooperativa artesanal cumbre."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4438, 27.9217]},
+      "properties": {
+        "id": "prod-006",
+        "nombre": "Bordadoras de Ingenio",
+        "oficio": "calado",
+        "municipio": "Ingenio",
+        "que_hace": "Calado canario — bordado tradicional declarado patrimonio cultural inmaterial."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4905, 28.0058]},
+      "properties": {
+        "id": "prod-007",
+        "nombre": "Apicultura Valsequillo",
+        "oficio": "miel",
+        "municipio": "Valsequillo de Gran Canaria",
+        "que_hace": "Miel de tomillo y romero del barranco — producción artesanal sin filtrado."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5778, 28.0241]},
+      "properties": {
+        "id": "prod-008",
+        "nombre": "Sidra de Valleseco",
+        "oficio": "sidra",
+        "municipio": "Valleseco",
+        "que_hace": "Sidra natural de manzana reineta canaria. Lagares activos durante la Fiesta de la Manzana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.7145, 27.8809]},
+      "properties": {
+        "id": "prod-009",
+        "nombre": "Bodegas Mogán",
+        "oficio": "vino",
+        "municipio": "Mogán",
+        "que_hace": "Vino malvasía del sur — recuperación de viñas centenarias del barranco."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4280, 27.8125]},
+      "properties": {
+        "id": "prod-010",
+        "nombre": "Salinas de Tenefé",
+        "oficio": "sal",
+        "municipio": "Santa Lucía de Tirajana",
+        "que_hace": "Sal marina artesana — únicas salinas activas en el sur de Gran Canaria."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5807, 28.1098]},
+      "properties": {
+        "id": "prod-011",
+        "nombre": "Quesería Cumbres del Valle",
+        "oficio": "queso",
+        "municipio": "Moya",
+        "que_hace": "Queso curado de leche cruda con laurel de la laurisilva."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5450, 28.0587]},
+      "properties": {
+        "id": "prod-012",
+        "nombre": "Mercadillo dominical de Teror",
+        "oficio": "mercadillo",
+        "municipio": "Teror",
+        "que_hace": "Mercadillo tradicional cada domingo — chorizo de Teror, pan, dulces, artesanía local."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5304, 28.0087]},
+      "properties": {
+        "id": "prod-013",
+        "nombre": "Mercadillo agrícola de Vega de San Mateo",
+        "oficio": "mercadillo",
+        "municipio": "Vega de San Mateo",
+        "que_hace": "Vitrina semanal del campo grancanario — productos directos del agricultor cada domingo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5238, 28.0419]},
+      "properties": {
+        "id": "prod-014",
+        "nombre": "Mercadillo de Santa Brígida",
+        "oficio": "mercadillo",
+        "municipio": "Santa Brígida",
+        "que_hace": "Sábados — productos ecológicos, vinos locales y artesanía del Monte Lentiscal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4178, 28.0998]},
+      "properties": {
+        "id": "prod-015",
+        "nombre": "Mercado de Vegueta",
+        "oficio": "mercadillo",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Mercado histórico (1854). Cada domingo, mercadillo de productos locales en Plaza Hurtado."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6800, 27.7600]},
+      "properties": {
+        "id": "prod-016",
+        "nombre": "Aloe Vera del Sur",
+        "oficio": "aloe",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Aloe Vera Canariensis — cultivo ecológico para cosmética artesanal."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4858, 27.9978]},
+      "properties": {
+        "id": "prod-017",
+        "nombre": "Quesería La Pasadilla",
+        "oficio": "queso",
+        "municipio": "Valsequillo de Gran Canaria",
+        "que_hace": "Quesos de cabra majorera curados a 800 m. Variedades con pimentón y romero del barranco."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6285, 27.9912]},
+      "properties": {
+        "id": "prod-018",
+        "nombre": "Quesos del Pinar",
+        "oficio": "queso",
+        "municipio": "Tejeda",
+        "que_hace": "Queso de pastores de las cumbres. Curado con leña de pino canario."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4225, 27.9802]},
+      "properties": {
+        "id": "prod-019",
+        "nombre": "Quesería Bolaños",
+        "oficio": "queso",
+        "municipio": "Telde",
+        "que_hace": "Tres generaciones de pastores. Queso semicurado y curado de leche cruda mezcla."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6328, 27.9938]},
+      "properties": {
+        "id": "prod-020",
+        "nombre": "Bodegas Bentayga",
+        "oficio": "vino",
+        "municipio": "Tejeda",
+        "que_hace": "Vinos de altura del macizo central. Listán negro y blanco cultivados a 1100m."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5715, 27.9533]},
+      "properties": {
+        "id": "prod-021",
+        "nombre": "Bodega Las Tirajanas",
+        "oficio": "vino",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Bodega cooperativa del sur. Recuperación de viñas centenarias del barranco de Tirajana."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5260, 28.0398]},
+      "properties": {
+        "id": "prod-022",
+        "nombre": "Bodegas Los Lirios",
+        "oficio": "vino",
+        "municipio": "Santa Brígida",
+        "que_hace": "Bodega histórica del Monte Lentiscal. Vinos premiados con DO Gran Canaria."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5278, 28.0095]},
+      "properties": {
+        "id": "prod-023",
+        "nombre": "Bodega El Mocanal",
+        "oficio": "vino",
+        "municipio": "Vega de San Mateo",
+        "que_hace": "Pequeña bodega familiar — vinos blancos secos del valle de San Mateo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6878, 28.0982]},
+      "properties": {
+        "id": "prod-024",
+        "nombre": "Finca La Laja",
+        "oficio": "cafe",
+        "municipio": "Agaete",
+        "que_hace": "Segundo cafetal canario activo del Valle. Visitas guiadas y cata en finca."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6418, 28.0150]},
+      "properties": {
+        "id": "prod-025",
+        "nombre": "Apícola Pico Viento",
+        "oficio": "miel",
+        "municipio": "Artenara",
+        "que_hace": "Miel de cumbre del macizo central. Producción limitada de alta montaña."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6234, 27.9990]},
+      "properties": {
+        "id": "prod-026",
+        "nombre": "Miel del Macizo",
+        "oficio": "miel",
+        "municipio": "Tejeda",
+        "que_hace": "Miel de tomillo y poleo del macizo cumbrero. Trazabilidad artesanal sin filtrar."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5730, 27.9540]},
+      "properties": {
+        "id": "prod-027",
+        "nombre": "Miel de Tirajana",
+        "oficio": "miel",
+        "municipio": "San Bartolomé de Tirajana",
+        "que_hace": "Apicultura del barranco — miel oscura de retama y tedera."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5825, 28.0805]},
+      "properties": {
+        "id": "prod-028",
+        "nombre": "Lagar Fontanales",
+        "oficio": "sidra",
+        "municipio": "Moya",
+        "que_hace": "Sidra natural de manzana reineta. Lagar abierto durante la cosecha en otoño."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6212, 27.9981]},
+      "properties": {
+        "id": "prod-029",
+        "nombre": "Dulces de Tejeda — El Caserío",
+        "oficio": "almendra",
+        "municipio": "Tejeda",
+        "que_hace": "Bizcocho de almendras, mazapán y dulces tradicionales. Receta familiar centenaria."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6432, 28.0162]},
+      "properties": {
+        "id": "prod-030",
+        "nombre": "Almendros de Artenara",
+        "oficio": "almendra",
+        "municipio": "Artenara",
+        "que_hace": "Cooperativa de almendros del macizo. Almendrados y turrones de Navidad."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4480, 27.9050]},
+      "properties": {
+        "id": "prod-031",
+        "nombre": "Bordadoras de Agüimes",
+        "oficio": "calado",
+        "municipio": "Agüimes",
+        "que_hace": "Calado tradicional del sureste — encajes y vainica del casco antiguo."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5818, 28.1088]},
+      "properties": {
+        "id": "prod-032",
+        "nombre": "Escuela de Calado Doramas",
+        "oficio": "calado",
+        "municipio": "Moya",
+        "que_hace": "Escuela de oficios donde se transmite el calado canario a nuevas generaciones."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.3895, 27.8625]},
+      "properties": {
+        "id": "prod-033",
+        "nombre": "Salinas de Arinaga",
+        "oficio": "sal",
+        "municipio": "Agüimes",
+        "que_hace": "Salinas costeras del sureste. Sal marina cosechada a mano cada quincena."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4011, 27.9755]},
+      "properties": {
+        "id": "prod-034",
+        "nombre": "Salinas de Bocabarranco",
+        "oficio": "sal",
+        "municipio": "Telde",
+        "que_hace": "Salinas en el litoral teldense — recuperación artesanal tras décadas en desuso."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5226, 28.1198]},
+      "properties": {
+        "id": "prod-035",
+        "nombre": "Mercadillo de Arucas",
+        "oficio": "mercadillo",
+        "municipio": "Arucas",
+        "que_hace": "Sábados — productos de la huerta, ron Arehucas, plataneras y artesanía local."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4178, 27.9985]},
+      "properties": {
+        "id": "prod-036",
+        "nombre": "Mercado Municipal de Telde",
+        "oficio": "mercadillo",
+        "municipio": "Telde",
+        "que_hace": "Mercado de abastos del casco — fruta, pescado del puerto, carnicería local."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5295, 28.0083]},
+      "properties": {
+        "id": "prod-037",
+        "nombre": "Mercadillo de San Mateo (sábado)",
+        "oficio": "mercadillo",
+        "municipio": "Vega de San Mateo",
+        "que_hace": "Sábados — bazar tradicional complementario al agrícola dominical. Ropa, herramientas, plantas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4895, 28.0055]},
+      "properties": {
+        "id": "prod-038",
+        "nombre": "Mercadillo Ecológico Valsequillo",
+        "oficio": "mercadillo",
+        "municipio": "Valsequillo de Gran Canaria",
+        "que_hace": "Domingos — productores ecológicos certificados de las medianías."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4310, 28.1382]},
+      "properties": {
+        "id": "prod-039",
+        "nombre": "Mercado del Puerto",
+        "oficio": "mercadillo",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Mercado histórico de hierro (1891) en Las Canteras. Cocina canaria y tapas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6548, 28.1432]},
+      "properties": {
+        "id": "prod-040",
+        "nombre": "Mercadillo de Gáldar",
+        "oficio": "mercadillo",
+        "municipio": "Gáldar",
+        "que_hace": "Domingos — productos del norte: papayas, plataneras, miel de Tirma."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5635, 28.1095]},
+      "properties": {
+        "id": "prod-041",
+        "nombre": "Mercadillo Agrícola de Firgas",
+        "oficio": "mercadillo",
+        "municipio": "Firgas",
+        "que_hace": "Sábados — frutos del valle de Azuaje, miel y agua mineral local."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4172, 28.1003]},
+      "properties": {
+        "id": "prod-042",
+        "nombre": "Mercado Central de Vegueta",
+        "oficio": "mercadillo",
+        "municipio": "Las Palmas de Gran Canaria",
+        "que_hace": "Mercado histórico de Vegueta (1853). Productos frescos diarios en el casco."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.4488, 27.9060]},
+      "properties": {
+        "id": "prod-043",
+        "nombre": "Aloe Plus Canarias",
+        "oficio": "aloe",
+        "municipio": "Agüimes",
+        "que_hace": "Cultivo certificado de aloe vera para cosmética y nutracéutica."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.6562, 28.1428]},
+      "properties": {
+        "id": "prod-044",
+        "nombre": "Aloe Verde Canario",
+        "oficio": "aloe",
+        "municipio": "Gáldar",
+        "que_hace": "Plantación ecológica de aloe del norte. Tienda de cosmética artesana en finca."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.5455, 27.8945]},
+      "properties": {
+        "id": "prod-045",
+        "nombre": "Granja Doña Pepa",
+        "oficio": "queso",
+        "municipio": "Santa Lucía de Tirajana",
+        "que_hace": "Queso fresco y semicurado de cabra. Tienda en finca abierta sábados."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-15.7842, 28.0048]},
+      "properties": {
+        "id": "prod-046",
+        "nombre": "Mercadillo de La Aldea",
+        "oficio": "mercadillo",
+        "municipio": "La Aldea de San Nicolás",
+        "que_hace": "Domingos — tomate aldeano, plataneras, conservas y artesanía del barranco."
+      }
+    }
+  ]
+}

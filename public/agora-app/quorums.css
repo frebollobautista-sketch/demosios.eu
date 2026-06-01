@@ -1,0 +1,232 @@
+/* agora-app/quorums.css — Termómetro de Quórum.
+ *
+ * Convive con style.css (de ahí heredan .post, .post-head, .post-actions,
+ * etc.). Aquí solo añadimos lo específico de kind="quorum":
+ *   - Termómetro horizontal con fill animado.
+ *   - Estados visuales: vigente (ocre), abierto (verde), urgente (ámbar),
+ *     caducado (gris, semi-transparente).
+ *   - Mensaje humano en línea pequeña, faint, sin culpabilizar.
+ *   - Botón "firmar +" como acción principal destacada.
+ *
+ * Paleta heredada: ocre #c9a86a, verde #6a9c5e, ámbar #c9904a,
+ * fondo oscuro #1c1c1c.
+ */
+
+/* ── Layout general ─────────────────────────────────────────── */
+
+.post.is-quorum {
+  /* Borde lateral suave para distinguir convocatorias del resto del
+   * feed sin gritar. Las convocatorias son llamadas a acción — merecen
+   * un acento visual, pero no un grito. */
+  border-left: 2px solid rgba(201, 168, 106, 0.5);
+  padding-left: 0.85rem;
+}
+
+.post.is-quorum[data-estado="abierto"] {
+  border-left-color: rgba(106, 156, 94, 0.7);
+}
+
+.post.is-quorum[data-estado="caducado"] {
+  opacity: 0.6;
+  border-left-color: #555;
+}
+
+.post.is-quorum[data-urgente="true"] {
+  border-left-color: rgba(201, 144, 74, 0.85);
+}
+
+/* ── Badge contextual ───────────────────────────────────────── */
+
+.quorum-badge {
+  font-size: 0.7em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15em 0.55em;
+  border-radius: 2px;
+  margin-left: 0.4em;
+}
+
+.quorum-badge.is-abierto {
+  background: rgba(106, 156, 94, 0.18);
+  color: #6a9c5e;
+  border: 1px solid rgba(106, 156, 94, 0.4);
+}
+
+.quorum-badge.is-urgente {
+  background: rgba(201, 144, 74, 0.18);
+  color: #c9904a;
+  border: 1px solid rgba(201, 144, 74, 0.4);
+}
+
+.quorum-badge.is-caducado {
+  background: rgba(120, 120, 120, 0.18);
+  color: #888;
+  border: 1px solid rgba(120, 120, 120, 0.35);
+}
+
+/* ── Texto principal ────────────────────────────────────────── */
+
+.quorum-title {
+  margin: 0.35rem 0 0.2rem;
+  font-size: 1.05em;
+  line-height: 1.3;
+  font-weight: 600;
+  color: #e8e8e8;
+}
+
+.quorum-desc {
+  margin: 0 0 0.5rem;
+  color: #c0c0c0;
+  font-size: 0.92em;
+  line-height: 1.45;
+}
+
+.quorum-meta {
+  margin: 0 0 0.65rem;
+  font-size: 0.8em;
+  color: #999;
+  letter-spacing: 0.01em;
+}
+
+/* ── Termómetro ─────────────────────────────────────────────── */
+
+.quorum-termometro {
+  margin: 0.5rem 0 0.55rem;
+}
+
+.termo-bar {
+  position: relative;
+  width: 100%;
+  height: 9px;
+  background: #1c1c1c;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.termo-fill {
+  height: 100%;
+  width: 0%;
+  background: #c9a86a;
+  border-radius: 5px;
+  /* La animación es la pieza con vida del termómetro: cuando alguien
+   * firma y el componente re-renderiza, la barra debe deslizarse, no
+   * saltar. 320ms es el punto dulce — visible sin demorar. */
+  transition: width 320ms ease, background-color 240ms ease;
+}
+
+/* Estado abierto → fill verde con check al final. El check se hace con
+ * un ::after sobre el contenedor para mantener el fill como ancho puro. */
+.post.is-quorum[data-estado="abierto"] .termo-fill {
+  background: #6a9c5e;
+}
+
+.post.is-quorum[data-estado="abierto"] .termo-bar::after {
+  content: "✓";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  line-height: 1;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Estado urgente (vigente + <48h) → ámbar para señalizar prisa sin
+ * alarma roja (el rojo es para errores, no para urgencia cívica). */
+.post.is-quorum[data-urgente="true"] .termo-fill {
+  background: #c9904a;
+}
+
+.termo-label {
+  margin-top: 0.35rem;
+  font-size: 0.78em;
+  color: #aaa;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* ── Mensaje humano ─────────────────────────────────────────── */
+
+.quorum-mensaje {
+  font-size: 0.85em;
+  color: #cccccc;
+  margin: 0.2rem 0 0.7rem;
+  line-height: 1.4;
+}
+
+.quorum-mensaje.is-faint {
+  color: #888;
+  font-style: italic;
+}
+
+/* ── Acciones ───────────────────────────────────────────────── */
+
+.post.is-quorum .post-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+}
+
+.post.is-quorum .post-actions button {
+  background: transparent;
+  border: 1px solid #444;
+  color: #ccc;
+  font-size: 0.85em;
+  padding: 0.4em 0.9em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  font-family: inherit;
+}
+
+.post.is-quorum .post-actions button:hover:not(:disabled) {
+  border-color: #888;
+  color: #fff;
+}
+
+/* Botón principal — el "firmar +" es la acción que importa: que destaque
+ * lo suficiente para que el ojo lo encuentre antes que "copiar enlace". */
+.post.is-quorum .post-actions button.primary {
+  background: #c9a86a;
+  border-color: #c9a86a;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.post.is-quorum .post-actions button.primary:hover {
+  background: #d8bc83;
+  border-color: #d8bc83;
+  color: #111;
+}
+
+/* Botón "ya firmado" / "alcanzado" — visible pero apagado. No es un
+ * fracaso, es un estado completado. */
+.post.is-quorum .post-actions button.is-done {
+  background: transparent;
+  border-color: rgba(106, 156, 94, 0.5);
+  color: #6a9c5e;
+  cursor: default;
+  opacity: 0.85;
+}
+
+.post.is-quorum .post-actions button:disabled {
+  cursor: default;
+}
+
+/* ── Responsivo ─────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .quorum-meta {
+    font-size: 0.75em;
+  }
+  .post.is-quorum .post-actions button {
+    /* En móvil el botón ocupa más superficie tactil pero los dos
+     * comparten fila — si hay un tercero envolvería. */
+    flex: 1 1 auto;
+    min-width: 7em;
+    padding: 0.55em 0.9em;
+  }
+}

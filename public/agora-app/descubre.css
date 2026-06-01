@@ -1,0 +1,199 @@
+/* agora-app/descubre.css — Descubre estilo TikTok (móvil-primero). */
+
+.descubre-overlay {
+  position: fixed; inset: 0; z-index: 1100;
+  background: #000;
+  display: flex; align-items: stretch; justify-content: center;
+}
+.descubre-overlay[hidden] { display: none; }
+
+/* Escenario tipo "pantalla de móvil": full-bleed en móvil, columna
+   centrada con marco en desktop. */
+.descubre-stage {
+  position: relative;
+  width: 100%; max-width: 460px;
+  background: #0c0c0c;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+@media (min-width: 480px) {
+  .descubre-stage { border-left: 1px solid #222; border-right: 1px solid #222; }
+}
+
+/* Topbar flotante translúcida sobre el contenido. */
+.descubre-topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.7rem 0.9rem;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+}
+.descubre-title { font-weight: 600; letter-spacing: 0.3px; color: #fff; }
+.descubre-top-actions { display: flex; align-items: center; gap: 0.6rem; }
+.descubre-intereses-btn {
+  background: rgba(255,255,255,0.1); border: none; color: #c9a86a;
+  width: 32px; height: 32px; border-radius: 50%; font-size: 1rem; cursor: pointer;
+}
+.descubre-intereses-btn:hover { background: rgba(201,168,106,0.25); }
+.descubre-toggle {
+  display: flex; align-items: center; gap: 0.3em;
+  font-size: 0.72em; color: #ccc; cursor: pointer; user-select: none;
+}
+.descubre-toggle input { accent-color: #c9a86a; }
+.descubre-close {
+  background: rgba(255,255,255,0.1); border: none; color: #fff;
+  width: 32px; height: 32px; border-radius: 50%; font-size: 1.3rem; line-height: 1; cursor: pointer;
+}
+.descubre-close:hover { background: rgba(255,255,255,0.22); }
+
+/* Contenido — ocupa toda la pantalla, contenido centrado vertical. */
+.descubre-content {
+  flex: 1 1 auto;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 4rem 5rem 5rem 1.4rem;   /* derecha ancho para el rail */
+  overflow-y: auto;
+}
+
+.descubre-card { display: flex; flex-direction: column; gap: 0.8rem; }
+.descubre-card-head {
+  display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78em;
+}
+.descubre-geo { color: #c9a86a; font-family: ui-monospace, Menlo, monospace; }
+.descubre-source { text-transform: uppercase; letter-spacing: 0.1em; color: #999; }
+.descubre-card-title { font-size: 1.3rem; font-weight: 600; color: #fff; line-height: 1.25; }
+.descubre-card-body {
+  font-size: 1.05rem; line-height: 1.6; color: #e2e2e2; white-space: pre-wrap;
+  max-height: 46vh; overflow-y: auto;
+}
+.descubre-hud { font-size: 0.85em; }
+.descubre-link { color: #c9a86a; font-size: 0.85em; text-decoration: none; margin-top: 0.3rem; }
+.descubre-link:hover { text-decoration: underline; }
+.descubre-vacio { color: #999; text-align: center; line-height: 1.6; margin: auto; }
+
+/* Rail lateral derecho — botones grandes apilados (TikTok). */
+.descubre-rail {
+  position: absolute; right: 0.5rem; bottom: 4.5rem; z-index: 3;
+  display: flex; flex-direction: column; gap: 1.1rem; align-items: center;
+}
+.descubre-rail[hidden] { display: none; }
+.rail-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 0.2em;
+  background: none; border: none; cursor: pointer; color: #fff;
+  font: inherit;
+}
+.rail-ico {
+  display: flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); font-size: 1.5rem;
+  transition: transform 120ms ease, background 120ms ease;
+}
+.rail-lbl { font-size: 0.7rem; color: #ccc; }
+.rail-btn:active .rail-ico { transform: scale(0.88); }
+.rail-si .rail-ico { color: #ff5a7a; }
+.rail-si:hover .rail-ico { background: rgba(255,90,122,0.25); }
+.rail-no:hover .rail-ico { background: rgba(255,255,255,0.22); }
+.rail-next .rail-ico { color: #c9a86a; }
+.rail-next:hover .rail-ico { background: rgba(201,168,106,0.25); }
+.rail-undo .rail-ico { font-size: 1.2rem; }
+.rail-undo[hidden] { display: none; }
+
+/* Aviso de aprendizaje — flotante sobre el contenido, abajo. */
+.descubre-aviso {
+  position: absolute; left: 1rem; right: 5rem; bottom: 1rem; z-index: 4;
+  padding: 0.55em 0.8em;
+  background: rgba(201,168,106,0.16);
+  border-left: 3px solid #c9a86a; border-radius: 0 6px 6px 0;
+  font-size: 0.82em; color: #f0e2c4;
+  backdrop-filter: blur(4px);
+}
+.descubre-aviso[hidden] { display: none; }
+
+.descubre-counter {
+  position: absolute; left: 1rem; bottom: 0.5rem; z-index: 3;
+  font-size: 0.7em; color: #777; font-family: ui-monospace, Menlo, monospace;
+}
+
+/* ── Onboarding de intereses ────────────────────────────────── */
+.onb { margin: auto; width: 100%; max-width: 380px; text-align: center; padding: 1rem 0; }
+.onb-title { font-size: 1.5rem; color: #fff; margin: 0 0 0.4rem; }
+.onb-sub { font-size: 0.9rem; color: #aaa; line-height: 1.5; margin: 0 0 1.4rem; }
+.onb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.onb-chip {
+  display: flex; flex-direction: column; align-items: center; gap: 0.3em;
+  padding: 1rem 0.5rem; border-radius: 12px;
+  background: #161616; border: 1.5px solid #2a2a2a;
+  cursor: pointer; transition: all 140ms ease;
+}
+.onb-chip input { display: none; }
+.onb-chip:hover { border-color: #555; }
+.onb-chip.is-on { border-color: #c9a86a; background: rgba(201,168,106,0.12); }
+.onb-emoji { font-size: 1.6rem; }
+.onb-label { font-size: 0.82rem; color: #ddd; }
+.onb-chip.is-on .onb-label { color: #f0e2c4; }
+.onb-start {
+  margin-top: 1.5rem; width: 100%;
+  background: #c9a86a; color: #0a0a0a; border: none; border-radius: 8px;
+  padding: 0.85em; font: inherit; font-size: 1rem; font-weight: 600; cursor: pointer;
+}
+.onb-start:hover { background: #d8bd83; }
+.onb-skip { margin-top: 0.8rem; font-size: 0.82rem; color: #888; cursor: pointer; text-decoration: underline; }
+.onb-skip:hover { color: #ccc; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rail-ico, .onb-chip { transition: none; }
+}
+
+/* ── v2 táctil: presets, leyenda, guardar, drag ─────────────── */
+
+/* Onboarding paso 1: elegir algoritmo */
+.onb-presets { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem; }
+.onb-preset {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.25em;
+  padding: 1.1rem 1.2rem; border-radius: 14px;
+  background: #161616; border: 1.5px solid #2a2a2a;
+  cursor: pointer; transition: all 140ms ease; text-align: left;
+}
+.onb-preset:hover { border-color: #c9a86a; background: rgba(201,168,106,0.08); }
+.onb-preset.is-on { border-color: #c9a86a; }
+.onb-preset-emoji { font-size: 1.8rem; }
+.onb-preset-label { font-size: 1.1rem; font-weight: 600; color: #fff; }
+.onb-preset-desc { font-size: 0.85rem; color: #aaa; }
+
+/* Rail: botón guardar y estado "armado" durante el drag */
+.rail-save .rail-ico { color: #c9a86a; }
+.rail-save:hover .rail-ico { background: rgba(201,168,106,0.25); }
+.rail-btn.is-armed .rail-ico {
+  background: #c9a86a; color: #0a0a0a;
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px rgba(201,168,106,0.35);
+}
+
+/* La tarjeta arrastrable */
+.descubre-card {
+  border-radius: 12px;
+  padding: 0.4rem;
+  touch-action: pan-y;
+  will-change: transform;
+  cursor: grab;
+}
+.descubre-card:active { cursor: grabbing; }
+
+/* Leyenda de gestos (primera vez) */
+.descubre-legend {
+  position: absolute; inset: 0; z-index: 6;
+  background: rgba(0,0,0,0.82);
+  display: flex; align-items: center; justify-content: center;
+}
+.descubre-legend[hidden] { display: none; }
+.legend-box {
+  background: #161616; border: 1px solid #333; border-radius: 14px;
+  padding: 1.6rem; width: 80%; max-width: 320px; text-align: center;
+}
+.legend-title { color: #c9a86a; font-weight: 600; margin-bottom: 1rem; }
+.legend-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem;
+  font-size: 0.92rem; color: #ddd; margin-bottom: 1.2rem;
+}
+.legend-box button {
+  background: #c9a86a; color: #0a0a0a; border: none; border-radius: 8px;
+  padding: 0.6em 1.4em; font: inherit; font-weight: 600; cursor: pointer;
+}

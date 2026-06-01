@@ -1,0 +1,254 @@
+/* biblioteca-app/quorums-lectura.css — Termómetro de Lectura Conjunta.
+ *
+ * Hermano contemplativo de agora-app/quorums.css. Misma estructura
+ * estructural, paleta distinta: azul-índigo en lugar de ocre. La razón
+ * es simbólica — el ocre evoca la tierra (Ágora, plaza, vecindario),
+ * el índigo evoca tinta y noche de lectura. Distinguir registros sin
+ * necesidad de leer la etiqueta.
+ *
+ * Diferencias funcionales con quorums.css:
+ *   - No hay clase/estado "urgente" → no se escala el ámbar. La lectura
+ *     no apremia; si el plazo se acerca, el termómetro lo dice pero
+ *     no cambia de color.
+ *   - Estado "leyendo" (nuevo) → badge verde con estrella ★. Es el
+ *     momento más vivo del ciclo: el círculo en marcha.
+ *   - Estado "caducado" → sin alarma. Sólo opacidad reducida y borde
+ *     gris. La lectura que no cuajó es información, no alarma.
+ *
+ * Paleta:
+ *   azul-índigo principal:  #6b7fb8
+ *   azul-índigo claro:      #8fa2d4   (hover)
+ *   azul-índigo oscuro:     #4a5d8e   (borde estado abierto)
+ *   verde leyendo:          #6a9c5e   (círculo activo — coincide con Ágora)
+ *   gris caducada:          #6a6a6a
+ *   fondo oscuro:           #1c1c1c
+ *
+ * Convive con style.css de biblioteca-app (de ahí heredan .post,
+ * .post-head, .post-actions, etc.). Aquí solo añadimos lo específico.
+ */
+
+/* ── Layout general ─────────────────────────────────────────── */
+
+.post.is-quorum-lectura {
+  /* Borde lateral azul-índigo. Más ancho que el de Ágora (3px vs 2px)
+   * para reforzar identidad — es un fork con su propia voz. */
+  border-left: 3px solid rgba(107, 127, 184, 0.55);
+  padding-left: 0.9rem;
+}
+
+.post.is-quorum-lectura[data-estado="abierto"] {
+  border-left-color: rgba(74, 93, 142, 0.85);
+}
+
+.post.is-quorum-lectura[data-estado="leyendo"] {
+  /* El estado activo merece presencia. Verde sutil pero firme. */
+  border-left-color: rgba(106, 156, 94, 0.8);
+}
+
+.post.is-quorum-lectura[data-estado="caducado"] {
+  /* Atenuada pero no oculta. Sin alarmismo: la lectura archivada
+   * sigue siendo información útil. */
+  opacity: 0.55;
+  border-left-color: #4a4a4a;
+}
+
+/* ── Badge contextual ───────────────────────────────────────── */
+
+.quorum-l-badge {
+  font-size: 0.7em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15em 0.55em;
+  border-radius: 2px;
+  margin-left: 0.4em;
+}
+
+.quorum-l-badge.is-leyendo {
+  /* Estado más vital: círculo en marcha. Verde con estrella. */
+  background: rgba(106, 156, 94, 0.2);
+  color: #82b274;
+  border: 1px solid rgba(106, 156, 94, 0.45);
+}
+
+.quorum-l-badge.is-abierto {
+  background: rgba(107, 127, 184, 0.18);
+  color: #8fa2d4;
+  border: 1px solid rgba(107, 127, 184, 0.4);
+}
+
+.quorum-l-badge.is-caducado {
+  /* Sin ámbar, sin urgencia — sólo gris discreto. La lectura archivada
+   * NO alarma, solo informa. */
+  background: rgba(120, 120, 120, 0.15);
+  color: #888;
+  border: 1px solid rgba(120, 120, 120, 0.3);
+}
+
+/* ── Texto principal ────────────────────────────────────────── */
+
+.quorum-l-title {
+  margin: 0.4rem 0 0.2rem;
+  font-size: 1.05em;
+  line-height: 1.32;
+  font-weight: 600;
+  color: #e8e8e8;
+  /* Itálica sutil para reforzar que es título de obra/lectura, no
+   * convocatoria cívica. Es un guiño tipográfico, no obligatorio. */
+  font-style: italic;
+}
+
+.quorum-l-desc {
+  margin: 0 0 0.5rem;
+  color: #c0c0c0;
+  font-size: 0.92em;
+  line-height: 1.5;   /* algo más alto que Ágora — lectura quiere aire */
+}
+
+.quorum-l-meta {
+  margin: 0 0 0.7rem;
+  font-size: 0.8em;
+  color: #999;
+  letter-spacing: 0.01em;
+}
+
+/* ── Termómetro ─────────────────────────────────────────────── */
+
+.quorum-l-termometro {
+  margin: 0.5rem 0 0.6rem;
+}
+
+.termo-l-bar {
+  position: relative;
+  width: 100%;
+  height: 9px;
+  background: #1c1c1c;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.termo-l-fill {
+  height: 100%;
+  width: 0%;
+  background: #6b7fb8;   /* azul-índigo principal */
+  border-radius: 5px;
+  /* Animación algo más lenta que Ágora (380ms vs 320ms): la lectura
+   * tiene ritmo más pausado, incluso en su retroalimentación visual. */
+  transition: width 380ms ease, background-color 280ms ease;
+}
+
+/* Estado abierto → fill en índigo más saturado, check al final. */
+.post.is-quorum-lectura[data-estado="abierto"] .termo-l-fill {
+  background: #4a5d8e;
+}
+
+.post.is-quorum-lectura[data-estado="abierto"] .termo-l-bar::after,
+.post.is-quorum-lectura[data-estado="leyendo"] .termo-l-bar::after {
+  content: "✓";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  line-height: 1;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Estado leyendo → fill verde, círculo en marcha. */
+.post.is-quorum-lectura[data-estado="leyendo"] .termo-l-fill {
+  background: #6a9c5e;
+}
+
+/* No hay regla para "urgente" — deliberadamente. Ver cabecera. */
+
+.termo-l-label {
+  margin-top: 0.35rem;
+  font-size: 0.78em;
+  color: #aaa;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* ── Mensaje humano ─────────────────────────────────────────── */
+
+.quorum-l-mensaje {
+  font-size: 0.86em;
+  color: #cccccc;
+  margin: 0.25rem 0 0.75rem;
+  line-height: 1.45;
+}
+
+.quorum-l-mensaje.is-faint {
+  color: #888;
+  font-style: italic;
+}
+
+/* ── Acciones ───────────────────────────────────────────────── */
+
+.post.is-quorum-lectura .post-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.45rem;
+}
+
+.post.is-quorum-lectura .post-actions button {
+  background: transparent;
+  border: 1px solid #444;
+  color: #ccc;
+  font-size: 0.85em;
+  padding: 0.4em 0.95em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  font-family: inherit;
+}
+
+.post.is-quorum-lectura .post-actions button:hover:not(:disabled) {
+  border-color: #8fa2d4;
+  color: #fff;
+}
+
+/* Botón principal "me sumo" — índigo en lugar de ocre. */
+.post.is-quorum-lectura .post-actions button.primary {
+  background: #6b7fb8;
+  border-color: #6b7fb8;
+  color: #131520;
+  font-weight: 600;
+}
+
+.post.is-quorum-lectura .post-actions button.primary:hover {
+  background: #8fa2d4;
+  border-color: #8fa2d4;
+  color: #0e1018;
+}
+
+/* Botón "ya te sumaste" / "alcanzado" / "leyendo" — verde apagado. */
+.post.is-quorum-lectura .post-actions button.is-done {
+  background: transparent;
+  border-color: rgba(106, 156, 94, 0.5);
+  color: #82b274;
+  cursor: default;
+  opacity: 0.85;
+}
+
+.post.is-quorum-lectura .post-actions button:disabled {
+  cursor: default;
+}
+
+/* ── Responsivo ─────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .quorum-l-meta {
+    font-size: 0.75em;
+  }
+  .quorum-l-title {
+    font-size: 1em;
+  }
+  .post.is-quorum-lectura .post-actions button {
+    flex: 1 1 auto;
+    min-width: 7em;
+    padding: 0.55em 0.9em;
+  }
+}

@@ -1,0 +1,144 @@
+/* biblioteca-app/sillas-conocimiento.css — Cards "silla del conocimiento".
+ *
+ * Equivalente visual a agora-app/sillas.css pero adaptado al registro
+ * formativo. Filosofía:
+ *   - Borde izquierdo punteado fino (1px dashed #c9a86a) → mismo gesto
+ *     que las sillas cívicas: "esperando que alguien se siente".
+ *   - Opacidad 0.9 → ligero apagado, lectura contemplativa, no urgencia.
+ *   - Cuerpo en serif para contrastar con el sans del feed: invita a
+ *     leer despacio. Si la app ya está en serif, cambiar a otra familia
+ *     no rompe nada (cae al sistema).
+ *   - silla_epigrafe → tinte CIAN sutil: lo canónico-pendiente
+ *     (recuerda al azul de los pupitres escolares, lo institucional).
+ *   - silla_fuente   → tinte OCRE sutil: lo crítico-pendiente
+ *     (mismo registro cromático que las sillas de Ágora, para
+ *     mantener coherencia entre apps hermanas).
+ *
+ * Este fichero NO redefine tokens; asume que style.css de biblioteca-app
+ * está cargado antes. Si una variable no existe, los fallbacks hex
+ * cubren la visualización.
+ */
+
+/* ─────────── Card base (ambos kinds) ─────────── */
+.post.is-silla-conocimiento {
+  opacity: 0.9;
+  border-left: 1px dashed #c9a86a;
+  padding-left: calc(1rem - 1px);
+  transition: opacity 0.18s, border-left-color 0.18s, background 0.18s;
+}
+.post.is-silla-conocimiento:hover {
+  opacity: 1;
+}
+
+/* Body en serif para diferenciar lectura formativa. Si la app ya va en
+   serif esto resulta neutro; si va en sans crea el contraste deseado. */
+.post-body.is-silla-conocimiento-body {
+  font-family: Georgia, "Iowan Old Style", "Source Serif Pro", "Times New Roman", serif;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  white-space: pre-wrap;   /* respetar los \n del body construido en JS */
+}
+
+/* Label de source — pequeño, monoespaciado, registro de "etiqueta de archivo". */
+.post-source.is-silla-conocimiento-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  padding: 0.18em 0.5em;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  background: transparent;
+}
+
+/* ─────────── Variante: silla_epigrafe (canónico-pendiente) ───────── */
+.post.is-silla-conocimiento.is-silla-epigrafe {
+  border-left-color: #4a9aa8;            /* cian apagado */
+  background: rgba(74, 154, 168, 0.025); /* tinte cian ínfimo */
+}
+.post.is-silla-conocimiento.is-silla-epigrafe:hover {
+  background: rgba(74, 154, 168, 0.06);
+  border-left-color: #4a9aa8;
+}
+.is-silla-epigrafe .post-source.is-silla-conocimiento-label {
+  color: #4a9aa8;
+}
+
+/* ─────────── Variante: silla_fuente (crítico-pendiente) ──────────── */
+.post.is-silla-conocimiento.is-silla-fuente {
+  border-left-color: #c9a86a;              /* ocre */
+  background: rgba(201, 168, 106, 0.03);   /* tinte ocre muy leve */
+}
+.post.is-silla-conocimiento.is-silla-fuente:hover {
+  background: rgba(201, 168, 106, 0.07);
+  border-left-color: #c9a86a;
+}
+.is-silla-fuente .post-source.is-silla-conocimiento-label {
+  color: #c9a86a;
+}
+
+/* Chip de corriente (republicanismo/marxismo/...) — sólo en silla_fuente. */
+.silla-corriente-chip {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: #c9a86a;
+  background: rgba(201, 168, 106, 0.08);
+  border: 1px solid rgba(201, 168, 106, 0.35);
+  border-radius: 2px;
+  padding: 0.12em 0.55em;
+  margin-bottom: 0.55rem;
+  text-transform: lowercase;
+}
+
+/* En silla_fuente el autor (post-meta-izq) en cursiva — convención
+   bibliográfica: nombre del autor destacado, sin gritar. */
+.is-silla-fuente .post-meta-izq {
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* En silla_epigrafe el meta-izq monoespaciado con tema/epígrafe. */
+.is-silla-epigrafe .post-meta-izq {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  color: #4a9aa8;
+  letter-spacing: 0.02em;
+}
+
+/* ─────────── Acciones text-only "empezar →" / "sintetizar con →" ──── */
+.post-actions.is-silla-conocimiento-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  padding-top: 0.4rem;
+  border-top: 1px dotted rgba(201, 168, 106, 0.2);
+}
+.act-silla-empezar,
+.act-silla-sintetizar {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  padding: 0.35em 0.85em;
+  border: 1px solid transparent;   /* sólo texto, sin marco */
+  border-radius: 2px;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.act-silla-empezar:hover {
+  color: #4a9aa8;
+  border-color: rgba(74, 154, 168, 0.4);
+  background: rgba(74, 154, 168, 0.06);
+}
+.act-silla-sintetizar:hover {
+  color: #c9a86a;
+  border-color: rgba(201, 168, 106, 0.45);
+  background: rgba(201, 168, 106, 0.07);
+}
+.act-silla-empezar:focus-visible,
+.act-silla-sintetizar:focus-visible {
+  outline: 2px solid #c9a86a;
+  outline-offset: 2px;
+}

@@ -1,0 +1,996 @@
+/* biblioteca-app/style.css
+   Paleta oscura, sobria. Ocre canario como único acento.
+   Layout 3 columnas (sliders | feed | misiones) — desktop primero,
+   colapsa en móvil a una sola columna con paneles plegables. */
+
+:root {
+  /* Skin ÍNDIGO (2026-05-29) — hermana de POLIS y Ágora: mismo shell OCRE,
+     dominante índigo profundo, acento oro PHAROS conservado. */
+  --bg:           #0e1320;   /* índigo muy oscuro */
+  --bg-panel:    #15192a;
+  --bg-card:     #1a2030;
+  --bg-card-hi:  #232a3a;
+  --line:        #2a3242;
+  --line-soft:   #1d2230;
+  --text:        #e7ece0;    /* parchemino pálido */
+  --text-dim:    #a3aab8;
+  --text-faint:  #586173;
+  --ocre:        #c9a86a;    /* acento cálido (oro PHAROS, igual que POLIS) */
+  --ocre-soft:   #6e5a36;
+  --ok:          #5ea674;
+  --warn:        #c89a4a;
+  --danger:      #b6533a;
+
+  /* Vars del shell OCRE (header + tira), portado de POLIS. */
+  --paper-app:   #1a2330;    /* papel del chrome (header + tira) */
+  --indigo:      #7a95c8;    /* acento índigo (identidad biblioteca) */
+  --indigo-dim:  #486796;
+  --oro:         #d4af37;    /* membrete brand (oro PHAROS) */
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+  min-height: 100vh;
+}
+
+a { color: var(--ocre); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.4em 0.8em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+button:hover { border-color: var(--ocre); }
+button.primary {
+  background: var(--ocre);
+  color: #1a1410;
+  border-color: var(--ocre);
+  font-weight: 500;
+}
+button.primary:hover { background: #d6b574; border-color: #d6b574; }
+button.ghost { border-color: var(--line-soft); color: var(--text-dim); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+input, textarea, select {
+  font: inherit;
+  color: inherit;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 0.5em 0.7em;
+  border-radius: 3px;
+  width: 100%;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--ocre);
+}
+textarea { resize: vertical; min-height: 5em; }
+
+/* ─────────────────── LAYOUT ─────────────────── */
+
+header.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7em 1.2em;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 10;
+}
+header.topbar h1 {
+  margin: 0;
+  font-size: 1.05em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ocre);
+  text-transform: uppercase;
+}
+header.topbar .topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.85em;
+  color: var(--text-dim);
+}
+header.topbar .uid {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--text-faint);
+}
+
+main.app {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 0;
+  min-height: calc(100vh - 50px);
+}
+
+aside.col {
+  background: var(--bg-panel);
+  border-right: 1px solid var(--line);
+  padding: 1.2em 1em;
+  overflow-y: auto;
+}
+aside.col.right {
+  border-right: none;
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+section.feed {
+  padding: 1.4em 1.6em;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+@media (max-width: 1000px) {
+  main.app { grid-template-columns: 1fr; }
+  aside.col {
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid var(--line);
+  }
+  aside.col.right {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* ─────────────────── SLIDERS ─────────────────── */
+
+.sliders-title {
+  font-size: 0.75em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 1.2em;
+}
+
+.slider-block {
+  margin-bottom: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.slider-block .polo {
+  font-size: 0.78em;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.03em;
+  width: 100%;
+}
+.slider-block .polo.top    { margin-bottom: 0.4em; color: var(--text); }
+.slider-block .polo.bottom { margin-top: 0.4em;    color: var(--text); }
+
+/* Slider vertical — usamos input[range] horizontal y rotamos 90deg via
+   appearance + writing-mode (mejor soporte que rotate transform). */
+.slider-block input[type=range] {
+  -webkit-appearance: slider-vertical;
+  appearance: slider-vertical;
+  writing-mode: vertical-lr;
+  direction: rtl;            /* positivo arriba */
+  width: 28px;
+  height: 130px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.slider-block .valor {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--text-faint);
+  margin-top: 0.2em;
+}
+
+/* ─────────────────── FEED ─────────────────── */
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.2em;
+}
+.feed-header h2 {
+  margin: 0;
+  font-size: 0.85em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.feed-header .feed-stats {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--text-faint);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--ocre-soft);
+  border-radius: 3px;
+  padding: 1em 1.2em;
+  margin-bottom: 0.9em;
+  transition: background 0.15s;
+}
+.card:hover { background: var(--bg-card-hi); }
+.card.is-mision { border-left-color: var(--ocre); border-left-width: 5px; }
+
+.card .card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5em;
+  gap: 0.6em;
+}
+.card .card-id {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--ocre);
+  letter-spacing: 0.04em;
+}
+.card .card-score {
+  font-family: var(--font-mono);
+  font-size: 0.72em;
+  color: var(--text-faint);
+}
+.card .card-body {
+  font-size: 0.92em;
+  color: var(--text);
+  line-height: 1.55;
+}
+.card .card-body p { margin: 0.4em 0; }
+.card .card-body strong { color: var(--ocre); font-weight: 600; }
+.card .card-body a { color: var(--ocre); }
+.card .card-toggle {
+  margin-top: 0.5em;
+  font-size: 0.75em;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+}
+.card .card-toggle:hover { color: var(--ocre); }
+.card.collapsed .card-body { max-height: 5.6em; overflow: hidden; position: relative; }
+.card.collapsed .card-body::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2em;
+  background: linear-gradient(transparent, var(--bg-card));
+  pointer-events: none;
+}
+
+.feed-pager {
+  display: flex;
+  justify-content: center;
+  margin: 1.6em 0 2em;
+}
+
+.feed-empty {
+  color: var(--text-dim);
+  font-style: italic;
+  text-align: center;
+  padding: 3em 1em;
+}
+
+/* ─────────────────── MISIONES ─────────────────── */
+
+.misiones-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.misiones-head h2 {
+  margin: 0;
+  font-size: 0.85em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.mision-list {
+  flex: 1;
+  overflow-y: auto;
+}
+.mision-list:empty::before {
+  content: "Sin misiones abiertas.";
+  color: var(--text-faint);
+  font-style: italic;
+  font-size: 0.85em;
+}
+.mision-item {
+  background: var(--bg-card);
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--ocre);
+  border-radius: 3px;
+  padding: 0.7em 0.8em;
+  margin-bottom: 0.6em;
+}
+.mision-item .mision-title {
+  font-size: 0.9em;
+  color: var(--text);
+  margin-bottom: 0.3em;
+  line-height: 1.3;
+}
+.mision-item .mision-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  color: var(--text-faint);
+  margin-bottom: 0.4em;
+}
+.mision-item .mision-actions {
+  display: flex;
+  gap: 0.4em;
+  margin-top: 0.3em;
+}
+.mision-item button {
+  font-size: 0.75em;
+  padding: 0.25em 0.6em;
+}
+
+.sintesis-cta {
+  margin: 1em 0 0.6em;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1em;
+}
+.sintesis-cta button {
+  width: 100%;
+  font-size: 0.85em;
+  color: var(--ocre);
+  border-color: var(--ocre-soft);
+}
+
+/* ─────────────────── HONESTY METER ─────────────────── */
+
+.honesty {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.honesty .honesty-label {
+  font-size: 0.7em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.4em;
+}
+.honesty .honesty-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.85em;
+}
+.honesty .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  flex-shrink: 0;
+}
+.honesty.verde .dot { background: var(--ok); }
+.honesty.ambar .dot { background: var(--warn); }
+.honesty .honesty-text {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  color: var(--text-dim);
+}
+.honesty .honesty-hint {
+  font-size: 0.72em;
+  color: var(--text-faint);
+  margin-top: 0.3em;
+  font-style: italic;
+}
+
+/* ─────────────────── MODAL ─────────────────── */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1em;
+}
+.modal-backdrop[hidden] { display: none; }
+.modal {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.4em 1.6em;
+}
+.modal h3 {
+  margin: 0 0 0.6em;
+  font-size: 1em;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--ocre);
+}
+.modal .modal-intro {
+  font-size: 0.9em;
+  color: var(--text-dim);
+  margin-bottom: 1em;
+  line-height: 1.55;
+}
+.modal .field {
+  margin-bottom: 0.9em;
+}
+.modal .field label {
+  display: block;
+  font-size: 0.78em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3em;
+}
+.modal .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6em;
+  margin-top: 1em;
+}
+.modal .modal-error {
+  color: var(--danger);
+  font-size: 0.85em;
+  margin-top: 0.5em;
+}
+.modal .modal-ok {
+  color: var(--ok);
+  font-size: 0.85em;
+  margin-top: 0.5em;
+}
+
+/* Síntesis: listado de fuentes */
+.fuentes-list { margin-top: 0.4em; }
+.fuente-row {
+  display: grid;
+  grid-template-columns: 1fr 110px 28px;
+  gap: 0.4em;
+  margin-bottom: 0.4em;
+  align-items: center;
+}
+.fuente-row select, .fuente-row input { padding: 0.35em 0.5em; font-size: 0.85em; }
+.fuente-row button {
+  padding: 0.15em 0.4em;
+  border-color: var(--line-soft);
+  color: var(--text-faint);
+}
+.fuente-row button:hover { color: var(--danger); border-color: var(--danger); }
+.fuentes-add {
+  font-size: 0.8em;
+  color: var(--ocre);
+  margin-top: 0.3em;
+  display: flex;
+  gap: 0.5em;
+}
+.fuentes-add button { font-size: 0.8em; padding: 0.25em 0.7em; }
+.fuentes-hint {
+  font-size: 0.75em;
+  color: var(--text-faint);
+  font-style: italic;
+  margin-top: 0.3em;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   EXTENSIONES v20260527d — masa crítica Biblioteca
+   ══════════════════════════════════════════════════════════════════════ */
+
+.biblio-actions { margin-top: 0.6rem; }
+.btn-ghost-wide {
+  display: block; width: 100%;
+  background: transparent; color: var(--text);
+  border: 1px solid var(--line-soft, #222);
+  border-radius: 4px;
+  padding: 0.5em 0.8em; margin-bottom: 0.4rem;
+  font: inherit; font-size: 0.85em; text-align: left;
+  cursor: pointer; transition: all 150ms ease;
+}
+.btn-ghost-wide:hover {
+  border-color: var(--ocre);
+  color: var(--ocre);
+  background: rgba(201,168,106,0.04);
+}
+
+.feed-empty {
+  background: var(--surface, #141414);
+  border: 1px dashed var(--line-soft, #222);
+  border-radius: 6px;
+  padding: 1.4rem 1.2rem;
+  margin: 0.4rem 0;
+  color: var(--text);
+  font-size: 0.92em;
+}
+.feed-empty h3 {
+  font-size: 1em; font-weight: 500;
+  color: var(--ocre); margin: 0 0 0.6em 0;
+}
+.feed-empty p { margin: 0 0 0.6em 0; color: var(--text-faint, #888); }
+.feed-empty .empty-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem; }
+.feed-empty .empty-actions button {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--ocre); border-radius: 4px;
+  padding: 0.4em 0.8em; font: inherit; font-size: 0.85em;
+  cursor: pointer;
+}
+.feed-empty .empty-actions button:hover {
+  background: var(--ocre); color: var(--bg);
+}
+.feed-empty .empty-stat { font-size: 0.8em; color: var(--text-faint, #888); margin-top: 0.4em; font-style: italic; }
+
+.tokens-block {
+  margin-top: 0.8rem;
+  font-size: 0.85em;
+  color: var(--text);
+  border-top: 1px solid var(--line-soft, #222);
+  padding-top: 0.6rem;
+}
+.tokens-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem; }
+.tokens-saldo {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 1.4em; color: var(--ocre);
+}
+.tokens-hint { color: var(--text-faint, #888); font-size: 0.82em; margin: 0.2rem 0 0.5rem 0; }
+.btn-token-emit {
+  background: var(--ocre); color: var(--bg);
+  border: none; border-radius: 4px;
+  padding: 0.4em 0.9em; font: inherit; font-size: 0.85em;
+  cursor: pointer; font-weight: 500;
+}
+.btn-token-emit:hover { opacity: 0.85; }
+.tokens-emitidos {
+  list-style: none; padding: 0; margin: 0.5rem 0 0 0;
+  font-size: 0.75em; color: var(--text-faint, #888);
+  font-family: ui-monospace, Menlo, monospace;
+}
+.tokens-emitidos li { padding: 0.15em 0; }
+
+/* Barra superior compartida (shared/navbar.css, 40px fija). */
+.kn-has-navbar header.topbar { position: sticky; top: 40px; z-index: 20; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SHELL OCRE ▾ — portado de POLIS (mismo idioma que polis-app / agora-app).
+   Skin índigo: papel oscuro / tinta clara / acento índigo + oro brand.
+   ══════════════════════════════════════════════════════════════════════ */
+.biblio-topshell { position: sticky; top: 0; z-index: 20; }
+
+.app-topbar {
+  position: relative;
+  min-height: 56px;
+  background: var(--paper-app);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 10px; gap: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.app-topbar-left, .app-topbar-right {
+  display: flex; align-items: center; gap: 6px; height: 56px;
+}
+
+.app-topbar-brand {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; user-select: none;
+  font-family: var(--font-serif);
+  font-size: 20px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--text);
+}
+.app-topbar-brand .brand-icon {
+  display: inline-block; width: 18px; height: 22px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 22'><path fill='%23d4af37' d='M6 1 h6 v3 h-1 v3 l1.2 1.2 v2 l-1 0.8 v6 l1.5 1.3 v3.7 h-9 v-3.7 l1.5-1.3 v-6 l-1-0.8 v-2 l1.2-1.2 v-3 h-1z'/></svg>");
+  background-size: contain; background-repeat: no-repeat; background-position: center;
+}
+.app-topbar-brand .brand-text { color: var(--oro); }
+.app-topbar-brand .brand-caret {
+  font-size: 11px; opacity: 0.6; margin-left: 2px;
+  font-family: var(--font-mono); color: var(--text-dim);
+}
+
+/* [2026-05-31] Toggle segmentado idéntico a POLIS (adaptado a skin índigo):
+   píldora centrada, 3 segmentos icono+label, activo relleno con su color de
+   sección. Mismos colores de identidad que POLIS (azul/rojo/verde). */
+.app-pillars {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 2px;
+  z-index: 15;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 3px;
+}
+.app-pillars .pillar {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-serif);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.app-pillars .pillar-ico { display: inline-flex; line-height: 0; }
+.app-pillars .pillar-polis      .pillar-ico { color: #2f6fb3; }
+.app-pillars .pillar-agora      .pillar-ico { color: #c95252; }
+.app-pillars .pillar-biblioteca .pillar-ico { color: #5ea674; }
+.app-pillars .pillar:hover { color: var(--text); background: rgba(255, 255, 255, 0.08); }
+.app-pillars .pillar.is-active { color: #fff; }
+.app-pillars .pillar.is-active .pillar-ico { color: #fff; }
+.app-pillars .pillar-polis.is-active      { background: #2f6fb3; }
+.app-pillars .pillar-agora.is-active      { background: #c95252; }
+.app-pillars .pillar-biblioteca.is-active { background: #5ea674; }
+@media (max-width: 640px) {
+  .app-pillars .pillar-label { display: none; }
+  .app-pillars .pillar { padding: 6px 9px; }
+}
+
+/* [2026-05-31] Avatar del cursus honorum: círculo flotante abajo a la
+   derecha con "?" (idéntico a POLIS y ÁGORA). Relleno oro PHAROS sobre el
+   skin índigo oscuro. El botón "+ Misión" del topbar se conserva. */
+.app-avatar-fab {
+  position: fixed;
+  right: 16px; bottom: 24px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  appearance: none; border: none;
+  background: var(--oro);
+  color: #15192a;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  z-index: 60;
+  transition: transform 0.15s;
+}
+.app-avatar-fab:hover { transform: scale(1.05); }
+.app-avatar-fab:active { transform: scale(0.97); }
+.app-avatar-fab .ava-badge {
+  position: absolute;
+  top: -2px; right: -2px;
+  min-width: 20px; height: 20px;
+  box-sizing: border-box;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--indigo, #7a95c8);
+  color: #fff;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px; font-weight: 700;
+  line-height: 20px; text-align: center;
+  border: 2px solid var(--paper-app);
+}
+.app-avatar-fab[data-registered="true"] .ava-badge { display: none; }
+
+.app-topbar-iconbtn {
+  appearance: none; background: transparent; border: none;
+  width: 36px; height: 36px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-dim); border-radius: 6px;
+  font-size: 1rem; line-height: 1;
+  transition: background 0.12s, color 0.12s;
+}
+.app-topbar-iconbtn:hover { background: var(--bg-card-hi); color: var(--indigo); }
+
+.app-topbar-enter {
+  font-family: var(--font-serif); font-size: 14px; color: var(--text);
+  background: transparent; border: 1px solid var(--indigo-dim); border-radius: 6px;
+  padding: 5px 12px; cursor: pointer; letter-spacing: 0.01em;
+}
+.app-topbar-enter:hover { border-color: var(--indigo); color: var(--indigo); }
+.app-topbar-enter.primary {
+  background: var(--indigo); color: var(--bg); border-color: var(--indigo); font-weight: 600;
+}
+.app-topbar-enter.primary:hover { background: var(--indigo-dim); border-color: var(--indigo-dim); }
+
+/* Dropdown de vistas (POLIS / ÁGORA / BIBLIOTHEKA). */
+.app-topbar-menu {
+  position: fixed; top: 58px; left: 12px; min-width: 240px;
+  background: var(--paper-app); border: 1px solid var(--line);
+  border-radius: 10px; padding: 6px;
+  display: none; flex-direction: column; gap: 2px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  z-index: 21;
+}
+.app-topbar-menu.open { display: flex; }
+.atm-item {
+  appearance: none; background: transparent; border: none;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 6px; cursor: pointer;
+  font-family: inherit; text-align: left; text-decoration: none;
+  color: var(--text);
+}
+.atm-item:hover { background: var(--bg-card-hi); }
+.atm-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--indigo); flex-shrink: 0; }
+.atm-text { display: flex; flex-direction: column; gap: 1px; }
+.atm-name { font-family: var(--font-serif); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; }
+.atm-desc { font-family: var(--font-serif); font-size: 11px; opacity: 0.7; }
+.atm-active .atm-name { color: var(--indigo); }
+
+/* Tira "multitouch": touchbar v2 — 5 niveles de compromiso.
+   Banda continua con el header. En móvil scroll horizontal si no
+   caben los 5 chips a la vez (overflow-x: auto). */
+.biblio-strip {
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  min-height: 36px; padding: 4px 8px;
+  background: var(--paper-app);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;             /* Firefox */
+}
+.biblio-strip::-webkit-scrollbar { display: none; } /* WebKit */
+
+/* Chip individual de la touchbar. Tres estados: normal, .is-active
+   (lente seleccionada — invierte papel/tinta para máximo contraste,
+   acento oro PHAROS en el borde para coherencia con el brand) e
+   .is-soon (lente sin seed todavía — opacidad reducida + sufijo ⋯
+   para señalar "próximamente" sin esconder el chip). */
+.biblio-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 3px;
+  white-space: nowrap;
+  transition: background 120ms, border-color 120ms, color 120ms, opacity 120ms;
+}
+.biblio-chip:hover {
+  background: var(--bg-card);
+  color: var(--text);
+  border-color: var(--line-soft);
+}
+.biblio-chip.is-active {
+  background: var(--bg-card-hi);
+  color: var(--text);
+  border-color: var(--oro);
+}
+.biblio-chip.is-soon {
+  opacity: 0.55;
+}
+.biblio-chip.is-soon::after {
+  content: "⋯";
+  margin-left: 2px;
+  opacity: 0.6;
+}
+.biblio-chip-glifo {
+  font-size: 14px;
+  line-height: 1;
+  color: var(--oro);
+}
+.biblio-chip.is-soon .biblio-chip-glifo {
+  color: var(--text-faint);
+}
+.biblio-chip-label {
+  font-weight: 500;
+}
+
+/* Empty-state cuando la lente activa está en modo "próximamente".
+   Centrado, con glifo grande y CTA explícito a volver a Epígrafes
+   (la única lente con contenido hoy) para no dejar al usuario en
+   callejón sin salida. */
+.lens-soon {
+  text-align: center;
+  padding: 48px 24px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.lens-soon-glifo {
+  font-size: 56px;
+  line-height: 1;
+  color: var(--text-faint);
+  margin-bottom: 14px;
+  user-select: none;
+}
+.lens-soon-title {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0 0 14px;
+  letter-spacing: 0.02em;
+}
+.lens-soon-copy {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 0 0 22px;
+}
+.lens-soon-cta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 120ms, color 120ms, border-color 120ms;
+}
+.lens-soon-cta:hover {
+  background: var(--bg-card);
+  color: var(--text);
+  border-color: var(--oro);
+}
+
+/* ─────────── Card: Píldora (cita corta atribuida) ───────────
+   Formato sobrio tipo blockquote académica con cita grande
+   centrada en serif, comilla decorativa oro, y bloque de meta
+   (autor, fuente, verificación) abajo en mono pequeño. */
+.card-pildora {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--oro);
+  padding: 22px 26px 18px;
+  margin-bottom: 16px;
+  border-radius: 3px;
+}
+.pildora-quote-mark {
+  position: absolute;
+  top: 6px;
+  left: 14px;
+  font-family: Georgia, serif;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--oro);
+  opacity: 0.4;
+  user-select: none;
+}
+.pildora-texto {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text);
+  margin: 0 0 16px;
+  font-style: italic;
+  padding-left: 18px;
+}
+.pildora-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+}
+.pildora-autor strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.pildora-autor-breve {
+  color: var(--text-faint);
+  font-style: italic;
+}
+.pildora-fuente {
+  color: var(--text-faint);
+  font-size: 10.5px;
+}
+.pildora-verif {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 6px;
+  background: var(--warn);
+  color: var(--bg);
+  border-radius: 2px;
+  font-size: 9.5px;
+  font-weight: 600;
+  cursor: help;
+}
+.pildora-score {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+/* ─────────── Card: Hilo (desarrollo de 1-3 párrafos) ───────────
+   Card expandible — colapsada muestra título + meta + preview del
+   primer párrafo; al expandir muestra todos los párrafos + fuente
+   principal + lecturas complementarias. */
+.card-hilo {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--indigo);
+  padding: 18px 22px;
+  margin-bottom: 16px;
+  border-radius: 3px;
+}
+.hilo-head {
+  margin-bottom: 12px;
+}
+.hilo-titulo {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 6px;
+  line-height: 1.35;
+}
+.hilo-meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-faint);
+}
+.hilo-autor { color: var(--indigo); }
+.hilo-score { color: var(--text-faint); }
+.hilo-body {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--text);
+}
+.hilo-preview {
+  margin: 0;
+  color: var(--text-dim);
+}
+.hilo-parrafo {
+  margin: 0 0 12px;
+}
+.hilo-parrafo:last-child {
+  margin-bottom: 0;
+}
+.hilo-fuente-principal,
+.hilo-complementarias {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line-soft);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.hilo-fuente-label,
+.hilo-complementarias-label {
+  color: var(--text-faint);
+  margin-right: 6px;
+}
+.hilo-complementarias ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+}
+.hilo-complementarias li {
+  margin-bottom: 3px;
+}
+.hilo-toggle {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--indigo);
+  cursor: pointer;
+  user-select: none;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+}
+.hilo-toggle:hover {
+  color: var(--oro);
+}

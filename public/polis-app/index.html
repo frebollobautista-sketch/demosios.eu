@@ -724,12 +724,14 @@
   </div>
 
   <!-- Base de assets pesados (sections_pack / osm-gc / osm-prov38).
-       En local → '' (rutas relativas a public/). En prod → bucket R2.
-       Public Development URL del bucket demosios-packs (r2.dev). -->
+       En local → '' (rutas relativas a public/). En prod → bucket R2
+       servido por Custom Domain de Cloudflare (sin rate-limit, con caché).
+       Antes usaba la Public Development URL (r2.dev), que limitaba por tasa
+       (503 bajo la carga del juego). -->
   <script>
     window.__ASSETS_BASE = (location.hostname === 'localhost' ||
       location.hostname === '127.0.0.1') ? '' :
-      'https://pub-0c67711c0e0e4675b73de73f0e49a32c.r2.dev';
+      'https://packs.demosios.eu';
   </script>
   <script type="module" src="./app.js?v=20260531-declustermerge"></script>
 </body>

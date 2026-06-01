@@ -138,7 +138,7 @@ export default function PolisPage() {
           }}
         >
           <a
-            href="/polis-app/index.html"
+            href="/polis-app/index.html?v=20260601-r2"
             target="_blank"
             rel="noopener noreferrer"
             className="eyebrow"
@@ -151,7 +151,7 @@ export default function PolisPage() {
 
       {/* ── Map iframe ── */}
       <iframe
-        src="/polis-app/index.html"
+        src="/polis-app/index.html?v=20260601-r2"
         title="Mapa KOINOS POLIS — Provincia de Las Palmas"
         className="absolute inset-0 h-full border-0 block
                    w-full md:left-[320px] md:w-[calc(100%-320px)]"

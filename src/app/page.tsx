@@ -18,7 +18,7 @@ export default function InicioPage() {
       style={{ height: "100dvh", background: "#0a0a0a" }}
     >
       <iframe
-        src="/polis-app/index.html?v=20260601-inset"
+        src="/polis-app/index.html?v=20260601-perfil1"
         title="POLIS — mapa cívico de Canarias"
         className="absolute inset-0 h-full w-full border-0 block"
         allow="fullscreen"

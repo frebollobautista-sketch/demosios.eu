@@ -15,6 +15,7 @@
 //   - Pulso de zona (panel) y modal de convocatoria de quórum.
 
 import { recordGesto, getUserId, getAllGestos } from "../shared/gestos.js?v=20260529-agora-verde";
+import "../shared/perfil-panel.js?v=20260601-perfil1";  // avatar/cursus + auth
 import { rank } from "../shared/rank.js?v=20260529-agora-verde";
 import { mountHud, HUD_CSS } from "../shared/hud.js?v=20260529-agora-verde";
 import {

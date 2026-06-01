@@ -23,6 +23,7 @@
 import { fitView, project, pointInScreenPolygon, ringCentroid, ringBbox,
          lnglatToLocalMeters, projectFeatureRing }
   from "./iso.js?v=20260601-inset";
+import "../shared/perfil-panel.js?v=20260601-perfil1";  // avatar/cursus + auth
 import { simplifyRing, outerRing, annotateDepth, sortByDepth }
   from "./clustering.js";
 import { loadCatalog, classify } from "./archetypes.js";

@@ -14,6 +14,7 @@
 // localStorage y disparan render() de la sección afectada.
 
 import { recordGesto, getUserId, getAllGestos } from "../shared/gestos.js?v=20260527a";
+import "../shared/perfil-panel.js?v=20260601-perfil1";  // avatar/cursus + auth
 import { rank } from "../shared/rank.js?v=20260527a";
 import { mountHud, HUD_CSS } from "../shared/hud.js?v=20260527a";
 import { honestyMeter } from "../shared/loops.js?v=20260527a";

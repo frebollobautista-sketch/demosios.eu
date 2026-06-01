@@ -29,7 +29,7 @@ import {
 } from "../shared/tablero.js?v=20260529-agora-verde";
 import {
   loadAllSources, aplicarDims, DEFAULT_SOURCES_CONFIG
-} from "./feed.js?v=20260529-agora-verde";
+} from "./feed.js?v=20260601-parque";
 
 // Módulos de masa crítica (v3).
 import { loadSillasVacias, renderSillaCard, SILLAS_DEFAULT_CONFIG } from "./sillas.js?v=20260529-agora-verde";

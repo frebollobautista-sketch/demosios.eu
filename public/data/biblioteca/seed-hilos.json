@@ -1,0 +1,110 @@
+[
+  {
+    "id": "hilo-001",
+    "kind": "hilo",
+    "titulo": "Libertad como no-dominación: por qué el neorrepublicanismo no es liberalismo",
+    "autor_hilo": "Equipo OCRE",
+    "fecha_pub": "2026-05-30",
+    "lectura_min": 4,
+    "parrafos": [
+      "El liberalismo clásico (Berlin, Hobbes) define la libertad por la ausencia de interferencia: eres libre si nadie te impide hacer lo que quieres. Pettit y Skinner recuperan otra definición — la republicana, anterior al liberalismo — donde lo decisivo no es la interferencia, sino la posibilidad arbitraria de interferencia. Esclavo no es quien recibe latigazos, es quien depende del humor de un amo que podría dárselos sin tener que rendir cuentas.",
+      "Aplicado al hoy: un trabajador con contrato indefinido formal pero cuyo jefe puede dejarlo sin proyecto, sin equipo o sin promoción a voluntad, no es libre en sentido republicano — es un esclavo afortunado, en el lenguaje de Skinner. Una mujer que «puede irse» de una relación pero no tiene a dónde ir, igual. Un inquilino que cumple religiosamente con un alquiler y aun así puede ser expulsado por subida especulativa, igual.",
+      "Por eso el republicanismo cívico es estructuralmente más exigente que el liberalismo procedimental: pide diseñar instituciones que reduzcan no sólo las interferencias actuales sino el campo de poder arbitrario disponible. Renta básica, vivienda no especulativa, sanidad universal de calidad no son «más Estado»: son condiciones materiales de la libertad republicana. Sin ellas, hay derechos formales sin libertad real."
+    ],
+    "fuente_principal": "Pettit, P. (1997). «Republicanism: A Theory of Freedom and Government». Oxford UP.",
+    "lecturas_complementarias": [
+      "Skinner, Q. (1998). «Liberty before Liberalism». Cambridge UP.",
+      "Domènech, A. (2004). «El eclipse de la fraternidad». Crítica."
+    ],
+    "asignatura_id": "1-republica-libertad",
+    "tags": ["libertad", "no-dominacion", "neorrepublicanismo", "egalite"],
+    "_dims_estaticas": { "dominio": 0, "canonico": -1, "compania": -1 }
+  },
+  {
+    "id": "hilo-002",
+    "kind": "hilo",
+    "titulo": "Renta básica: por qué no es subsidio, ni caridad, ni redistribución residual",
+    "autor_hilo": "Equipo OCRE",
+    "fecha_pub": "2026-05-30",
+    "lectura_min": 5,
+    "parrafos": [
+      "La renta básica universal (RBU) no es un subsidio para parados ni una ayuda a colectivos vulnerables. Es una transferencia incondicional, individual y suficiente, igual para todo el mundo, financiada vía impuestos progresivos. Lo radical no es el dinero — lo radical es la incondicionalidad. Romper el vínculo entre supervivencia material y aceptación de cualquier trabajo es lo que la distingue de cualquier otra política social.",
+      "Van Parijs lo formula en términos republicanos: la RBU convierte la libertad formal en libertad real. Decir «eres libre de no aceptar ese contrato basura» a quien depende del salario siguiente es sarcasmo. Una RBU suficiente devuelve al trabajador el poder de decir no — y por eso es estructuralmente distinta de la Renta de Garantía o el Ingreso Mínimo Vital, que mantienen condicionalidad, estigma y burocracia de control.",
+      "Las objeciones serias son tres: ¿quién la paga? (impuestos progresivos sobre patrimonio, herencias y capital, no sobre nómina); ¿genera inflación? (los experimentos serios — Manitoba 1974, Stockton 2019, Finlandia 2017 — no la han generado en escala piloto; el problema es la transición); y ¿desincentiva el trabajo? (la evidencia disponible muestra que reduce horas en cuidados y formación, no abandono masivo del mercado laboral).",
+      "Para Canarias la pregunta es concreta: con una RGI canaria condicional y tasada en mínimos vitales, ¿qué cambiaría que la sustituyera una RBU genuinamente suficiente? Por una parte se ahorraría burocracia de control; por otra, se cuestionaría el modelo turístico-extractivo que depende de que mucha gente acepte salarios precarios sin alternativa real."
+    ],
+    "fuente_principal": "Van Parijs, P. & Vanderborght, Y. (2017). «Basic Income: A Radical Proposal for a Free Society and a Sane Economy». Harvard UP.",
+    "lecturas_complementarias": [
+      "Standing, G. (2017). «Basic Income: And How We Can Make It Happen». Pelican.",
+      "Raventós, D. (2007). «Las condiciones materiales de la libertad». El Viejo Topo."
+    ],
+    "asignatura_id": "2-renta-basica",
+    "tags": ["renta-basica", "libertad-real", "canarias", "trabajo"],
+    "_dims_estaticas": { "dominio": 0, "canonico": -1, "compania": -1 }
+  },
+  {
+    "id": "hilo-003",
+    "kind": "hilo",
+    "titulo": "Egalite republicana: por qué una lista de espera de cirugía es un problema constitucional",
+    "autor_hilo": "Equipo OCRE",
+    "fecha_pub": "2026-05-30",
+    "lectura_min": 4,
+    "parrafos": [
+      "La Constitución española reconoce el derecho a la protección de la salud (art. 43). En la lectura liberal-procedimental, ese derecho se cumple si existe un sistema público de salud al que todos pueden acudir. En la lectura republicana, no basta: si la lista de espera media para una operación traumatológica en Canarias supera los 200 días, el derecho formal coexiste con dominación material — el que tiene seguro privado se opera, el que no, espera con dolor.",
+      "Los datos del ISTAC y del SCS sobre listas de espera quirúrgica (capa POLIS «Listas de espera», disponible en este propio mapa) muestran asimetrías brutas entre islas: lo que en Tenerife o Gran Canaria es difícil, en Hierro o La Gomera puede ser estructuralmente imposible sin un traslado pagado. La igualdad formal de acceso convive con una desigualdad real radical, vinculada a la geografía insular y al modelo de concertación con la privada.",
+      "Por eso la matriz Egalite hace palanca aquí: no es retórica «las desigualdades importan», es que sin abordar las listas de espera — y los conciertos, y la fuga de profesionales a la privada — no hay república en sentido estricto. Hay administración. Y hay un grupo de canarios que vive con la espada arbitraria de una espera médica sobre la cabeza, mientras otro grupo paga 80 €/mes por no vivirla. Esa es la definición misma de dominación."
+    ],
+    "fuente_principal": "Pettit, P. (1997). «Republicanism», cap. 4 («The Republican State»). Oxford UP.",
+    "lecturas_complementarias": [
+      "ISTAC C00045A_000001 — Listas de espera SCS por isla, semestral.",
+      "Raventós, D. & Wark, J. (2018). «Against Charity». AK Press."
+    ],
+    "asignatura_id": "5-egalite",
+    "tags": ["salud", "listas-espera", "canarias", "egalite", "scs"],
+    "_dims_estaticas": { "dominio": 0, "canonico": -1, "compania": -1 }
+  },
+  {
+    "id": "hilo-004",
+    "kind": "hilo",
+    "titulo": "El calado canario como infraestructura social, no como artesanía decorativa",
+    "autor_hilo": "Equipo OCRE",
+    "fecha_pub": "2026-05-30",
+    "lectura_min": 4,
+    "parrafos": [
+      "El calado canario — tela bordada con vacíos calculados, originaria sobre todo de Lanzarote, Fuerteventura y zonas rurales de Tenerife — suele leerse como artesanía o suvenir. Esa lectura empobrece y desactiva. El calado fue durante el siglo XX una infraestructura social material: el principal trabajo monetizado disponible para mujeres en pueblos donde no había otra cosa, organizado por redes informales de talleres, encargos y traspasos de patrón.",
+      "Las caladoras lo aprendieron de madres y abuelas; muchas combinaban el calado con la agricultura familiar y el cuidado, lo que en términos de Federici es la combinación clásica de producción + reproducción que sostiene un sistema económico sin computar nada de su valor real. Cuando llega el turismo masivo (años 60), el calado se reabsorbe como artesanía típica para guiri y pierde casi toda su autonomía como economía propia: ahora se paga al por mayor a quien lo revende.",
+      "Lo que conserva — y por eso vale la pena no museificarlo — es la forma de transmisión: maestra-aprendiz, en círculo, sin escolarizar, con la pieza como objeto compartido. Esa pedagogía es exportable a otras enseñanzas. Las «Sillas de conocimiento» de esta misma biblioteca son, en cierto modo, una versión digital del taller de calado: alguien se sienta a explicar, alguien se sienta a aprender, y el saber circula sin pasar por academia."
+    ],
+    "fuente_principal": "García Ramos, J.M. (1991). «El calado canario: arte y oficio». Centro de la Cultura Popular Canaria.",
+    "lecturas_complementarias": [
+      "Federici, S. (2004). «Calibán y la bruja», cap. 3.",
+      "Hernández Hernández, P. (1985). «Las caladoras de Ingenio»."
+    ],
+    "asignatura_id": "4-memoria-canaria",
+    "tags": ["canarias", "oficios", "mujer", "calado", "vernacular"],
+    "_dims_estaticas": { "dominio": 0, "canonico": 0, "compania": -1 }
+  },
+  {
+    "id": "hilo-005",
+    "kind": "hilo",
+    "titulo": "Cruceros en Canarias: por qué la derrama económica es la pregunta equivocada",
+    "autor_hilo": "Equipo OCRE",
+    "fecha_pub": "2026-05-30",
+    "lectura_min": 5,
+    "parrafos": [
+      "El argumento habitual a favor de los cruceros es la «derrama económica»: cada pasajero gasta X € en tierra, multiplicado por Y desembarcos al año, son Z millones para la economía local. Los estudios financiados por la propia industria suelen estimar derramas brutas grandes. Los estudios académicos independientes (Brida & Zapata 2010, Vayá et al. 2018) las rebajan sustancialmente cuando se descuentan compras a operadores con sede fiscal externa y desplazamientos de gasto que se hubieran producido igual.",
+      "Pero la pregunta «¿cuánto se derrama?» es ya la pregunta equivocada. Asume que la lógica buena es maximizar el flujo y que el debate es sobre el coeficiente. La pregunta republicana es otra: ¿quién decide cuántos barcos atracan, durante cuántas horas, y a qué coste para quién vive aquí? Porque ese día el muelle, la calle peatonal y el casco histórico se convierten en infraestructura privatizada de facto para 4.000 pasajeros que pagan a una empresa con sede en Bahamas.",
+      "El cruceriste paga muy poco por usar suelo público intensamente unas horas; la externalidad — saturación, emisiones azufradas sin filtrar, presión sobre el agua dulce — la paga la población residente. En términos de Ostrom es un caso libro de comunes mal gobernados: nadie en la asamblea ciudadana decidió esto, llegó por contratos portuarios opacos. La capa POLIS «Calidad del aire» permite ver la correlación: días de mucho crucero atracado son días de pico de NO₂ en LPGC.",
+      "El marco republicano-decolonial pone esto como caso testigo: Canarias funciona como infraestructura para que un sector global de ocio europeo de clase media-alta se mueva barato. La pregunta no es cuánta propina deja, es por qué nadie de aquí votó esto."
+    ],
+    "fuente_principal": "Brida, J.G. & Zapata, S. (2010). «Cruise tourism: economic, socio-cultural and environmental impacts». International Journal of Leisure and Tourism Marketing 1(3).",
+    "lecturas_complementarias": [
+      "Vayá, E. et al. (2018). «Economic impact of cruise activity: the case of Barcelona». Tourism Economics.",
+      "Ostrom, E. (1990). «Governing the Commons», cap. 3.",
+      "Capa POLIS «Calidad del aire» y «Cruceros» (ver IDEAS.md en este propio repo)."
+    ],
+    "asignatura_id": "7-decolonialidad",
+    "tags": ["canarias", "turismo", "cruceros", "decolonialidad", "comunes"],
+    "_dims_estaticas": { "dominio": 0, "canonico": -1, "compania": -1 }
+  }
+]

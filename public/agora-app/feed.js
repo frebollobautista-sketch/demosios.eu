@@ -420,7 +420,10 @@ const CIVIC_SOURCES = [
     // sólo GC porque es el más rico (12.881 polígonos). Filtramos a los
     // park/garden/playground con nombre (la mayoría son anónimos).
     // TODO prov38: añadir si se quiere cobertura archipiélago.
-    url: "../osm-gc/parks.json",
+    // 2026-06-01 — osm-gc vive en R2 (no en el repo). Ágora no tiene el
+    // wiring __ASSETS_BASE de polis-app, así que apuntamos directo al
+    // Custom Domain de R2 (CORS ya permite www/apex demosios.eu).
+    url: "https://packs.demosios.eu/osm-gc/parks.json",
     parse: (json) => (json.features || [])
       .filter(f => {
         const t = f.properties?.type;

@@ -1,0 +1,49 @@
+{
+ "subs": [
+  {
+   "sub": "canarias",
+   "n": 25
+  },
+  {
+   "sub": "spain",
+   "n": 25
+  },
+  {
+   "sub": "es",
+   "n": 25
+  },
+  {
+   "sub": "futbol",
+   "n": 25
+  },
+  {
+   "sub": "cine",
+   "n": 25
+  },
+  {
+   "sub": "libros",
+   "n": 25
+  },
+  {
+   "sub": "ciencia",
+   "n": 25
+  },
+  {
+   "sub": "musica",
+   "n": 25
+  },
+  {
+   "sub": "videojuegos",
+   "n": 25
+  },
+  {
+   "sub": "askspain",
+   "n": 25
+  },
+  {
+   "sub": "podemos",
+   "n": 25
+  }
+ ],
+ "snapshot_ts": "2026-05-28T20:26:04Z"
+}

@@ -1,0 +1,56 @@
+{
+  "version": "v2.1-ecualizado-2026-05-21",
+  "generated_at": "2026-05-21T13:30:00Z",
+  "scope": "7 islas geocodificadas (street-level GC, mun-centroid resto)",
+  "files": {
+    "lg": {
+      "path": "entidades/lg.json",
+      "count": 357,
+      "geocoded": 357,
+      "geocoded_pct": 100.0,
+      "size_kb": 187
+    },
+    "tf": {
+      "path": "entidades/tf.json",
+      "count": 12232,
+      "geocoded": 12232,
+      "geocoded_pct": 100.0,
+      "size_kb": 6359
+    },
+    "lp": {
+      "path": "entidades/lp.json",
+      "count": 1130,
+      "geocoded": 1130,
+      "geocoded_pct": 100.0,
+      "size_kb": 593
+    },
+    "eh": {
+      "path": "entidades/eh.json",
+      "count": 268,
+      "geocoded": 268,
+      "geocoded_pct": 100.0,
+      "size_kb": 138
+    },
+    "gc": {
+      "path": "entidades/gc.json",
+      "count": 8591,
+      "geocoded": 8591,
+      "geocoded_pct": 100.0,
+      "size_kb": 4657
+    },
+    "fv": {
+      "path": "entidades/fv.json",
+      "count": 1083,
+      "geocoded": 1083,
+      "geocoded_pct": 100.0,
+      "size_kb": 565
+    },
+    "lz": {
+      "path": "entidades/lz.json",
+      "count": 1625,
+      "geocoded": 1625,
+      "geocoded_pct": 100.0,
+      "size_kb": 817
+    }
+  }
+}

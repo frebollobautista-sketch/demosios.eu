@@ -1,0 +1,97 @@
+[16:18:51] == Etapa 2: geocode + split por isla ==
+[16:18:51] leyendo /Users/panch/KOINOS-iso/public/data/entidades-canarias-raw.json
+[16:18:51] total entidades: 25526
+[16:18:51] cache cargado: 0 entradas previas
+[16:18:51]   isla lg: 358
+[16:18:51]   isla tf: 12466
+[16:18:51]   isla lp: 1132
+[16:18:51]   isla eh: 268
+[16:18:51]   isla gc: 8594
+[16:18:51]   isla fv: 1083
+[16:18:51]   isla lz: 1625
+[16:18:51] a geocodificar (prov 35 sin geo): 11302
+[16:18:51] queries únicas estimadas — calle: 10973, mun: 60
+[16:24:55]   progreso 200/11302 · ok-street=0 ok-mun=11 fail=189 · rate=0.55/s · ETA=336.2min
+[16:30:40]   progreso 400/11302 · ok-street=0 ok-mun=20 fail=380 · rate=0.56/s · ETA=322.1min
+[16:36:38]   progreso 600/11302 · ok-street=0 ok-mun=29 fail=571 · rate=0.56/s · ETA=317.1min
+[16:42:44]   progreso 800/11302 · ok-street=0 ok-mun=46 fail=754 · rate=0.56/s · ETA=313.6min
+[16:48:34]   progreso 1000/11302 · ok-street=0 ok-mun=59 fail=941 · rate=0.56/s · ETA=306.1min
+[16:53:06]   backoff 2s tras error: The read operation timed out
+[16:55:05]   progreso 1200/11302 · ok-street=0 ok-mun=68 fail=1132 · rate=0.55/s · ETA=305.0min
+[17:01:08]   progreso 1400/11302 · ok-street=0 ok-mun=86 fail=1314 · rate=0.55/s · ETA=299.0min
+[17:06:56]   progreso 1600/11302 · ok-street=0 ok-mun=111 fail=1489 · rate=0.55/s · ETA=291.6min
+[17:13:47]   progreso 1800/11302 · ok-street=37 ok-mun=249 fail=1514 · rate=0.55/s · ETA=290.0min
+[17:19:02]   backoff 2s tras error: The read operation timed out
+[17:20:34]   progreso 2000/11302 · ok-street=83 ok-mun=403 fail=1514 · rate=0.54/s · ETA=287.0min
+[17:26:47]   progreso 2200/11302 · ok-street=139 ok-mun=547 fail=1514 · rate=0.54/s · ETA=281.0min
+[17:32:57]   progreso 2400/11302 · ok-street=174 ok-mun=712 fail=1514 · rate=0.54/s · ETA=274.9min
+[17:38:53]   progreso 2600/11302 · ok-street=221 ok-mun=865 fail=1514 · rate=0.54/s · ETA=267.9min
+[17:45:13]   progreso 2800/11302 · ok-street=283 ok-mun=1003 fail=1514 · rate=0.54/s · ETA=262.2min
+[17:51:12]   progreso 3000/11302 · ok-street=325 ok-mun=1161 fail=1514 · rate=0.54/s · ETA=255.6min
+[17:56:07]   backoff 2s tras error: The read operation timed out
+[17:58:14]   progreso 3200/11302 · ok-street=364 ok-mun=1322 fail=1514 · rate=0.54/s · ETA=251.6min
+[18:04:45]   progreso 3400/11302 · ok-street=410 ok-mun=1476 fail=1514 · rate=0.54/s · ETA=246.1min
+[18:11:03]   progreso 3600/11302 · ok-street=451 ok-mun=1635 fail=1514 · rate=0.53/s · ETA=240.0min
+[18:17:26]   progreso 3800/11302 · ok-street=488 ok-mun=1798 fail=1514 · rate=0.53/s · ETA=234.1min
+[18:23:49]   progreso 4000/11302 · ok-street=532 ok-mun=1954 fail=1514 · rate=0.53/s · ETA=228.1min
+[18:27:16]   backoff 2s tras error: The read operation timed out
+[18:27:47]   backoff 2s tras error: The read operation timed out
+[18:30:34]   backoff 2s tras error: <urlopen error timed out>
+[18:30:36]   backoff 8s tras error: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[18:31:24]   progreso 4200/11302 · ok-street=566 ok-mun=2120 fail=1514 · rate=0.53/s · ETA=224.1min
+[18:37:29]   progreso 4400/11302 · ok-street=608 ok-mun=2278 fail=1514 · rate=0.53/s · ETA=217.5min
+[18:43:36]   progreso 4600/11302 · ok-street=653 ok-mun=2433 fail=1514 · rate=0.53/s · ETA=210.9min
+[18:50:02]   progreso 4800/11302 · ok-street=697 ok-mun=2589 fail=1514 · rate=0.53/s · ETA=204.8min
+[18:56:08]   progreso 5000/11302 · ok-street=742 ok-mun=2744 fail=1514 · rate=0.53/s · ETA=198.2min
+[19:02:18]   progreso 5200/11302 · ok-street=781 ok-mun=2905 fail=1514 · rate=0.53/s · ETA=191.8min
+[19:08:45]   progreso 5400/11302 · ok-street=815 ok-mun=3071 fail=1514 · rate=0.53/s · ETA=185.7min
+[19:15:19]   progreso 5600/11302 · ok-street=853 ok-mun=3233 fail=1514 · rate=0.53/s · ETA=179.7min
+[19:21:55]   progreso 5800/11302 · ok-street=875 ok-mun=3411 fail=1514 · rate=0.53/s · ETA=173.7min
+[19:22:40]   backoff 2s tras error: <urlopen error _ssl.c:1112: The handshake operation timed out>
+[19:23:02]   backoff 8s tras error: <urlopen error timed out>
+[19:23:31]   backoff 30s tras error: The read operation timed out
+[19:26:26]   backoff 2s tras error: The read operation timed out
+[19:30:14]   progreso 6000/11302 · ok-street=911 ok-mun=3575 fail=1514 · rate=0.52/s · ETA=169.1min
+[19:36:28]   progreso 6200/11302 · ok-street=941 ok-mun=3745 fail=1514 · rate=0.52/s · ETA=162.6min
+[19:42:16]   backoff 2s tras error: The read operation timed out
+[19:43:03]   progreso 6400/11302 · ok-street=991 ok-mun=3895 fail=1514 · rate=0.52/s · ETA=156.4min
+[19:49:26]   progreso 6600/11302 · ok-street=1023 ok-mun=4063 fail=1514 · rate=0.52/s · ETA=150.0min
+[19:55:38]   progreso 6800/11302 · ok-street=1049 ok-mun=4237 fail=1514 · rate=0.52/s · ETA=143.5min
+[20:02:01]   progreso 7000/11302 · ok-street=1080 ok-mun=4406 fail=1514 · rate=0.52/s · ETA=137.1min
+[20:08:17]   progreso 7200/11302 · ok-street=1117 ok-mun=4569 fail=1514 · rate=0.52/s · ETA=130.7min
+[20:09:20]   backoff 2s tras error: The read operation timed out
+[20:15:00]   progreso 7400/11302 · ok-street=1147 ok-mun=4739 fail=1514 · rate=0.52/s · ETA=124.5min
+[20:21:16]   progreso 7600/11302 · ok-street=1178 ok-mun=4908 fail=1514 · rate=0.52/s · ETA=118.1min
+[20:24:15]   backoff 2s tras error: The read operation timed out
+[20:27:30]   progreso 7800/11302 · ok-street=1216 ok-mun=5070 fail=1514 · rate=0.52/s · ETA=111.6min
+[20:33:36]   progreso 8000/11302 · ok-street=1262 ok-mun=5224 fail=1514 · rate=0.52/s · ETA=105.1min
+[20:39:35]   progreso 8200/11302 · ok-street=1302 ok-mun=5384 fail=1514 · rate=0.52/s · ETA=98.6min
+[20:45:40]   progreso 8400/11302 · ok-street=1332 ok-mun=5554 fail=1514 · rate=0.52/s · ETA=92.2min
+[20:48:26]   backoff 2s tras error: The read operation timed out
+[20:51:50]   progreso 8600/11302 · ok-street=1378 ok-mun=5708 fail=1514 · rate=0.53/s · ETA=85.8min
+[20:56:20]   backoff 2s tras error: The read operation timed out
+[20:58:16]   progreso 8800/11302 · ok-street=1403 ok-mun=5883 fail=1514 · rate=0.52/s · ETA=79.4min
+[21:00:25]   backoff 2s tras error: The read operation timed out
+[21:05:01]   progreso 9000/11302 · ok-street=1437 ok-mun=6049 fail=1514 · rate=0.52/s · ETA=73.2min
+[21:11:12]   progreso 9200/11302 · ok-street=1472 ok-mun=6214 fail=1514 · rate=0.52/s · ETA=66.8min
+[21:17:19]   progreso 9400/11302 · ok-street=1502 ok-mun=6384 fail=1514 · rate=0.52/s · ETA=60.4min
+[21:23:16]   progreso 9600/11302 · ok-street=1530 ok-mun=6556 fail=1514 · rate=0.53/s · ETA=54.0min
+[21:29:17]   progreso 9800/11302 · ok-street=1566 ok-mun=6720 fail=1514 · rate=0.53/s · ETA=47.6min
+[21:35:18]   progreso 10000/11302 · ok-street=1602 ok-mun=6884 fail=1514 · rate=0.53/s · ETA=41.2min
+[21:42:06]   progreso 10200/11302 · ok-street=1625 ok-mun=7061 fail=1514 · rate=0.53/s · ETA=34.9min
+[21:48:25]   progreso 10400/11302 · ok-street=1626 ok-mun=7154 fail=1620 · rate=0.53/s · ETA=28.6min
+[21:54:23]   progreso 10600/11302 · ok-street=1626 ok-mun=7215 fail=1759 · rate=0.53/s · ETA=22.2min
+[22:00:23]   progreso 10800/11302 · ok-street=1627 ok-mun=7281 fail=1892 · rate=0.53/s · ETA=15.9min
+[22:06:21]   progreso 11000/11302 · ok-street=1627 ok-mun=7373 fail=2000 · rate=0.53/s · ETA=9.5min
+[22:12:16]   progreso 11200/11302 · ok-street=1628 ok-mun=7472 fail=2100 · rate=0.53/s · ETA=3.2min
+[22:15:24] geocoding terminado en 356.5min · ok-street=1630 ok-mun=7514 fail=2158
+[22:15:24] dedup laxo: 240 duplicados eliminados
+[22:15:24]   escrito lg.json — 357 ents, 0 geo (0.0%), 187KB
+[22:15:24]   escrito tf.json — 12232 ents, 2042 geo (16.7%), 6359KB
+[22:15:24]   escrito lp.json — 1130 ents, 0 geo (0.0%), 593KB
+[22:15:24]   escrito eh.json — 268 ents, 0 geo (0.0%), 138KB
+[22:15:24]   escrito gc.json — 8591 ents, 8591 geo (100.0%), 4657KB
+[22:15:24]   escrito fv.json — 1083 ents, 439 geo (40.5%), 565KB
+[22:15:24]   escrito lz.json — 1625 ents, 111 geo (6.8%), 817KB
+[22:15:24] manifest escrito en /Users/panch/KOINOS-iso/public/data/entidades/manifest.json
+[22:15:24] == Etapa 2 OK · dedup=240 ==

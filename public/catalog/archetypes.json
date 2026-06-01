@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-05-10T00:00:00Z",
+  "iso_projection": {
+    "angle_x_deg": 30,
+    "angle_y_deg": 30,
+    "scale_z_factor": 1.6,
+    "ink_color": "#221D18"
+  },
+  "archetypes": {
+    "residencial_3p": {
+      "category": "residencial",
+      "canonical_size_m": [8.0, 12.0, 9.0],
+      "personality": "balcón corrido en planta primera",
+      "colors": {
+        "wall":   "#E8D5A8",
+        "wall_d": "#C8B284",
+        "roof":   "#D4BC8C",
+        "trim":   "#8A5A2A",
+        "window": "#423224"
+      },
+      "windows": {"levels_rows": 3, "per_2_4m_face": 1},
+      "match_rules": {
+        "categories": ["residencial"],
+        "height_min_m": 0,
+        "height_max_m": 12,
+        "area_min_m2": 80,
+        "area_max_m2": 9999,
+        "priority": 5
+      }
+    },
+    "residencial_6p": {
+      "category": "residencial",
+      "canonical_size_m": [9.0, 14.0, 18.0],
+      "personality": "antena fina + zócalo de planta baja",
+      "colors": {
+        "wall":   "#D4BE9C",
+        "wall_d": "#B29A76",
+        "roof":   "#BCA07A",
+        "trim":   "#6E4A26",
+        "window": "#382C1E"
+      },
+      "windows": {"levels_rows": 6, "per_2_4m_face": 1},
+      "match_rules": {
+        "categories": ["residencial"],
+        "height_min_m": 16,
+        "height_max_m": 22,
+        "area_min_m2": 0,
+        "area_max_m2": 9999,
+        "priority": 7
+      }
+    },
+    "bloque_grande": {
+      "category": "residencial",
+      "canonical_size_m": [18.0, 30.0, 24.0],
+      "personality": "HVAC en techo (3 cajas)",
+      "colors": {
+        "wall":   "#C8B898",
+        "wall_d": "#A49474",
+        "roof":   "#B09E7C",
+        "trim":   "#5C4022",
+        "window": "#30261A",
+        "hvac":   "#685C4A"
+      },
+      "windows": {"levels_rows": 8, "per_2_4m_face": 1},
+      "match_rules": {
+        "categories": ["residencial"],
+        "height_min_m": 22,
+        "height_max_m": 9999,
+        "area_min_m2": 0,
+        "area_max_m2": 9999,
+        "priority": 9,
+        "alt_rule": "h>12 AND area_m2>350"
+      }
+    },
+    "unifamiliar": {
+      "category": "residencial",
+      "canonical_size_m": [7.0, 10.0, 6.0],
+      "personality": "tejado a dos aguas terracota + chimenea",
+      "colors": {
+        "wall":   "#F0E4CC",
+        "wall_d": "#D0C4A8",
+        "roof":   "#B5754F",
+        "roof_d": "#945A38",
+        "door":   "#664024",
+        "window": "#3C3022"
+      },
+      "roof": {"type": "two_slope", "ridge_axis": "z", "eaves_h_m": 3.0, "ridge_h_m": 6.0},
+      "windows": {"levels_rows": 1, "per_2_4m_face": 1},
+      "match_rules": {
+        "categories": ["residencial"],
+        "height_min_m": 0,
+        "height_max_m": 10,
+        "area_min_m2": 0,
+        "area_max_m2": 80,
+        "priority": 4
+      }
+    },
+    "comercial": {
+      "category": "comercio",
+      "canonical_size_m": [12.0, 18.0, 4.5],
+      "personality": "marquesina/toldo rojo + cristalera",
+      "colors": {
+        "wall":   "#A89888",
+        "wall_d": "#867666",
+        "roof":   "#8E8070",
+        "awning": "#C85438",
+        "glass":  "#68848E",
+        "window": "#2E261C"
+      },
+      "windows": {"levels_rows": 1, "per_2_4m_face": 0},
+      "match_rules": {
+        "categories": ["comercio"],
+        "height_min_m": 0,
+        "height_max_m": 9999,
+        "area_min_m2": 0,
+        "area_max_m2": 9999,
+        "priority": 10
+      }
+    },
+    "publico": {
+      "category": "publico",
+      "canonical_size_m": [14.0, 20.0, 11.0],
+      "personality": "zócalo de piedra + pórtico de 4 columnas + cornisa",
+      "colors": {
+        "wall":   "#B0A89C",
+        "wall_d": "#8C8478",
+        "roof":   "#989082",
+        "stone":  "#766E62",
+        "trim":   "#4E4438",
+        "window": "#342C22"
+      },
+      "windows": {"levels_rows": 2, "per_2_4m_face": 1},
+      "match_rules": {
+        "categories": ["publico"],
+        "height_min_m": 0,
+        "height_max_m": 9999,
+        "area_min_m2": 0,
+        "area_max_m2": 9999,
+        "priority": 10
+      }
+    },
+    "monumento": {
+      "category": "monumento",
+      "canonical_size_m": [6.0, 6.0, 9.0],
+      "personality": "cúpula + aguja",
+      "colors": {
+        "wall":   "#B05738",
+        "wall_d": "#8A4028",
+        "dome":   "#D27A52",
+        "trim":   "#562C1A",
+        "window": "#221D18"
+      },
+      "windows": {"levels_rows": 1, "per_2_4m_face": 0},
+      "match_rules": {
+        "categories": ["monumento"],
+        "height_min_m": 0,
+        "height_max_m": 9999,
+        "area_min_m2": 0,
+        "area_max_m2": 9999,
+        "priority": 10
+      }
+    },
+    "arbol_grande": {
+      "category": "arbol",
+      "canonical_size_m": [4.0, 4.0, 8.0],
+      "personality": "tronco oscuro + copa circular",
+      "colors": {
+        "trunk":    "#4A3220",
+        "trunk_d":  "#34221A",
+        "leaves":   "#5E8A3E",
+        "leaves_d": "#466C2C"
+      },
+      "trunk": {"width_m": 0.6, "height_m": 3.5},
+      "crown":  {"radius_m": 2.4, "height_m": 8.0},
+      "match_rules": {
+        "categories": ["arbol"],
+        "height_min_m": 0,
+        "height_max_m": 9999,
+        "area_min_m2": 0,
+        "area_max_m2": 9999,
+        "priority": 1
+      }
+    },
+    "plaza_pavimento": {
+      "category": "plaza",
+      "canonical_size_m": [10.0, 10.0, 0.0],
+      "personality": "patrón de baldosas cada 2.5 m",
+      "colors": {
+        "ground":   "#E0D5BC",
+        "ground_d": "#C8BC9E",
+        "tile":     "#BCAE8C"
+      },
+      "tile_step_m": 2.5,
+      "match_rules": {
+        "categories": ["plaza"],
+        "height_min_m": 0,
+        "height_max_m": 0,
+        "area_min_m2": 0,
+        "area_max_m2": 9999,
+        "priority": 1
+      }
+    }
+  },
+  "classification_rules": {
+    "comment": "Reglas oficiales de classify_building(props, area_m2). El primer match en orden gana.",
+    "order": [
+      {"if_category": "comercio", "then": "comercial"},
+      {"if_category": "publico", "then": "publico"},
+      {"if_height_gt": 22, "then": "bloque_grande"},
+      {"if_height_gt": 16, "then": "residencial_6p"},
+      {"if_height_gt": 12, "and_area_gt": 350, "then": "bloque_grande"},
+      {"if_height_gt": 10, "then": "residencial_3p"},
+      {"if_height_lte": 10, "and_area_lt": 80, "then": "unifamiliar"},
+      {"if_height_lte": 10, "and_area_gte": 80, "and_category": "residencial", "then": "residencial_3p"},
+      {"default": "residencial_3p"}
+    ]
+  }
+}

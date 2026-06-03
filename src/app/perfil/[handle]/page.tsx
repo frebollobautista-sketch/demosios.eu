@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { EnviarMensajeButton } from "./EnviarMensajeButton";
+import { BloquearButton } from "./BloquearButton";
 
 type Params = { handle: string };
 
@@ -97,6 +98,31 @@ export default async function PerfilHandlePage({
     year: "numeric",
   });
 
+  // Contribuciones reales: hilos de Ágora y posts de STOA (logos).
+  const [hilosRes, postsRes] = await Promise.all([
+    supabase
+      .from("agora_hilos")
+      .select("id, titulo, creado")
+      .eq("autor_id", perfil.id)
+      .order("creado", { ascending: false })
+      .limit(5),
+    supabase
+      .from("logos_posts")
+      .select("id, cuerpo, creado")
+      .eq("autor_id", perfil.id)
+      .eq("retirado", false)
+      .order("creado", { ascending: false })
+      .limit(5),
+  ]);
+
+  const hilos =
+    (hilosRes.data as { id: string; titulo: string; creado: string }[] | null) ??
+    [];
+  const posts =
+    (postsRes.data as { id: string; cuerpo: string; creado: string }[] | null) ??
+    [];
+  const sinAportaciones = hilos.length === 0 && posts.length === 0;
+
   return (
     <div className="mx-auto max-w-2xl px-4 sm:px-6 py-10 pb-40">
       <div className="eyebrow">Perfil</div>
@@ -175,12 +201,15 @@ export default async function PerfilHandlePage({
 
         {/* Acciones */}
         {!esMiPerfil ? (
-          <div className="mt-5">
+          <div className="mt-5 flex items-start gap-3 flex-wrap">
             <EnviarMensajeButton
               otherUserId={perfil.id}
               authed={!!yo}
               handle={perfil.handle}
             />
+            {yo && (
+              <BloquearButton otherUserId={perfil.id} handle={perfil.handle} />
+            )}
           </div>
         ) : (
           <div className="mt-5 flex items-center gap-3 flex-wrap">
@@ -206,8 +235,7 @@ export default async function PerfilHandlePage({
         )}
       </header>
 
-      {/* Bloque: contribuciones cívicas (placeholder hasta que listemos
-          hilos / posts / trazos del usuario). */}
+      {/* Bloque: contribuciones cívicas reales (Ágora + STOA). */}
       <section
         className="rounded-xl p-5"
         style={{
@@ -216,25 +244,91 @@ export default async function PerfilHandlePage({
         }}
       >
         <h2
-          className="display text-[1rem] mb-2"
+          className="display text-[1rem] mb-3"
           style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
         >
           Contribuciones cívicas
         </h2>
-        <p
-          className="text-[0.85rem]"
-          style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
-        >
-          Aquí aparecerán los hilos abiertos por @{perfil.handle} en Ágora,
-          sus posts en STOA, recursos publicados en Bibliotheka y trazos
-          contribuidos en POLIS.{" "}
-          <em
-            className="text-[0.78rem]"
-            style={{ color: "var(--color-piedra-clara)" }}
+
+        {sinAportaciones ? (
+          <p
+            className="text-[0.85rem]"
+            style={{ color: "var(--color-piedra)", lineHeight: 1.55 }}
           >
-            (Próximamente — necesita conectar las queries.)
-          </em>
-        </p>
+            @{perfil.handle} todavía no ha publicado hilos en Ágora ni posts
+            en STOA.
+          </p>
+        ) : (
+          <div className="space-y-5">
+            {hilos.length > 0 && (
+              <div>
+                <div
+                  className="eyebrow mb-2"
+                  style={{ color: "var(--color-piedra-clara)" }}
+                >
+                  Hilos en Ágora
+                </div>
+                <ul className="space-y-2">
+                  {hilos.map((h) => (
+                    <li key={h.id}>
+                      <Link
+                        href={`/agora/hilo/${h.id}`}
+                        className="text-[0.92rem] underline"
+                        style={{ color: "var(--color-ocre-deep)" }}
+                      >
+                        {h.titulo}
+                      </Link>
+                      <span
+                        className="text-[0.76rem] ml-2"
+                        style={{ color: "var(--color-piedra-clara)" }}
+                      >
+                        {new Date(h.creado).toLocaleDateString("es", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {posts.length > 0 && (
+              <div>
+                <div
+                  className="eyebrow mb-2"
+                  style={{ color: "var(--color-piedra-clara)" }}
+                >
+                  Posts en STOA
+                </div>
+                <ul className="space-y-2">
+                  {posts.map((p) => (
+                    <li
+                      key={p.id}
+                      className="text-[0.9rem]"
+                      style={{ color: "var(--color-papiro-ink)" }}
+                    >
+                      <span className="line-clamp-2">
+                        {p.cuerpo || "(sin texto)"}
+                      </span>
+                      <span
+                        className="text-[0.76rem]"
+                        style={{ color: "var(--color-piedra-clara)" }}
+                      >
+                        {new Date(p.creado).toLocaleDateString("es", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
       </section>
     </div>
   );

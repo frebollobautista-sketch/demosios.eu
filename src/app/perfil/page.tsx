@@ -1,9 +1,13 @@
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import { Avatar } from "@/components/Avatar";
 import { EJES } from "@/lib/capital/ejes";
 import {
   agregarCapital,
   puntosTotales,
   ejeDominante,
+  type Contribucion,
 } from "@/lib/capital/contribuciones";
 import {
   CURSUS,
@@ -11,32 +15,122 @@ import {
   proximoGrado,
   avanceHaciaProximo,
 } from "@/lib/cursus/grados";
-import { PERFIL_DEMO } from "@/lib/perfil/mock";
 import { CANARIAS } from "@/lib/territorio/canarias";
+import { PerfilEditor, type Enlace } from "./PerfilEditor";
 
-export default function PerfilPage() {
-  const perfil = PERFIL_DEMO;
-  const puntos = agregarCapital(perfil.contribuciones);
+export const metadata = {
+  title: "Mi perfil",
+  description: "Tu capital cívico, tu cursus honorum y tus aportaciones en OCRE.",
+};
+
+type ProfileRow = {
+  id: string;
+  handle: string | null;
+  display_name: string | null;
+  avatar_url: string | null;
+  avatar_color: string | null;
+  bio: string | null;
+  isla_id: string | null;
+  municipio_id: string | null;
+  barrio_id: string | null;
+  enlaces?: Enlace[] | null;
+};
+
+/**
+ * /perfil — perfil propio del usuario autenticado, con datos reales.
+ *
+ * Capital y cursus se calculan a partir de la tabla `contribuciones`
+ * (user_id = yo). La cabecera muestra avatar, nombre, handle, grado, lema,
+ * ubicación, biografía y enlaces, todo editable mediante <PerfilEditor>.
+ */
+export default async function PerfilPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login?redirect=/perfil");
+
+  // Perfil: intentamos traer `enlaces`; si la columna aún no existe
+  // (migración sin aplicar), reintentamos sin ella.
+  const COLS_BASE =
+    "id, handle, display_name, avatar_url, avatar_color, bio, isla_id, municipio_id, barrio_id";
+  let perfilRow: ProfileRow | null = null;
+  {
+    const conEnlaces = await supabase
+      .from("profiles")
+      .select(`${COLS_BASE}, enlaces`)
+      .eq("id", user.id)
+      .single();
+    if (conEnlaces.error) {
+      const sinEnlaces = await supabase
+        .from("profiles")
+        .select(COLS_BASE)
+        .eq("id", user.id)
+        .single();
+      perfilRow = (sinEnlaces.data as ProfileRow | null) ?? null;
+    } else {
+      perfilRow = conEnlaces.data as ProfileRow;
+    }
+  }
+
+  // Contribuciones reales → tipo de la librería de capital.
+  const { data: contribRows } = await supabase
+    .from("contribuciones")
+    .select("id, tipo, seccion_pharos, creada")
+    .eq("user_id", user.id);
+
+  const contribuciones: Contribucion[] = (contribRows ?? []).map(
+    (c: {
+      id: string;
+      tipo: Contribucion["tipo"];
+      seccion_pharos: string | null;
+      creada: string;
+    }) => ({
+      id: c.id,
+      tipo: c.tipo,
+      seccionPharos: c.seccion_pharos ?? undefined,
+      creada: c.creada,
+    }),
+  );
+
+  const puntos = agregarCapital(contribuciones);
   const total = puntosTotales(puntos);
   const dominante = ejeDominante(puntos);
   const grado = gradoActual(puntos);
   const proximo = proximoGrado(grado);
   const avance = Math.round(avanceHaciaProximo(puntos, grado) * 100);
 
-  const isla = CANARIAS.find((i) => i.id === perfil.islaId);
-  const muni = isla?.municipios.find((m) => m.id === perfil.municipioId);
-  const barrio = muni?.barrios.find((b) => b.id === perfil.barrioId);
+  const nombre =
+    perfilRow?.display_name || `@${perfilRow?.handle ?? "vecino"}`;
+  const inicial = (nombre[0] || "?").toUpperCase();
+  const color = perfilRow?.avatar_color || "#A14B2A";
+  const enlaces: Enlace[] = Array.isArray(perfilRow?.enlaces)
+    ? (perfilRow!.enlaces as Enlace[])
+    : [];
+
+  const isla = CANARIAS.find((i) => i.id === perfilRow?.isla_id);
+  const muni = isla?.municipios.find((m) => m.id === perfilRow?.municipio_id);
+  const barrio = muni?.barrios.find((b) => b.id === perfilRow?.barrio_id);
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10 pb-40">
       {/* Cabecera de perfil */}
-      <section className="flex items-start gap-5">
-        <Avatar
-          inicial={perfil.avatarInicial}
-          color={perfil.avatarColor}
-          grado={grado}
-          size={96}
-        />
+      <section className="flex items-start gap-5 flex-wrap">
+        {perfilRow?.avatar_url ? (
+          <span
+            className="relative inline-flex rounded-full overflow-hidden shrink-0"
+            style={{ width: 96, height: 96, border: "1px solid var(--color-linea)" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={perfilRow.avatar_url}
+              alt={`Avatar de ${nombre}`}
+              className="w-full h-full object-cover"
+            />
+          </span>
+        ) : (
+          <Avatar inicial={inicial} color={color} grado={grado} size={96} />
+        )}
         <div className="min-w-0 flex-1">
           <div className="eyebrow" style={{ color: grado.color }}>
             {grado.nombreLatino} · {grado.traduccion}
@@ -45,13 +139,15 @@ export default function PerfilPage() {
             className="display mt-1 text-[clamp(1.5rem,3.2vw,2rem)]"
             style={{ color: "var(--color-papiro-ink)", fontWeight: 600 }}
           >
-            {perfil.nombre}{" "}
-            <span
-              className="display italic font-normal"
-              style={{ color: "var(--color-piedra)" }}
-            >
-              @{perfil.handle}
-            </span>
+            {nombre}{" "}
+            {perfilRow?.handle && (
+              <span
+                className="display italic font-normal"
+                style={{ color: "var(--color-piedra)" }}
+              >
+                @{perfilRow.handle}
+              </span>
+            )}
           </h1>
           <p
             className="display italic mt-1 text-[1rem]"
@@ -67,6 +163,39 @@ export default function PerfilPage() {
               Vecina/o de {barrio.nombre} · {muni!.nombre} · {isla!.nombre}
             </p>
           )}
+          {perfilRow?.bio && (
+            <p
+              className="text-[0.92rem] mt-3 whitespace-pre-wrap max-w-2xl"
+              style={{ color: "var(--color-papiro-ink)", lineHeight: 1.55 }}
+            >
+              {perfilRow.bio}
+            </p>
+          )}
+          {enlaces.length > 0 && (
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 mt-3">
+              {enlaces.map((e, i) => (
+                <li key={i}>
+                  <a
+                    href={e.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="text-[0.86rem] underline"
+                    style={{ color: "var(--color-ocre-deep)" }}
+                  >
+                    {e.titulo}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="mt-4">
+            <PerfilEditor
+              userId={user.id}
+              bioInicial={perfilRow?.bio ?? ""}
+              enlacesInicial={enlaces}
+              avatarUrlInicial={perfilRow?.avatar_url ?? null}
+            />
+          </div>
         </div>
       </section>
 
@@ -81,11 +210,20 @@ export default function PerfilPage() {
         >
           Capital acumulado
         </h2>
+        {total === 0 && (
+          <p
+            className="text-[0.9rem] mb-4"
+            style={{ color: "var(--color-piedra)" }}
+          >
+            Todavía no has acumulado capital cívico. Abre un hilo en Ágora,
+            publica en STOA o aporta en Bibliotheka para empezar tu cursus.
+          </p>
+        )}
         <ul className="grid md:grid-cols-3 gap-4">
           {EJES.map((e) => {
             const v = puntos[e.id];
             const pct = Math.min(100, Math.round((v / Math.max(total, 1)) * 100));
-            const esDominante = dominante === e.id;
+            const esDominante = total > 0 && dominante === e.id;
             return (
               <li
                 key={e.id}
@@ -262,6 +400,21 @@ export default function PerfilPage() {
           })}
         </ol>
       </section>
+
+      <p
+        className="mt-12 text-[0.82rem] text-center"
+        style={{ color: "var(--color-piedra-clara)" }}
+      >
+        Gestiona tu cuenta en{" "}
+        <Link
+          href="/ajustes"
+          className="underline"
+          style={{ color: "var(--color-ocre-deep)" }}
+        >
+          Ajustes
+        </Link>
+        .
+      </p>
     </div>
   );
 }

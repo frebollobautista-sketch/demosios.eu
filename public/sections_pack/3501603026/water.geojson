@@ -1,1 +1,1 @@
-{"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:32628_local_enu_m_section_centroid", "lng0": -15.4318964343598, "lat0": 28.153007887628302}}, "features": []}
+{"type": "FeatureCollection", "crs": {"type": "name", "properties": {"name": "EPSG:32628_local_enu_m_section_centroid", "lng0": -15.431896434359812, "lat0": 28.153007887628306}}, "features": []}

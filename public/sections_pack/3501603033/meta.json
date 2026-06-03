@@ -4,8 +4,9 @@
   "nmun": "Palmas de Gran Canaria, Las",
   "area_ha": 5.037007399271271,
   "perimeter_m": 1020.5277356007339,
-  "building_count": 306,
+  "building_count": 957,
   "tree_count": 0,
+  "tree_data_source": null,
   "monument_count": 0,
   "poi_count": 35,
   "road_segment_count": 85,
@@ -31,7 +32,7 @@
     "cos_lat0": 0.8817089883494035
   },
   "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
-  "produced_at": "2026-05-09T16:47:43+00:00",
+  "produced_at": "2026-05-24T11:29:05+00:00",
   "producer": "iso_pack.py v1",
   "categories": {
     "restauracion": {

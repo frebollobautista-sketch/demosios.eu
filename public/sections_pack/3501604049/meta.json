@@ -2,37 +2,37 @@
   "cusec": "3501604049",
   "mun": "016",
   "nmun": "Palmas de Gran Canaria, Las",
-  "area_ha": 4.697172662998424,
-  "perimeter_m": 1017.8177183444564,
-  "building_count": 62,
+  "area_ha": 4.697172679932507,
+  "perimeter_m": 1017.8177200243715,
+  "building_count": 204,
   "tree_count": 0,
   "tree_data_source": null,
   "monument_count": 0,
-  "poi_count": 5,
-  "road_segment_count": 124,
+  "poi_count": 4,
+  "road_segment_count": 125,
   "centroid_lnglat": [
-    -15.436027435001945,
-    28.114031276678308
+    -15.436026497963937,
+    28.11403089005235
   ],
   "bbox_lnglat": [
     -15.4377,
     28.1127,
-    -15.4344,
+    -15.43445,
     28.1153
   ],
   "bbox_local_m": [
-    -164.22166297930167,
-    -141.23428017094255,
-    154.88127490556982,
-    148.19771982917388
+    -164.31366713515231,
+    -141.27731937237996,
+    154.7892719001378,
+    148.15468062773647
   ],
   "enu_basis": {
-    "lng0": -15.436027435001945,
-    "lat0": 28.114031276678308,
-    "cos_lat0": 0.8820114925368792
+    "lng0": -15.436026497963937,
+    "lat0": 28.11403089005235,
+    "cos_lat0": 0.8820114957166759
   },
   "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
-  "produced_at": "2026-05-10T01:15:34+00:00",
+  "produced_at": "2026-05-24T11:29:21+00:00",
   "producer": "iso_pack.py v1",
   "categories": {
     "restauracion": {

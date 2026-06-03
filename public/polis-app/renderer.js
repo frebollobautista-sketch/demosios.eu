@@ -775,19 +775,30 @@ function renderMunicipio(ctx, state) {
   const owned = mu.barrioOwnedCusecs;
   const hasPiezas = !!(piezas && piezas.length);
 
+  // 2026-06-02 — Modelo MIXTO:
+  //   · Muns con barrios canonical (Las Palmas, Telde, Santa Cruz, La
+  //     Laguna, Mogán...) — 54 muns en Canarias — usan tiles iso 3D
+  //     identitarias (Vegueta, Triana, La Isleta, Tamaraceite…). Modelo
+  //     "to the bridge" preservado.
+  //   · Muns sin barrios canonical (Tejeda, Artenara, Vega de San Mateo,
+  //     muns rurales no-GC) — supra-regiones overlay cubre con cascada
+  //     toponímia/barranco/cabecera/kmeans.
+  // El flag `_showAdminPiezas` queda como toggle debug para forzar el
+  // fallback de secciones-INE en consola.
   if (hasPiezas) {
-    // Sombra plana por pieza (suma de rings si MultiPolygon).
+    // 2026-06-02 — Sombra plana SUTIL: offset 1.5m SE + color ink
+    // translúcido 18%. Antes con offset 2m y INK sólido se leía como
+    // línea negra gruesa por detrás de cada pieza, saturando.
     for (const p of piezas) {
       for (const ring of p.rings) {
-        drawFlatShadow(ctx, ring, view, 2, 2);
+        drawFlatShadow(ctx, ring, view, 1.5, 1.5, "rgba(26,22,18,0.18)");
       }
     }
-    // Tiles iso por pieza: misma fórmula de altura que las secciones,
-    // pero sobre la suma de buildings del barrio entero.
-    // 2026-05-22 — bc defensive: si el barrio no tiene buildings_total
-    // numérico (manifest incompleto / pieza sintética sin sumar) caemos
-    // a 0 en vez de NaN, evitando que drawIsoTile proyecte alturas NaN
-    // y la pieza desaparezca.
+    // Tiles iso por pieza con choropleth ocre original sobre terciles
+    // de buildings_total (paper warm / ocre lt / ocre). Stroke 1px fino.
+    // sideColor en ink translúcido 30% — las caras laterales pasan a
+    // ser sombra suave del bloque en vez de fill negro sólido que
+    // creaba "líneas negras gruesas" detrás de cada pieza.
     for (const p of piezas) {
       const bc = Number.isFinite(p.buildings_total) ? p.buildings_total : 0;
       const h = Math.min(40, Math.sqrt(Math.max(bc, 1) * 3));
@@ -795,25 +806,31 @@ function renderMunicipio(ctx, state) {
                   : bc <= mu.bcStats.t2 ? OCRE_LT
                   : OCRE;
       for (const ring of p.rings) {
-        drawIsoTile(ctx, ring, Math.max(h, 3), color, view, { stroke: 1.5 });
+        drawIsoTile(ctx, ring, Math.max(h, 3), color, view, {
+          stroke: 1,
+          sideColor: "rgba(26,22,18,0.30)"
+        });
       }
     }
 
-    // [C] Highlight del borde por pieza-barrio — stroke ocre oscuro (2.5
-    // px) por encima del tile iso para diferenciar visualmente cada
-    // barrio del fondo del mun. Va después de drawIsoTile para quedar
-    // por encima del INK fino que ya pinta drawIsoTile. Si el barrio
-    // está hovered, sube a 3.5 px y color INK para feedback de tap.
+    // [C] Highlight del borde por pieza-barrio — INK fino 1.2px sobre
+    // los rings originales para definir el polígono sin saturar. El
+    // hover sube a 2.5 con INK saturado.
+    // SOLO sobre rings ORIGINALES (_originalRingCount): las huérfanas
+    // reasignadas no llevan outline propio para no parecer sub-piezas.
     ctx.save();
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
     const hoverPiezaId = state.hoverFeature?.properties?.barrioPiezaId;
     for (const p of piezas) {
       const isHover = p.id === hoverPiezaId;
-      ctx.lineWidth = isHover ? 3.5 : 2.5;
-      ctx.strokeStyle = isHover ? INK : OCRE_DK;
-      for (const ring of p.rings) {
-        drawRingOutline(ctx, ring, view, 0);
+      ctx.lineWidth = isHover ? 2.5 : 1.2;
+      ctx.strokeStyle = isHover ? INK : "rgba(26,22,18,0.65)";
+      const cutoff = Number.isFinite(p._originalRingCount)
+        ? p._originalRingCount
+        : p.rings.length;
+      for (let r = 0; r < cutoff; r++) {
+        drawRingOutline(ctx, p.rings[r], view, 0);
       }
     }
     ctx.restore();
@@ -832,12 +849,13 @@ function renderMunicipio(ctx, state) {
       }
       ctx.restore();
     }
-  } else {
+  } else if (state._showAdminPiezas) {
     // Fallback legacy: 274 secciones como tiles iso (muns sin barrios).
+    // 2026-06-02 — gateado: por defecto el render admin no se pinta;
+    // supra-regiones.js cubre el mun.
     for (const s of mu.secciones) {
       drawFlatShadow(ctx, s._ringSimple, view, 3, 3);
     }
-    // 2026-05-22 — bc defensive (igual que rama de piezas).
     for (const s of mu.secciones) {
       const bc = Number.isFinite(s._buildingCount) ? s._buildingCount : 0;
       const h = Math.min(40, Math.sqrt(Math.max(bc, 1) * 3));
@@ -934,24 +952,14 @@ function renderMunicipio(ctx, state) {
       return false;
     };
 
-    // [C v3] Filtro density-aware: muns rurales con barrios dispersos
-    // (San Bart Tirajana: 330 km², 12 barrios costeros de ~2 km que
-    // a fitView caben en 11×12 px). En estos casos el filtro de tamaño
-    // descarta TODO. Confiamos en el anti-overlap greedy:
-    //   - <15 piezas: sin filtro de tamaño (sólo descartamos texto vacío).
-    //                  El anti-overlap decide qué pintar; las densas
-    //                  primero (orden por buildings_total).
-    //   - 15-30 piezas: umbral medio (cellW<25 || cellH<18).
-    //   - 30+ piezas: umbral estricto (cellW<40 || cellH<28) para LPGC.
-    const N = items.length;
-    const minW = N < 15 ? 0 : N < 30 ? 25 : 40;
-    const minH = N < 15 ? 0 : N < 30 ? 18 : 28;
-
     for (const it of items) {
       const isHover = it.p.id === hoverPiezaId;
-      // Filtro de pieza pequeña — pero el barrio hovered se pinta sí o
-      // sí, aunque sea minúsculo.
-      if (!isHover && (it.cellW < minW || it.cellH < minH)) continue;
+      // 2026-06-02 — Etiquetas permanentes con anti-overlap. La regla
+      // "solo-en-hover" (2026-05-31) era inviable en móvil donde hover
+      // no se puede invocar. Ahora cada pieza muestra su nombre +
+      // edificios; greedy por importancia descendente — las grandes/
+      // densas pintan primero y las pequeñas que solapan se omiten.
+      // hover sigue siendo el caso "siempre se pinta" para feedback.
 
       const text = it.p.name || "";
       if (!text) continue;
@@ -1036,18 +1044,16 @@ function drawMunClusters(ctx, state) {
   }
   ctx.restore();
 
-  // Labels HUD card con anti-overlap simple.
+  // Labels HUD card — 2026-05-31: solo en hover (petición usuario). El
+  // hull dashed sigue visible siempre como pista de zona clicable; el
+  // rect se publica para todos los clusters visibles (el tap sigue
+  // funcionando aunque no haya etiqueta), pero la tarjeta nombre+edif
+  // únicamente se pinta sobre el cluster con hover (state.hoverClusterId).
   ctx.save();
   ctx.font = "bold italic 11px Georgia, serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const placed = [];
-  const overlaps = (r, list) => {
-    for (const o of list) {
-      if (r.x1 > o.x0 && r.x0 < o.x1 && r.y1 > o.y0 && r.y0 < o.y1) return true;
-    }
-    return false;
-  };
+  const hoverClusterId = state.hoverClusterId ?? null;
   // Rects para hit-test en handleTap. Cada rect lleva clusterId.
   const placedRects = [];
   for (const c of visible) {
@@ -1065,9 +1071,9 @@ function drawMunClusters(ctx, state) {
       x0: px - boxW / 2, x1: px + boxW / 2,
       y0: py - boxH / 2, y1: py + boxH / 2
     };
-    if (overlaps(rect, placed)) continue;
-    placed.push(rect);
     placedRects.push({ ...rect, clusterId: c.id });
+
+    if (c.id !== hoverClusterId) continue;
 
     // Card paper translúcida (vs HUD ink card de barrios — los diferencia).
     ctx.fillStyle = "rgba(251, 247, 238, 0.94)";
@@ -1910,6 +1916,19 @@ function renderBarrio(ctx, state) {
                    "rgba(26,22,18,0.25)");
   }
 
+  // 2026-06-02 — Cross-fade manzana-iso ↔ edificios-individuales.
+  // Petición usuario: ver el barrio ENTERO con sus edificios extruidos
+  // (no atenuados como hacía enterManzana, no solo manzanas-tile). Se
+  // pintan TODOS los buildings del barrio con archetypes 3D cuando el
+  // zoom cruza 2.0. Mismo patrón que renderSeccion.
+  //   ratio ≤ 2.0   → solo manzanas iso (current)
+  //   ratio 2.0→3.5 → manzanas alpha 1→0, edificios alpha 0→1
+  //   ratio ≥ 3.5   → solo edificios individuales con clipping viewport
+  const ratio = view.scale / view.fitScale;
+  const tDetail = Math.max(0, Math.min(1, (ratio - 2.0) / 1.5));
+  const manzanaAlpha = 1.0 - tDetail;
+  const bldgAlpha = tDetail;
+
   // ── 3. Manzanas como tiles iso. Altura modesta (cap 30) para que el
   // mosaico se lea como pieza y no se solape entre vecinas. Stroke ink
   // fino 1.5 px. side ink (default), sin liftPx.
@@ -1918,22 +1937,62 @@ function renderBarrio(ctx, state) {
   // sección desde el barrio), las manzanas de otras secciones se pintan
   // como tiles planos OCRE_LT con alpha 0.30 — siguen visibles como
   // tejido pero no compiten con la sección focal.
-  for (const m of b.manzanas) {
-    if (!m._ringSimple) continue;
-    const bc = m.properties.building_count || 0;
-    const hMed = m.properties.height_median_m || 6;
-    const hUse = Math.max(3, Math.min(30, hMed * 0.8));
-    if (selCusec && m._cusec !== selCusec) {
-      ctx.save();
-      ctx.globalAlpha = 0.30;
-      fillRing(ctx, m._ringSimple, view, OCRE_LT,
-               "rgba(26,22,18,0.95)", 1.0);
-      ctx.restore();
-    } else {
-      drawIsoTile(ctx, m._ringSimple, hUse, colorFor(bc), view, {
-        stroke: 1.5
+  if (manzanaAlpha > 0.01) {
+    ctx.save();
+    ctx.globalAlpha = manzanaAlpha;
+    for (const m of b.manzanas) {
+      if (!m._ringSimple) continue;
+      const bc = m.properties.building_count || 0;
+      const hMed = m.properties.height_median_m || 6;
+      const hUse = Math.max(3, Math.min(30, hMed * 0.8));
+      if (selCusec && m._cusec !== selCusec) {
+        ctx.save();
+        ctx.globalAlpha = manzanaAlpha * 0.30;
+        fillRing(ctx, m._ringSimple, view, OCRE_LT,
+                 "rgba(26,22,18,0.95)", 1.0);
+        ctx.restore();
+      } else {
+        drawIsoTile(ctx, m._ringSimple, hUse, colorFor(bc), view, {
+          stroke: 1.5
+        });
+      }
+    }
+    ctx.restore();
+  }
+
+  // ── 3b. Edificios individuales del barrio entero a alto zoom. Sin
+  // atenuación de "otros" — esto es lo que el usuario reclamó: ver el
+  // barrio completo como mosaico extruido. Mismo viewport clipping que
+  // renderSeccion para escalar con lo VISIBLE (no con los 3000+ totales).
+  if (bldgAlpha > 0.01 && b.buildings && b.buildings.length) {
+    const W = ctx.canvas.width / state.dpr;
+    const H = ctx.canvas.height / state.dpr;
+    const margin = 80;
+    const visible = [];
+    for (const bld of b.buildings) {
+      if (!bld._ring || bld._ring.length < 3 || !bld._centroid) continue;
+      const [cx, cz] = bld._centroid;
+      const [vpx, vpy] = project(cx, 0, cz, view);
+      if (vpx < -margin || vpx > W + margin) continue;
+      if (vpy < -margin || vpy > H + margin) continue;
+      visible.push({ b: bld, key: cx + cz });
+    }
+    visible.sort((a, c) => a.key - c.key);
+    ctx.save();
+    ctx.globalAlpha = bldgAlpha;
+    // Sombras planas SE 2px primero (z-stack).
+    for (const { b: bld } of visible) {
+      drawFlatShadow(ctx, bld._ring, view, 2, 2);
+    }
+    // Archetypes con altura real (height_m).
+    for (const { b: bld } of visible) {
+      const h = Math.max(3.0, bld.properties.height_m || 6);
+      drawArchetype(ctx, bld._ring, h, bld._archetype, view, {
+        stroke: 1.5,
+        outline: INK
       });
     }
+    ctx.restore();
   }
 
   // ── 4. Outline real del barrio (en ink 3px round) sobre las manzanas

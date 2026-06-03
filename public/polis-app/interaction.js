@@ -148,12 +148,68 @@ export function attach(canvas, state, requestRender, onTap, onSwipe) {
   });
 
   // ---- Wheel zoom
+  // [Z] 2026-05-31 — Commit de nivel por rueda/trackpad. Antes el wheel
+  // SOLO hacía clampScale: en Mac (pinch del trackpad emite eventos
+  // `wheel`, no `touch`) era imposible bajar/subir de nivel zoomando — la
+  // cámara topaba en min/max y se quedaba presa. Ahora, igual que el pinch
+  // táctil: si ya estás en el tope y sigues empujando, acumulamos el
+  // overshoot; al superar el umbral se commitea la transición:
+  //   - zoom-in en el tope máx → onTap en el cursor (drill-down al hijo)
+  //   - zoom-out en el tope mín → navigateBack (sube al padre)
+  // Cooldown tras commit para que un solo gesto continuo no encadene
+  // varios saltos. El acumulador se resetea si dejas de empujar el tope.
+  const WHEEL_COMMIT_IN  = 0.45; // overshoot log acumulado para drill-down
+  const WHEEL_COMMIT_OUT = 0.45; // overshoot log acumulado para subir
+  let _wheelAccum = 0;
+  let _wheelCooldownUntil = 0;
   canvas.addEventListener("wheel", (e) => {
     e.preventDefault();
     const rect = canvas.getBoundingClientRect();
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
     const factor = Math.exp(-e.deltaY * 0.0015);
+    const v = state.view;
+    const now = performance.now();
+
+    if (now < _wheelCooldownUntil || state._anim) {
+      zoomAt(mx, my, factor);
+      return;
+    }
+
+    const atMax = v.scale >= v.maxScale - 1e-6;
+    const atMin = v.scale <= v.minScale + 1e-6;
+
+    if (atMax && factor > 1) {
+      // Empujando hacia adentro estando ya en el tope → acumula y, al
+      // pasar el umbral, drillea al hijo bajo el cursor.
+      _wheelAccum += Math.log(factor);
+      if (_wheelAccum >= WHEEL_COMMIT_IN) {
+        _wheelAccum = 0;
+        _wheelCooldownUntil = now + 500;
+        // 2026-06-02 — flag de origen para que handleTap del lod=municipio
+        // sepa que viene de un wheel-commit y deba SALTAR el peek-chip de
+        // supra (no quiero un 1er tap=peek; quiero drill directo a sección
+        // con edificios). En lod no-municipio el flag es inocuo.
+        state._wheelDrill = true;
+        onTap(mx, my);
+        state._wheelDrill = false;
+        return;
+      }
+    } else if (atMin && factor < 1) {
+      // Empujando hacia afuera estando ya en el tope → sube al padre.
+      _wheelAccum += -Math.log(factor);
+      if (_wheelAccum >= WHEEL_COMMIT_OUT) {
+        _wheelAccum = 0;
+        _wheelCooldownUntil = now + 500;
+        if (typeof window.polisApp?.navigateBack === "function") {
+          window.polisApp.navigateBack();
+        }
+        return;
+      }
+    } else {
+      _wheelAccum = 0; // dejó de empujar contra un tope
+    }
+
     zoomAt(mx, my, factor);
   }, { passive: false });
 

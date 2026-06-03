@@ -1,0 +1,87 @@
+{
+  "cusec": "3804101004",
+  "mun": "041",
+  "nmun": "Sauzal, El",
+  "area_ha": 233.2231920859092,
+  "perimeter_m": 12031.700438712518,
+  "building_count": 2045,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 27,
+  "road_segment_count": 492,
+  "centroid_lnglat": [
+    -16.44315863509971,
+    28.473882491439245
+  ],
+  "bbox_lnglat": [
+    -16.45681,
+    28.46044,
+    -16.42715,
+    28.48704
+  ],
+  "bbox_local_m": [
+    -1335.8423486416627,
+    -1464.6938529833374,
+    1566.5109581597433,
+    1496.4181470168803
+  ],
+  "enu_basis": {
+    "lng0": -16.44315863509971,
+    "lat0": 28.473882491439245,
+    "cos_lat0": 0.8790345277383182
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:35:01+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

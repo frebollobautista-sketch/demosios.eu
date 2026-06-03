@@ -1,0 +1,87 @@
+{
+  "cusec": "3500402014",
+  "mun": "004",
+  "nmun": "Arrecife",
+  "area_ha": 18.673640431503113,
+  "perimeter_m": 1868.5899049578327,
+  "building_count": 1311,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 0,
+  "road_segment_count": 136,
+  "centroid_lnglat": [
+    -13.548196739235612,
+    28.975209259796806
+  ],
+  "bbox_lnglat": [
+    -13.5512,
+    28.9729,
+    -13.5455,
+    28.9773
+  ],
+  "bbox_local_m": [
+    -292.47557681592724,
+    -232.74119941953103,
+    262.6246687634914,
+    257.0668005805139
+  ],
+  "enu_basis": {
+    "lng0": -13.548196739235612,
+    "lat0": 28.975209259796806,
+    "cos_lat0": 0.8748293927093402
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:19:16+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

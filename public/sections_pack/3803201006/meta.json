@@ -1,0 +1,87 @@
+{
+  "cusec": "3803201006",
+  "mun": "032",
+  "nmun": "Rosario, El",
+  "area_ha": 22.817918301204244,
+  "perimeter_m": 5120.838519469045,
+  "building_count": 606,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 10,
+  "road_segment_count": 149,
+  "centroid_lnglat": [
+    -16.325648859742998,
+    28.40269610347299
+  ],
+  "bbox_lnglat": [
+    -16.33097,
+    28.40022,
+    -16.31947,
+    28.40543
+  ],
+  "bbox_local_m": [
+    -521.0459878741038,
+    -304.3373613865622,
+    605.0338692894645,
+    275.6398386132331
+  ],
+  "enu_basis": {
+    "lng0": -16.325648859742998,
+    "lat0": 28.40269610347299,
+    "cos_lat0": 0.8796261909758079
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:30:16+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "cusec": "3802501005",
+  "mun": "025",
+  "nmun": "Matanza de Acentejo, La",
+  "area_ha": 216.63646100257634,
+  "perimeter_m": 9338.938310404234,
+  "building_count": 1135,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 17,
+  "road_segment_count": 250,
+  "centroid_lnglat": [
+    -16.46585791792135,
+    28.4495090239362
+  ],
+  "bbox_lnglat": [
+    -16.4749,
+    28.43894,
+    -16.4569,
+    28.45993
+  ],
+  "bbox_local_m": [
+    -885.0090804793672,
+    -1160.0630554220543,
+    876.7713711980489,
+    1176.5437445780763
+  ],
+  "enu_basis": {
+    "lng0": -16.46585791792135,
+    "lat0": 28.4495090239362,
+    "cos_lat0": 0.8792372597902689
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:25:57+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

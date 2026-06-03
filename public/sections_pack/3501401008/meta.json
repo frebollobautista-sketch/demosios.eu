@@ -1,0 +1,87 @@
+{
+  "cusec": "3501401008",
+  "mun": "014",
+  "nmun": "Oliva, La",
+  "area_ha": 44.334084287157495,
+  "perimeter_m": 3214.8175961156335,
+  "building_count": 2363,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 120,
+  "road_segment_count": 322,
+  "centroid_lnglat": [
+    -13.871709276960788,
+    28.733901229575174
+  ],
+  "bbox_lnglat": [
+    -13.8748,
+    28.728,
+    -13.8681,
+    28.7391
+  ],
+  "bbox_local_m": [
+    -301.6924704981807,
+    -578.7271236916519,
+    352.30969232672857,
+    656.9248763082368
+  ],
+  "enu_basis": {
+    "lng0": -13.871709276960788,
+    "lat0": 28.733901229575174,
+    "cos_lat0": 0.8768618676625044
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:27:01+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

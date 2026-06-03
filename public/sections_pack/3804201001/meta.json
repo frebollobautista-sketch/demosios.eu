@@ -1,0 +1,87 @@
+{
+  "cusec": "3804201001",
+  "mun": "042",
+  "nmun": "Silos, Los",
+  "area_ha": 140.426548040455,
+  "perimeter_m": 6020.973951920786,
+  "building_count": 1384,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 14,
+  "road_segment_count": 322,
+  "centroid_lnglat": [
+    -16.818113229234374,
+    28.360341903955426
+  ],
+  "bbox_lnglat": [
+    -16.82495,
+    28.35252,
+    -16.81126,
+    28.36942
+  ],
+  "bbox_local_m": [
+    -669.723933958753,
+    -1010.5736516821497,
+    671.3361907995104,
+    870.7343483182116
+  ],
+  "enu_basis": {
+    "lng0": -16.818113229234374,
+    "lat0": 28.360341903955426,
+    "cos_lat0": 0.8799775722462805
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:35:07+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

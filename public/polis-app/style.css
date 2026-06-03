@@ -114,11 +114,12 @@ html, body {
 }
 .cog-menu {
   position: fixed;
-  /* [I] ITB v2 — cog ahora vive en la hud-toolbar (bottom 16, alto 52).
-     El menu se ancla justo encima de la toolbar, centrado. */
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
+  /* 2026-06-02 — Re-anclado bajo la rueda cog-toggle (top:56 right:16).
+     Antes vivía en bottom-center desde una iteración donde la rueda
+     estaba en hud-toolbar inferior; la rueda volvió a top-right pero el
+     menú quedó descalcado flotando en medio de la pantalla. */
+  top: 108px;     /* 56 (rueda top) + 44 (alto rueda) + 8 (gap) */
+  right: 16px;    /* alineado con la rueda */
   background: var(--paper);
   border: 2px solid var(--ink);
   border-radius: 14px;
@@ -465,7 +466,10 @@ html[data-cog-fontscale="l"] { font-size: 18px; }
   font-family: var(--font-serif);
   font-style: italic;
   text-align: center;
-  max-width: calc(100vw - 24px);
+  /* Deja hueco a los botones flotantes (back izq. / lupa der.) para que
+     topónimos largos ("Las Palmas de Gran Canaria") no queden por debajo
+     de ellos; si aún no cabe, el chip aplica ellipsis. */
+  max-width: calc(100vw - 110px);
   line-height: 1.15;
   display: flex;
   flex-direction: column;
@@ -2159,7 +2163,8 @@ body:has(.dashboard) .hud {
 
   /* [I] Membrete compacto en móvil — chips ITB v2 más pequeños. */
   .membrete {
-    max-width: calc(100vw - 24px);
+    /* Hueco para los botones flotantes back/lupa (ver regla base). */
+    max-width: calc(100vw - 104px);
     gap: 3px;
   }
   .membrete .mb-current {
@@ -2961,6 +2966,45 @@ body.lv-archipielago .admin-badge {
 }
 .archipielago-grid[hidden] { display: none; }
 
+/* 2026-06-02 — Limpieza visual a niveles "dentro del polígono". El
+   usuario está ya en su polígono objetivo (sección/manzana) y el
+   chrome adicional resta foco al mapa:
+   · lod-pill — el badge "LOD: sección" es info para desarrolladores
+     y compite con el contenido visual.
+   · siluetas-strip — la fila de islas arriba ya no aporta navegación
+     útil en sección (el back-btn ya gestiona la subida).
+   · membrete — la barra "Canarias › Gran Canaria › Vega › Distrito"
+     es ruido a sección; el back-btn es suficiente.
+   Mantenemos: back-btn, search-toggle, layer-panel-toggle (afordancias
+   activas), dashboard (info cívica), registro-toggle. */
+body.lv-seccion .lod-pill,
+body.lv-seccion .siluetas-strip,
+body.lv-seccion .membrete,
+body.lv-manzana .lod-pill,
+body.lv-manzana .siluetas-strip,
+body.lv-manzana .membrete {
+  display: none !important;
+}
+
+/* Dentro de una supra-region activa (vista interna del municipio), el
+   usuario ya ha elegido su zona — limpiamos LOD pill y membrete redundante.
+   Mantenemos siluetas-strip por si quiere saltar de isla rápido. */
+body.lv-supra-active .lod-pill,
+body.lv-supra-active .membrete {
+  display: none !important;
+}
+
+/* 2026-06-02 — Petición usuario: ocultar también el LOD pill a nivel
+   municipio. Era indicador de debug ("LOD: municipio"), no aporta al
+   ciudadano. El membrete superior ya dice "Vega de San Mateo" / breadcrumb
+   Canarias › Gran Canaria, suficiente. */
+body.lv-municipio .lod-pill,
+body.lv-barrio .lod-pill,
+body.lv-distrito .lod-pill,
+body.lv-isla .lod-pill {
+  display: none !important;
+}
+
 .isla-card {
   appearance: none;
   -webkit-appearance: none;
@@ -3209,6 +3253,11 @@ body.lv-archipielago .admin-badge {
   --ocre-brand: #B88646;        /* color del logo OCRE en top bar */
   --paper-app: #FBF7EE;         /* paper más limpio para chrome OCRE topbar */
   --paper-app-tr: rgba(251, 247, 238, 0.96);
+  /* Colores de identidad de sección — sólo viven en el toggle del header
+     como diferenciador (el mapa POLIS sigue ocre). Aprobados en dry run. */
+  --pillar-polis: #2f6fb3;      /* azul — templo/columnas */
+  --pillar-agora: #c95252;      /* rojo — asambleas/debate */
+  --pillar-biblioteca: #5ea674; /* verde — libro/archivo */
 }
 
 /* Sólo escondemos el banner viejo "KOINOS · POLIS" — la nueva top bar
@@ -3363,6 +3412,48 @@ body:not(.skin-ocre) .app-membrete-search { display: none; }
   color: var(--paper-app);
 }
 .app-topbar-enter:active { transform: translateY(1px); }
+
+/* [2026-05-31] Avatar del cursus honorum: círculo flotante abajo a la
+   derecha (insignia del personaje, ver CLAUDE.md). Silueta rellena;
+   insignia "?" mientras data-registered="false". Cuando exista perfil →
+   data-registered="true" oculta la insignia y aquí irá nivel/clase/puntos. */
+.app-avatar-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 24px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  appearance: none;
+  border: none;
+  background: var(--ink);
+  color: var(--paper-app);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.32);
+  z-index: 12;
+  transition: transform 0.15s;
+}
+.app-avatar-fab:hover { transform: scale(1.05); }
+.app-avatar-fab:active { transform: scale(0.97); }
+.app-avatar-fab .ava-badge {
+  position: absolute;
+  top: -2px; right: -2px;
+  min-width: 20px; height: 20px;
+  box-sizing: border-box;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--terracota, #c0572c);
+  color: #fff;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px; font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  border: 2px solid var(--paper-app);
+}
+.app-avatar-fab[data-registered="true"] .ava-badge { display: none; }
+/* Sólo en skin OCRE; en otras skins/embebidos se oculta. */
+body:not(.skin-ocre) .app-avatar-fab { display: none; }
 
 /* ------------------------------------------------------------
    APP-SEARCH-BUBBLE — bocadillo flotante, anclado al borde
@@ -4284,6 +4375,42 @@ body.skin-ocre .lp-chip { border-radius: 14px; }
 /* Silueta de isla activa → acento terracota (coincide con el resto) */
 body.skin-ocre .silueta-chip.active svg path { fill: var(--terracota); }
 
+/* ============================================================
+   MOBILE FIXES (2026-05-29) — chrome móvil más limpio para que el
+   mapa ocupe más pantalla. Aplica solo en anchos ≤ 480 px.
+   ============================================================ */
+@media (max-width: 480px) {
+  /* Coachmark "Esto está en tus manos": que no tape la mitad del mapa.
+     Anclado abajo, pequeño, no bloquea el lienzo. */
+  #gestos-coach {
+    left: 12px !important;
+    right: 12px !important;
+    top: auto !important;
+    bottom: 12px !important;
+    transform: none !important;
+    max-width: none !important;
+  }
+  #gestos-coach > div:last-child { display: none; } /* flecha al FAB */
+
+  /* Avatar-fab (perfil con badge ?): a esquina y más pequeño,
+     no compite con el contenido. */
+  .app-avatar-fab {
+    width: 34px !important;
+    height: 34px !important;
+    opacity: 0.78;
+  }
+  .app-avatar-fab:hover { opacity: 1; }
+
+  /* Chips POLIS/ÁGORA/BIBLIOTHEKA del topbar: colapsar al icono activo
+     en móvil. Reduce el chrome superior ~40 %. */
+  .app-topbar .app-topbar-toolbar-views .twb-chip:not(.active) { display: none; }
+  .app-topbar .app-topbar-toolbar-views { padding: 2px; }
+
+  /* Breadcrumb (membrete) más compacto cuando hay 4+ niveles */
+  .mb-parents { font-size: 11px !important; }
+  .mb-current { font-size: 14px !important; }
+}
+
 /* Line-art en polilíneas en las tarjetas de verbo de la hoja de gestos
    (#gestos-sheet). Sustituye al emoji; el trazo hereda currentColor. */
 #gestos-sheet-grid .ambito-glifo svg { width: 48px; height: 30px; display: block; }
@@ -4372,27 +4499,46 @@ body.skin-ocre #gestos-sheet-grid .ambito-glifo { color: var(--terracota); }
 /* ── Pilares visibles (interconexión siempre a la vista). Hermano de los
    pilares en agora-app y biblioteca-app. Colocado en el centro absoluto
    del .app-topbar, independiente del dropdown OCRE ▾ existente. */
+/* [2026-05-31] Toggle segmentado: contenedor píldora paper centrado, 3
+   segmentos icono+label. Fondo propio para leerse como control discreto
+   (resuelve el "OCREPOLIS" pegado al brand). El segmento activo se rellena
+   con el color de su sección; los inactivos muestran el icono en su color
+   y el label tenue. */
 .app-pillars {
   position: absolute; left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  display: flex; align-items: center; gap: 18px;
-  z-index: 14;
+  display: flex; align-items: center; gap: 2px;
+  z-index: 15;
+  background: rgba(26, 22, 18, 0.05);
+  border: 1px solid rgba(26, 22, 18, 0.1);
+  border-radius: 999px;
+  padding: 3px;
 }
 .app-pillars .pillar {
+  display: flex; align-items: center; gap: 6px;
   font-family: var(--font-serif);
-  font-size: 13px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: rgba(26, 22, 18, 0.55);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(26, 22, 18, 0.6);
   text-decoration: none;
-  padding: 4px 2px;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
+  padding: 5px 12px;
+  border-radius: 999px;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
 }
-.app-pillars .pillar:hover { color: var(--ink); }
-.app-pillars .pillar.is-active { color: var(--ink); font-weight: 600; }
-.app-pillars .pillar-polis.is-active      { border-bottom-color: var(--ocre-brand); }
-.app-pillars .pillar-agora.is-active      { border-bottom-color: #6aa86a; }
-.app-pillars .pillar-biblioteca.is-active { border-bottom-color: #7a95c8; }
-@media (max-width: 600px) {
-  .app-pillars { gap: 10px; font-size: 11px; }
+.app-pillars .pillar-ico { display: inline-flex; line-height: 0; }
+.app-pillars .pillar-polis      .pillar-ico { color: var(--pillar-polis); }
+.app-pillars .pillar-agora      .pillar-ico { color: var(--pillar-agora); }
+.app-pillars .pillar-biblioteca .pillar-ico { color: var(--pillar-biblioteca); }
+.app-pillars .pillar:hover { color: var(--ink); background: rgba(26, 22, 18, 0.06); }
+/* Segmento activo: relleno con el color de sección, texto + icono en blanco. */
+.app-pillars .pillar.is-active { color: #fff; }
+.app-pillars .pillar.is-active .pillar-ico { color: #fff; }
+.app-pillars .pillar-polis.is-active      { background: var(--pillar-polis); }
+.app-pillars .pillar-agora.is-active      { background: var(--pillar-agora); }
+.app-pillars .pillar-biblioteca.is-active { background: var(--pillar-biblioteca); }
+/* En pantallas estrechas colapsa a sólo-icono para no chocar con el brand. */
+@media (max-width: 640px) {
+  .app-pillars .pillar-label { display: none; }
+  .app-pillars .pillar { padding: 6px 9px; }
 }

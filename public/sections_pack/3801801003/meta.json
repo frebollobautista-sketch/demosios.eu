@@ -1,0 +1,87 @@
+{
+  "cusec": "3801801003",
+  "mun": "018",
+  "nmun": "Guancha, La",
+  "area_ha": 343.95340889547185,
+  "perimeter_m": 8887.076739210648,
+  "building_count": 2541,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 11,
+  "road_segment_count": 415,
+  "centroid_lnglat": [
+    -16.66139798629394,
+    28.376345292703682
+  ],
+  "bbox_lnglat": [
+    -16.67362,
+    28.36415,
+    -16.64845,
+    28.3854
+  ],
+  "bbox_local_m": [
+    -1197.0769421807809,
+    -1007.970016226153,
+    1268.1818408096822,
+    1357.5799837740685
+  ],
+  "enu_basis": {
+    "lng0": -16.66139798629394,
+    "lat0": 28.376345292703682,
+    "cos_lat0": 0.8798448605503192
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:18:48+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

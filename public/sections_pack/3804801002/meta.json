@@ -1,0 +1,87 @@
+{
+  "cusec": "3804801002",
+  "mun": "048",
+  "nmun": "Valverde",
+  "area_ha": 6191.729264245634,
+  "perimeter_m": 51110.54994344012,
+  "building_count": 3961,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 43,
+  "road_segment_count": 2884,
+  "centroid_lnglat": [
+    -17.95912530119732,
+    27.782174871330035
+  ],
+  "bbox_lnglat": [
+    -18.02426,
+    27.71405,
+    -17.9252,
+    27.84252
+  ],
+  "bbox_local_m": [
+    -6414.966773499508,
+    -6717.619723540528,
+    3341.2249378947618,
+    7583.660676459481
+  ],
+  "enu_basis": {
+    "lng0": -17.95912530119732,
+    "lat0": 27.782174871330035,
+    "cos_lat0": 0.8847260286392162
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:38:38+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

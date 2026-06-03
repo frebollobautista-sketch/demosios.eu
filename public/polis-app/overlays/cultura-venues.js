@@ -126,11 +126,14 @@ export const culturaVenuesOverlay = {
 
   draw: (ctx, state, view) => {
     if (!_venues || !_venues.length) return;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
+    // 2026-05-31 — Baseline = bbox de la isla actual (datos multi-isla). Sin
+    // esto, en isla bbox=null dejaba pasar venues de otras islas; en
+    // archipielago state.isla es null → bbox null → todos en su posición real.
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
     // En isla/archipielago mostramos sólo los principales (museos +
     // bibliotecas grandes con nombre) para no saturar. En niveles bajos

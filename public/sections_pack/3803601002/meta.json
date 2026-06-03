@@ -1,0 +1,87 @@
+{
+  "cusec": "3803601002",
+  "mun": "036",
+  "nmun": "San Sebastián de la Gomera",
+  "area_ha": 6876.963485175506,
+  "perimeter_m": 40401.69843281231,
+  "building_count": 2365,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 77,
+  "road_segment_count": 2554,
+  "centroid_lnglat": [
+    -17.177686748576846,
+    28.078306055713266
+  ],
+  "bbox_lnglat": [
+    -17.23899,
+    28.0292,
+    -17.11134,
+    28.11488
+  ],
+  "bbox_local_m": [
+    -6021.095526833946,
+    -4071.411477999117,
+    6516.458781583443,
+    5466.486122000881
+  ],
+  "enu_basis": {
+    "lng0": -17.177686748576846,
+    "lat0": 28.078306055713266,
+    "cos_lat0": 0.8823051423664607
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:52:52+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

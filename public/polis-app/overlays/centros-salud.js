@@ -255,13 +255,15 @@ export const centrosSaludOverlay = {
 
   hitTest: (px, py, state, view) => {
     if (!_centros || !_centros.length) return null;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
+    // 2026-05-31 — Baseline isla, coherente con draw (que ya filtra por
+    // state.isla.bbox a nivel isla): evita hit-test de centros de otra isla.
+    let bbox = state.isla?.bbox || state.isla?._bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
     else if (state.lodLevel === "barrio") {
-      bbox = state.barrio?.bbox || state.barrio?._bbox || null;
+      bbox = state.barrio?.bbox || state.barrio?._bbox || bbox;
     } else if (state.lodLevel === "seccion" || state.lodLevel === "section") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
     let best = null, bestD2 = (MARKER_R + 6) * (MARKER_R + 6);
     for (const p of _centros) {

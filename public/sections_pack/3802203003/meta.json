@@ -1,0 +1,87 @@
+{
+  "cusec": "3802203003",
+  "mun": "022",
+  "nmun": "Icod de los Vinos",
+  "area_ha": 3426.3348085056627,
+  "perimeter_m": 32360.907951608253,
+  "building_count": 2188,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 13,
+  "road_segment_count": 787,
+  "centroid_lnglat": [
+    -16.66641670395731,
+    28.328010207193913
+  ],
+  "bbox_lnglat": [
+    -16.70094,
+    28.27281,
+    -16.63267,
+    28.37248
+  ],
+  "bbox_local_m": [
+    -3382.9007324417544,
+    -4950.377335173591,
+    3306.8033073525694,
+    6144.887064826376
+  ],
+  "enu_basis": {
+    "lng0": -16.66641670395731,
+    "lat0": 28.328010207193913,
+    "cos_lat0": 0.8802454806400971
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:22:04+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

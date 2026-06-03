@@ -1,0 +1,87 @@
+{
+  "cusec": "3802602003",
+  "mun": "026",
+  "nmun": "Orotava, La",
+  "area_ha": 19.6142103086255,
+  "perimeter_m": 1731.3969112901368,
+  "building_count": 1112,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 10,
+  "road_segment_count": 112,
+  "centroid_lnglat": [
+    -16.523665110461376,
+    28.38213200849154
+  ],
+  "bbox_lnglat": [
+    -16.52644,
+    28.37973,
+    -16.5206,
+    28.38458
+  ],
+  "bbox_local_m": [
+    -271.76986770606266,
+    -272.5104147219008,
+    300.1938105994407,
+    267.3915852782251
+  ],
+  "enu_basis": {
+    "lng0": -16.523665110461376,
+    "lat0": 28.38213200849154,
+    "cos_lat0": 0.8797968560117688
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:26:03+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

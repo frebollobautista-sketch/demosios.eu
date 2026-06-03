@@ -1,0 +1,87 @@
+{
+  "cusec": "3804601002",
+  "mun": "046",
+  "nmun": "Tegueste",
+  "area_ha": 708.5192350507598,
+  "perimeter_m": 12661.45478610297,
+  "building_count": 1927,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 17,
+  "road_segment_count": 700,
+  "centroid_lnglat": [
+    -16.31292321692662,
+    28.521910252279675
+  ],
+  "bbox_lnglat": [
+    -16.33517,
+    28.50778,
+    -16.29256,
+    28.53907
+  ],
+  "bbox_local_m": [
+    -2175.9489858956263,
+    -1910.2231162264952,
+    1991.7181317808333,
+    1572.979683773336
+  ],
+  "enu_basis": {
+    "lng0": -16.31292321692662,
+    "lat0": 28.521910252279675,
+    "cos_lat0": 0.8786345800167522
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:36:35+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

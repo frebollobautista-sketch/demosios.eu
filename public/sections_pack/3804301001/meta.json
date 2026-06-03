@@ -1,0 +1,87 @@
+{
+  "cusec": "3804301001",
+  "mun": "043",
+  "nmun": "Tacoronte",
+  "area_ha": 52.895877540850684,
+  "perimeter_m": 3588.544248056806,
+  "building_count": 1215,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 35,
+  "road_segment_count": 275,
+  "centroid_lnglat": [
+    -16.414567372134726,
+    28.480139466515364
+  ],
+  "bbox_lnglat": [
+    -16.41854,
+    28.47544,
+    -16.40912,
+    28.48598
+  ],
+  "bbox_local_m": [
+    -388.71499139762267,
+    -650.1681875097884,
+    533.0162512826835,
+    523.1446124904828
+  ],
+  "enu_basis": {
+    "lng0": -16.414567372134726,
+    "lat0": 28.480139466515364,
+    "cos_lat0": 0.8789824582146438
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:35:15+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

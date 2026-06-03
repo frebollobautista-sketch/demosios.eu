@@ -153,11 +153,13 @@ export const listaEsperaOverlay = {
     if (!state || !view) return;
 
     const lvl = state.lodLevel;
-    let bbox = null;
-    if (lvl === "municipio")      bbox = state.municipio && state.municipio._localBbox;
-    else if (lvl === "distrito")  bbox = state.district  && state.district._localBbox;
-    else if (lvl === "seccion")   bbox = state.section   && state.section._localBbox;
-    // En "isla" no aplicamos bbox: pintamos todos.
+    // 2026-05-31 — Baseline = bbox de la isla actual, para no dispersar
+    // hospitales de otras islas (los datos del SCS son multi-isla). En
+    // archipielago state.isla es null → bbox null → todos en su posición real.
+    let bbox = (state.isla && state.isla.bbox) || null;
+    if (lvl === "municipio")      bbox = (state.municipio && state.municipio._localBbox) || bbox;
+    else if (lvl === "distrito")  bbox = (state.district  && state.district._localBbox) || bbox;
+    else if (lvl === "seccion")   bbox = (state.section   && state.section._localBbox) || bbox;
 
     ctx.save();
     for (const p of _points) {

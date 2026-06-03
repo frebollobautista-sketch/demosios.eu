@@ -38,7 +38,18 @@ export const PROJ_PRESETS = {
   // sirve para que las 7 islas se vean a la vez como tiles geográficos.
   archipielago: { ax: 0, ay: 0, sz_factor: 0.0, maxZoomRatio: 2.5 },
   isla:      { ax: 0,  ay: 0,  sz_factor: 0.0, maxZoomRatio: 3.0 },  // top-down puro
-  municipio: { ax: 0,  ay: 0,  sz_factor: 0.0, maxZoomRatio: 2.5 },  // v1.5: aplanado
+  // 2026-06-02 — maxZoomRatio subido 2.5 → 5.0 para que el wheel-zoom
+  // pueda explorar dentro del mun (centrar una zona, "acercarse" a una
+  // supra-region) ANTES de saturar el tope y disparar el commit que
+  // drillea a sección. Antes 2.5× saturaba muy rápido: el usuario apenas
+  // podía acercarse a una zona específica antes del commit, y al
+  // dispararse iba a peek-chip de supra (no a edificios). Con 5.0×
+  // tienes espacio para centrar y luego "empujar" la rueda para drill.
+  // 2026-06-02 — Into-the-Breach refinado: iso 30/30 con sz_factor 0.8
+  // (caras laterales sutiles, NO gruesas como antes). Permite que la
+  // pieza se lea como bloque elevado sin que las caras laterales sean
+  // protagonistas — coherente con la estética cubista de bordes finos.
+  municipio: { ax: 30, ay: 30, sz_factor: 0.8, maxZoomRatio: 5.0 },
   distrito:  { ax: 30, ay: 30, sz_factor: 1.6, maxZoomRatio: 6.0 },  // iso completa, relieve
   // v1.6.barrio: nivel intermedio hijo directo del municipio. Como tiene
   // menos secciones que el distrito (típicamente 3-30 vs 30-79), entra

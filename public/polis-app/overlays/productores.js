@@ -134,11 +134,16 @@ export const productoresOverlay = {
 
   draw: (ctx, state, view) => {
     if (!_productores || !_productores.length) return;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
+    // 2026-05-31 — Baseline = bbox de la isla actual. Sin esto, en niveles
+    // sin bbox propio (isla, barrio, vecindario, manzana) bbox quedaba null
+    // y _inBbox dejaba pasar TODOS los productores de GC → aparecían sobre
+    // otras islas (mercadillo de Teror sobre El Hierro). Encadenando desde
+    // la isla, en islas ≠ GC ningún productor de GC cae dentro del bbox.
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
 
     const projected = [];
@@ -182,11 +187,11 @@ export const productoresOverlay = {
 
   hitTest: (px, py, state, view) => {
     if (!_productores || !_productores.length) return null;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
     let best = null, bestD2 = (MARKER_R + 6) * (MARKER_R + 6);
     for (const p of _productores) {

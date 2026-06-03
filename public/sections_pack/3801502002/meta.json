@@ -1,0 +1,87 @@
+{
+  "cusec": "3801502002",
+  "mun": "015",
+  "nmun": "Garachico",
+  "area_ha": 2410.840942210712,
+  "perimeter_m": 30331.39381804879,
+  "building_count": 1927,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 72,
+  "road_segment_count": 1922,
+  "centroid_lnglat": [
+    -16.746319988685684,
+    28.32333075323081
+  ],
+  "bbox_lnglat": [
+    -16.76734,
+    28.2716,
+    -16.70044,
+    28.37083
+  ],
+  "bbox_local_m": [
+    -2059.8190296100993,
+    -5287.6161503464455,
+    4495.928777578769,
+    5758.667449653794
+  ],
+  "enu_basis": {
+    "lng0": -16.746319988685684,
+    "lat0": 28.32333075323081,
+    "cos_lat0": 0.8802842325292346
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:16:14+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

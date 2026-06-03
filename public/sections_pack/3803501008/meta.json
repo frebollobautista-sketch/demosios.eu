@@ -1,0 +1,87 @@
+{
+  "cusec": "3803501008",
+  "mun": "035",
+  "nmun": "San Miguel de Abona",
+  "area_ha": 114.48394295776417,
+  "perimeter_m": 4685.336253161657,
+  "building_count": 568,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 4,
+  "road_segment_count": 275,
+  "centroid_lnglat": [
+    -16.611467209196626,
+    28.05687522689542
+  ],
+  "bbox_lnglat": [
+    -16.61835,
+    28.05128,
+    -16.60522,
+    28.06291
+  ],
+  "bbox_local_m": [
+    -676.1502239510394,
+    -671.7909420015495,
+    613.7120854083304,
+    622.8606579984785
+  ],
+  "enu_basis": {
+    "lng0": -16.611467209196626,
+    "lat0": 28.05687522689542,
+    "cos_lat0": 0.8824811322903388
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:31:52+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

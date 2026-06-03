@@ -22,19 +22,25 @@
 
 import { fitView, project, pointInScreenPolygon, ringCentroid, ringBbox,
          lnglatToLocalMeters, projectFeatureRing }
-  from "./iso.js?v=20260529-clamp";
+  from "./iso.js";
 import { simplifyRing, outerRing, annotateDepth, sortByDepth }
   from "./clustering.js";
 import { loadCatalog, classify } from "./archetypes.js";
 import { assetUrl } from "./assets-base.js";
-import { render } from "./renderer.js?v=20260529-drilldown";
-import { attach } from "./interaction.js?v=20260525-swipeback";
-import { initOverlays, setOverlayActive } from "./overlays/index.js?v=20260529-batch3";
+import { render } from "./renderer.js?v=20260602-itb-sides";
+import { attach } from "./interaction.js?v=20260602-wheeldrill";
+import { initOverlays, setOverlayActive } from "./overlays/index.js?v=20260602-canonical-mix";
 import { TAXONOMIA, getVerbo, SECTOR_ESTADO, VERBO_ART } from "../shared/taxonomia.js?v=20260529b-lineart";
-import { eventosOverlay } from "./overlays/eventos.js?v=20260521e";
+// 2026-06-02 — IMPORTANTE: las URLs deben coincidir EXACTAMENTE con las
+// usadas en overlays/index.js (incluyendo el ?v=). ES modules dedupea
+// por URL textual: si difieren, se crean DOS instancias del módulo con
+// caches independientes y handleTap acaba consultando la instancia con
+// `_items=[]` (la registry tiene la otra). Solución: misma URL.
+import { eventosOverlay } from "./overlays/eventos.js";
 import { productoresOverlay } from "./overlays/productores.js";
-import { tejidoSocialOverlay } from "./overlays/tejido-social.js";
+import { tejidoSocialOverlay } from "./overlays/tejido-social.js?v=20260527-subchips";
 import { registroOverlay } from "./overlays/registro.js";
+import { centrosSaludOverlay } from "./overlays/centros-salud.js?v=20260527-salud-v0";
 import { rentaOverlay } from "./overlays/renta.js";
 // Nota: search.js se carga dinámicamente abajo (vía _loadSearchModule)
 // con cache-buster por sesión. Esto sortea el cache de módulos ESM del
@@ -711,7 +717,31 @@ window.polisApp.switchView = switchView;
     clear.classList.toggle("visible", q.length > 0);
     results.innerHTML = "";
     if (!q) {
-      results.innerHTML = `<div class="asb-hint">Escribe para buscar islas, municipios, barrios, calles, lugares o asociaciones…</div>`;
+      // 2026-05-29 mobile-fix — chips de categoría para no obligar a teclear.
+      // Cada chip pre-rellena el input con una palabra-semilla y dispara la
+      // búsqueda. Cubre los casos más frecuentes (centros salud, farmacias,
+      // playas, BIC, yacimientos, ágora, alimentación, tejido, eventos).
+      const CHIPS = [
+        ["centro salud","🏥"],["farmacia","℞"],["colegio","🏫"],["playa","≈"],
+        ["BIC","★"],["yacimiento","◉"],["ágora","◯"],["parque","✦"],
+        ["cafetería","☕"],["restaurante","🍽"],["mercado","🛒"],["iglesia","✝"]
+      ];
+      results.innerHTML =
+        `<div class="asb-hint" style="margin-bottom:8px">Toca una categoría o escribe para buscar islas, municipios, calles, lugares, asociaciones…</div>` +
+        `<div class="asb-cat-chips" style="display:flex;flex-wrap:wrap;gap:6px;padding:0 2px">` +
+        CHIPS.map(([w,e]) =>
+          `<button type="button" class="asb-cat-chip" data-seed="${escapeHtml(w)}" ` +
+          `style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:5px;` +
+          `padding:6px 11px;border-radius:14px;background:rgba(160,82,45,0.10);` +
+          `border:1px solid rgba(160,82,45,0.35);color:#7A3D20;font-size:13px;font-weight:500">` +
+          `<span aria-hidden="true">${e}</span><span>${escapeHtml(w)}</span></button>`).join("") +
+        `</div>`;
+      results.querySelectorAll(".asb-cat-chip").forEach(c =>
+        c.addEventListener("click", () => {
+          input.value = c.dataset.seed;
+          runSearch(input.value);
+          input.focus();
+        }));
       return;
     }
     const arch = state.archipielago;
@@ -811,7 +841,7 @@ window.polisApp.switchView = switchView;
     if (found.muns.length) {
       groups.push(`<div class="asb-result-group">Municipios (${found.muns.length})</div>` +
         found.muns.slice(0, 20).map(m =>
-          `<button class="asb-result" data-kind="mun" data-mun="${escapeHtml(m.mun)}" data-isla="${escapeHtml(m.isla)}">${escapeHtml(m.nmun)}<span class="asb-r-meta">${escapeHtml(m.isla.toUpperCase())} · ${escapeHtml(m.cumun)}</span></button>`).join(""));
+          `<button class="asb-result" data-kind="mun" data-mun="${escapeHtml(m.mun)}" data-isla="${escapeHtml(m.isla)}">${escapeHtml(properToponym(m.nmun))}<span class="asb-r-meta">${escapeHtml(m.isla.toUpperCase())} · ${escapeHtml(m.cumun)}</span></button>`).join(""));
     }
     if (found.barrios.length) {
       groups.push(`<div class="asb-result-group">Barrios (${found.barrios.length})</div>` +
@@ -1467,7 +1497,9 @@ async function loadBarriosGc() {
   try {
     // 2026-05-26 — barrios-canonical-lite.json (251 KB) sin geometrías.
     // Las geometrías full vienen en barrios-canonical.json (7.4 MB) y se
-    // cargan lazy si el usuario navega al nivel barrio (loadBarrio).
+    // cargan lazy en `loadBarriosGcGeom()` cuando el usuario entra a un
+    // mun urbano (necesario para que `buildBarriosPiezas` construya las
+    // tiles iso 3D al render del municipio).
     const res = await fetch("../data/barrios-canonical-lite.json");
     if (!res.ok) throw new Error(`http ${res.status}`);
     const json = await res.json();
@@ -1493,6 +1525,52 @@ async function loadBarriosGc() {
     console.warn("[barrio] no se pudo cargar barrios-canonical.json:", e);
     state.barriosGc = null;
   }
+}
+
+// 2026-06-02 — Carga lazy del JSON FULL con geometrías (7.4 MB). Idempotente.
+// Necesario para que `buildBarriosPiezas` produzca las tiles iso del mun
+// (Las Palmas, Telde, Mogán... 54 muns con barrios canonical). Sin esto
+// `meta.geometria` está undefined y todas las entradas se saltan → mun
+// urbano queda visualmente vacío (caería al overlay supra-regiones).
+let _barriosGcGeomPromise = null;
+async function loadBarriosGcGeom() {
+  if (state.barriosGc?._geomLoaded) return state.barriosGc;
+  if (_barriosGcGeomPromise) return _barriosGcGeomPromise;
+  _barriosGcGeomPromise = (async () => {
+    try {
+      const res = await fetch("../data/barrios-canonical.json");
+      if (!res.ok) throw new Error(`http ${res.status}`);
+      const full = await res.json();
+      if (!full?.barrios) throw new Error("schema inválido");
+      if (!state.barriosGc) state.barriosGc = full;
+      // Merge: copia `geometria` (+ centroide/bbox si están) en el catálogo
+      // lite ya cargado. Mantiene el _cusecIndex y demás campos derivados.
+      for (const [bid, fullMeta] of Object.entries(full.barrios)) {
+        const liteMeta = state.barriosGc.barrios[bid];
+        if (!liteMeta) {
+          state.barriosGc.barrios[bid] = fullMeta;
+          continue;
+        }
+        if (fullMeta.geometria && !liteMeta.geometria) {
+          liteMeta.geometria = fullMeta.geometria;
+        }
+        if (fullMeta.centroide && !liteMeta.centroide) {
+          liteMeta.centroide = fullMeta.centroide;
+        }
+        if (fullMeta.bbox && !liteMeta.bbox) {
+          liteMeta.bbox = fullMeta.bbox;
+        }
+      }
+      state.barriosGc._geomLoaded = true;
+      return state.barriosGc;
+    } catch (e) {
+      console.warn("[barrio] full geom load failed:", e);
+      return state.barriosGc;
+    } finally {
+      _barriosGcGeomPromise = null;
+    }
+  })();
+  return _barriosGcGeomPromise;
 }
 
 // v1.5.2: detecta municipios vecinos (heurística rápida sin shapely).
@@ -1573,7 +1651,7 @@ async function loadMunicipio(mun) {
     const distritoId = mun + dis;
     if (!districts.has(distritoId)) {
       districts.set(distritoId, {
-        dis, distritoId, mun, nmun: munFeat.properties.nmun,
+        dis, distritoId, mun, nmun: properToponym(munFeat.properties.nmun),
         secciones: [], bbox: null
       });
     }
@@ -1609,7 +1687,64 @@ async function loadMunicipio(mun) {
   // secciones-INE como tiles). Reutilizamos la `geometria` y `centroide`
   // ya precomputados en barrios-canonical.json (Polygon/MultiPolygon
   // en lnglat) — sólo proyectamos a metros locales GC anchor.
-  const barriosPiezas = buildBarriosPiezas(mun, out);
+  //
+  // 2026-06-02 — Carga lazy del JSON FULL (7.4 MB con geometrías) ANTES
+  // de buildBarriosPiezas. El boot solo trae el lite (251 KB sin geom),
+  // entonces sin este await ninguna pieza se construye y el mun queda
+  // visualmente vacío (caería al overlay supra-regiones).
+  await loadBarriosGcGeom();
+  let barriosPiezas = buildBarriosPiezas(mun, out);
+  // 2026-06-02 — Si el mun NO tiene barrios canonical reales (Tejeda,
+  // Artenara, Vega de San Mateo, rurales prov 38), construimos las
+  // piezas desde la cascada toponímica (supra-regiones del mun).
+  // Detectamos "no canonical real" cuando:
+  //   · piezas vacío, O
+  //   · todas las piezas son `place_type === "synthetic-mun"` (entradas
+  //     que envuelven el mun entero como un único barrio — el JSON
+  //     canonical las añade para muns sin subdivisión curada).
+  // Misma estructura (id/name/rings/centroid/sections/buildings_total),
+  // por tanto el render canonical (drawIsoTile + choropleth) y el tap-a-
+  // barrio (enterBarrio) funcionan sin más cambios. Unifica visualmente
+  // la afordancia urbano/rural.
+  const allSynthetic = barriosPiezas.length > 0
+    && barriosPiezas.every(p => p.place_type === "synthetic-mun");
+  // 2026-06-02 — Detección de catálogo pobre con dos señales OR:
+  //   (1) coverageRatio < 50%: el catálogo cubre menos de la mitad del
+  //       mun (Yaiza: 2/7 = 28%).
+  //   (2) orphanRatio > 30%: aunque la cobertura sea alta, si más del
+  //       30% de las secciones del mun acabaron reasignadas como huér-
+  //       fanas a otras piezas, el catálogo está malsano (Teguise: 60%
+  //       coverage PERO "Teguise (otros)" tenía 4 secciones que ahora
+  //       cargan TODAS sobre la pieza "Teguise" → 10374 edif).
+  // Cualquiera de las dos → fallback a supra-piezas con la cascada.
+  const totalSecsMun = out.length;
+  const canonicalSecs = barriosPiezas.reduce(
+    (s, p) => s + (p._originalSecCount || 0), 0);
+  const coverageRatio = totalSecsMun > 0 ? canonicalSecs / totalSecsMun : 0;
+  const orphanRatio = totalSecsMun > 0
+    ? (totalSecsMun - canonicalSecs) / totalSecsMun : 0;
+  const poorCoverage = barriosPiezas.length > 0
+    && (coverageRatio < 0.5 || orphanRatio > 0.3);
+  if (!barriosPiezas.length || allSynthetic || poorCoverage) {
+    // Limpia entries del catálogo (synthetic o canonical-poor) + cusecIndex
+    // antes de registrar las nuevas piezas supra (sino el cusecIndex sigue
+    // apuntando a las viejas y enterBarrio resuelve mal — un tap a "Uga"
+    // post-supra cargaría las 6 secciones incluyendo Playa Blanca).
+    if ((allSynthetic || poorCoverage) && state.barriosGc) {
+      for (const p of barriosPiezas) {
+        delete state.barriosGc.barrios[p.id];
+        if (state.barriosGc._cusecIndex) {
+          for (const cu of p.seccionesCusecs) {
+            if (state.barriosGc._cusecIndex.get(cu) === p.id) {
+              state.barriosGc._cusecIndex.delete(cu);
+            }
+          }
+        }
+      }
+    }
+    const supraPiezas = await _buildSupraPiezas(mun, out, state.isla?.id, isProv38);
+    if (supraPiezas.length) barriosPiezas = supraPiezas;
+  }
   const barrioOwnedCusecs = new Set();
   for (const p of barriosPiezas) {
     for (const c of p.seccionesCusecs) barrioOwnedCusecs.add(c);
@@ -1627,7 +1762,7 @@ async function loadMunicipio(mun) {
 
   return {
     mun,
-    nmun: munFeat.properties.nmun,
+    nmun: properToponym(munFeat.properties.nmun),
     polygon: munFeat,
     secciones: sorted,
     bbox: [bxa, bxb, bxc, bxd],
@@ -1719,6 +1854,18 @@ async function loadMunClusters(cumun) {
       bbox: [a, b, d, e]
     });
   }
+  // 2026-05-31 — Descarta el "núcleo" sobre-fusionado. DBSCAN (eps 180m)
+  // colapsa el tejido urbano contiguo de las ciudades densas en un único
+  // blob que abarca casi todo el municipio (LPGC "Schamann" = 122.301 edif,
+  // 76% del total; igual en Telde, Sta Cruz, etc.). Ese anillo gigante no
+  // aporta navegación —ya estás viendo el municipio entero— y la etiqueta
+  // (un solo barrio para toda la ciudad) engaña. Si la componente dominante
+  // supera el 50% del total del municipio la ocultamos; los núcleos satélite
+  // realmente separados (El Fondillo, Tenoya…) sí se conservan.
+  const total = out.reduce((s, c) => s + (c.buildingCount || 0), 0);
+  if (total > 0) {
+    return out.filter(c => (c.buildingCount || 0) / total < 0.5);
+  }
   return out;
 }
 
@@ -1750,6 +1897,13 @@ function buildBarriosPiezas(mun, sectionFeatures) {
     if (rawMun.length >= 5 && !rawMun.startsWith(expectedProvPrefix)) continue;
     const bmun = rawMun.replace(/^3[58]/, "");
     if (bmun !== mun) continue;
+    // 2026-06-02 — Filtrar piezas catch-all "(otros)" del catálogo. Son
+    // 29 entradas tipo "Telde (otros)" / "Agüimes (otros)" que agrupan
+    // las secciones no asignadas a un barrio canonical específico —
+    // pollutan visualmente la identidad ("Vegueta + Triana + Otros"
+    // se lee mal). Sus secciones quedan huérfanas y el bloque de
+    // reasignación nearest-centroid las absorbe en piezas reales.
+    if (typeof meta.name === "string" && /\(otros\)$/i.test(meta.name)) continue;
     const g = meta.geometria;
     if (!g || !g.type) continue;
 
@@ -1803,15 +1957,27 @@ function buildBarriosPiezas(mun, sectionFeatures) {
     // para MultiPolygon). Usamos `_ringSimple` = primer ring como key
     // primaria para los helpers iso que esperan un único ring; el
     // renderer iterará todos los rings.
+    // 2026-06-02 — _originalRingCount marca cuántos rings son del barrio
+    // original (antes de huérfanas). handleTap usa SOLO esos para PIP
+    // — sino, secciones huérfanas reasignadas (que pueden solapar con
+    // otras piezas vecinas) hacían que el tap cayera en pieza equivocada.
     out.push({
       id: bid,
       name: meta.name,
       place_type: meta.place_type,
       rings: ringsSimple,
       _ringSimple: ringsSimple[0],
+      _originalRingCount: ringsSimple.length,
       centroid: centroidM,
       buildings_total: buildingsTotal,
       secciones_count: seccionesCount,
+      // 2026-06-02 — _originalSecCount captura las secciones DEL CATÁLOGO
+      // canonical, antes de la reasignación de huérfanas. Sirve para
+      // detectar catálogos pobres (Yaiza: 2 villages reales + "(otros)"
+      // que cubre 5 secciones reales como Playa Blanca/El Golfo). Si la
+      // cobertura canonical < 50% del mun, loadMunicipio activa el
+      // fallback supra-piezas (más completo via cascada toponímica).
+      _originalSecCount: seccionesCount,
       seccionesCusecs: new Set(seccionesCusecs)
     });
   }
@@ -1854,6 +2020,180 @@ function buildBarriosPiezas(mun, sectionFeatures) {
     if (orphanCount > 0) {
       console.log(`[E] mun ${mun}: ${orphanCount} sección(es) huérfana(s) ` +
         `reasignada(s) por nearest-centroid sobre ${out.length} barrio(s)`);
+    }
+  }
+
+  return out;
+}
+
+// 2026-06-02 — Equivalente a buildBarriosPiezas pero usando la cascada
+// toponímica (supra-regiones) como origen. Aplica a muns SIN barrios
+// canonical (Tejeda, Artenara, Vega de San Mateo y todos los rurales
+// de prov 38). Selecciona las **sub-supras** + las **top-level sin
+// hijos** como nivel "más fino" disponible — son las piezas que se
+// dibujarán como tiles iso 3D ocre (estética unificada con los barrios
+// canonical urbanos). Las top-level CON hijos se omiten (su superficie
+// queda cubierta por las sub-supras).
+//
+// Side effect: registra cada pieza en state.barriosGc.barrios bajo id
+// `supra-<munCod>-<supraId>` con `sections + geometria + centroide` para
+// que enterBarrio(piezaId) funcione transparente sin tocar loadBarrio.
+async function _buildSupraPiezas(mun, sectionFeatures, islaId, isProv38) {
+  if (!state.barriosGc) return [];  // catálogo no cargado aún (defensivo)
+  const islaCod = isProv38 ? "38" : "35";
+  const munCod = islaCod + mun;
+  let fc;
+  try {
+    const r = await fetch(`../data/supra-regiones-${islaId}.geojson`);
+    if (!r.ok) return [];
+    fc = await r.json();
+  } catch (e) {
+    console.warn("[supra-piezas] no se pudo cargar supra-regiones-" + islaId, e);
+    return [];
+  }
+  const features = (fc.features || []).filter(f => f.properties?.mun_cod === munCod);
+  if (!features.length) return [];
+
+  // Determinar parents que tienen hijos (top-level con sub-tessellación).
+  const parentsConHijos = new Set();
+  for (const f of features) {
+    const pid = f.properties.parent_id;
+    if (pid != null) parentsConHijos.add(String(pid));
+  }
+  // Piezas a renderizar = sub-supras + top-level sin hijos.
+  const piezasFeats = features.filter(f => {
+    const p = f.properties;
+    if (p.parent_id != null) return true;       // sub-supra: incluir
+    return !parentsConHijos.has(String(p.id));  // top-level sin hijos
+  });
+  if (!piezasFeats.length) return [];
+
+  // Index local cusec → buildings.
+  const buildingsByCusec = new Map();
+  for (const s of sectionFeatures) {
+    buildingsByCusec.set(s.properties.cusec, s._buildingCount || 0);
+  }
+
+  const projectRingLL = (ringLL) =>
+    ringLL.map(([lng, lat]) => lnglatToLocalMeters(lng, lat, GC_ANCHOR_LNGLAT));
+
+  const out = [];
+  for (const f of piezasFeats) {
+    const p = f.properties;
+    const g = f.geometry;
+    if (!g) continue;
+    let rings = [];
+    if (g.type === "Polygon") {
+      const outerLL = g.coordinates[0];
+      if (outerLL && outerLL.length >= 3) rings.push(projectRingLL(outerLL));
+    } else if (g.type === "MultiPolygon") {
+      for (const poly of g.coordinates) {
+        const outerLL = poly[0];
+        if (outerLL && outerLL.length >= 3) rings.push(projectRingLL(outerLL));
+      }
+    } else {
+      continue;
+    }
+    if (!rings.length) continue;
+    const ringsSimple = rings.map(r => simplifyRing(r, 6));
+
+    // Centroide desde props (más fiable que ring centroid).
+    let centroidM;
+    if (p.centroide?.coordinates) {
+      const [lng, lat] = p.centroide.coordinates;
+      centroidM = lnglatToLocalMeters(lng, lat, GC_ANCHOR_LNGLAT);
+    } else {
+      centroidM = ringCentroid(ringsSimple[0]);
+    }
+
+    // PIP: asigna sección a esta pieza si su centroide cae dentro.
+    const sectionsCusecs = [];
+    let bldTotal = 0;
+    for (const sec of sectionFeatures) {
+      if (!sec._centroid) continue;
+      const [sx, sz] = sec._centroid;
+      let inside = false;
+      for (const ring of ringsSimple) {
+        if (worldPointInRing(sx, sz, ring)) { inside = true; break; }
+      }
+      if (inside) {
+        sectionsCusecs.push(sec.properties.cusec);
+        bldTotal += (sec._buildingCount || 0);
+      }
+    }
+
+    const piezaId = `supra-${munCod}-${p.id}`;
+    out.push({
+      id: piezaId,
+      name: p.nombre || "?",
+      place_type: p.capa,
+      rings: ringsSimple,
+      _ringSimple: ringsSimple[0],
+      _originalRingCount: ringsSimple.length,
+      centroid: centroidM,
+      buildings_total: bldTotal,
+      secciones_count: sectionsCusecs.length,
+      seccionesCusecs: new Set(sectionsCusecs)
+    });
+
+    // Registra en barriosGc para que enterBarrio(piezaId) funcione.
+    // Mantenemos la geometría original lnglat por compatibilidad con
+    // loadBarrio (no la usa hoy, defensivo) + sections requerido.
+    state.barriosGc.barrios[piezaId] = {
+      id: piezaId,
+      name: p.nombre || "?",
+      mun: munCod,
+      place_type: p.capa,
+      sections: sectionsCusecs.slice(),
+      geometria: g,
+      centroide: p.centroide?.coordinates || null
+    };
+    // Index inverso cusec → piezaId (solo para cusecs aún no indexados;
+    // los cusecs ya mapeados a algún barrio canonical no se sobrescriben).
+    if (state.barriosGc._cusecIndex) {
+      for (const cusec of sectionsCusecs) {
+        if (!state.barriosGc._cusecIndex.has(cusec)) {
+          state.barriosGc._cusecIndex.set(cusec, piezaId);
+        }
+      }
+    }
+  }
+
+  // Reasignar secciones huérfanas (mismo patrón [E] que buildBarriosPiezas):
+  // las secciones no asignadas a ninguna pieza se adoptan por la más cercana
+  // por centroide. Mantiene cobertura del mun completa sin "tierra de nadie".
+  if (out.length > 0) {
+    const ownedCusecs = new Set();
+    for (const p of out) for (const c of p.seccionesCusecs) ownedCusecs.add(c);
+    let orphanCount = 0;
+    for (const sec of sectionFeatures) {
+      const cu = sec.properties.cusec;
+      if (ownedCusecs.has(cu)) continue;
+      const [sx, sz] = sec._centroid || [0, 0];
+      let best = out[0]; let bestD = Infinity;
+      for (const p of out) {
+        const [px, pz] = p.centroid;
+        const d = Math.hypot(px - sx, pz - sz);
+        if (d < bestD) { bestD = d; best = p; }
+      }
+      best.rings.push(sec._ringSimple);
+      best.seccionesCusecs.add(cu);
+      best.buildings_total += (sec._buildingCount || 0);
+      best.secciones_count += 1;
+      // Sincronizar con la entry en barriosGc.barrios.
+      const liveEntry = state.barriosGc.barrios[best.id];
+      if (liveEntry) {
+        if (!Array.isArray(liveEntry.sections)) liveEntry.sections = [];
+        liveEntry.sections.push(cu);
+      }
+      if (state.barriosGc._cusecIndex && !state.barriosGc._cusecIndex.has(cu)) {
+        state.barriosGc._cusecIndex.set(cu, best.id);
+      }
+      orphanCount += 1;
+    }
+    if (orphanCount > 0) {
+      console.log(`[supra-piezas] mun ${mun}: ${orphanCount} sección(es) ` +
+        `huérfana(s) reasignada(s) por nearest-centroid sobre ${out.length} pieza(s)`);
     }
   }
 
@@ -2294,10 +2634,36 @@ async function loadSeccion(cusec) {
 }
 
 function preprocessSection(meta, manzanasGj, buildingsGj, roadsGj, poisGj, parksGj = { features: [] }) {
+  // 2026-06-02 — Reproyección al anchor GC (mismo sistema que
+  // preprocessSectionForDistrict). Necesario para que entrar a una sección
+  // SIN pasar por enterDistrito (search, deep-link ?cusec=, drillToBarrio
+  // desde un pin/núcleo a lod=municipio) deje los buildings/manzanas en
+  // coords MUNDO. Sin esto, state.view (anchor GC) y los rings (local
+  // a la sección) no comparten sistema → buildings quedan FUERA del
+  // viewport y el usuario ve un lienzo vacío.
+  const lng0 = meta.enu_basis?.lng0 ?? meta.centroid_lnglat?.[0];
+  const lat0 = meta.enu_basis?.lat0 ?? meta.centroid_lnglat?.[1];
+  const reproject = (lng0 != null && lat0 != null)
+    ? (() => {
+        const M_LAT = 111132.0;
+        const M_LNG_LOCAL = 111320.0 * Math.cos(lat0 * Math.PI / 180);
+        const ANCH = GC_ANCHOR_LNGLAT;
+        const M_LNG_GC = 111320.0 * Math.cos(ANCH[1] * Math.PI / 180);
+        return ([x, z]) => {
+          const lng = lng0 + x / M_LNG_LOCAL;
+          const lat = lat0 - z / M_LAT;
+          const xg = (lng - ANCH[0]) * M_LNG_GC;
+          const zg = -(lat - ANCH[1]) * M_LAT;
+          return [xg, zg];
+        };
+      })()
+    : ([x, z]) => [x, z]; // fallback identidad si meta no trae basis
+
   const manzanas = [];
   for (const f of manzanasGj.features) {
-    const ring = outerRing(f.geometry);
-    if (!ring) continue;
+    const ringLocal = outerRing(f.geometry);
+    if (!ringLocal) continue;
+    const ring = ringLocal.map(reproject);
     f._ring = ring;
     f._ringSimple = simplifyRing(ring, 1.8);
     f._centroid = ringCentroid(ring);
@@ -2322,8 +2688,9 @@ function preprocessSection(meta, manzanasGj, buildingsGj, roadsGj, poisGj, parks
 
   const buildings = [];
   for (const f of buildingsGj.features) {
-    const ring = outerRing(f.geometry);
-    if (!ring) continue;
+    const ringLocal = outerRing(f.geometry);
+    if (!ringLocal) continue;
+    const ring = ringLocal.map(reproject);
     f._ring = ring;
     f._centroid = ringCentroid(ring);
     // 2026-05-29 — _cusec necesario para que loadManzana filtre los
@@ -2360,22 +2727,43 @@ function preprocessSection(meta, manzanasGj, buildingsGj, roadsGj, poisGj, parks
   // edificios. Se proyectan igual y "brotan" con la rampa LOD (ver
   // renderSeccion). Guardamos category/kind por si luego se estiliza por
   // tipo (nature_reserve, park, garden, pitch…).
+  // 2026-06-02 — Reproyectados igual que buildings/manzanas al anchor GC.
   const parks = [];
   if (parksGj && Array.isArray(parksGj.features)) {
     for (const f of parksGj.features) {
-      const ring = outerRing(f.geometry);
-      if (!ring) continue;
+      const ringLocal = outerRing(f.geometry);
+      if (!ringLocal) continue;
+      const ring = ringLocal.map(reproject);
       f._ring = ring;
       f._centroid = ringCentroid(ring);
       parks.push(f);
     }
   }
 
+  // 2026-06-02 — Reproyectar roads (LineString) al anchor GC también, para
+  // que se rendericen alineados con buildings/manzanas.
+  const roadsReprojected = (roadsGj?.features || []).map(f => {
+    if (!f.geometry) return f;
+    if (f.geometry.type === "LineString") {
+      return { ...f, geometry: {
+        type: "LineString",
+        coordinates: f.geometry.coordinates.map(reproject)
+      }};
+    }
+    if (f.geometry.type === "MultiLineString") {
+      return { ...f, geometry: {
+        type: "MultiLineString",
+        coordinates: f.geometry.coordinates.map(line => line.map(reproject))
+      }};
+    }
+    return f;
+  });
+
   return {
     meta,
     manzanas: manzanasSorted,
     buildings: buildingsSorted,
-    roads: roadsGj.features,
+    roads: roadsReprojected,
     pois: poisGj.features,
     parks,
     _bloqIds: bloqIds,
@@ -2458,6 +2846,20 @@ function consumeViewportFor(level) {
 // Si no se pasa, se calcula `fitView` para el bbox del nivel.
 
 function applyNewView(newView, animate, onDone) {
+  // 2026-05-29 mobile-fix — camera logger. Activar con
+  // `window.__camLog = true` desde la consola para ver cada cambio de
+  // cámara con motivo, escala anterior y nueva. Sirve para cazar los
+  // "retrocesos" reportados por el usuario.
+  if (typeof window !== "undefined" && window.__camLog) {
+    const from = state.view || {};
+    console.log(
+      `[cam] lod=${state.lodLevel} anim=${!!animate} ` +
+      `scale ${(from.scale||0).toExponential(2)} → ${(newView.scale||0).toExponential(2)}  ` +
+      `tx ${Math.round(from.tx||0)}→${Math.round(newView.tx||0)}  ` +
+      `ty ${Math.round(from.ty||0)}→${Math.round(newView.ty||0)}`,
+      new Error().stack.split("\n").slice(2, 5).map(s=>s.trim().split(" ")[1]).join(" ← ")
+    );
+  }
   if (animate && state.view) {
     animateView(state.view, newView, 500, () => {
       state.view = newView;
@@ -2740,6 +3142,16 @@ async function enterMunicipio(mun, animate = true, restoreView = null) {
   state.manzana = null;
   state.selectedManzanaId = null;
   state.hoverFeature = null;
+  // 2026-06-02 — Reset de los label-rects publicados por renderMunicipio
+  // del mun anterior. Sin esto, tap por etiqueta justo después de un
+  // enterMunicipio (sin re-render natural intermedio) resolvía piezaId al
+  // catálogo viejo y caía mal o no encontraba match. El siguiente render
+  // los repuebla con los rects del mun nuevo.
+  state._munLabelRects = null;
+  // Reset también de supra y pin "last-tap" para que el peek/doble-tap
+  // empiece limpio en el mun nuevo.
+  state._lastTapSupra = null;
+  state._activeSupraRegionId = null;
   closeSidePanel();
 
   // [H] Fase 1 — Decidir bbox de entrada según densidad. Muns rurales
@@ -2867,7 +3279,11 @@ async function loadIslaSections(islaId) {
   for (const f of fc.features) {
     // Filtrar por isla via inferIslaFromMun (gc-secciones-lite incluye
     // GC + FV + LZ; prov38-secciones-lite incluye TF/LP/LG/EH).
-    if (inferIslaFromMun(f.properties.mun) !== islaId) continue;
+    // 2026-05-31 — Usar el cumun de 5 dígitos (cusec[0:5]) en vez de `mun`
+    // de 3 dígitos: las lite NO traen `cumun` y "001"/"026"/… colisionan
+    // entre provincias. Con 3 dígitos inferIslaFromMun devuelve siempre gc
+    // y filtraba TODAS las secciones de prov 38 → out=[] → vecindario vacío.
+    if (inferIslaFromMun(f.properties.cusec.slice(0, 5)) !== islaId) continue;
     const ring = outerRing(f.geometry);
     if (!ring) continue;
     const ringM = ring.map(([lng, lat]) =>
@@ -2893,7 +3309,12 @@ async function loadVecindario(focalCusec) {
   // resolver casos rurales/aislados: 7 muns en Canarias tienen 1 sección
   // sola, varios más tienen 2. El vecindario tiene que poder cruzar el
   // límite municipal para encontrar vecinas geográficas reales.
-  const islaId = inferIslaFromMun(mun) || state.isla?.id;
+  // 2026-05-31 — Resolver la isla con el cumun de 5 dígitos (prov+mun) del
+  // focalCusec, no con `mun` de 3 dígitos: "026" colisiona entre prov 35
+  // (Telde, gc) y prov 38 (La Orotava, tf), y inferIslaFromMun prefiere gc
+  // para 3 dígitos → cargaba secciones de GC y no encontraba la focal de TF
+  // ("vecindario: sección 38… no en isla gc" → fallback a distrito).
+  const islaId = inferIslaFromMun(focalCusec.slice(0, 5)) || state.isla?.id;
   const allSecs = islaId
     ? await loadIslaSections(islaId)
     : (() => {
@@ -3378,6 +3799,23 @@ function lerp(a, b, t) { return a + (b - a) * t; }
 // UI
 
 function updateBreadcrumb() {
+  // 2026-06-02 — Sincroniza el body.classList con el nivel actual. CSS
+  // usa estas clases para ocultar chrome irrelevante a niveles deeper
+  // (LOD pill, membrete, hover labels, etc.).
+  try {
+    const LV = ["lv-archipielago","lv-isla","lv-municipio","lv-distrito",
+                "lv-barrio","lv-seccion","lv-manzana"];
+    for (const c of LV) document.body.classList.remove(c);
+    if (state.lodLevel) document.body.classList.add("lv-" + state.lodLevel);
+    // Sub-flag: dentro de una supra-region activa (vista interna del
+    // municipio). Hace falta una clase aparte porque lodLevel sigue
+    // siendo "municipio" pero queremos chrome más calmado.
+    if (state._activeSupraRegionId) {
+      document.body.classList.add("lv-supra-active");
+    } else {
+      document.body.classList.remove("lv-supra-active");
+    }
+  } catch (_) {}
   // [OCRE-SKIN F5b] Sincroniza la siluetas-strip con el nivel actual
   // (independiente del membrete, que está oculto en skin-ocre).
   try { updateSiluetasStripActive(); } catch (_) {}
@@ -3517,7 +3955,10 @@ function updateBreadcrumb() {
   } else if (state.lodLevel === "isla") {
     meta = `${state.isla.municipios.length} municipios`;
   } else if (state.lodLevel === "municipio") {
-    meta = `${state.municipio.secciones.length} secciones`;
+    // 2026-06-02 — Fuera la meta administrativa "N secciones": no aporta
+    // al ciudadano. La identidad del mun la da el nombre; las divisiones
+    // visibles son las supra-regiones del territorio.
+    meta = "";
   } else if (state.lodLevel === "distrito") {
     meta = `${state.district.totalBuildings.toLocaleString("es")} edificios`;
   } else if (state.lodLevel === "barrio") {
@@ -3564,13 +4005,19 @@ function onBreadcrumb(seg) {
   else if (seg.level === "seccion") enterSeccion(seg.cusec, true);
 }
 
+// 2026-05-31 — Los topónimos del INE llegan con el artículo pospuesto
+// ("Palmas de Gran Canaria, Las", "Orotava, La", "Llanos de Aridane, Los").
+// Lo devolvemos al orden natural castellano: "Las Palmas de Gran Canaria".
+function properToponym(name) {
+  if (!name) return name;
+  const m = String(name).match(/^(.*),\s*(El|La|Los|Las)$/);
+  return m ? `${m[2]} ${m[1]}` : name;
+}
+
 function shortName(nmun) {
-  // Reduce nombres muy largos
-  return nmun.replace("Palmas de Gran Canaria, Las", "LPGC")
-             .replace("de Gran Canaria", "")
-             .replace(", La", "")
-             .replace(", Las", "")
-             .trim();
+  // Orden natural del topónimo (artículo delante). Antes recortábamos
+  // ("LPGC", sin artículo); ahora mostramos el nombre completo correcto.
+  return properToponym(nmun);
 }
 
 // 2026-05-19 — Dropdown desplegable del membrete.
@@ -3785,7 +4232,9 @@ function updateBannerSub() {
   } else if (state.lodLevel === "isla") {
     el.textContent = `${state.isla.name} · ${state.isla.municipios.length} municipios`;
   } else if (state.lodLevel === "municipio") {
-    el.textContent = `${shortName(state.municipio.nmun)} · ${state.municipio.secciones.length} secciones · ${state.municipio.distList.length} distritos`;
+    // 2026-06-02 — Quitada la cola "N secciones · M distritos" (info admin
+    // que no afecta al ciudadano). Solo nombre del mun.
+    el.textContent = shortName(state.municipio.nmun);
   } else if (state.lodLevel === "distrito") {
     const d = state.district;
     el.textContent = `Distrito ${d.dis} · ${d.sectionCount} secciones · ${d.totalBuildings.toLocaleString("es")} edif`;
@@ -3972,7 +4421,9 @@ function _renderGestosCoach(attempt) {
   fab.style.transition = "box-shadow .3s";
   fab.style.boxShadow = "0 0 0 7px rgba(244,236,216,.4)";
   document.body.appendChild(coach);
-  setTimeout(() => { if (document.body.contains(coach)) close(); }, 10000);
+  // 2026-05-29 mobile-fix — auto-dismiss en 3.5 s (antes 10 s): el coachmark
+  // sobre móvil tapaba el lienzo demasiado tiempo.
+  setTimeout(() => { if (document.body.contains(coach)) close(); }, 3500);
 }
 // Capas invisibles "de momento": ocultamos el escape "Ver capas de datos"
 // del pie del menú de verbos, desde fuera (sin tocar bindGestosSheet, que
@@ -4066,9 +4517,46 @@ function isBackNavigation(from, to) {
 }
 
 function navigateBack() {
+  // 2026-06-02 — Back desde supra-región activa: limpia el id y vuelve al
+  // bbox del municipio completo (sin cambiar lodLevel).
+  if (state.lodLevel === "municipio" && state._activeSupraRegionId) {
+    state._activeSupraRegionId = null;
+    state._lastTapSupra = null;
+    // Animar back al bbox del mun completo
+    const bb = state.municipio?.bbox;
+    if (bb && state.view) {
+      const cx = (bb[0] + bb[2]) / 2, cz = (bb[1] + bb[3]) / 2;
+      animateView(state.view, { ...state.view, scale: state.view.fitScale, tx: cx, ty: cz }, 500);
+    }
+    if (state._requestRender) state._requestRender();
+    return;
+  }
   if (state.lodLevel === "seccion") {
     const cusec = state.section?.meta?.cusec;
     const mun = state.section?.meta?.mun || state.municipio?.mun;
+    // 2026-06-02 — Si veníamos de una supra-región (Las Cuevas, Barranco
+    // de la Mina…), reconstruimos la cadena natural: back de sección
+    // vuelve al municipio + reactiva esa supra (cámara en su bbox), no a
+    // todo el municipio limpio.
+    if (state._activeSupraRegionId && mun) {
+      const supraId = state._activeSupraRegionId;
+      enterMunicipio(mun, true, consumeViewportFor("municipio")).then(() => {
+        // Re-activar la vista de la supra-región preservada.
+        state._activeSupraRegionId = supraId;
+        const supraOv = state._overlayRegistry?.get("supra-regiones");
+        if (supraOv?.hitTest) {
+          // Buscar la supra cargada en cache por su id en el overlay.
+          // Simplificado: dejar el id set + animar al bbox conocido si
+          // lo podemos resolver vía búsqueda sobre items cacheados.
+          // Como el overlay solo expone hitTest, repintamos y la vista
+          // se mantiene en la posición actual (que ya está dentro del
+          // supra). Esto evita el "salto al mun completo" sin necesidad
+          // de animación adicional.
+        }
+        if (state._requestRender) state._requestRender();
+      }).catch(() => {});
+      return;
+    }
     // 2026-05-26 — Back desde sección cae en vecindario auto-cluster
     // (12 secs más cercanas en radio 1.2 km). Más íntimo que distrito o
     // barrio-sintético-mun. Si vecindario falla, fallback a la cadena
@@ -4219,6 +4707,8 @@ function _ensurePeekEl() {
 }
 function _showPeek({ title, subtitle, body, x, y }) {
   const el = _ensurePeekEl();
+  title = properToponym(title);
+  subtitle = properToponym(subtitle);
   el.innerHTML =
     `<div style="font-weight:600;font-size:14px;color:#e2c99a">${_escapeHtml(title)}</div>` +
     (subtitle ? `<div style="font-style:italic;opacity:.78;margin-top:2px">${_escapeHtml(subtitle)}</div>` : "") +
@@ -4239,6 +4729,65 @@ function _showPeek({ title, subtitle, body, x, y }) {
 }
 function _hidePeek() {
   if (_peekEl) _peekEl.style.opacity = "0";
+}
+
+// 2026-05-29 mobile-fix — Peek con chip "Entrar →" interactivo.
+// El tap-isla en mobile abre un mini-popup junto al municipio tocado con
+// nombre + botón terracota. Si vuelves a tocar el mismo polígono dentro
+// de 8 s, entras; o pulsas el botón. Si tocas otro polígono, el peek se
+// mueve al nuevo. Si tocas fuera, se cierra.
+let _peekChipEl = null;
+function _showPeekAndEnterChip(munFeature, px, py, onEnter) {
+  const nmun = munFeature.properties?.nmun || munFeature.properties?.name || "?";
+  if (!_peekChipEl) {
+    _peekChipEl = document.createElement("div");
+    _peekChipEl.id = "peek-enter-chip";
+    _peekChipEl.style.cssText = [
+      "position:fixed", "z-index:9998",
+      "background:rgba(28,22,16,0.94)", "color:#F4ECD8",
+      "border:1px solid rgba(160,82,45,0.55)",
+      "padding:10px 12px 11px", "font-size:13px",
+      "border-radius:10px",
+      "box-shadow:0 6px 20px rgba(0,0,0,0.35)",
+      "max-width:240px",
+      "transition:opacity 120ms",
+      "opacity:0"
+    ].join(";");
+    document.body.appendChild(_peekChipEl);
+  }
+  const el = _peekChipEl;
+  el.innerHTML =
+    `<div style="font-weight:600;font-size:14px;color:#E6C99A;margin-bottom:6px">${_escapeHtml(nmun)}</div>` +
+    `<button type="button" id="peek-enter-btn" style="all:unset;display:inline-block;cursor:pointer;` +
+      `background:#A0522D;color:#fff;padding:7px 14px;border-radius:18px;` +
+      `font-weight:600;font-size:13px;letter-spacing:.02em">Entrar →</button>` +
+    `<div style="margin-top:6px;font-size:11px;opacity:.55">o vuelve a tocar el municipio</div>`;
+  // Position near tap (clamped). !important: alguna regla CSS de ámbito
+  // (skin-ocre, posiblemente) sobreescribe la opacity inline.
+  el.style.setProperty("opacity", "1", "important");
+  const r = el.getBoundingClientRect();
+  const margin = 12, gap = 14;
+  let left = px + gap, top = py + gap;
+  if (left + r.width  > innerWidth  - margin) left = px - r.width  - gap;
+  if (top  + r.height > innerHeight - margin) top  = py - r.height - gap;
+  if (left < margin) left = margin;
+  if (top  < margin) top  = margin;
+  el.style.left = left + "px";
+  el.style.top  = top  + "px";
+  // Wire button: dispara la entrada.
+  document.getElementById("peek-enter-btn")?.addEventListener("click", (ev) => {
+    ev.stopPropagation();
+    state._hidePeekChip?.();
+    onEnter && onEnter();
+  });
+  // Auto-cierre 6 s + cierre helper expuesto en state.
+  clearTimeout(state._peekChipTimer);
+  state._peekChipTimer = setTimeout(() => state._hidePeekChip?.(), 6000);
+  state._hidePeekChip = () => {
+    if (_peekChipEl) { _peekChipEl.style.opacity = "0"; }
+    clearTimeout(state._peekChipTimer);
+    state._lastTapMun = null;
+  };
 }
 
 async function _resolvePeekAt(px, py) {
@@ -4360,27 +4909,43 @@ canvas.addEventListener("mousemove", (e) => {
       state.hoverFeature = hitPieza ? { properties: { barrioPiezaId: hitPieza.id } } : null;
       requestRender();
     }
+
+    // Hover de cluster DBSCAN — su etiqueta (nombre + edif) solo se pinta
+    // al pasar por encima (igual que las piezas-barrio). Detectamos sobre
+    // los hulls; el render lee state.hoverClusterId.
+    let hitCluster = null;
+    for (const c of (state.municipio.clusters || [])) {
+      if (!c.ring) continue;
+      const ringPx = c.ring.map(([x, z]) => project(x, 0, z, state.view));
+      if (pointInScreenPolygon(_lastPeekCanvasX, _lastPeekCanvasY, ringPx)) {
+        hitCluster = c;
+        break;
+      }
+    }
+    if (state.hoverClusterId !== (hitCluster?.id ?? null)) {
+      state.hoverClusterId = hitCluster?.id ?? null;
+      requestRender();
+    }
   }
 
-  if (_peekScheduled) return;
-  _peekScheduled = true;
-  Promise.resolve().then(async () => {
-    _peekScheduled = false;
-    if (state.lodLevel !== "isla" && state.lodLevel !== "municipio") return;
-    const result = await _resolvePeekAt(_lastPeekCanvasX, _lastPeekCanvasY);
-    if (result) {
-      _showPeek({ ...result, x: _lastPeekClientX, y: _lastPeekClientY });
-      canvas.style.cursor = "pointer";
-    } else {
-      _hidePeek();
-      canvas.style.cursor = "";
-    }
-  });
+  // 2026-06-02 — Peek tooltip (hover) DESHABILITADO globalmente. Era una
+  // afordancia desktop-only (mouse hover) y el usuario reporta que
+  // bloquea la coherencia con móvil donde no se puede invocar. Además
+  // mostraba el nombre de sección INE ("Orotava, La · zona 1") con
+  // formato administrativo y artículo al final — info que ya no
+  // queremos exponer. La navegación móvil es tap = navega; las
+  // etiquetas permanentes de barrio en lod=municipio (HUD cards
+  // estilo "Vegueta · 3611 edif") son la fuente de info visible.
+  // El peek-chip "Entrar →" (doble-tap pattern) sí se mantiene porque
+  // es interactivo, no hover.
+  _hidePeek();
+  canvas.style.cursor = "";
 });
 canvas.addEventListener("mouseleave", () => {
   _hidePeek();
-  if (state.hoverFeature) {
+  if (state.hoverFeature || state.hoverClusterId) {
     state.hoverFeature = null;
+    state.hoverClusterId = null;
     requestRender();
   }
 });
@@ -5309,46 +5874,85 @@ function handleTap(px, py) {
   // debe interpretarse como tap (si no, peek + navegación a la vez).
   if (state._lpFired) { state._lpFired = false; return; }
 
+  // 2026-06-02 — Atajo de wheel-commit: si el origen del onTap es un
+  // wheel-zoom-in al tope (interaction.js setea state._wheelDrill=true) y
+  // estamos a lod=municipio, NO queremos peek-chip de supra ni cadena de
+  // pin-doble-tap. El usuario hizo "zoom y empuja" — la intención es
+  // BAJAR. Drill directo a la sección bajo el cursor (PIP screen sobre
+  // las secciones del mun), canalizado por drillToBarrio para que
+  // ratio = section_fitScale × 4 → bldHeightK ramp activa al aterrizar.
+  //
+  // Restricción: solo en muns SIN barrios canonical (rurales). En muns
+  // urbanos (Las Palmas, Telde, La Laguna...) preferimos dejar que el
+  // wheel-commit dispare el handler normal de tap, que en lod=municipio
+  // ya prioriza el flow tap-a-barrio canonical → enterBarrio → edificios
+  // visibles desde el aterrizaje del barrio. Drillear directo a sección
+  // saltaría el nivel barrio que el usuario espera.
+  if (state._wheelDrill && state.lodLevel === "municipio"
+      && !state.municipio?.barriosPiezas?.length
+      && state.municipio?.secciones) {
+    for (let i = state.municipio.secciones.length - 1; i >= 0; i--) {
+      const s = state.municipio.secciones[i];
+      if (!s._ringSimple || !s._centroid) continue;
+      const ringPx = s._ringSimple.map(([x, z]) => project(x, 0, z, state.view));
+      if (pointInScreenPolygon(px, py, ringPx)) {
+        drillToBarrio({ mx: s._centroid[0], mz: s._centroid[1] }).catch(() => {});
+        return;
+      }
+    }
+    // Fallback si no hit (cursor fuera del mun): no-op, dejar que se
+    // procese el tap normal por si pega en vecino.
+  }
+
   // Prioridad alta: si los overlays interactivos están activos,
   // comprobar si el tap cayó en un pin. Orden de prioridad explícito
   // (jerarquía de visibilidad pedida por el usuario):
   //   1. tejido-social — corazón del proyecto, máxima prioridad
   //   2. productores   — pequeño productor local
   //   3. eventos       — contenido institucional/cultural
+  // 2026-06-02 — Patrón uniforme para pins con coordenadas:
+  //   · 1er tap = abrir popup informativo (consultar in situ).
+  //   · 2º tap mismo pin (≤8 s) = cerrar popup + drillToBarrio.
+  // El helper resuelve la sección que contiene el pin (PIP) y anima la
+  // cámara al punto exacto con scale adaptado al núcleo (si lo hay).
   if (state.activeOverlays?.["tejido-social"] && tejidoSocialOverlay.isReady()) {
     const hit = tejidoSocialOverlay.hitTest(px, py, state, state.view);
-    if (hit) {
-      openTejidoPopup(hit);
-      return;
-    }
+    if (hit) { _pinTapDouble("tejido-social", hit, openTejidoPopup); return; }
   }
   if (state.activeOverlays?.productores && productoresOverlay.isReady()) {
     const hit = productoresOverlay.hitTest(px, py, state, state.view);
-    if (hit) {
-      openProductorPopup(hit);
-      return;
-    }
+    if (hit) { _pinTapDouble("productores", hit, openProductorPopup); return; }
   }
   if (state.activeOverlays?.eventos && eventosOverlay.isReady()) {
-    // P5 (2026-05-21): si un cluster acumula varios eventos, abrir modal
-    // con lista para que el usuario elija. Solo cuando hay 1 evento, ir
-    // directo al popup. Fallback a hitTest si hitTestCluster no existe.
     const hits = eventosOverlay.hitTestCluster?.(px, py, state, state.view)
               || (eventosOverlay.hitTest?.(px, py, state, state.view) ? [eventosOverlay.hitTest(px, py, state, state.view)] : []);
     if (hits.length === 1) {
-      openEventoPopup(hits[0]);
+      _pinTapDouble("eventos", hits[0], openEventoPopup);
       return;
     } else if (hits.length > 1) {
+      // Cluster con varios: solo modal de lista (no drill — el usuario aún
+      // no ha elegido evento concreto). El drill viene tras el modal.
       openEventoListModal(hits);
       return;
     }
   }
-  // Registro oficial al final — menor prioridad que el tejido social
-  // curado (P6 — overlay raw del Registro de Asociaciones de Canarias).
   if (state.activeOverlays?.["registro-oficial"] && registroOverlay.isReady()) {
     const hit = registroOverlay.hitTest(px, py, state, state.view);
+    if (hit) { _pinTapDouble("registro-oficial", hit, openRegistroEntidadPopup); return; }
+  }
+  // Centros de salud (hoy huérfano — no tenía handler en app.js): wire
+  // con doble-tap. Como NO hay popup específico todavía, el "popup" del
+  // primer tap es el peek-chip terracota (mismo de mun→isla, núcleo).
+  if (state.activeOverlays?.["centros-salud"] && centrosSaludOverlay.isReady?.()) {
+    const hit = centrosSaludOverlay.hitTest?.(px, py, state, state.view);
     if (hit) {
-      openRegistroEntidadPopup(hit);
+      _pinTapDouble("centros-salud", hit, (h) => {
+        const nombre = h.properties?.nombre || "Centro de salud";
+        try { _showPeekAndEnterChip({ properties: { nmun: nombre } }, px, py, () => {
+          state._lastTapPin = null;
+          drillToBarrio({ mx: h.mx, mz: h.mz });
+        }); } catch (_) {}
+      });
       return;
     }
   }
@@ -5372,10 +5976,22 @@ function handleTap(px, py) {
       const m = state.isla.municipios[i];
       const ringPx = m._ringSimple.map(([x, z]) => project(x, 0, z, state.view));
       if (pointInScreenPolygon(px, py, ringPx)) {
-        // v1.6.nav — Tap a nivel isla entra DIRECTO al municipio. El
-        // popup informativo bloqueante se sustituyó por peek
-        // (hover/long-press) que aparece sin frenar la navegación.
-        enterMunicipio(m.properties.mun, true);
+        // 2026-05-29 mobile-fix — Patrón "tap doble" tipo Google Maps:
+        // 1er tap a un municipio → peek (nombre + chip "Entrar →"); 2º tap
+        // sobre el mismo municipio → enterMunicipio. Elimina entradas
+        // accidentales y los "retrocesos de cámara" al volver. El long-press
+        // sigue funcionando como peek-hover.
+        const munId = m.properties.mun;
+        if (state._lastTapMun === munId && (Date.now() - (state._lastTapAt || 0)) < 8000) {
+          state._lastTapMun = null;
+          state._hidePeekChip?.();
+          enterMunicipio(munId, true);
+          return;
+        }
+        state._lastTapMun = munId;
+        state._lastTapAt = Date.now();
+        try { _showPeekAndEnterChip(m, px, py, () => enterMunicipio(munId, true)); }
+        catch (e) { /* si falla el chip, fallback a entrar directo */ enterMunicipio(munId, true); }
         return;
       }
     }
@@ -5428,11 +6044,37 @@ function handleTap(px, py) {
     }
 
     if (piezas && piezas.length) {
+      // 2026-06-02 — Two-pass hit-test:
+      // Pass 1: solo rings ORIGINALES de cada pieza. Estos son el polígono
+      //         canonical del barrio sin las huérfanas reasignadas. Pasa
+      //         primero porque si el tap cae en zona "propia" de una
+      //         pieza, esa pieza debe ganar — aunque otra pieza tenga
+      //         una huérfana que también cubra esa zona por solapamiento.
+      // Pass 2: TODOS los rings (incluidas huérfanas reasignadas). Si el
+      //         tap cae en una huérfana visible (pintada dentro del color
+      //         de la pieza adoptante) drillea a esa pieza. Sin este pase,
+      //         el tap en zona huérfana visible no hacía nada (el bug que
+      //         el usuario reporta "click no funciona").
       for (let i = piezas.length - 1; i >= 0; i--) {
         const p = piezas[i];
-        // MultiPolygon: hit en cualquier ring cuenta.
-        for (const ring of p.rings) {
-          const ringPx = ring.map(([x, z]) => project(x, 0, z, state.view));
+        const cutoff = Number.isFinite(p._originalRingCount)
+          ? p._originalRingCount
+          : 1;
+        for (let r = 0; r < cutoff && r < p.rings.length; r++) {
+          const ringPx = p.rings[r].map(([x, z]) => project(x, 0, z, state.view));
+          if (pointInScreenPolygon(px, py, ringPx)) {
+            enterBarrio(p.id, true);
+            return;
+          }
+        }
+      }
+      for (let i = piezas.length - 1; i >= 0; i--) {
+        const p = piezas[i];
+        const cutoff = Number.isFinite(p._originalRingCount)
+          ? p._originalRingCount
+          : 1;
+        for (let r = cutoff; r < p.rings.length; r++) {
+          const ringPx = p.rings[r].map(([x, z]) => project(x, 0, z, state.view));
           if (pointInScreenPolygon(px, py, ringPx)) {
             enterBarrio(p.id, true);
             return;
@@ -5440,29 +6082,59 @@ function handleTap(px, py) {
         }
       }
     }
-    // Fallback (orphan section o mun sin barrios canonical): tap sobre
-    // sección desciende.
-    // 2026-05-29 — Salto del distrito redundante. En municipios de UN
-    // solo distrito (todo El Hierro/La Gomera y los rurales) el nivel
-    // distrito repite exactamente las mismas secciones del municipio y
-    // su fitView ALEJA la cámara (el mun entra con densityFocusedBbox,
-    // más cercano, que el bbox del distrito). El usuario percibía eso
-    // como "retroceder" al intentar bajar, y además el doble-tap del
-    // nivel distrito para llegar a edificios era frágil. Si el mun tiene
-    // 1 distrito vamos directo a la sección (descenso monótono de 1 tap);
-    // los muns multi-distrito (urbanos GC) conservan el flujo distrito.
-    const singleDistrito = (state.municipio.distList?.length || 1) <= 1;
-    for (let i = state.municipio.secciones.length - 1; i >= 0; i--) {
-      const s = state.municipio.secciones[i];
-      const ringPx = s._ringSimple.map(([x, z]) => project(x, 0, z, state.view));
-      if (pointInScreenPolygon(px, py, ringPx)) {
-        const cusec = s.properties.cusec;
-        if (singleDistrito) {
-          enterSeccion(cusec, true);
-        } else {
-          const distritoId = cusec.slice(2, 7); // mun(3)+dis(2)
-          enterDistrito(distritoId, true);
+    // 2026-06-02 — NIVEL PRINCIPAL DEL MUN: SUPRA-REGIONES topo+barranco
+    // +cabecera+kmeans. Es lo PRIMERO que se prueba: cuando el usuario
+    // entra a un municipio ve tiles tipo "Las Cuevas", "Los Lomos",
+    // "Barranco de la Mina" — el tap a una abre el peek y al confirmar
+    // entra a la supra-región (muestra los núcleos hijos como tiles).
+    const supraOv = state._overlayRegistry?.get("supra-regiones");
+    if (supraOv?.hitTest) {
+      const sup = supraOv.hitTest(px, py, state, state.view);
+      if (sup) {
+        const key = sup.id;
+        if (state._lastTapSupra === key && (Date.now() - (state._lastTapSupraAt||0)) < 8000) {
+          state._lastTapSupra = null;
+          state._hidePeekChip?.();
+          enterSupraRegion(sup);
+          return;
         }
+        state._lastTapSupra = key;
+        state._lastTapSupraAt = Date.now();
+        try {
+          _showPeekAndEnterChip(
+            { properties: { nmun: sup.nombre } },
+            px, py, () => enterSupraRegion(sup)
+          );
+        } catch (e) { enterSupraRegion(sup); }
+        return;
+      }
+    }
+    // 2026-06-01 — NIVEL NÚCLEO (sólo si hay supra-región activa): tap a
+    // un núcleo individual dentro de la supra activa = peek+entrar al
+    // núcleo. La rama nucleos.js se auto-gatea por _activeSupraRegionId.
+    const nucleosOv = state._overlayRegistry?.get("nucleos");
+    if (nucleosOv?.hitTest) {
+      const hit = nucleosOv.hitTest(px, py, state, state.view);
+      if (hit) {
+        const nucleoKey = hit.mun_cod + "::" + hit.nombre;
+        // 2026-06-02 — Delegamos al orquestador único drillToBarrio.
+        // Pasamos preferNucleo=hit para que use directamente el núcleo
+        // ya identificado por el hitTest (sin buscarlo de nuevo) y
+        // calcule el scale por su bbox.
+        const doEnter = () => {
+          if (!hit._centroidM) return;
+          drillToBarrio({
+            mx: hit._centroidM[0],
+            mz: hit._centroidM[1],
+            preferNucleo: hit,
+            zoomMin: 2.5
+          }).catch(() => {});
+        };
+        // 2026-06-02 — Tap único al núcleo = entrar directamente. El polígono
+        // del núcleo es la afordancia visible (ya estás zoomado dentro de la
+        // supra-región); el peek+chip añadiría un tap extra innecesario y el
+        // usuario se quedaba viendo solo el outline sin ver edificios.
+        doEnter();
         return;
       }
     }
@@ -5475,6 +6147,26 @@ function handleTap(px, py) {
       const ringPx = n._ringSimple.map(([x, z]) => project(x, 0, z, state.view));
       if (pointInScreenPolygon(px, py, ringPx)) {
         enterMunicipio(n.properties.mun, true);
+        return;
+      }
+    }
+    // 2026-06-02 — Fallback inteligente: tap dentro del mun pero fuera de
+    // pin/supra/núcleo/vecino → canalizamos por drillToBarrio. Esto es la
+    // vía rápida que el usuario espera (tap directo va al barrio bajo el
+    // dedo). drillToBarrio setea ratio = section_fitScale × 4 → bldHeightK
+    // ramp activo, edificios crecen visiblemente al aterrizar (al revés
+    // que enterSeccion(animate=true) que aterrizaba en ratio=1 con
+    // edificios invisibles).
+    //
+    // Encontramos la sección por PIP en screen space (ya tenemos px,py
+    // y los ringSimple en world meters) y usamos su centroide como
+    // target del drill (no tenemos inversa de proyección iso disponible).
+    for (let i = state.municipio.secciones.length - 1; i >= 0; i--) {
+      const s = state.municipio.secciones[i];
+      if (!s._ringSimple || !s._centroid) continue;
+      const ringPx = s._ringSimple.map(([x, z]) => project(x, 0, z, state.view));
+      if (pointInScreenPolygon(px, py, ringPx)) {
+        drillToBarrio({ mx: s._centroid[0], mz: s._centroid[1] }).catch(() => {});
         return;
       }
     }
@@ -5671,8 +6363,13 @@ function handleTap(px, py) {
           enterManzana(`${m._cusec}-${m.properties.id}`, { animate: true });
           return;
         }
-        // 1er tap: seleccionar (abre panel) + zoom progresivo si es pequeña.
-        selectManzana(m.properties.id);
+        // 2026-06-02 — Petición usuario: NO abrir el side-panel de manzana
+        // en el primer tap. Bloqueaba la navegación móvil con info que el
+        // usuario no pidió. Marcamos la manzana como seleccionada (para
+        // que el 2º tap dispare enterManzana) PERO sin abrir panel.
+        // El zoom progresivo sí se mantiene — es feedback de navegación.
+        state.selectedManzanaId = m.properties.id;
+        requestRender();
         let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         for (const [x, y] of ringPx) {
           if (x < minX) minX = x; if (x > maxX) maxX = x;
@@ -5691,20 +6388,11 @@ function handleTap(px, py) {
         return;
       }
     }
-    // v1.6.fluid — tap sobre sección vecina: entrada directa con
-    // animación estándar (no slide horizontal). Ver bloque municipio.
-    if (state.district) {
-      const currentCusec = state.section?.meta?.cusec;
-      for (const s of state.district.secciones) {
-        if (s.properties.cusec === currentCusec) continue;
-        const ringPx = s._ringSimple.map(([x, z]) =>
-          project(x, 0, z, state.view));
-        if (pointInScreenPolygon(px, py, ringPx)) {
-          enterSeccion(s.properties.cusec, true);
-          return;
-        }
-      }
-    }
+    // 2026-06-02 — ELIMINADO el "tap sobre sección vecina = enterSeccion".
+    // El usuario reporta que esto le movía la cámara a una sección
+    // contigua sin querer, dejando la vista en otro lugar. A nivel
+    // sección, los taps fuera de la propia sección son no-ops: si quieres
+    // moverte a una vecina, sube con back y entra a otra.
     // 2026-05-29 — Rescate "sección rural enorme" (prov 38: TF/LP/LG/EH).
     // Las secciones INE de El Hierro/La Gomera/etc. abarcan 8-16 km y, al
     // entrar a nivel sección (fit ~1.05×), TODAS las manzanas quedan a
@@ -6638,7 +7326,8 @@ const _searchCtx = {
   enterManzana: (id, opts) => enterManzana(id, opts || { animate: true }),
   onBuildingTap: (bid, mid) => onBuildingTap(bid, mid),
   distritoLabel: (id) => DISTRITO_NICKS[id] || null,
-  navigateToStreet: (calle) => navigateToStreet(calle)
+  navigateToStreet: (calle) => navigateToStreet(calle),
+  navigateToSupraPieza: (s) => navigateToSupraPieza(s)
 };
 
 // -----------------------------------------------------------
@@ -6690,6 +7379,213 @@ function _panZoomToPoint(mx, mz, zoomFactor) {
     ty: mz
   };
   animateView(v, toView, 600);
+}
+
+// 2026-06-02 — Navegación a una supra-pieza desde el buscador.
+// El registro de la pieza en state.barriosGc.barrios solo ocurre al cargar
+// el mun (via _buildSupraPiezas). El search la indexa antes desde el geojson,
+// así que aquí resolvemos la cadena: isla → municipio → enterBarrio.
+async function navigateToSupraPieza(s) {
+  if (!s || !s.munCod) return;
+  // Resolver isla: prefijo "35" = GC/FV/LZ; "38" = TF/LP/LG/EH. Pero
+  // necesitamos isla exacta — derivar del mun_cod via lookup.
+  const mun3 = s.munCod.replace(/^3[58]/, "");
+  const prov = s.munCod.startsWith("38") ? "38" : "35";
+  // Buscar la isla en el archipielago que contiene este mun.
+  let islaId = null;
+  const allMuns = state._canariasMuns || [];
+  for (const m of allMuns) {
+    if (m.properties?.mun === mun3 && m.properties?.cumun === s.munCod) {
+      islaId = m.properties.isla;
+      break;
+    }
+  }
+  // Fallback heurístico: usar la isla del state actual si la prov coincide.
+  if (!islaId && state.isla?.id) {
+    const curProv = PROV38_ISLAS.has(state.isla.id) ? "38" : "35";
+    if (curProv === prov) islaId = state.isla.id;
+  }
+  // Último fallback: probar islas de la misma prov.
+  if (!islaId) {
+    const islasProv = prov === "38"
+      ? ["tf","lp","lg","eh"]
+      : ["gc","fv","lz"];
+    islaId = islasProv[0]; // mejor que nada; enterMunicipio fallará graceful si no
+  }
+  try {
+    if (state.isla?.id !== islaId) await enterIsla(islaId, false);
+    if (state.municipio?.mun !== mun3) await enterMunicipio(mun3, false);
+    // Tras enterMunicipio, _buildSupraPiezas ya registró la pieza con id
+    // `supra-<munCod>-<id>` en state.barriosGc.barrios. Entrar al barrio.
+    const piezaId = `supra-${s.munCod}-${s.id}`;
+    if (state.barriosGc?.barrios?.[piezaId]) {
+      await enterBarrio(piezaId, true);
+    } else {
+      // No se registró (mun urbano con canonical real, p.ej.). Pan-zoom
+      // al centroide como fallback.
+      if (s.lng != null && s.lat != null) {
+        const [mx, mz] = lnglatToLocalMeters(s.lng, s.lat, GC_ANCHOR_LNGLAT);
+        _panZoomToPoint(mx, mz, 2.5);
+      }
+    }
+  } catch (e) {
+    console.warn("[search] navigateToSupraPieza fallo:", e);
+  }
+}
+
+// 2026-06-02 — Entrar a una supra-región. NO cambia lodLevel (sigue
+// "municipio") — la supra es una vista interna del nivel, evita romper
+// breadcrumb/history. Anima al bbox del tile y dispara render para que
+// nucleos.js empiece a pintar los hijos.
+// 2026-06-02 — Helper compartido: dado un polígono (rings en world coords)
+// y el bbox del mun, devuelve el `scale` que encuadra el polígono con
+// padding razonable. zoomMin garantiza la rampa de visibilidad del
+// nivel destino (2.5× para sección/edificios; 1.5× para supra dentro del mun).
+function _polyFrameScale(polyRings, zoomMin = 1.5, zoomMax = 8) {
+  let mnx=Infinity, mxx=-Infinity, mnz=Infinity, mxz=-Infinity;
+  for (const ring of polyRings) for (const [x,z] of ring) {
+    if (x<mnx)mnx=x; if (x>mxx)mxx=x; if (z<mnz)mnz=z; if (z>mxz)mxz=z;
+  }
+  const munBb = state.municipio?.bbox;
+  if (!munBb) return zoomMin * 1.5;
+  const munDiam  = Math.max(munBb[2]-munBb[0], munBb[3]-munBb[1]);
+  const polyDiam = Math.max(mxx-mnx, mxz-mnz, 1);
+  return Math.max(zoomMin, Math.min(zoomMax, munDiam / polyDiam * 0.85));
+}
+
+// 2026-06-02 — Helper PIP: dada una coord (mx, mz) en world meters,
+// devuelve la sección de `state.municipio.secciones[]` que la contiene
+// (point-in-polygon contra `_ring`/`_ringSimple`), o null. Fallback a
+// nearest-centroid si PIP no encuentra (núcleo justo en borde).
+function _findSectionContaining(mx, mz) {
+  const secs = state.municipio?.secciones || [];
+  for (const s of secs) {
+    const ring = s._ring || s._ringSimple;
+    if (!ring) continue;
+    if (pointInScreenPolygon(mx, mz, ring)) return s;
+  }
+  // Fallback nearest-centroid
+  let best = null, bestD = Infinity;
+  for (const s of secs) {
+    const c = s._centroid;
+    if (!c) continue;
+    const d = (c[0]-mx)*(c[0]-mx) + (c[1]-mz)*(c[1]-mz);
+    if (d < bestD) { bestD = d; best = s; }
+  }
+  return best;
+}
+
+function enterSupraRegion(supra) {
+  state._activeSupraRegionId = supra.id;
+  const [cx, cz] = supra._centroidM || [0, 0];
+  const factor = _polyFrameScale(supra.rings, /*zoomMin*/ 1.5, /*zoomMax*/ 5);
+  if (state.view) {
+    animateView(state.view, {
+      ...state.view,
+      scale: state.view.fitScale * factor,
+      tx: cx, ty: cz
+    }, 600);
+  }
+  if (state._requestRender) state._requestRender();
+}
+
+// 2026-06-02 — _closeAnyPinPopup: cierra cualquier popup de pin que
+// esté abierto antes del drill. Ejecuta los closers idempotentemente
+// (cada uno hace no-op si no había modal abierto) + hide del peek-chip
+// de centros-salud.
+function _closeAnyPinPopup() {
+  try { closeTejidoPopup(); } catch (_) {}
+  try { closeProductorPopup(); } catch (_) {}
+  try { closeEventoPopup(); } catch (_) {}
+  try { closeRegistroEntidadPopup(); } catch (_) {}
+  try { state._hidePeekChip?.(); } catch (_) {}
+}
+
+// 2026-06-02 — _pinTapDouble: patrón doble-tap unificado para pins.
+//   · 1er tap   → guarda key + ts, abre popup específico via openPopupFn.
+//   · 2º tap ≤8s mismo pin → cierra popup, drillToBarrio al pin.
+// `hit` debe traer `mx, mz` (coords mundo); `id` o `properties.id`
+// se usan como clave estable (fallback: coordenadas).
+function _pinTapDouble(overlayId, hit, openPopupFn) {
+  const idPart = hit?.id
+              ?? hit?.properties?.id
+              ?? (hit?.mx != null ? (hit.mx + "," + hit.mz) : Math.random());
+  const key = overlayId + "::" + idPart;
+  const now = Date.now();
+  if (state._lastTapPin === key && (now - (state._lastTapPinAt || 0)) < 8000) {
+    state._lastTapPin = null;
+    _closeAnyPinPopup();
+    if (hit?.mx != null && hit?.mz != null) {
+      drillToBarrio({ mx: hit.mx, mz: hit.mz });
+    } else if (hit?.properties?.lng != null && hit?.properties?.lat != null) {
+      drillToBarrio({ lng: hit.properties.lng, lat: hit.properties.lat });
+    }
+    return;
+  }
+  state._lastTapPin = key;
+  state._lastTapPinAt = now;
+  try { openPopupFn(hit); } catch (e) { console.warn("[pinTapDouble] open fallo:", e); }
+}
+
+// 2026-06-02 — drillToBarrio: orquestador único compartido por el tap
+// de núcleo (manual) y por el 2º-tap de pin. Hace toda la cadena:
+// resolver mun (si no estamos) → enterSeccion(sec que lo contiene) →
+// animateView al punto exacto con scale adaptado al núcleo (si hay) o
+// fitScale × 4 default.
+async function drillToBarrio(opts = {}) {
+  let { mx, mz, lng, lat, preferNucleo = null, zoomMin = 2.5 } = opts;
+  // Resolver mx/mz si solo viene lng/lat
+  if ((mx == null || mz == null) && lng != null && lat != null) {
+    [mx, mz] = lnglatToLocalMeters(lng, lat, GC_ANCHOR_LNGLAT);
+  }
+  if (mx == null || mz == null) return;
+  // Resolver mun si no estamos
+  if (!state.municipio) {
+    const lnglatPair = (lng != null && lat != null) ? [lng, lat] : null;
+    if (lnglatPair) {
+      const target = findMunByLngLat(lnglatPair[0], lnglatPair[1]);
+      if (target) {
+        if (state.isla?.id !== target.isla) await enterIsla(target.isla, false);
+        await enterMunicipio(target.mun, false);
+      }
+    }
+  }
+  if (!state.municipio) return;
+  // Buscar núcleo que contiene el punto (si overlay cargado)
+  let nucleo = preferNucleo;
+  if (!nucleo) {
+    const nucOv = state._overlayRegistry?.get("nucleos");
+    if (nucOv?.findContainingNucleo) {
+      const munCod = state.municipio.cumun
+        || ((['gc','lz','fv'].includes(state.isla?.id) ? '35' : '38') + state.municipio.mun);
+      nucleo = nucOv.findContainingNucleo(mx, mz, munCod);
+    }
+  }
+  // Sección que contiene el punto
+  const targetSec = _findSectionContaining(mx, mz);
+  if (!targetSec) return;
+  // Capturar la vista de origen (mun) ANTES del enter para animar suave.
+  const fromView = state.view ? { ...state.view } : null;
+  // enterSeccion con animate=false: setea state.view = sectionFit instantáneo.
+  // Esto garantiza que state.view.fitScale es la fitScale de la SECCIÓN
+  // (no la del mun) — necesario para que `fitScale × 4` cruce la rampa
+  // bldHeightK [2.5, 4.5] y los edificios sean visibles tras el drill.
+  await enterSeccion(targetSec.properties.cusec, false);
+  if (state.view && fromView) {
+    let scale;
+    if (nucleo && nucleo.rings) {
+      const f = _polyFrameScale(nucleo.rings, zoomMin, 8);
+      scale = state.view.fitScale * f;
+    } else {
+      scale = state.view.fitScale * 4.0;
+    }
+    const toView = { ...state.view, scale, tx: mx, ty: mz };
+    // Animar desde la vista origen (mun) → vista destino (sección + pin
+    // + zoom edificios). state.view se quedó en sectionFit por el
+    // enterSeccion(false); usamos fromView como FROM para que el pan sea
+    // visualmente continuo desde donde el usuario tapó.
+    animateView(fromView, toView, 600);
+  }
 }
 
 async function openSearch() {
@@ -7503,9 +8399,10 @@ window.polisApp.toggleAdmin = toggleAdmin;
 function _syncSeccionDetalleToggle() {
   const btn = document.getElementById("seccion-detalle-toggle");
   if (!btn) return;
-  const visible = !!state.selectedSeccionCusec &&
-                  state.lodLevel === "distrito";
-  btn.hidden = !visible;
+  // Desactivado: el menú lateral de sección ("Datos y actividades")
+  // mostraba info puramente técnica y no del todo correcta. Lo ocultamos
+  // hasta rehacer el contenido. El popup queda en el DOM pero sin entrada.
+  btn.hidden = true;
 }
 
 function _seccionBbox(secFeat) {
@@ -7959,7 +8856,11 @@ window.polisApp.listarAmonestaciones = listarAmonestaciones;
     }
     state._requestRender && state._requestRender();
     closeSubgrid();
-    closeSheet();
+    // 2026-06-02 — NO cerrar la sheet automáticamente. El usuario reportó
+    // que al encender un gesto se va la interfaz y luego no puede
+    // hacer toggle off porque la sheet ya no existe. Dejándola abierta:
+    // si quiere desactivar el gesto, vuelve a tocar el verbo, desmarca
+    // el sector y acepta. Si quiere cerrar manualmente, hay X / ESC.
   }
 
   grid?.addEventListener("click", (e) => {

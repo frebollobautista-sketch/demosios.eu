@@ -1,0 +1,87 @@
+{
+  "cusec": "3802802002",
+  "mun": "028",
+  "nmun": "Puerto de la Cruz",
+  "area_ha": 7.177128350751669,
+  "perimeter_m": 1417.6654767267823,
+  "building_count": 346,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 101,
+  "road_segment_count": 239,
+  "centroid_lnglat": [
+    -16.548909217919512,
+    28.41479726891926
+  ],
+  "bbox_lnglat": [
+    -16.55094,
+    28.41296,
+    -16.54654,
+    28.41595
+  ],
+  "bbox_local_m": [
+    -198.83144031912641,
+    -128.3220239080002,
+    231.9672878209535,
+    204.5247760916591
+  ],
+  "enu_basis": {
+    "lng0": -16.548909217919512,
+    "lat0": 28.41479726891926,
+    "cos_lat0": 0.8795257083184439
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:28:31+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

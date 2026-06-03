@@ -1,0 +1,229 @@
+{
+  "_meta": {
+    "tipo": "overlay-arte-curado",
+    "nota": "Pintores PD con obra+glosa+chascarrillo en 1ª persona (voz del autor, etiquetado IA). El sourcing de Wikiquote NO toca este archivo.",
+    "generado": "2026-06-03"
+  },
+  "personajes": [
+    {
+      "id": "jw-waterhouse",
+      "nombre": "John William Waterhouse",
+      "nacimiento": "1849",
+      "muerte": "1917",
+      "ambito": "universal",
+      "corriente": "Prerrafaelismo",
+      "ocupacion": [
+        "pintor"
+      ],
+      "obras": [
+        "La dama de Shalott",
+        "Hilas y las ninfas",
+        "Miranda – La tempestad"
+      ],
+      "retrato_url": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20William%20Waterhouse%20001.jpg?width=200",
+      "retrato_licencia": "Public domain",
+      "retrato_autor": null,
+      "fuente": {
+        "wikidata": "https://www.wikidata.org/wiki/Q212754",
+        "commons": "https://commons.wikimedia.org"
+      },
+      "posts": [
+        {
+          "id": "jw-waterhouse-obra-1",
+          "modo": "imagen",
+          "texto": "«La dama de Shalott», 1888 · óleo · Tate Britain, Londres.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20William%20Waterhouse%20-%20The%20Lady%20of%20Shalott%20-%20Google%20Art%20Project.jpg?width=1200",
+          "analisis": "La pinté en el instante en que suelta la cadena y acepta su final: tres velas, tres últimos alientos. Quise que el agua oscura pesara como una sentencia.",
+          "chascarrillo": "Me obsesionaban las mujeres en barca con cara de «esto acaba mal». Aviso: acababa mal.",
+          "fuente": "Commons · Public domain · John William Waterhouse",
+          "verificacion": "real-sourced"
+        },
+        {
+          "id": "jw-waterhouse-obra-2",
+          "modo": "imagen",
+          "texto": "«Hilas y las ninfas», 1896 · óleo · Manchester Art Gallery.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/Waterhouse%20Hylas%20and%20the%20Nymphs%20Manchester%20Art%20Gallery%201896.15%20n2.jpg?width=1200",
+          "analisis": "Siete ninfas, una sola trampa. Jugué con el verde del estanque para que no sepáis si es paraíso o emboscada.",
+          "chascarrillo": "Si siete chicas idénticas te invitan al agua, quizá no es tu día de suerte.",
+          "fuente": "Commons · Public domain · John William Waterhouse",
+          "verificacion": "real-sourced"
+        },
+        {
+          "id": "jw-waterhouse-obra-3",
+          "modo": "imagen",
+          "texto": "«Miranda – La tempestad», 1916 · óleo · colección privada.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/Waterhouse%20miranda%20the%20tempest.jpg?width=1200",
+          "analisis": "La puse de espaldas al naufragio y de cara a vosotros: el drama está en su nuca tensa, no en el barco.",
+          "chascarrillo": "Pinté el viento despeinándola con épica. El secreto: mucho pincel y un ventilador imaginario.",
+          "fuente": "Commons · Public domain · John William Waterhouse",
+          "verificacion": "real-sourced"
+        }
+      ]
+    },
+    {
+      "id": "je-millais",
+      "nombre": "John Everett Millais",
+      "nacimiento": "1829",
+      "muerte": "1896",
+      "ambito": "universal",
+      "corriente": "Prerrafaelismo",
+      "ocupacion": [
+        "pintor"
+      ],
+      "obras": [
+        "Ofelia",
+        "Cristo en casa de sus padres"
+      ],
+      "retrato_url": "https://commons.wikimedia.org/wiki/Special:FilePath/JE%20Millais%20photo.jpg?width=200",
+      "retrato_licencia": "Public domain",
+      "retrato_autor": null,
+      "fuente": {
+        "wikidata": "https://www.wikidata.org/wiki/Q159606",
+        "commons": "https://commons.wikimedia.org"
+      },
+      "posts": [
+        {
+          "id": "je-millais-obra-1",
+          "modo": "imagen",
+          "texto": "«Ofelia», 1852 · óleo · Tate Britain, Londres.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20Everett%20Millais%20-%20Ophelia%20-%20Google%20Art%20Project.jpg?width=1200",
+          "analisis": "Tuve a mi modelo en una bañera con lámparas debajo durante meses; enfermó, pero conseguí que el agua pareciera respirar. Cada flor que ves significa algo.",
+          "chascarrillo": "Sí, casi mato de frío a la modelo por el realismo. El arte exige sacrificios… ajenos.",
+          "fuente": "Commons · Public domain · John Everett Millais",
+          "verificacion": "real-sourced"
+        },
+        {
+          "id": "je-millais-obra-2",
+          "modo": "imagen",
+          "texto": "«Cristo en casa de sus padres», 1850 · óleo · Tate Britain, Londres.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20Everett%20Millais%20-%20Christ%20in%20the%20House%20of%20His%20Parents%20%28%60The%20Carpenter%27s%20Shop%27%29%20-%20Google%20Art%20Project.jpg?width=1200",
+          "analisis": "Pinté a la Sagrada Familia como carpinteros reales, con suciedad y una herida en la mano. Medio Londres se escandalizó; era justo lo que buscaba.",
+          "chascarrillo": "Dickens me puso a parir por este cuadro. Hoy cuelga en la Tate. ¿Quién ríe ahora, Charles?",
+          "fuente": "Commons · Public domain · John Everett Millais",
+          "verificacion": "real-sourced"
+        }
+      ]
+    },
+    {
+      "id": "dg-rossetti",
+      "nombre": "Dante Gabriel Rossetti",
+      "nacimiento": "1828",
+      "muerte": "1882",
+      "ambito": "universal",
+      "corriente": "Prerrafaelismo",
+      "ocupacion": [
+        "pintor"
+      ],
+      "obras": [
+        "Proserpina",
+        "Lady Lilith"
+      ],
+      "retrato_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Dante%20Gabriel%20Rossetti%20by%20George%20Frederic%20Watts.jpg?width=200",
+      "retrato_licencia": "Public domain",
+      "retrato_autor": null,
+      "fuente": {
+        "wikidata": "https://www.wikidata.org/wiki/Q186748",
+        "commons": "https://commons.wikimedia.org"
+      },
+      "posts": [
+        {
+          "id": "dg-rossetti-obra-1",
+          "modo": "imagen",
+          "texto": "«Proserpina», 1874 · óleo · Tate Britain, Londres.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/Dante%20Gabriel%20Rossetti%20-%20Proserpine%20-%20Google%20Art%20Project.jpg?width=1200",
+          "analisis": "La granada en su mano es la condena: un bocado y media vida en el inframundo. Pinté a Jane Morris una y otra vez buscando esa melancolía.",
+          "chascarrillo": "Moraleja mitológica: cuidado con la fruta que aceptas en una primera cita.",
+          "fuente": "Commons · Public domain · Dante Gabriel Rossetti",
+          "verificacion": "real-sourced"
+        },
+        {
+          "id": "dg-rossetti-obra-2",
+          "modo": "imagen",
+          "texto": "«Lady Lilith», 1873 · óleo · Delaware Art Museum.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/Dante%20Gabriel%20Rossetti%20-%20Lady%20Lilith.jpg?width=1200",
+          "analisis": "La primera mujer, peinándose ante el espejo, enamorada de sí misma. Una belleza fría que no necesita de nadie.",
+          "chascarrillo": "Inventé el selfie con espejo unos cuantos siglos antes. De nada.",
+          "fuente": "Commons · Public domain · Dante Gabriel Rossetti",
+          "verificacion": "real-sourced"
+        }
+      ]
+    },
+    {
+      "id": "e-burne-jones",
+      "nombre": "Edward Burne-Jones",
+      "nacimiento": "1833",
+      "muerte": "1898",
+      "ambito": "universal",
+      "corriente": "Prerrafaelismo",
+      "ocupacion": [
+        "pintor"
+      ],
+      "obras": [
+        "La escalera dorada",
+        "El encantamiento de Merlín"
+      ],
+      "retrato_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Frederick%20Hollyer%20portrait%20of%20Edward%20Burne-Jones%20c1882.jpg?width=200",
+      "retrato_licencia": "Public domain",
+      "retrato_autor": null,
+      "fuente": {
+        "wikidata": "https://www.wikidata.org/wiki/Q216406",
+        "commons": "https://commons.wikimedia.org"
+      },
+      "posts": [
+        {
+          "id": "e-burne-jones-obra-1",
+          "modo": "imagen",
+          "texto": "«La escalera dorada», 1880 · óleo · Tate Britain, Londres.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/Edward%20coley%20burne-jones%2C%20the%20golden%20stairs%2C%201880.jpg?width=1200",
+          "analisis": "Dieciocho doncellas bajan una escalera sin principio ni fin. No preguntéis a dónde van: el ritmo y la música son el tema, no el destino.",
+          "chascarrillo": "Me preguntaban qué significaba. Yo: «son chicas bajando una escalera». A veces es eso.",
+          "fuente": "Commons · Public domain · Edward Burne-Jones",
+          "verificacion": "real-sourced"
+        },
+        {
+          "id": "e-burne-jones-obra-2",
+          "modo": "imagen",
+          "texto": "«El encantamiento de Merlín», 1874 · óleo · Lady Lever Art Gallery.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/Edward%20Burne-Jones%20-%20The%20Beguiling%20of%20Merlin.jpg?width=1200",
+          "analisis": "Merlín atrapado por Nimue con su propio hechizo. El sabio rendido por el deseo, en un bosque de espinos en flor.",
+          "chascarrillo": "Hasta el mago más listo cae por una mirada. Lo pinté por experiencia propia; no preguntéis.",
+          "fuente": "Commons · Public domain · Edward Burne-Jones",
+          "verificacion": "real-sourced"
+        }
+      ]
+    },
+    {
+      "id": "w-holman-hunt",
+      "nombre": "William Holman Hunt",
+      "nacimiento": "1827",
+      "muerte": "1910",
+      "ambito": "universal",
+      "corriente": "Prerrafaelismo",
+      "ocupacion": [
+        "pintor"
+      ],
+      "obras": [
+        "La conciencia despierta"
+      ],
+      "retrato_url": "https://commons.wikimedia.org/wiki/Special:FilePath/William%20Holman%20Hunt%20-%20Selfportrait.jpg?width=200",
+      "retrato_licencia": "Public domain",
+      "retrato_autor": null,
+      "fuente": {
+        "wikidata": "https://www.wikidata.org/wiki/Q211763",
+        "commons": "https://commons.wikimedia.org"
+      },
+      "posts": [
+        {
+          "id": "w-holman-hunt-obra-1",
+          "modo": "imagen",
+          "texto": "«La conciencia despierta», 1853 · óleo · Tate Britain, Londres.",
+          "media": "https://commons.wikimedia.org/wiki/Special:FilePath/William%20Holman%20Hunt%20-%20The%20Awakening%20Conscience%20-%20Google%20Art%20Project.jpg?width=1200",
+          "analisis": "Una mujer que, de pronto, despierta su conciencia. Escondí su redención en cada objeto: el guante caído, el pájaro, el jardín reflejado en el espejo.",
+          "chascarrillo": "Llené el cuadro de símbolos morales hasta el techo. Era el influencer ético de 1853.",
+          "fuente": "Commons · Public domain · William Holman Hunt",
+          "verificacion": "real-sourced"
+        }
+      ]
+    }
+  ]
+}

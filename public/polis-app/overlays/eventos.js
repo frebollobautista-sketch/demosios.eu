@@ -127,15 +127,18 @@ export const eventosOverlay = {
   // En cada nivel hace cluster por proximidad en pantalla (18 px).
   draw: (ctx, state, view) => {
     if (!_events || !_events.length) return;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
-    else if (state.lodLevel === "barrio") bbox = state.barrio?.bbox;
-    else if (state.lodLevel === "manzana") bbox = state.manzana?.bbox_local_m || state.manzana?.bbox;
+    // 2026-05-31 — Baseline = bbox de la isla actual, para que en islas ≠ GC
+    // ningún evento de GC caiga dentro (antes bbox=null en isla → todos los
+    // eventos de GC se dispersaban sobre otras islas).
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
+    else if (state.lodLevel === "barrio") bbox = state.barrio?.bbox || bbox;
+    else if (state.lodLevel === "manzana") bbox = state.manzana?.bbox_local_m || state.manzana?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
-    // archipielago / isla: bbox=null → muestra todos los eventos (109).
+    // archipielago: state.isla null → bbox null → eventos en posición GC real.
 
     // Proyectar a pantalla los eventos visibles.
     const projected = [];
@@ -183,13 +186,13 @@ export const eventosOverlay = {
   // dentro de un radio en pantalla. Usado por handleTap.
   hitTest: (px, py, state, view) => {
     if (!_events || !_events.length) return null;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
-    else if (state.lodLevel === "barrio") bbox = state.barrio?.bbox;
-    else if (state.lodLevel === "manzana") bbox = state.manzana?.bbox_local_m || state.manzana?.bbox;
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
+    else if (state.lodLevel === "barrio") bbox = state.barrio?.bbox || bbox;
+    else if (state.lodLevel === "manzana") bbox = state.manzana?.bbox_local_m || state.manzana?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
     // 2026-05-21 — Hit-test extendido. Antes solo cubría el círculo
     // (radio MARKER_R+6 = 14px). El poste de 14px + la base del pin
@@ -225,13 +228,13 @@ export const eventosOverlay = {
   // cuando un cluster acumula varios eventos (P5 — 2026-05-21).
   hitTestCluster: (px, py, state, view) => {
     if (!_events || !_events.length) return [];
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
-    else if (state.lodLevel === "barrio") bbox = state.barrio?.bbox;
-    else if (state.lodLevel === "manzana") bbox = state.manzana?.bbox_local_m || state.manzana?.bbox;
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
+    else if (state.lodLevel === "barrio") bbox = state.barrio?.bbox || bbox;
+    else if (state.lodLevel === "manzana") bbox = state.manzana?.bbox_local_m || state.manzana?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
 
     // Recrear los mismos clusters que dibuja draw().

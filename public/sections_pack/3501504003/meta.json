@@ -1,0 +1,87 @@
+{
+  "cusec": "3501504003",
+  "mun": "015",
+  "nmun": "Pájara",
+  "area_ha": 6.507170229902379,
+  "perimeter_m": 1179.0466291327948,
+  "building_count": 337,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 55,
+  "road_segment_count": 124,
+  "centroid_lnglat": [
+    -14.352902128851541,
+    28.051087731092426
+  ],
+  "bbox_lnglat": [
+    -14.354,
+    28.0491,
+    -14.3519,
+    28.0532
+  ],
+  "bbox_local_m": [
+    -107.85825183377398,
+    -235.13777479112406,
+    98.45223293388175,
+    221.2742252089987
+  ],
+  "enu_basis": {
+    "lng0": -14.352902128851541,
+    "lat0": 28.051087731092426,
+    "cos_lat0": 0.8825286380224643
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:27:37+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

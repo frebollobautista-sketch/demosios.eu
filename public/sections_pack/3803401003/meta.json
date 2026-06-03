@@ -1,0 +1,87 @@
+{
+  "cusec": "3803401003",
+  "mun": "034",
+  "nmun": "San Juan de la Rambla",
+  "area_ha": 213.98876793405296,
+  "perimeter_m": 9082.295251118721,
+  "building_count": 708,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 6,
+  "road_segment_count": 231,
+  "centroid_lnglat": [
+    -16.637167369556987,
+    28.368873795691048
+  ],
+  "bbox_lnglat": [
+    -16.6491,
+    28.35509,
+    -16.62556,
+    28.37846
+  ],
+  "bbox_local_m": [
+    -1168.8158064860345,
+    -1067.1362636725942,
+    1136.9561032433846,
+    1534.4121363273937
+  ],
+  "enu_basis": {
+    "lng0": -16.637167369556987,
+    "lat0": 28.368873795691048,
+    "cos_lat0": 0.8799068281606908
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:31:08+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

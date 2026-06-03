@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "tipo": "seed-deliberacion",
+    "nota": "Propuestas, debates, votaciones y presupuestos participativos. Contenido verosímil de inspiración canaria, adaptado del modelo Decidim (Barcelona) y CONSUL (LPGC Decide). Los apoyos/votos reales se suman desde el registro de gestos sobre estos valores base.",
+    "generado": "2026-06-03"
+  },
+  "propuestas": [
+    {
+      "id": "p-carril-bici-litoral",
+      "titulo": "Carril bici continuo Las Palmas–Telde por el litoral",
+      "cuerpo": "Conectar la red ciclista de la capital con Telde por la costa, sin tramos interrumpidos, segregado del tráfico y con sombra vegetal. Hoy el carril muere en Jinámar y obliga a compartir calzada.",
+      "autor": { "tipo": "actor", "nombre": "Ben Magec · Ecologistas en Acción" },
+      "categoria": "movilidad",
+      "geo": { "municipio": "Las Palmas de Gran Canaria" },
+      "estado": "debate",
+      "umbral": 500,
+      "apoyos_base": 412,
+      "fecha": "2026-05-14"
+    },
+    {
+      "id": "p-cine-greco",
+      "titulo": "Recuperar el antiguo cine Greco como centro cultural de barrio",
+      "cuerpo": "El edificio lleva una década cerrado. Proponemos rehabilitarlo como sala polivalente: cine de verano, ensayo de murgas, biblioteca de barrio y local para asociaciones.",
+      "autor": { "tipo": "ciudadano", "nombre": "Vecindario de Schamann" },
+      "categoria": "cultura",
+      "geo": { "municipio": "Las Palmas de Gran Canaria" },
+      "estado": "apoyos",
+      "umbral": 300,
+      "apoyos_base": 168,
+      "fecha": "2026-05-22"
+    },
+    {
+      "id": "p-patios-sombra",
+      "titulo": "Sombra y agua en los patios escolares",
+      "cuerpo": "Renaturalizar los patios de los colegios públicos: pérgolas vegetales, fuentes y suelo permeable frente al asfalto que alcanza 50º en mayo. Patios abiertos al barrio fuera del horario lectivo.",
+      "autor": { "tipo": "actor", "nombre": "FAPA · Federación de AMPAS" },
+      "categoria": "urbanismo",
+      "geo": { "municipio": "San Cristóbal de La Laguna" },
+      "estado": "admitida",
+      "umbral": 250,
+      "apoyos_base": 57,
+      "fecha": "2026-05-29"
+    },
+    {
+      "id": "p-guagua-nocturna",
+      "titulo": "Guagua nocturna los fines de semana",
+      "cuerpo": "Líneas búho viernes y sábado para conectar los núcleos con la capital de madrugada. Alternativa real al coche tras una noche de fiesta y apoyo a la hostelería.",
+      "autor": { "tipo": "ciudadano", "nombre": "Plataforma Movilidad Nocturna" },
+      "categoria": "movilidad",
+      "geo": { "municipio": "Santa Cruz de Tenerife" },
+      "estado": "votacion",
+      "umbral": 400,
+      "apoyos_base": 463,
+      "fecha": "2026-04-30"
+    },
+    {
+      "id": "p-huertos-urbanos",
+      "titulo": "Huertos urbanos en solares municipales en desuso",
+      "cuerpo": "Ceder solares vacíos a colectivos vecinales para huertos comunitarios y compostaje de barrio, con acompañamiento agronómico. Ya funcionó como piloto en dos parcelas.",
+      "autor": { "tipo": "actor", "nombre": "Cooperativa La Tierrita" },
+      "categoria": "medio-ambiente",
+      "geo": { "municipio": "Arucas" },
+      "estado": "publicada",
+      "umbral": 200,
+      "apoyos_base": 241,
+      "fecha": "2026-03-18",
+      "resultado": "Aprobada. Dos solares cedidos; convocatoria abierta a colectivos."
+    }
+  ],
+  "debates": [
+    {
+      "id": "d-triana-peatonal",
+      "titulo": "¿Peatonalizar Triana los fines de semana?",
+      "resumen": "Comercio y vecindario debaten cerrar la calle al tráfico sábados y domingos. Más paseo y terrazas frente a carga, descarga y accesibilidad.",
+      "categoria": "movilidad",
+      "comentarios": 84,
+      "fecha": "2026-05-20"
+    },
+    {
+      "id": "d-modelo-turistico",
+      "titulo": "Límites a las plazas alojativas: ¿cuántas son demasiadas?",
+      "resumen": "Saturación, vivienda y empleo. El debate más participado del mes: ¿moratoria, tasa turística, reconversión de plazas?",
+      "categoria": "economia",
+      "comentarios": 213,
+      "fecha": "2026-05-08"
+    },
+    {
+      "id": "d-agua-demanda",
+      "titulo": "Agua: ¿más desaladoras o gestionar la demanda?",
+      "resumen": "Coste energético frente a reducción de fugas, reutilización y tarifa progresiva. Aportes técnicos del Consejo Insular de Aguas.",
+      "categoria": "medio-ambiente",
+      "comentarios": 57,
+      "fecha": "2026-05-26"
+    }
+  ],
+  "votaciones": [
+    {
+      "id": "v-eje-presupuesto",
+      "titulo": "Eje prioritario del presupuesto participativo 2026",
+      "pregunta": "¿Qué eje debería concentrar la mayor parte de la bolsa este año?",
+      "tipo": "ternaria",
+      "estado": "abierta",
+      "fecha": "2026-06-01",
+      "opciones": [
+        { "id": "movilidad", "label": "Movilidad sostenible", "votos_base": 1240 },
+        { "id": "verde", "label": "Infraestructura verde", "votos_base": 1102 },
+        { "id": "cultura", "label": "Cultura y barrios", "votos_base": 868 }
+      ]
+    },
+    {
+      "id": "v-cierre-parques",
+      "titulo": "Horario de cierre de los parques urbanos",
+      "pregunta": "¿A qué hora deberían cerrar los grandes parques en verano?",
+      "tipo": "binaria",
+      "estado": "abierta",
+      "fecha": "2026-05-30",
+      "opciones": [
+        { "id": "22h", "label": "A las 22:00", "votos_base": 640 },
+        { "id": "24h", "label": "A las 24:00", "votos_base": 712 }
+      ]
+    }
+  ],
+  "presupuestos": {
+    "bolsa": 1500000,
+    "moneda": "€",
+    "anio": 2026,
+    "proyectos": [
+      {
+        "id": "pr-parque-inundable",
+        "titulo": "Parque inundable en el barranco",
+        "descripcion": "Zona verde que absorbe avenidas y crea un pulmón de barrio: senda, arbolado autóctono y láminas de agua estacionales.",
+        "importe": 420000,
+        "categoria": "medio-ambiente",
+        "apoyos_base": 980
+      },
+      {
+        "id": "pr-mercado",
+        "titulo": "Reforma del mercado municipal",
+        "descripcion": "Cubierta, accesibilidad y eficiencia energética del mercado, con espacio para productores locales.",
+        "importe": 650000,
+        "categoria": "urbanismo",
+        "apoyos_base": 1130
+      },
+      {
+        "id": "pr-puntos-lectura",
+        "titulo": "Red de puntos de lectura al aire libre",
+        "descripcion": "Pequeñas bibliotecas y bancos con sombra en diez plazas, con fondo en canario y rotación con la red municipal.",
+        "importe": 95000,
+        "categoria": "cultura",
+        "apoyos_base": 745
+      },
+      {
+        "id": "pr-carril-escolar",
+        "titulo": "Carril escolar seguro",
+        "descripcion": "Itinerarios protegidos a pie y en bici hasta diez colegios, con pasos elevados y reducción de velocidad.",
+        "importe": 280000,
+        "categoria": "movilidad",
+        "apoyos_base": 1015
+      }
+    ]
+  }
+}

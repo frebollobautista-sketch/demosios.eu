@@ -1,0 +1,87 @@
+{
+  "cusec": "3805003001",
+  "mun": "050",
+  "nmun": "Vallehermoso",
+  "area_ha": 4279.273790473788,
+  "perimeter_m": 29685.446852862086,
+  "building_count": 1837,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 17,
+  "road_segment_count": 1484,
+  "centroid_lnglat": [
+    -17.287652642264145,
+    28.092117386708995
+  ],
+  "bbox_lnglat": [
+    -17.33042,
+    28.04831,
+    -17.24333,
+    28.12855
+  ],
+  "bbox_local_m": [
+    -4199.992975025492,
+    -4055.678511554689,
+    4352.730587045638,
+    4876.638288445296
+  ],
+  "enu_basis": {
+    "lng0": -17.287652642264145,
+    "lat0": 28.092117386708995,
+    "cos_lat0": 0.88219165833247
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:39:47+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "cusec": "3800601008",
+  "mun": "006",
+  "nmun": "Arona",
+  "area_ha": 7.5540165409090925,
+  "perimeter_m": 1429.9274507810655,
+  "building_count": 730,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 19,
+  "road_segment_count": 135,
+  "centroid_lnglat": [
+    -16.654458113087305,
+    28.00727743390688
+  ],
+  "bbox_lnglat": [
+    -16.6563,
+    28.00592,
+    -16.65246,
+    28.0091
+  ],
+  "bbox_local_m": [
+    -181.02633210986193,
+    -202.8880574862832,
+    196.38072285646186,
+    151.10954251376185
+  ],
+  "enu_basis": {
+    "lng0": -16.654458113087305,
+    "lat0": 28.00727743390688,
+    "cos_lat0": 0.8828879557205006
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:10:54+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

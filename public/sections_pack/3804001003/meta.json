@@ -1,0 +1,87 @@
+{
+  "cusec": "3804001003",
+  "mun": "040",
+  "nmun": "Santiago del Teide",
+  "area_ha": 1327.8208603332519,
+  "perimeter_m": 17905.27406921376,
+  "building_count": 2050,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 120,
+  "road_segment_count": 1030,
+  "centroid_lnglat": [
+    -16.829875097918944,
+    28.264570550827436
+  ],
+  "bbox_lnglat": [
+    -16.85281,
+    28.23244,
+    -16.80841,
+    28.28695
+  ],
+  "bbox_local_m": [
+    -2248.706475634988,
+    -2491.2802818899186,
+    2104.5960658509134,
+    3576.772918110137
+  ],
+  "enu_basis": {
+    "lng0": -16.829875097918944,
+    "lat0": 28.264570550827436,
+    "cos_lat0": 0.8807703425975915
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:34:35+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

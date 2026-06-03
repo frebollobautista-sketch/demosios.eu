@@ -54,6 +54,10 @@ import { comedoresEscolaresOverlay } from "./comedores-escolares.js?v=20260527-c
 import { enpOverlay }            from "./enp.js?v=20260529-enp-v0";
 import { biciRecargaOverlay }    from "./bici-recarga.js?v=20260529-bici-v0";
 import { yacimientosOverlay }    from "./yacimientos.js?v=20260529-yac-v0";
+// === 2026-06-01 — Nivel intermedio NÚCLEOS (Voronoi por núcleo INE) ===
+import { nucleosOverlay }        from "./nucleos.js?v=20260602-canonical-mix";
+// === 2026-06-02 — SUPRA-REGIONES (cascada topo+barranco+cabecera+kmeans) ===
+import { supraRegionesOverlay }  from "./supra-regiones.js?v=20260602-canonical-mix";
 
 // Lista canónica de overlays. El orden determina el orden de pintado:
 // los siguientes pintan ENCIMA. Coropletas primero (rellenan), luego
@@ -68,6 +72,8 @@ export const OVERLAYS = [
   inundacionOverlay,      // ARPSI PEINCA bandas azules
   calimaOverlay,          // velo polvo sahariano nivel-color
   enpOverlay,             // Espacios Naturales Protegidos + Red Natura (verde-oliva)
+  supraRegionesOverlay,   // NIVEL PRINCIPAL DEL MUN: tiles nombradas por cascada (always-on)
+  nucleosOverlay,         // hijos de supra-región: tiles Voronoi por núcleo individual (always-on cuando hay supra activa)
   barriosOverlay,
   parquesOverlay,
   coberturaOverlay,
@@ -102,6 +108,8 @@ export const OVERLAYS = [
 // Metadata UI por id de overlay (categoría + niveles donde aplica).
 const META = {
   barrios:        { category: "identidad",     levels: ["municipio", "distrito"] },
+  nucleos:           { category: "identidad",  levels: ["municipio"], alwaysOn: true },
+  "supra-regiones":  { category: "identidad",  levels: ["municipio"], alwaysOn: true },
   renta:          { category: "vivienda",      levels: ["municipio", "distrito", "barrio"] },
   vv:             { category: "vivienda",      levels: ["isla", "municipio", "distrito", "seccion"] },
   parques:        { category: "verdes",        levels: ["municipio", "distrito", "seccion"], subcategorias: true },
@@ -167,12 +175,20 @@ const CATEGORY_ORDER = [
 // -----------------------------------------------------------
 // Inicialización: registra overlays en el state + monta panel UI.
 
+// Overlays auto-activados al boot — ayudas de navegación, no opcionales.
+const _ALWAYS_ON = new Set(["nucleos", "supra-regiones"]);
+
 export function initOverlays(state) {
   state.activeOverlays = {};
   state._overlayRegistry = new Map();
   for (const ov of OVERLAYS) {
     state._overlayRegistry.set(ov.id, ov);
-    state.activeOverlays[ov.id] = false;
+    state.activeOverlays[ov.id] = _ALWAYS_ON.has(ov.id);
+    // Disparar load asíncrono de los always-on para que estén listos al
+    // entrar al primer municipio.
+    if (_ALWAYS_ON.has(ov.id)) {
+      try { Promise.resolve(ov.load?.(state)).catch(() => {}); } catch (_) {}
+    }
   }
   mountPanel(state);
 }

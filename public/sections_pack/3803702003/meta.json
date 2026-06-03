@@ -1,0 +1,87 @@
+{
+  "cusec": "3803702003",
+  "mun": "037",
+  "nmun": "Santa Cruz de la Palma",
+  "area_ha": 28.306396012440295,
+  "perimeter_m": 3017.3361112447787,
+  "building_count": 390,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 38,
+  "road_segment_count": 337,
+  "centroid_lnglat": [
+    -17.7689506031529,
+    28.68768646426726
+  ],
+  "bbox_lnglat": [
+    -17.77437,
+    28.68482,
+    -17.76322,
+    28.69055
+  ],
+  "bbox_local_m": [
+    -529.2333535505062,
+    -318.76879776896374,
+    559.6243290610516,
+    319.0948022314085
+  ],
+  "enu_basis": {
+    "lng0": -17.7689506031529,
+    "lat0": 28.68768646426726,
+    "cos_lat0": 0.8772493491163466
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:32:11+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

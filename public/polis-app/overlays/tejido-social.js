@@ -142,11 +142,13 @@ export const tejidoSocialOverlay = {
 
   draw: (ctx, state, view) => {
     if (!_items || !_items.length) return;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
+    // 2026-05-31 — Baseline = bbox de la isla actual (datos multi-isla); sin
+    // esto, en isla bbox=null dejaba pasar items de otras islas.
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
 
     const projected = [];
@@ -189,11 +191,11 @@ export const tejidoSocialOverlay = {
 
   hitTest: (px, py, state, view) => {
     if (!_items || !_items.length) return null;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
     let best = null, bestD2 = (MARKER_R + 6) * (MARKER_R + 6);
     for (const x of _items) {

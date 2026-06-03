@@ -1,0 +1,87 @@
+{
+  "cusec": "3501802006",
+  "mun": "018",
+  "nmun": "San Bartolomé",
+  "area_ha": 8.755926896888482,
+  "perimeter_m": 1451.7095458033664,
+  "building_count": 339,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 6,
+  "road_segment_count": 132,
+  "centroid_lnglat": [
+    -13.59480039215686,
+    28.953796904024767
+  ],
+  "bbox_lnglat": [
+    -13.5978,
+    28.953,
+    -13.5917,
+    28.9545
+  ],
+  "bbox_local_m": [
+    -292.18026511983135,
+    -78.268643962912,
+    301.99727755691725,
+    88.71135603709433
+  ],
+  "enu_basis": {
+    "lng0": -13.59480039215686,
+    "lat0": 28.953796904024767,
+    "cos_lat0": 0.8750103713364353
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:31:30+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

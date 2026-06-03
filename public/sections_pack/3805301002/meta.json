@@ -1,0 +1,87 @@
+{
+  "cusec": "3805301002",
+  "mun": "053",
+  "nmun": "Villa de Mazo",
+  "area_ha": 527.8991988200571,
+  "perimeter_m": 16145.95226185973,
+  "building_count": 1109,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 8,
+  "road_segment_count": 675,
+  "centroid_lnglat": [
+    -17.79846406630219,
+    28.604146480290062
+  ],
+  "bbox_lnglat": [
+    -17.83997,
+    28.5949,
+    -17.77056,
+    28.61544
+  ],
+  "bbox_local_m": [
+    -4056.508056799665,
+    -1257.1946141102455,
+    2727.153919640314,
+    1029.3181858898042
+  ],
+  "enu_basis": {
+    "lng0": -17.79846406630219,
+    "lat0": 28.604146480290062,
+    "cos_lat0": 0.8779483303266917
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:40:36+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

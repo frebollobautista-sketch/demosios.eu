@@ -266,11 +266,11 @@ export const bicOverlay = {
   // hit-test simple para popups (chascarrillos por feature)
   pick(view, state, px, py, radius = 14) {
     if (!_items || !_items.length) return null;
-    let bbox = null;
-    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox;
-    else if (state.lodLevel === "distrito") bbox = state.district?.bbox;
+    let bbox = state.isla?.bbox || null;
+    if (state.lodLevel === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (state.lodLevel === "distrito") bbox = state.district?.bbox || bbox;
     else if (state.lodLevel === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     }
     let best = null;
     let bestD = radius * radius;
@@ -288,14 +288,16 @@ export const bicOverlay = {
   draw(ctx, state, view) {
     if (!_items || !_items.length) return;
 
-    let bbox = null;
+    // 2026-05-31 — Baseline = bbox de la isla actual (datos multi-isla); sin
+    // esto, en isla bbox=null dejaba pasar BIC de otras islas.
+    let bbox = state.isla?.bbox || null;
     const lvl = state.lodLevel;
-    if (lvl === "municipio") bbox = state.municipio?.bbox;
-    else if (lvl === "distrito") bbox = state.district?.bbox;
+    if (lvl === "municipio") bbox = state.municipio?.bbox || bbox;
+    else if (lvl === "distrito") bbox = state.district?.bbox || bbox;
     else if (lvl === "seccion") {
-      bbox = state.section?.bbox || state.section?._bbox || null;
+      bbox = state.section?.bbox || state.section?._bbox || bbox;
     } else if (lvl === "barrio") {
-      bbox = state.barrio?.bbox || state.section?.bbox || null;
+      bbox = state.barrio?.bbox || state.section?.bbox || bbox;
     }
 
     // En isla/archipiélago sólo BIC declarados + castle (los “hitos”),

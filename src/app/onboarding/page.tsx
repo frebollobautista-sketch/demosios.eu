@@ -2,8 +2,14 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { createBrowserClient } from "@supabase/ssr";
 import { Camera, User, Sparkles, ArrowRight, Check } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { CANARIAS } from "@/lib/territorio/canarias";
+import {
+  HANDLE_REGEX,
+  handleDisponible,
+  normalizarHandle,
+} from "@/lib/auth/handle";
 
 const C = {
   bg: "#FAF7F5",
@@ -48,21 +54,40 @@ const INTERESTS = [
   "historia",
 ];
 
-const HANDLE_REGEX = /^[a-z0-9._]+$/;
+function selectStyle(c: typeof C): React.CSSProperties {
+  return {
+    width: "100%",
+    border: `1px solid ${c.border}`,
+    borderRadius: 10,
+    padding: "10px 12px",
+    fontSize: 15,
+    color: c.text,
+    background: c.surfaceAlt,
+    outline: "none",
+    boxSizing: "border-box",
+  };
+}
 
 export default function OnboardingPage() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
 
   // Step 1 fields
   const [handle, setHandle] = useState("");
   const [handleError, setHandleError] = useState("");
+  const [handleDispo, setHandleDispo] = useState<
+    "idle" | "comprobando" | "disponible" | "ocupado" | "error"
+  >("idle");
+  const handleDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleInicial = useRef<string>("");
   const [avatarMode, setAvatarMode] = useState<"photo" | "initial">("initial");
   const [avatarPhoto, setAvatarPhoto] = useState<string | null>(null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarColor, setAvatarColor] = useState(AVATAR_COLORS[0]);
   const [avatarInitial, setAvatarInitial] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -71,42 +96,103 @@ export default function OnboardingPage() {
   const [bio, setBio] = useState("");
   const [interests, setInterests] = useState<string[]>([]);
   const [interestsError, setInterestsError] = useState("");
+  const [islaId, setIslaId] = useState("");
+  const [municipioId, setMunicipioId] = useState("");
+  const [barrioId, setBarrioId] = useState("");
+  const [guardando, setGuardando] = useState(false);
+  const [errorGuardar, setErrorGuardar] = useState("");
 
-  // Auth check
+  // Auth check + prefill desde el perfil (creado por el trigger handle_new_user).
   useEffect(() => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-    supabase.auth.getUser().then(({ data }) => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) {
         router.replace("/login");
-      } else {
-        setLoading(false);
+        return;
       }
+      setUserId(data.user.id);
+      const { data: perfil } = await supabase
+        .from("profiles")
+        .select(
+          "handle, display_name, avatar_color, onboarding_completed",
+        )
+        .eq("id", data.user.id)
+        .maybeSingle();
+      if (perfil?.onboarding_completed) {
+        router.replace("/perfil");
+        return;
+      }
+      if (perfil?.handle) {
+        const h = normalizarHandle(perfil.handle);
+        setHandle(h);
+        handleInicial.current = h;
+      }
+      if (perfil?.display_name) setDisplayName(perfil.display_name);
+      if (perfil?.avatar_color) setAvatarColor(perfil.avatar_color);
+      const inicialBase =
+        perfil?.display_name?.[0] || perfil?.handle?.[0] || "";
+      if (inicialBase) setAvatarInitial(inicialBase.toUpperCase());
+      setLoading(false);
     });
   }, [router]);
 
   // Validation
   const validateHandle = (v: string) => {
-    if (!v) return "El handle es obligatorio";
+    if (!v) return "El nombre de usuario es obligatorio";
     if (v.length < 3) return "Mínimo 3 caracteres";
     if (v.length > 30) return "Máximo 30 caracteres";
-    if (!HANDLE_REGEX.test(v)) return "Solo letras minúsculas, números, puntos y guiones bajos";
+    if (!HANDLE_REGEX.test(v))
+      return "Solo minúsculas, números y guión bajo (_)";
     return "";
   };
+
+  // Comprobación debounced de disponibilidad del handle.
+  useEffect(() => {
+    if (handleDebounce.current) clearTimeout(handleDebounce.current);
+    if (!handle || validateHandle(handle)) {
+      setHandleDispo("idle");
+      return;
+    }
+    // Si no ha cambiado respecto al que ya tiene, está libre para él.
+    if (handle === handleInicial.current) {
+      setHandleDispo("disponible");
+      return;
+    }
+    setHandleDispo("comprobando");
+    handleDebounce.current = setTimeout(async () => {
+      const supabase = createClient();
+      const r = await handleDisponible(supabase, handle);
+      setHandleDispo(
+        r === "disponible" ? "disponible" : r === "ocupado" ? "ocupado" : "error",
+      );
+    }, 350);
+    return () => {
+      if (handleDebounce.current) clearTimeout(handleDebounce.current);
+    };
+  }, [handle]);
 
   const step1Valid =
     handle.length >= 3 &&
     handle.length <= 30 &&
     HANDLE_REGEX.test(handle) &&
+    handleDispo !== "ocupado" &&
+    handleDispo !== "comprobando" &&
     (avatarMode === "photo" ? !!avatarPhoto : !!avatarInitial);
 
   const step2Valid = interests.length >= 1;
 
+  const islaSel = CANARIAS.find((i) => i.id === islaId);
+  const muniSel = islaSel?.municipios.find((m) => m.id === municipioId);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      setErrorGuardar("La imagen no puede superar 5 MB.");
+      return;
+    }
+    setErrorGuardar("");
+    setAvatarFile(file);
     const reader = new FileReader();
     reader.onload = () => {
       setAvatarPhoto(reader.result as string);
@@ -144,23 +230,74 @@ export default function OnboardingPage() {
     setInterestsError("");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (interests.length < 1) {
       setInterestsError("Selecciona al menos un interés");
       return;
     }
-    const data = {
-      handle,
-      avatarMode,
-      avatarPhoto: avatarMode === "photo" ? avatarPhoto : null,
-      avatarColor: avatarMode === "initial" ? avatarColor : null,
-      avatarInitial: avatarMode === "initial" ? avatarInitial : null,
-      displayName: displayName || null,
-      bio: bio || null,
-      interests,
-    };
-    console.log("Onboarding data:", data);
-    router.push("/feed");
+    if (!userId) return;
+    setGuardando(true);
+    setErrorGuardar("");
+    const supabase = createClient();
+
+    try {
+      // 1) Si eligió foto, súbela a Storage (bucket 'avatars').
+      let avatarUrl: string | null = null;
+      if (avatarMode === "photo" && avatarFile) {
+        const ext = (avatarFile.name.split(".").pop() || "jpg").toLowerCase();
+        const path = `${userId}/avatar-${Date.now()}.${ext}`;
+        const up = await supabase.storage
+          .from("avatars")
+          .upload(path, avatarFile, { upsert: true, cacheControl: "3600" });
+        if (up.error) {
+          throw new Error(
+            "No hemos podido subir la foto. ¿Existe el bucket 'avatars'? Puedes continuar con un avatar de inicial.",
+          );
+        }
+        avatarUrl = supabase.storage.from("avatars").getPublicUrl(path)
+          .data.publicUrl;
+      }
+
+      // 2) Actualiza el perfil (la fila ya existe por el trigger).
+      const update: Record<string, unknown> = {
+        handle,
+        display_name: displayName || null,
+        bio: bio || null,
+        interests,
+        avatar_color: avatarColor,
+        isla_id: islaId || null,
+        municipio_id: municipioId || null,
+        barrio_id: barrioId || null,
+        onboarding_completed: true,
+      };
+      if (avatarUrl) update.avatar_url = avatarUrl;
+
+      const { error } = await supabase
+        .from("profiles")
+        .update(update)
+        .eq("id", userId);
+      if (error) {
+        if (error.code === "23505") {
+          setStep(1);
+          setHandleDispo("ocupado");
+          throw new Error("Ese nombre de usuario ya está cogido. Elige otro.");
+        }
+        throw new Error(
+          "No hemos podido guardar tu perfil. Inténtalo de nuevo en un momento.",
+        );
+      }
+
+      // 3) Sincroniza el handle en los metadatos de auth (best-effort).
+      await supabase.auth.updateUser({ data: { handle } });
+
+      router.push("/perfil");
+      router.refresh();
+    } catch (e) {
+      setErrorGuardar(
+        e instanceof Error ? e.message : "Algo ha fallado. Inténtalo de nuevo.",
+      );
+      setGuardando(false);
+    }
   };
 
   if (loading) {
@@ -205,7 +342,7 @@ export default function OnboardingPage() {
               margin: "0 0 6px",
             }}
           >
-            Bienvenido a KOINOS
+            Bienvenido a OCRE
           </h1>
           <p style={{ fontSize: 14, color: C.textMuted, margin: 0 }}>
             Configura tu perfil para empezar
@@ -289,7 +426,7 @@ export default function OnboardingPage() {
                   maxLength={30}
                   placeholder="tu_handle"
                   onChange={(e) => {
-                    const v = e.target.value.toLowerCase();
+                    const v = normalizarHandle(e.target.value);
                     setHandle(v);
                     setHandleError(validateHandle(v));
                   }}
@@ -304,16 +441,32 @@ export default function OnboardingPage() {
                   }}
                 />
               </div>
-              {handleError && (
-                <p
-                  style={{
-                    fontSize: 12,
-                    color: C.semRed,
-                    margin: "0 0 12px",
-                  }}
-                >
+              {handleError ? (
+                <p style={{ fontSize: 12, color: C.semRed, margin: "0 0 12px" }}>
                   {handleError}
                 </p>
+              ) : (
+                handle &&
+                handleDispo !== "idle" && (
+                  <p
+                    style={{
+                      fontSize: 12,
+                      margin: "0 0 12px",
+                      color:
+                        handleDispo === "disponible"
+                          ? C.semGreen
+                          : handleDispo === "comprobando"
+                            ? C.textDim
+                            : C.semRed,
+                    }}
+                  >
+                    {handleDispo === "comprobando" && "Comprobando…"}
+                    {handleDispo === "disponible" && "✓ Disponible"}
+                    {handleDispo === "ocupado" && "Ya está cogido. Prueba con otro."}
+                    {handleDispo === "error" &&
+                      "No se pudo comprobar; lo validaremos al guardar."}
+                  </p>
+                )
               )}
 
               {/* Avatar */}
@@ -651,6 +804,71 @@ export default function OnboardingPage() {
                 </span>
               </div>
 
+              {/* Barrio (opcional) */}
+              <label
+                style={{
+                  display: "block",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: C.text,
+                  marginBottom: 6,
+                }}
+              >
+                Tu barrio{" "}
+                <span style={{ color: C.textDim, fontWeight: 400 }}>
+                  (opcional)
+                </span>
+              </label>
+              <div style={{ display: "grid", gap: 8, marginBottom: 16 }}>
+                <select
+                  value={islaId}
+                  onChange={(e) => {
+                    setIslaId(e.target.value);
+                    setMunicipioId("");
+                    setBarrioId("");
+                  }}
+                  style={selectStyle(C)}
+                >
+                  <option value="">Elige tu isla…</option>
+                  {CANARIAS.map((i) => (
+                    <option key={i.id} value={i.id}>
+                      {i.emoji} {i.nombre}
+                    </option>
+                  ))}
+                </select>
+                {islaSel && (
+                  <select
+                    value={municipioId}
+                    onChange={(e) => {
+                      setMunicipioId(e.target.value);
+                      setBarrioId("");
+                    }}
+                    style={selectStyle(C)}
+                  >
+                    <option value="">Elige tu municipio…</option>
+                    {islaSel.municipios.map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.nombre}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {muniSel && muniSel.barrios.length > 0 && (
+                  <select
+                    value={barrioId}
+                    onChange={(e) => setBarrioId(e.target.value)}
+                    style={selectStyle(C)}
+                  >
+                    <option value="">Elige tu barrio…</option>
+                    {muniSel.barrios.map((b) => (
+                      <option key={b.id} value={b.id}>
+                        {b.nombre}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
+
               {/* Interests */}
               <label
                 style={{
@@ -740,17 +958,17 @@ export default function OnboardingPage() {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={!step2Valid}
+                  disabled={!step2Valid || guardando}
                   style={{
                     flex: 2,
                     padding: "13px 0",
                     borderRadius: 12,
                     border: "none",
-                    background: step2Valid ? C.secondary : C.border,
-                    color: step2Valid ? "#fff" : C.textDim,
+                    background: step2Valid && !guardando ? C.secondary : C.border,
+                    color: step2Valid && !guardando ? "#fff" : C.textDim,
                     fontSize: 15,
                     fontWeight: 700,
-                    cursor: step2Valid ? "pointer" : "not-allowed",
+                    cursor: step2Valid && !guardando ? "pointer" : "not-allowed",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -758,9 +976,21 @@ export default function OnboardingPage() {
                     transition: "background 0.2s ease",
                   }}
                 >
-                  Empezar <Sparkles size={16} />
+                  {guardando ? "Guardando…" : "Empezar"} <Sparkles size={16} />
                 </button>
               </div>
+              {errorGuardar && (
+                <p
+                  style={{
+                    fontSize: 12,
+                    color: C.semRed,
+                    margin: "12px 0 0",
+                    textAlign: "center",
+                  }}
+                >
+                  {errorGuardar}
+                </p>
+              )}
             </>
           )}
         </div>

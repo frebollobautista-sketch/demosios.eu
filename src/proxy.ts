@@ -55,6 +55,31 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Onboarding obligatorio: si el usuario no lo ha completado, lo enviamos a
+  // /onboarding salvo en rutas de auth, API y el propio onboarding. Es
+  // resiliente: si la columna `onboarding_completed` aún no existe (migración
+  // sin aplicar), la query falla y NO redirigimos (la app sigue funcionando).
+  if (user) {
+    const enRutaLibre =
+      pathname.startsWith("/onboarding") ||
+      pathname.startsWith("/auth") ||
+      pathname.startsWith("/api") ||
+      pathname === "/login" ||
+      pathname === "/registro";
+    if (!enRutaLibre) {
+      const { data: perfil, error } = await supabase
+        .from("profiles")
+        .select("onboarding_completed")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (!error && perfil && perfil.onboarding_completed === false) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/onboarding";
+        return NextResponse.redirect(url);
+      }
+    }
+  }
+
   return supabaseResponse;
 }
 

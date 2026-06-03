@@ -16,6 +16,8 @@ import {
   avanceHaciaProximo,
 } from "@/lib/cursus/grados";
 import { CANARIAS } from "@/lib/territorio/canarias";
+import { AvatarReceta } from "@/components/AvatarReceta";
+import { parseReceta } from "@/lib/avatar/receta";
 import { PerfilEditor, type Enlace } from "./PerfilEditor";
 
 export const metadata = {
@@ -34,6 +36,7 @@ type ProfileRow = {
   municipio_id: string | null;
   barrio_id: string | null;
   enlaces?: Enlace[] | null;
+  avatar_receta?: unknown;
 };
 
 /**
@@ -58,7 +61,7 @@ export default async function PerfilPage() {
   {
     const conEnlaces = await supabase
       .from("profiles")
-      .select(`${COLS_BASE}, enlaces`)
+      .select(`${COLS_BASE}, enlaces, avatar_receta`)
       .eq("id", user.id)
       .single();
     if (conEnlaces.error) {
@@ -107,6 +110,7 @@ export default async function PerfilPage() {
   const enlaces: Enlace[] = Array.isArray(perfilRow?.enlaces)
     ? (perfilRow!.enlaces as Enlace[])
     : [];
+  const receta = parseReceta(perfilRow?.avatar_receta);
 
   const isla = CANARIAS.find((i) => i.id === perfilRow?.isla_id);
   const muni = isla?.municipios.find((m) => m.id === perfilRow?.municipio_id);
@@ -116,7 +120,14 @@ export default async function PerfilPage() {
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10 pb-40">
       {/* Cabecera de perfil */}
       <section className="flex items-start gap-5 flex-wrap">
-        {perfilRow?.avatar_url ? (
+        {receta ? (
+          <AvatarReceta
+            receta={receta}
+            size={96}
+            title={`Avatar de ${nombre}`}
+            className="shrink-0"
+          />
+        ) : perfilRow?.avatar_url ? (
           <span
             className="relative inline-flex rounded-full overflow-hidden shrink-0"
             style={{ width: 96, height: 96, border: "1px solid var(--color-linea)" }}
@@ -188,13 +199,20 @@ export default async function PerfilPage() {
               ))}
             </ul>
           )}
-          <div className="mt-4">
+          <div className="mt-4 flex items-center gap-4 flex-wrap">
             <PerfilEditor
               userId={user.id}
               bioInicial={perfilRow?.bio ?? ""}
               enlacesInicial={enlaces}
               avatarUrlInicial={perfilRow?.avatar_url ?? null}
             />
+            <Link
+              href="/avatar"
+              className="text-[0.86rem] underline"
+              style={{ color: "var(--color-ocre-deep)" }}
+            >
+              Personalizar avatar
+            </Link>
           </div>
         </div>
       </section>

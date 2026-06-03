@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@dicebear/collection": "^9.4.2",
+    "@dicebear/core": "^9.4.2",
     "@fontsource/archivo": "^5.0.18",
     "@fontsource/archivo-black": "^5.0.20",
     "@fontsource/inter": "^5.0.18",

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { mensajeAuth } from "@/lib/auth/errores";
 
 type Metodo = "enlace" | "password";
 
@@ -30,6 +31,16 @@ export function LoginForm() {
     process.env.NEXT_PUBLIC_SITE_URL ||
     (typeof window !== "undefined" ? window.location.origin : "");
 
+  // Aviso cuando volvemos del callback con error (enlace caducado, OAuth, etc.)
+  useEffect(() => {
+    if (searchParams.get("error")) {
+      setEstado("error");
+      setMensaje(
+        "No hemos podido completar el acceso. El enlace puede haber caducado: prueba a entrar de nuevo.",
+      );
+    }
+  }, [searchParams]);
+
   const enviarMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
@@ -45,11 +56,15 @@ export function LoginForm() {
     });
     if (error) {
       setEstado("error");
-      setMensaje(error.message);
+      // Caso típico: el magic link usa shouldCreateUser:false, así que si el
+      // correo no tiene cuenta Supabase no envía nada pero tampoco da error.
+      setMensaje(mensajeAuth(error));
       return;
     }
     setEstado("enviado");
-    setMensaje("Revisa tu correo y pulsa el enlace para entrar.");
+    setMensaje(
+      "Si ese correo tiene una cuenta, te hemos enviado un enlace. Revisa tu bandeja (y el spam) y pulsa para entrar.",
+    );
   };
 
   const entrarConPassword = async (e: React.FormEvent) => {
@@ -61,7 +76,7 @@ export function LoginForm() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setEstado("error");
-      setMensaje(error.message);
+      setMensaje(mensajeAuth(error));
       return;
     }
     router.push(redirect);
@@ -69,13 +84,18 @@ export function LoginForm() {
   };
 
   const entrarConGoogle = async () => {
+    setMensaje("");
     const supabase = createClient();
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${origin()}/auth/callback?redirect=${encodeURIComponent(redirect)}`,
       },
     });
+    if (error) {
+      setEstado("error");
+      setMensaje(mensajeAuth(error));
+    }
   };
 
   return (
@@ -223,20 +243,29 @@ export function LoginForm() {
           >
             {estado === "enviando" ? "Entrando..." : "Entrar"}
           </button>
-          <p
-            className="text-[0.78rem]"
-            style={{ color: "var(--color-piedra-clara)" }}
-          >
-            ¿No tienes cuenta todavía?{" "}
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <p
+              className="text-[0.78rem]"
+              style={{ color: "var(--color-piedra-clara)" }}
+            >
+              ¿No tienes cuenta todavía?{" "}
+              <Link
+                href="/registro"
+                className="underline"
+                style={{ color: "var(--color-ocre-deep)" }}
+              >
+                Créala en un minuto
+              </Link>
+              .
+            </p>
             <Link
-              href="/registro"
-              className="underline"
+              href="/recuperar"
+              className="text-[0.78rem] underline"
               style={{ color: "var(--color-ocre-deep)" }}
             >
-              Créala en un minuto
+              He olvidado la contraseña
             </Link>
-            .
-          </p>
+          </div>
         </form>
       )}
 

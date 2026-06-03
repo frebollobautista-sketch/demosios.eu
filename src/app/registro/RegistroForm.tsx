@@ -1,8 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { mensajeAuth } from "@/lib/auth/errores";
+import {
+  HANDLE_REGEX,
+  handleDisponible,
+  normalizarHandle,
+} from "@/lib/auth/handle";
 
 /**
  * Registro formal con email + contraseña + handle.
@@ -26,14 +32,48 @@ export function RegistroForm() {
   const [estado, setEstado] = useState<"idle" | "enviando" | "enviado" | "error">("idle");
   const [mensaje, setMensaje] = useState("");
 
-  const handleValido = (h: string) => /^[a-z0-9_]{3,30}$/.test(h);
+  // Disponibilidad de handle en tiempo real.
+  const [dispo, setDispo] = useState<
+    "idle" | "comprobando" | "disponible" | "ocupado" | "formato" | "error"
+  >("idle");
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const normalizar = (v: string) =>
-    v.toLowerCase().replace(/[^a-z0-9_]/g, "").slice(0, 30);
+  const handleValido = (h: string) => HANDLE_REGEX.test(h);
+
+  const normalizar = normalizarHandle;
 
   const origin = () =>
     process.env.NEXT_PUBLIC_SITE_URL ||
     (typeof window !== "undefined" ? window.location.origin : "");
+
+  // Comprobación debounced (350 ms) de disponibilidad del handle.
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (!handle) {
+      setDispo("idle");
+      return;
+    }
+    if (!handleValido(handle)) {
+      setDispo("formato");
+      return;
+    }
+    setDispo("comprobando");
+    debounceRef.current = setTimeout(async () => {
+      const supabase = createClient();
+      const r = await handleDisponible(supabase, handle);
+      // Evita pisar un estado más reciente si el usuario siguió escribiendo.
+      setDispo(
+        r === "disponible"
+          ? "disponible"
+          : r === "ocupado"
+            ? "ocupado"
+            : "error",
+      );
+    }, 350);
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [handle]);
 
   const registrar = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +83,11 @@ export function RegistroForm() {
       setMensaje(
         "El nombre de usuario solo admite minúsculas, números y guión bajo, entre 3 y 30 caracteres.",
       );
+      return;
+    }
+    if (dispo === "ocupado") {
+      setEstado("error");
+      setMensaje("Ese nombre de usuario ya está cogido. Prueba con otro.");
       return;
     }
     if (password.length < 8) {
@@ -64,7 +109,7 @@ export function RegistroForm() {
     });
     if (error) {
       setEstado("error");
-      setMensaje(error.message);
+      setMensaje(mensajeAuth(error));
       return;
     }
     if (data.user && !data.session) {
@@ -99,12 +144,34 @@ export function RegistroForm() {
             color: "var(--color-papiro-ink)",
           }}
         />
-        <span
-          className="text-[0.76rem] block mt-1"
-          style={{ color: "var(--color-piedra-clara)" }}
-        >
-          Minúsculas, números y guión bajo. 3-30 caracteres. Es tu @.
-        </span>
+        {handle && dispo !== "idle" ? (
+          <span
+            className="text-[0.76rem] block mt-1"
+            style={{
+              color:
+                dispo === "disponible"
+                  ? "var(--color-oliva)"
+                  : dispo === "comprobando"
+                    ? "var(--color-piedra-clara)"
+                    : "var(--color-sangre)",
+            }}
+          >
+            {dispo === "comprobando" && "Comprobando disponibilidad…"}
+            {dispo === "disponible" && "✓ Disponible"}
+            {dispo === "ocupado" && "Ya está cogido. Prueba con otro."}
+            {dispo === "formato" &&
+              "Solo minúsculas, números y guión bajo. 3-30 caracteres."}
+            {dispo === "error" &&
+              "No hemos podido comprobarlo ahora; lo validaremos al crear la cuenta."}
+          </span>
+        ) : (
+          <span
+            className="text-[0.76rem] block mt-1"
+            style={{ color: "var(--color-piedra-clara)" }}
+          >
+            Minúsculas, números y guión bajo. 3-30 caracteres. Es tu @.
+          </span>
+        )}
       </label>
 
       <label className="block">
@@ -154,7 +221,14 @@ export function RegistroForm() {
       <button
         type="submit"
         disabled={
-          !email || !password || !handle || estado === "enviando" || estado === "enviado"
+          !email ||
+          !password ||
+          !handle ||
+          dispo === "ocupado" ||
+          dispo === "formato" ||
+          dispo === "comprobando" ||
+          estado === "enviando" ||
+          estado === "enviado"
         }
         className="w-full h-11 rounded-md font-semibold text-[0.95rem] transition-opacity disabled:opacity-60"
         style={{

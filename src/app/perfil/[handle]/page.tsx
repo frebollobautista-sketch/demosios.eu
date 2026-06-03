@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { AvatarInteractivo } from "@/components/AvatarInteractivo";
+import { parseReceta } from "@/lib/avatar/receta";
+import { recetaPorSemilla } from "@/lib/avatar/catalogo";
 import { EnviarMensajeButton } from "./EnviarMensajeButton";
 import { BloquearButton } from "./BloquearButton";
 
@@ -37,18 +40,33 @@ export default async function PerfilHandlePage({
   const { handle } = await params;
   const supabase = await createClient();
 
-  const [perfilRes, sessionRes] = await Promise.all([
-    supabase
-      .from("profiles")
-      .select(
-        "id, handle, display_name, avatar_url, bio, sem, is_public, created_at",
-      )
-      .eq("handle", handle)
-      .maybeSingle(),
-    supabase.auth.getUser(),
-  ]);
+  // Perfil: intentamos traer `avatar_receta`; si la columna aún no existe
+  // (migración BLaP sin aplicar), reintentamos sin ella.
+  const COLS =
+    "id, handle, display_name, avatar_url, bio, sem, is_public, created_at";
+  const sessionPromise = supabase.auth.getUser();
 
-  const perfil = perfilRes.data as
+  let perfilData: unknown = null;
+  {
+    const conReceta = await supabase
+      .from("profiles")
+      .select(`${COLS}, avatar_receta`)
+      .eq("handle", handle)
+      .maybeSingle();
+    if (conReceta.error) {
+      const sinReceta = await supabase
+        .from("profiles")
+        .select(COLS)
+        .eq("handle", handle)
+        .maybeSingle();
+      perfilData = sinReceta.data;
+    } else {
+      perfilData = conReceta.data;
+    }
+  }
+  const sessionRes = await sessionPromise;
+
+  const perfil = perfilData as
     | {
         id: string;
         handle: string;
@@ -58,10 +76,14 @@ export default async function PerfilHandlePage({
         sem: string | null;
         is_public: boolean | null;
         created_at: string;
+        avatar_receta?: unknown;
       }
     | null;
 
   if (!perfil) notFound();
+
+  const recetaDisplay =
+    parseReceta(perfil.avatar_receta) ?? recetaPorSemilla(perfil.handle);
 
   const yo = sessionRes.data.user;
   const esMiPerfil = yo?.id === perfil.id;
@@ -135,30 +157,14 @@ export default async function PerfilHandlePage({
         }}
       >
         <div className="flex items-start gap-4 flex-wrap">
-          {/* Avatar */}
-          <div
-            className="rounded-full shrink-0 flex items-center justify-center text-[1.5rem]"
-            style={{
-              width: 80,
-              height: 80,
-              background: "var(--color-papiro-soft)",
-              color: "var(--color-ocre-deep)",
-              fontWeight: 600,
-              border: "1px solid var(--color-linea)",
-              overflow: "hidden",
-            }}
-          >
-            {perfil.avatar_url ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={perfil.avatar_url}
-                alt={`Avatar de @${perfil.handle}`}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span aria-hidden>{(nombre[0] || "?").toUpperCase()}</span>
-            )}
-          </div>
+          {/* Avatar: muñeco por defecto; la foto se revela al posar el dedo. */}
+          <AvatarInteractivo
+            receta={recetaDisplay}
+            fotoUrl={perfil.avatar_url}
+            nombre={nombre}
+            size={80}
+            className="shrink-0"
+          />
 
           {/* Info */}
           <div className="flex-1 min-w-0">

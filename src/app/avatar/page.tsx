@@ -2,7 +2,8 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { cargarContexto } from "@/lib/avatar/contexto.server";
-import { parseReceta, recetaPorDefecto } from "@/lib/avatar/receta";
+import { parseReceta } from "@/lib/avatar/receta";
+import { recetaPorSemilla } from "@/lib/avatar/catalogo";
 import { CURSUS } from "@/lib/cursus/grados";
 import { AvatarEditor } from "./AvatarEditor";
 
@@ -39,7 +40,7 @@ export default async function AvatarPage() {
   }
 
   const seed = handle || user.id;
-  const recetaInicial = parseReceta(recetaJson) ?? recetaPorDefecto(seed);
+  const recetaInicial = parseReceta(recetaJson) ?? recetaPorSemilla(seed);
 
   const ctx = await cargarContexto(supabase, user.id);
   const grado = CURSUS.find((g) => g.nivel === ctx.nivelGrado) ?? CURSUS[0];

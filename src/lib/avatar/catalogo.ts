@@ -13,6 +13,7 @@
 // el cliente sólo lo usa para mostrar/atenuar. Nunca confíes solo en el cliente.
 
 import { CURSUS, type Grado } from "@/lib/cursus/grados";
+import { AVATAR_RECETA_VERSION, type AvatarReceta } from "@/lib/avatar/receta";
 
 export type Desbloqueo =
   | { tipo: "libre" }
@@ -197,6 +198,42 @@ export const CATALOGO_AVATAR: ParteAvatar[] = [
     ],
   },
 ];
+
+// ─── Muñeco por defecto, único por persona ──────────────────────────────────
+// Cada usuario tiene un avatar generativo desde el primer momento, derivado de
+// su semilla (handle o id) y usando SOLO cosméticos de acceso libre. Así el
+// "avatar por defecto" no es idéntico para todos, pero tampoco usa nada que
+// no esté desbloqueado.
+
+function hashCadena(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+export function recetaPorSemilla(seed: string): AvatarReceta {
+  const s = seed || "ocre";
+  const opciones: Record<string, string[] | number> = {
+    accessoriesProbability: 0, // sin gafas por defecto
+    facialHairProbability: 0, // sin vello por defecto
+    style: ["default"],
+  };
+  for (const parte of CATALOGO_AVATAR) {
+    if (parte.campoProbabilidad) continue; // toggles ocultos por defecto
+    const libres = parte.opciones.filter(
+      (o) => o.desbloqueo.tipo === "libre" && o.id !== NINGUNO,
+    );
+    if (!libres.length) continue;
+    const idx = hashCadena(`${s}:${parte.id}`) % libres.length;
+    opciones[parte.campo] = [libres[idx].id];
+  }
+  return {
+    v: AVATAR_RECETA_VERSION,
+    estilo: "avataaars",
+    seed: s,
+    opciones,
+  };
+}
 
 // ─── Contexto y evaluación de desbloqueo ────────────────────────────────────
 

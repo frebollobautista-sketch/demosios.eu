@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Avatar } from "@/components/Avatar";
+import { AvatarInteractivo } from "@/components/AvatarInteractivo";
 import { EJES } from "@/lib/capital/ejes";
 import {
   agregarCapital,
@@ -16,8 +16,8 @@ import {
   avanceHaciaProximo,
 } from "@/lib/cursus/grados";
 import { CANARIAS } from "@/lib/territorio/canarias";
-import { AvatarReceta } from "@/components/AvatarReceta";
 import { parseReceta } from "@/lib/avatar/receta";
+import { recetaPorSemilla } from "@/lib/avatar/catalogo";
 import { PerfilEditor, type Enlace } from "./PerfilEditor";
 
 export const metadata = {
@@ -105,12 +105,13 @@ export default async function PerfilPage() {
 
   const nombre =
     perfilRow?.display_name || `@${perfilRow?.handle ?? "vecino"}`;
-  const inicial = (nombre[0] || "?").toUpperCase();
-  const color = perfilRow?.avatar_color || "#A14B2A";
   const enlaces: Enlace[] = Array.isArray(perfilRow?.enlaces)
     ? (perfilRow!.enlaces as Enlace[])
     : [];
-  const receta = parseReceta(perfilRow?.avatar_receta);
+  // Muñeco a mostrar: el personalizado si existe; si no, uno por defecto único.
+  const recetaDisplay =
+    parseReceta(perfilRow?.avatar_receta) ??
+    recetaPorSemilla(perfilRow?.handle || user.id);
 
   const isla = CANARIAS.find((i) => i.id === perfilRow?.isla_id);
   const muni = isla?.municipios.find((m) => m.id === perfilRow?.municipio_id);
@@ -120,28 +121,13 @@ export default async function PerfilPage() {
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10 pb-40">
       {/* Cabecera de perfil */}
       <section className="flex items-start gap-5 flex-wrap">
-        {receta ? (
-          <AvatarReceta
-            receta={receta}
-            size={96}
-            title={`Avatar de ${nombre}`}
-            className="shrink-0"
-          />
-        ) : perfilRow?.avatar_url ? (
-          <span
-            className="relative inline-flex rounded-full overflow-hidden shrink-0"
-            style={{ width: 96, height: 96, border: "1px solid var(--color-linea)" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={perfilRow.avatar_url}
-              alt={`Avatar de ${nombre}`}
-              className="w-full h-full object-cover"
-            />
-          </span>
-        ) : (
-          <Avatar inicial={inicial} color={color} grado={grado} size={96} />
-        )}
+        <AvatarInteractivo
+          receta={recetaDisplay}
+          fotoUrl={perfilRow?.avatar_url ?? null}
+          nombre={nombre}
+          size={96}
+          className="shrink-0"
+        />
         <div className="min-w-0 flex-1">
           <div className="eyebrow" style={{ color: grado.color }}>
             {grado.nombreLatino} · {grado.traduccion}

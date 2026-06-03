@@ -7,11 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260530-touchbar-v2">
-  <link rel="stylesheet" href="sillas-conocimiento.css?v=20260530-touchbar-v2">
-  <link rel="stylesheet" href="quorums-lectura.css?v=20260530-touchbar-v2">
-  <link rel="stylesheet" href="pulso-palacios.css?v=20260530-touchbar-v2">
-  <link rel="stylesheet" href="descubre.css?v=20260530-touchbar-v2">
+  <link rel="stylesheet" href="style.css?v=20260603-loop">
+  <link rel="stylesheet" href="recursos.css?v=20260602-cursus">
+  <link rel="stylesheet" href="libros.css?v=20260603-libros">
+  <link rel="stylesheet" href="sillas-conocimiento.css?v=20260531-unifyheader">
+  <link rel="stylesheet" href="quorums-lectura.css?v=20260531-unifyheader">
+  <link rel="stylesheet" href="pulso-palacios.css?v=20260531-unifyheader">
+  <link rel="stylesheet" href="descubre.css?v=20260531-unifyheader">
 </head>
 <body>
   <!-- [INDIGO-SKIN 2026-05-29] Header OCRE portado de POLIS (mismo shell que
@@ -27,11 +29,42 @@
         <code id="uid" class="topbar-uid-code" hidden></code>
       </div>
 
-      <!-- Pilares visibles (interconexión siempre a la vista, no dropdown). -->
-      <nav class="app-pillars" aria-label="Saltar entre pilares">
-        <a class="pillar pillar-polis"      href="../polis-app/">POLIS</a>
-        <a class="pillar pillar-agora"      href="../agora-app/">ÁGORA</a>
-        <a class="pillar pillar-biblioteca is-active" href="../biblioteca-app/" aria-current="page">BIBLIOTHEKA</a>
+      <!-- [2026-05-31] Toggle segmentado idéntico a POLIS: icono+label por
+           sección, color identidad (POLIS azul, ÁGORA rojo, BIBLIOTHEKA
+           verde). El segmento activo se rellena con su color. -->
+      <nav class="app-pillars" aria-label="Saltar entre pilares" role="tablist">
+        <a class="pillar pillar-polis" href="../polis-app/" role="tab">
+          <span class="pillar-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="currentColor" d="M12 2 1 8h22z"/>
+              <rect fill="currentColor" x="2" y="8.6" width="20" height="1.6"/>
+              <rect fill="currentColor" x="3"    y="11" width="2.4" height="8"/>
+              <rect fill="currentColor" x="8"    y="11" width="2.4" height="8"/>
+              <rect fill="currentColor" x="13.2" y="11" width="2.4" height="8"/>
+              <rect fill="currentColor" x="18.6" y="11" width="2.4" height="8"/>
+              <rect fill="currentColor" x="1" y="20" width="22" height="2"/>
+            </svg>
+          </span>
+          <span class="pillar-label">POLIS</span>
+        </a>
+        <a class="pillar pillar-agora" href="../agora-app/" role="tab">
+          <span class="pillar-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="currentColor" d="M2 4h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H7l-3 3v-3H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+              <path fill="currentColor" opacity="0.8" d="M22 9h-3v2a3 3 0 0 1-3 3h-4a2 2 0 0 0 2 2h4l3 3v-3a2 2 0 0 0 2-2V11a2 2 0 0 0-2-2z"/>
+            </svg>
+          </span>
+          <span class="pillar-label">ÁGORA</span>
+        </a>
+        <a class="pillar pillar-biblioteca is-active" href="../biblioteca-app/" aria-current="page" role="tab">
+          <span class="pillar-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path fill="currentColor" d="M3 5c2.8-1 5.7-1 9 .6 3.3-1.6 6.2-1.6 9-.6v13.5c-2.8-1-5.7-1-9 .5-3.3-1.5-6.2-1.5-9-.5z"/>
+              <rect fill="var(--paper-app)" x="11.4" y="6.2" width="1.2" height="12.4"/>
+            </svg>
+          </span>
+          <span class="pillar-label">BIBLIOTHEKA</span>
+        </a>
       </nav>
 
       <div class="app-topbar-right">
@@ -49,12 +82,19 @@
     <div id="biblio-strip" class="biblio-strip" role="tablist" aria-label="Biblioteca"></div>
   </div>
 
-  <main class="app">
+  <!-- [2026-05-31] Avatar del cursus honorum: círculo flotante abajo a la
+       derecha con "?" mientras no hay registro (idéntico a POLIS y ÁGORA). -->
+  <button class="app-avatar-fab" id="app-topbar-enter" type="button"
+          aria-label="Mi perfil — sin registrar" title="Entrar / registrarme"
+          data-registered="false">
+    <svg class="ava-ico" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+      <circle fill="currentColor" cx="12" cy="8" r="4.2"/>
+      <path fill="currentColor" d="M3.5 21c0-4.5 3.8-7.2 8.5-7.2s8.5 2.7 8.5 7.2z"/>
+    </svg>
+    <span class="ava-badge" aria-hidden="true">?</span>
+  </button>
 
-    <!-- Columna izquierda: sliders verticales -->
-    <aside class="col left" id="sliders" aria-label="Sliders del algoritmo">
-      <!-- pintado por app.js -->
-    </aside>
+  <main class="app">
 
     <!-- Columna centro: feed -->
     <section class="feed">
@@ -137,6 +177,6 @@
     </div>
   </div>
 
-  <script type="module" src="app.js?v=20260530-touchbar-v2"></script>
+  <script type="module" src="app.js?v=20260603-libros"></script>
 </body>
 </html>

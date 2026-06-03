@@ -1,0 +1,177 @@
+/* biblioteca-app/libros.css — Formato "Libros" (PDF local + subrayado).
+   Visor pdf.js + card de catálogo + toolbar de subida. Reutiliza los tokens
+   de color del resto de la app (--ocre, --indigo, --line, --bg, --paper-app). */
+
+/* ─────────── Toolbar "+ Añadir PDF" ─────────── */
+.libros-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  padding: 0.7rem 0.8rem;
+  margin-bottom: 0.8rem;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--indigo) 6%, transparent);
+}
+.libros-toolbar.is-drag {
+  border-color: var(--ocre);
+  background: color-mix(in srgb, var(--ocre) 12%, transparent);
+}
+.libros-add-btn {
+  font: 600 12.5px/1 "IBM Plex Mono", monospace;
+  color: var(--bg);
+  background: var(--ocre);
+  border: 1px solid var(--ocre);
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+}
+.libros-add-btn:hover { filter: brightness(1.06); }
+.libros-toolbar-hint {
+  font: 400 11px/1.4 "IBM Plex Mono", monospace;
+  color: color-mix(in srgb, var(--ink, #ddd) 65%, transparent);
+  opacity: 0.8;
+}
+
+/* ─────────── Card de catálogo ─────────── */
+.card-libro {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-app, rgba(255,255,255,0.02));
+  margin-bottom: 0.7rem;
+}
+.libro-card-port {
+  position: relative;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 84px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--indigo) 22%, transparent);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.libro-card-ico { font-size: 26px; opacity: 0.7; }
+.libro-card-info { flex: 1 1 auto; min-width: 0; }
+.libro-card-acciones { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
+.libro-abrir {
+  font: 600 11.5px/1 "IBM Plex Mono", monospace;
+  color: var(--ocre);
+  background: transparent;
+  border: 1px solid var(--ocre);
+  border-radius: 7px;
+  padding: 0.42rem 0.7rem;
+  cursor: pointer;
+}
+.libro-abrir:hover { background: color-mix(in srgb, var(--ocre) 14%, transparent); }
+.libro-editar {
+  font: 600 13px/1 "IBM Plex Mono", monospace;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 0.42rem 0.6rem;
+  cursor: pointer;
+  opacity: 0.75;
+}
+.libro-editar:hover { opacity: 1; border-color: var(--ocre); }
+.recurso-senda-chip.is-sin { opacity: 0.55; }
+.libros-vacio {
+  font: 400 12px/1.6 "IBM Plex Mono", monospace;
+  opacity: 0.7;
+  padding: 0.8rem 0.4rem;
+  max-width: 520px;
+}
+
+/* ─────────── Visor (overlay) ─────────── */
+.libro-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: color-mix(in srgb, var(--bg) 88%, #000);
+  display: flex; justify-content: center;
+}
+.libro-sheet {
+  width: min(920px, 100%);
+  height: 100%;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+}
+.libro-top {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 2;
+  background: var(--bg);
+}
+.libro-cerrar, .libro-apuntes-btn {
+  font: 600 15px/1 "IBM Plex Mono", monospace;
+  color: inherit; background: transparent;
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: 0.4rem 0.6rem; cursor: pointer;
+}
+.libro-apuntes-btn:hover, .libro-cerrar:hover { border-color: var(--ocre); }
+.libro-top-meta { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.libro-top-tit { font: 600 13.5px/1.2 "IBM Plex Mono", monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.libro-top-sub { font: 400 11px/1.2 "IBM Plex Mono", monospace; opacity: 0.65; }
+
+.libro-cuerpo {
+  flex: 1 1 auto; overflow: auto;
+  padding: 1rem; display: flex; flex-direction: column;
+  align-items: center; gap: 1rem;
+  background: color-mix(in srgb, var(--indigo) 8%, var(--bg));
+}
+.libro-cargando, .libro-error, .libro-aviso-ocr {
+  font: 400 12.5px/1.5 "IBM Plex Mono", monospace;
+  padding: 1rem; text-align: center; max-width: 540px;
+}
+.libro-aviso-ocr {
+  color: var(--ocre);
+  border: 1px solid var(--ocre);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ocre) 10%, transparent);
+}
+.libro-error { color: #e88; }
+
+/* ─────────── Página PDF (canvas + texto + highlights) ─────────── */
+.libro-page {
+  position: relative;
+  background: #fff;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.35);
+  flex: 0 0 auto;
+}
+.libro-canvas { display: block; position: absolute; inset: 0; }
+.libro-highlights { position: absolute; inset: 0; pointer-events: none; }
+.libro-hl {
+  position: absolute;
+  background: color-mix(in srgb, var(--ocre) 38%, transparent);
+  border-radius: 2px;
+  pointer-events: auto;
+  cursor: pointer;
+  mix-blend-mode: multiply;
+}
+.libro-hl.has-nota { box-shadow: inset 0 -2px 0 0 var(--ocre); }
+
+/* Capa de texto pdf.js: spans transparentes seleccionables sobre el canvas. */
+.libro-textlayer {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  opacity: 1; line-height: 1;
+  text-align: initial;
+}
+.libro-textlayer > span {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+.libro-textlayer ::selection { background: color-mix(in srgb, var(--ocre) 40%, transparent); }
+.libro-textlayer br::selection { background: transparent; }
+
+/* La selbar reutiliza .lector-selbar (recursos.css); aquí solo aseguramos
+   que quede por encima del overlay del visor. */
+.libro-selbar { z-index: 1002; }

@@ -156,6 +156,7 @@ export default async function AjustesPage() {
             label="Email"
             valor={user.email || "—"}
             soonLabel="Cambiar"
+            href="/ajustes/cambiar-email"
           />
           <CampoCuenta
             label="Handle"
@@ -166,6 +167,7 @@ export default async function AjustesPage() {
             label="Contraseña"
             valor="••••••••"
             soonLabel="Cambiar"
+            href="/ajustes/cambiar-password"
           />
           <CampoCuenta
             label="Sesiones activas"
@@ -176,12 +178,13 @@ export default async function AjustesPage() {
 
         <div className="mt-3 flex items-center justify-between gap-3 flex-wrap">
           <LogoutButton variant="button" />
-          <span
-            className="text-[0.8rem]"
-            style={{ color: "var(--color-piedra-clara)" }}
+          <Link
+            href="/ajustes/eliminar-cuenta"
+            className="text-[0.8rem] underline"
+            style={{ color: "#a04030" }}
           >
-            Eliminar cuenta · <em className="italic">próximamente</em>
-          </span>
+            Eliminar cuenta
+          </Link>
         </div>
       </Seccion>
 
@@ -241,8 +244,8 @@ export default async function AjustesPage() {
           <Accion
             titulo="Eliminar mi cuenta entera"
             descripcion="Acción irreversible. Todo lo tuyo se borra y no se puede recuperar."
-            soon
             destructiva
+            href="/ajustes/eliminar-cuenta"
           />
         </div>
       </Seccion>
@@ -301,10 +304,12 @@ function CampoCuenta({
   label,
   valor,
   soonLabel,
+  href,
 }: {
   label: string;
   valor: string;
   soonLabel: string;
+  href?: string;
 }) {
   return (
     <div
@@ -325,12 +330,22 @@ function CampoCuenta({
           {valor}
         </div>
       </div>
-      <span
-        className="text-[0.78rem] shrink-0"
-        style={{ color: "var(--color-piedra-clara)" }}
-      >
-        {soonLabel} <em className="italic">(próx.)</em>
-      </span>
+      {href ? (
+        <Link
+          href={href}
+          className="text-[0.82rem] shrink-0 underline font-medium"
+          style={{ color: "var(--color-ocre-deep)" }}
+        >
+          {soonLabel}
+        </Link>
+      ) : (
+        <span
+          className="text-[0.78rem] shrink-0"
+          style={{ color: "var(--color-piedra-clara)" }}
+        >
+          {soonLabel} <em className="italic">(próx.)</em>
+        </span>
+      )}
     </div>
   );
 }
@@ -340,11 +355,13 @@ function Accion({
   descripcion,
   soon,
   destructiva,
+  href,
 }: {
   titulo: string;
   descripcion: string;
   soon?: boolean;
   destructiva?: boolean;
+  href?: string;
 }) {
   return (
     <div className="flex items-start justify-between gap-3 flex-wrap">
@@ -365,13 +382,23 @@ function Accion({
           {descripcion}
         </p>
       </div>
-      {soon && (
-        <span
-          className="text-[0.78rem] shrink-0"
-          style={{ color: "var(--color-piedra-clara)" }}
+      {href ? (
+        <Link
+          href={href}
+          className="text-[0.8rem] shrink-0 underline font-medium"
+          style={{ color: destructiva ? "#a04030" : "var(--color-ocre-deep)" }}
         >
-          <em className="italic">próximamente</em>
-        </span>
+          Continuar
+        </Link>
+      ) : (
+        soon && (
+          <span
+            className="text-[0.78rem] shrink-0"
+            style={{ color: "var(--color-piedra-clara)" }}
+          >
+            <em className="italic">próximamente</em>
+          </span>
+        )
       )}
     </div>
   );

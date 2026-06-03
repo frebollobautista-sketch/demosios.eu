@@ -19,6 +19,9 @@
   --ocre:      #c9a86a;   /* acento cálido (oro PHAROS, igual que POLIS) */
   --ocre-dim:  #8b7548;
   --verde:     #6aa86a;   /* verde vivo para acentos cívicos / honesty */
+  --verde-id:  #4fa86a;   /* identidad ÁGORA: acento verde (menos oscuro) de
+                             postura + chips activos. El pilar sigue rojo por
+                             convención entre apps; esto es el acento interno. */
   --ambar:     #c9904a;
   --rojo:      #c95252;
   --oro:       #d4af37;   /* membrete / acento brand (oro PHAROS) */
@@ -95,29 +98,80 @@ hr.drawer-sep {
 /* Pilares visibles (interconexión siempre a la vista). Posicionados en
    el centro absoluto del topbar para que no dependan del ancho de los
    bloques izquierda/derecha. */
+/* [2026-05-31] Toggle segmentado idéntico a POLIS (adaptado a skin oscuro):
+   píldora centrada, 3 segmentos icono+label, activo relleno con su color de
+   sección. Mismos colores de identidad que POLIS (azul/rojo/verde). */
 .app-pillars {
   position: absolute; left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  display: flex; align-items: center; gap: 18px;
+  display: flex; align-items: center; gap: 2px;
+  z-index: 15;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 3px;
 }
-.pillar {
+.app-pillars .pillar {
+  display: flex; align-items: center; gap: 6px;
   font-family: var(--font-serif);
-  font-size: 13px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--text-dim);
   text-decoration: none;
-  padding: 4px 2px;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
+  padding: 5px 12px;
+  border-radius: 999px;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
 }
-.pillar:hover { color: var(--text); }
-.pillar.is-active { color: var(--text); font-weight: 600; }
-.pillar-polis.is-active      { border-bottom-color: var(--ocre); }
-.pillar-agora.is-active      { border-bottom-color: var(--verde); }
-.pillar-biblioteca.is-active { border-bottom-color: #7a95c8; }
-@media (max-width: 600px) {
-  .app-pillars { gap: 10px; font-size: 11px; }
+.app-pillars .pillar-ico { display: inline-flex; line-height: 0; }
+.app-pillars .pillar-polis      .pillar-ico { color: #2f6fb3; }
+.app-pillars .pillar-agora      .pillar-ico { color: #c95252; }
+.app-pillars .pillar-biblioteca .pillar-ico { color: #5ea674; }
+.app-pillars .pillar:hover { color: var(--text); background: rgba(255, 255, 255, 0.08); }
+.app-pillars .pillar.is-active { color: #fff; }
+.app-pillars .pillar.is-active .pillar-ico { color: #fff; }
+.app-pillars .pillar-polis.is-active      { background: #2f6fb3; }
+.app-pillars .pillar-agora.is-active      { background: #c95252; }
+.app-pillars .pillar-biblioteca.is-active { background: #5ea674; }
+@media (max-width: 640px) {
+  .app-pillars .pillar-label { display: none; }
+  .app-pillars .pillar { padding: 6px 9px; }
 }
+
+/* [2026-05-31] Avatar del cursus honorum: círculo flotante abajo a la
+   derecha. Reemplaza el botón "Entrar" del topbar. Sobre skin oscuro usa
+   relleno oro PHAROS con glifo oscuro para que destaque. */
+.app-avatar-fab {
+  position: fixed;
+  right: 16px; bottom: 24px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  appearance: none; border: none;
+  background: var(--oro);
+  color: #15211a;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  z-index: 60;
+  transition: transform 0.15s;
+}
+.app-avatar-fab:hover { transform: scale(1.05); }
+.app-avatar-fab:active { transform: scale(0.97); }
+.app-avatar-fab .ava-badge {
+  position: absolute;
+  top: -2px; right: -2px;
+  min-width: 20px; height: 20px;
+  box-sizing: border-box;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--rojo, #c95252);
+  color: #fff;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px; font-weight: 700;
+  line-height: 20px; text-align: center;
+  border: 2px solid var(--paper-app);
+}
+.app-avatar-fab[data-registered="true"] .ava-badge { display: none; }
 
 .app-topbar-iconbtn {
   appearance: none; background: transparent; border: none;
@@ -129,6 +183,7 @@ hr.drawer-sep {
 }
 .app-topbar-iconbtn:hover { background: var(--surface-2); color: var(--ocre); }
 .app-topbar-iconbtn[aria-expanded="true"] { color: var(--ocre); }
+.app-topbar-iconbtn[hidden] { display: none; }
 
 .app-topbar-enter {
   font-family: var(--font-serif); font-size: 14px; color: var(--text);
@@ -161,6 +216,36 @@ hr.drawer-sep {
 .atm-desc { font-family: var(--font-serif); font-size: 11px; opacity: 0.7; }
 .atm-active .atm-name { color: var(--ocre); }
 
+/* ─────────────────────── Conmutador de POSTURA ───────────────────────
+   Nivel superior al strip de familia: Red social ↔ Deliberación. Dos
+   segmentos a ancho repartido; el activo se rellena con el rojo identidad
+   del Ágora. Banda continua con el header. */
+.agora-postura {
+  display: flex; align-items: stretch; gap: 6px;
+  padding: 6px 8px 0;
+  background: var(--paper-app);
+}
+.agora-postura[hidden] { display: none; }
+.postura-seg {
+  flex: 1 1 0; max-width: 240px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5em;
+  background: transparent;
+  border: 1px solid var(--border-2);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: var(--text-dim);
+  padding: 0.5em 1em;
+  font-family: inherit; font-size: 0.86rem; letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.postura-seg:hover { color: var(--text); background: var(--surface-2); }
+.postura-seg.is-active {
+  color: #fff; background: var(--verde-id); border-color: var(--verde-id);
+  font-weight: 600;
+}
+.postura-ico { font-size: 1em; line-height: 1; }
+
 /* Tira "multitouch": banda continua con el header (muta la siluetas-strip). */
 .agora-strip {
   display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -169,6 +254,7 @@ hr.drawer-sep {
   border-bottom: 1px solid var(--border-2);
   overflow-x: auto; scrollbar-width: none;
 }
+.agora-strip[hidden] { display: none; }
 .agora-strip::-webkit-scrollbar { display: none; }
 .feed-chip {
   flex: 0 0 auto;
@@ -182,7 +268,7 @@ hr.drawer-sep {
 }
 .feed-chip:hover { color: var(--text); background: var(--surface-2); }
 .feed-chip.is-active {
-  color: var(--bg); background: var(--ocre); border-color: var(--ocre);
+  color: #fff; background: var(--verde-id); border-color: var(--verde-id);
   font-weight: 600;
 }
 .feed-chip-ico { font-size: 0.95em; line-height: 1; }
@@ -243,6 +329,32 @@ hr.drawer-sep {
   margin: 0 auto;
   padding: 0.8rem 1rem 4rem;
 }
+.timeline[hidden] { display: none; }
+
+/* ─────────────────────── Superficie DELIBERACIÓN ─────────────────────
+   Postura tipo Decidim/CONSUL. Fase 0: esqueleto centrado. */
+.deliberacion {
+  max-width: var(--timeline-max);
+  margin: 0 auto;
+  padding: 0.8rem 1rem 4rem;
+}
+.deliberacion[hidden] { display: none; }
+.deliberacion-placeholder {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 0.5rem;
+  padding: 3.5rem 1rem;
+  color: var(--text-dim);
+}
+.delib-ico { font-size: 2.6rem; line-height: 1; }
+.delib-title {
+  font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600;
+  color: var(--text); margin: 0.2rem 0 0;
+}
+.delib-lead { font-size: 0.9rem; max-width: 34ch; margin: 0; }
+.delib-soon {
+  font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--faint); margin-top: 0.4rem;
+}
 .timeline-status {
   font-size: 0.72rem;
   color: var(--faint);
@@ -256,6 +368,84 @@ hr.drawer-sep {
   display: flex; flex-direction: column;
   gap: 0.6rem;
 }
+
+/* ─────────────────────────── MAUSOLEO ────────────────────────────────
+   Figura histórica como cuenta. Retrato + ficha + badge de verificación.
+   La cita real se distingue de la glosa IA de forma estructural. */
+.post-mausoleo { border-left: 2px solid var(--ocre-dim, #6b5836); }
+.maus-author {
+  display: flex; align-items: center; gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.maus-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  object-fit: cover; flex-shrink: 0;
+  border: 1px solid var(--border-2);
+  background: var(--surface-2);
+}
+.maus-avatar-fallback {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif); font-weight: 600; font-size: 1.1rem;
+  color: var(--faint);
+}
+.maus-ident { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.maus-nombre {
+  font-family: var(--font-serif); font-weight: 600; font-size: 0.92rem;
+  color: var(--text);
+}
+.maus-meta { font-size: 0.72rem; color: var(--faint); font-family: var(--font-mono); }
+.maus-ambito { letter-spacing: 0.02em; }
+.maus-badge {
+  margin-left: auto; flex-shrink: 0;
+  font-size: 0.68rem; letter-spacing: 0.03em;
+  padding: 0.18em 0.6em; border-radius: 999px;
+  border: 1px solid transparent;
+}
+.maus-badge.is-glosa {
+  color: var(--ocre); background: rgba(201,168,106,0.12);
+  border-color: var(--ocre-dim, #6b5836);
+}
+.maus-badge.is-cita {
+  color: var(--text-dim); background: var(--surface-2);
+  border-color: var(--border-2);
+}
+.maus-badge.is-obra {
+  color: var(--verde, #6fae8e); background: rgba(111,174,142,0.12);
+  border-color: rgba(111,174,142,0.4);
+}
+.maus-body.is-cita {
+  font-family: var(--font-serif); font-style: italic;
+  border-left: 2px solid var(--border-2); padding-left: 0.7rem;
+}
+.maus-media {
+  width: 100%; border-radius: 8px; margin-top: 0.5rem;
+  border: 1px solid var(--border-2);
+}
+.maus-proc {
+  font-size: 0.7rem; color: var(--faint);
+  margin-top: 0.4rem; font-style: normal;
+}
+/* Skin "galería": capas IA sobre la obra. Cada una con su tono y badge. */
+.maus-galeria { margin-top: 0.55rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.maus-capa {
+  margin: 0; font-size: 0.82rem; line-height: 1.45;
+  color: var(--text-dim); padding-left: 0.7rem;
+  border-left: 2px solid var(--border-2);
+}
+.maus-capa-badge {
+  display: inline-block; font-size: 0.64rem; letter-spacing: 0.03em;
+  padding: 0.12em 0.5em; border-radius: 999px; margin-right: 0.35em;
+  border: 1px solid transparent; vertical-align: 0.06em;
+}
+.maus-capa-badge.is-glosa {
+  color: var(--ocre); background: rgba(201,168,106,0.12);
+  border-color: var(--ocre-dim, #6b5836);
+}
+.maus-capa-badge.is-chasca {
+  color: #d9a441; background: rgba(217,164,65,0.12);
+  border-color: rgba(217,164,65,0.4);
+}
+.maus-chascarrillo { font-style: italic; border-left-color: rgba(217,164,65,0.45); }
 .timeline-paginacion {
   margin-top: 1.5rem; text-align: center;
 }
@@ -858,3 +1048,105 @@ hr.drawer-sep {
 }
 .tablero-knob-ends { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--faint-2); }
 .tablero-knob input[type=range] { width: 100%; accent-color: var(--ocre); margin-top: 0.15rem; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   DELIBERACIÓN (Fase 3) — superficie Decidim/CONSUL
+   Propuestas (máquina de estados + termómetro), debates, votaciones,
+   presupuestos. Acento de identidad: --verde-id.
+   ══════════════════════════════════════════════════════════════════════ */
+.deliberacion[hidden] { display: none; }
+.dl-surface { max-width: 720px; margin: 0 auto; padding: 0.5rem 0 4rem; }
+.dl-list { display: flex; flex-direction: column; gap: 0.9rem; }
+.dl-vacio { color: var(--faint); text-align: center; padding: 2rem; }
+
+.dl-card {
+  background: var(--surface); border: 1px solid var(--border-2);
+  border-radius: 10px; padding: 0.95rem 1.05rem;
+}
+.dl-card.is-sel { border-color: var(--verde-id); }
+.dl-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.35rem;
+}
+.dl-cat {
+  font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--verde-id); background: rgba(79,168,106,0.12);
+  border: 1px solid rgba(79,168,106,0.35);
+  padding: 0.12em 0.6em; border-radius: 999px;
+}
+.dl-autor { font-size: 0.72rem; color: var(--text-dim); }
+.dl-card-title { font-size: 1.02rem; margin: 0.1rem 0 0.3rem; color: var(--text); }
+.dl-card-body { font-size: 0.86rem; line-height: 1.5; color: var(--text-dim); margin: 0 0 0.7rem; }
+.dl-resultado { font-size: 0.82rem; color: var(--verde-id); margin: 0.5rem 0 0; }
+
+/* Stepper de la máquina de estados */
+.dl-stepper {
+  list-style: none; display: flex; gap: 0; margin: 0.4rem 0 0.8rem; padding: 0;
+  overflow-x: auto; scrollbar-width: none;
+}
+.dl-stepper::-webkit-scrollbar { display: none; }
+.dl-step {
+  flex: 1 0 auto; display: flex; flex-direction: column; align-items: center;
+  gap: 0.2rem; position: relative; min-width: 64px; text-align: center;
+}
+.dl-step::before {
+  content: ""; position: absolute; top: 11px; left: -50%; width: 100%; height: 2px;
+  background: var(--border-2); z-index: 0;
+}
+.dl-step:first-child::before { display: none; }
+.dl-step.is-done::before, .dl-step.is-now::before { background: var(--verde-id); }
+.dl-step-dot {
+  position: relative; z-index: 1; width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 0.7rem;
+  background: var(--surface-2); border: 1px solid var(--border-2); color: var(--text-dim);
+}
+.dl-step.is-done .dl-step-dot { background: var(--verde-id); border-color: var(--verde-id); color: #fff; }
+.dl-step.is-now  .dl-step-dot { border-color: var(--verde-id); color: var(--verde-id); box-shadow: 0 0 0 3px rgba(79,168,106,0.18); }
+.dl-step-label { font-size: 0.62rem; color: var(--faint); white-space: nowrap; }
+.dl-step.is-now .dl-step-label { color: var(--text); font-weight: 600; }
+
+/* Termómetro de apoyos */
+.dl-termo { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.dl-termo-fill { display: block; height: 100%; background: var(--verde-id); transition: width 0.3s; }
+.dl-termo-fill.is-full { background: var(--ocre); }
+.dl-apoyos { margin-top: 0.3rem; }
+.dl-apoyos-row { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-top: 0.4rem; }
+.dl-apoyos-num { font-size: 0.78rem; color: var(--text-dim); }
+
+.dl-btn {
+  background: transparent; border: 1px solid var(--verde-id); color: var(--verde-id);
+  padding: 0.4em 0.9em; border-radius: 999px; font-size: 0.8rem; font-family: inherit;
+  cursor: pointer; transition: background 0.15s, color 0.15s; white-space: nowrap;
+}
+.dl-btn:hover { background: rgba(79,168,106,0.12); }
+.dl-btn.is-on { background: var(--verde-id); color: #fff; }
+.dl-btn:disabled { opacity: 0.45; cursor: not-allowed; border-color: var(--border-2); color: var(--faint); }
+
+/* Votaciones */
+.dl-votos { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.3rem; }
+.dl-voto {
+  position: relative; display: block; width: 100%; text-align: left;
+  background: var(--surface-2); border: 1px solid var(--border-2);
+  border-radius: 7px; padding: 0.55em 0.8em; cursor: pointer; overflow: hidden;
+  font-family: inherit; transition: border-color 0.15s;
+}
+.dl-voto:hover { border-color: var(--verde-id); }
+.dl-voto.is-on { border-color: var(--verde-id); box-shadow: 0 0 0 2px rgba(79,168,106,0.2) inset; }
+.dl-voto-bar {
+  position: absolute; inset: 0 auto 0 0; height: 100%;
+  background: rgba(79,168,106,0.15); z-index: 0; transition: width 0.3s;
+}
+.dl-voto-bar.is-win { background: rgba(79,168,106,0.28); }
+.dl-voto-txt { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 0.6rem; font-size: 0.85rem; }
+.dl-voto-pct { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.dl-voto-aviso { font-size: 0.72rem; color: var(--faint); margin: 0.5rem 0 0; }
+
+/* Presupuestos: barra de bolsa */
+.dl-bolsa {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--surface); border: 1px solid var(--verde-id);
+  border-radius: 10px; padding: 0.7rem 0.9rem; margin-bottom: 0.9rem;
+}
+.dl-bolsa-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem; }
+.dl-bolsa-cifras { font-variant-numeric: tabular-nums; color: var(--text); font-weight: 600; }
+.dl-bolsa-rest { font-size: 0.74rem; color: var(--text-dim); display: block; margin-top: 0.35rem; }

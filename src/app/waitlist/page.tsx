@@ -1,8 +1,16 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import Link from "next/link";
+import { createBrowserClient } from "@supabase/ssr";
 import { MAX_USERS } from "@/lib/constants";
+
+function supabaseBrowser() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
 
 const C = {
   bg: "#FAF7F5",
@@ -21,9 +29,6 @@ const C = {
   gold: "#D4AF37",
 };
 
-// Placeholder — replace with real count from DB
-const CURRENT_USERS = 127;
-
 export default function WaitlistPage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -32,37 +37,65 @@ export default function WaitlistPage() {
   const [showInviteCode, setShowInviteCode] = useState(false);
   const [inviteCode, setInviteCode] = useState("");
   const [inviteStatus, setInviteStatus] = useState<
-    "idle" | "valid" | "invalid"
+    "idle" | "checking" | "valid" | "invalid"
   >("idle");
+  // Conteo real de plazas ocupadas (perfiles existentes).
+  const [currentUsers, setCurrentUsers] = useState<number>(0);
 
-  const isFull = CURRENT_USERS >= MAX_USERS;
-  const pct = Math.min((CURRENT_USERS / MAX_USERS) * 100, 100);
+  useEffect(() => {
+    const supabase = supabaseBrowser();
+    supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .then(({ count }) => setCurrentUsers(count ?? 0));
+  }, []);
+
+  const isFull = currentUsers >= MAX_USERS;
+  const pct = Math.min((currentUsers / MAX_USERS) * 100, 100);
 
   function validateEmail(v: string) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!validateEmail(email)) {
-      setEmailError("Introduce un email valido");
+      setEmailError("Introduce un email válido");
       return;
     }
     setEmailError("");
-    // TODO: send to backend
-    console.log("Waitlist signup:", { email, name });
+    const supabase = supabaseBrowser();
+    const { error } = await supabase
+      .from("waitlist")
+      .insert({ email: email.trim(), name: name.trim() || null });
+    if (error) {
+      // 23505 = clave duplicada: ya estaba apuntado. Lo tratamos como éxito.
+      if (error.code === "23505") {
+        setSubmitted(true);
+        return;
+      }
+      setEmailError("No hemos podido apuntarte ahora. Inténtalo de nuevo.");
+      return;
+    }
     setSubmitted(true);
   }
 
-  function handleVerifyCode() {
-    if (inviteCode.trim() === "KOINOS-ALPHA-2026") {
-      setInviteStatus("valid");
-      setTimeout(() => {
-        window.location.href = "/register";
-      }, 1500);
-    } else {
+  async function handleVerifyCode() {
+    const code = inviteCode.trim();
+    if (!code) return;
+    setInviteStatus("checking");
+    const supabase = supabaseBrowser();
+    const { data: ok, error } = await supabase.rpc("validar_invitacion", {
+      p_code: code,
+    });
+    if (error || !ok) {
       setInviteStatus("invalid");
+      return;
     }
+    setInviteStatus("valid");
+    setTimeout(() => {
+      window.location.href = `/registro?invite=${encodeURIComponent(code)}`;
+    }, 1200);
   }
 
   return (
@@ -173,7 +206,7 @@ export default function WaitlistPage() {
             />
           </div>
           <p style={{ fontSize: 13, color: C.textMuted, marginTop: 8 }}>
-            <strong style={{ color: C.text }}>{CURRENT_USERS}</strong> / {MAX_USERS} plazas
+            <strong style={{ color: C.text }}>{currentUsers}</strong> / {MAX_USERS} plazas
           </p>
         </div>
 
@@ -339,7 +372,7 @@ export default function WaitlistPage() {
               <div style={{ display: "flex", gap: 8 }}>
                 <input
                   type="text"
-                  placeholder="KOINOS-XXXX-XXXX"
+                  placeholder="OCRE-XXXX-XXXX"
                   value={inviteCode}
                   onChange={(e) => {
                     setInviteCode(e.target.value.toUpperCase());
@@ -362,6 +395,7 @@ export default function WaitlistPage() {
                 />
                 <button
                   onClick={handleVerifyCode}
+                  disabled={inviteStatus === "checking" || !inviteCode.trim()}
                   style={{
                     padding: "10px 18px",
                     borderRadius: 8,
@@ -370,11 +404,12 @@ export default function WaitlistPage() {
                     color: "#FFF",
                     fontSize: 14,
                     fontWeight: 600,
-                    cursor: "pointer",
+                    cursor: inviteStatus === "checking" ? "default" : "pointer",
+                    opacity: inviteStatus === "checking" ? 0.6 : 1,
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Verificar
+                  {inviteStatus === "checking" ? "Comprobando…" : "Verificar"}
                 </button>
               </div>
               {inviteStatus === "valid" && (

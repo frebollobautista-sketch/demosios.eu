@@ -29,6 +29,9 @@ export function RegistroForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [handle, setHandle] = useState("");
+  // Modo cerrado: código de invitación obligatorio. Se puede prerrellenar
+  // desde la URL (/registro?invite=OCRE-XXXX-YYYY), p.ej. desde la waitlist.
+  const [codigo, setCodigo] = useState(searchParams.get("invite") || "");
   const [estado, setEstado] = useState<"idle" | "enviando" | "enviado" | "error">("idle");
   const [mensaje, setMensaje] = useState("");
 
@@ -78,6 +81,11 @@ export function RegistroForm() {
   const registrar = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password || !handle) return;
+    if (!codigo.trim()) {
+      setEstado("error");
+      setMensaje("Necesitas un código de invitación para registrarte.");
+      return;
+    }
     if (!handleValido(handle)) {
       setEstado("error");
       setMensaje(
@@ -99,11 +107,29 @@ export function RegistroForm() {
     setMensaje("");
 
     const supabase = createClient();
+
+    // Pre-validación de la invitación (mensaje amable). El canje real y
+    // atómico lo hace el trigger handle_new_user en el alta.
+    const { data: codigoOk, error: errCodigo } = await supabase.rpc(
+      "validar_invitacion",
+      { p_code: codigo.trim() },
+    );
+    if (errCodigo) {
+      setEstado("error");
+      setMensaje("No hemos podido comprobar el código ahora. Inténtalo de nuevo.");
+      return;
+    }
+    if (!codigoOk) {
+      setEstado("error");
+      setMensaje("Ese código de invitación no es válido o ya se ha usado.");
+      return;
+    }
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: { handle },
+        data: { handle, invite_code: codigo.trim() },
         emailRedirectTo: `${origin()}/auth/callback?redirect=${encodeURIComponent(redirect)}`,
       },
     });
@@ -127,6 +153,35 @@ export function RegistroForm() {
 
   return (
     <form onSubmit={registrar} className="mt-6 space-y-3">
+      <label className="block">
+        <span className="eyebrow block mb-1">Código de invitación</span>
+        <input
+          type="text"
+          required
+          value={codigo}
+          onChange={(e) => setCodigo(e.target.value.toUpperCase())}
+          disabled={estado === "enviando" || estado === "enviado"}
+          placeholder="OCRE-XXXX-XXXX"
+          autoComplete="off"
+          className="w-full h-11 rounded-md px-3 text-[0.95rem] outline-none font-mono"
+          style={{
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-linea)",
+            color: "var(--color-papiro-ink)",
+          }}
+        />
+        <span
+          className="text-[0.76rem] block mt-1"
+          style={{ color: "var(--color-piedra-clara)" }}
+        >
+          OCRE es por invitación. ¿No tienes código?{" "}
+          <a href="/waitlist" style={{ color: "var(--color-ocre-deep)" }}>
+            Únete a la lista de espera
+          </a>
+          .
+        </span>
+      </label>
+
       <label className="block">
         <span className="eyebrow block mb-1">Nombre de usuario</span>
         <input
@@ -224,6 +279,7 @@ export function RegistroForm() {
           !email ||
           !password ||
           !handle ||
+          !codigo.trim() ||
           dispo === "ocupado" ||
           dispo === "formato" ||
           dispo === "comprobando" ||

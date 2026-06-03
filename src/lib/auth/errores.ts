@@ -31,6 +31,8 @@ const POR_CODIGO: Record<string, string> = {
   same_password:
     "La nueva contraseña no puede ser igual a la anterior.",
   signup_disabled: "El registro está temporalmente desactivado.",
+  unexpected_failure:
+    "Ese código de invitación no es válido o ya se ha usado. Pide uno nuevo.",
   provider_disabled:
     "Este método de acceso no está activado todavía. Prueba con correo o contraseña.",
   validation_failed: "Revisa los datos introducidos.",
@@ -57,6 +59,10 @@ const POR_TEXTO: Array<[RegExp, string]> = [
     "No hemos podido conectar. Comprueba tu conexión e inténtalo de nuevo."],
   [/for security purposes/i,
     "Por seguridad, espera unos segundos antes de volver a intentarlo."],
+  // Errores levantados por el trigger handle_new_user (modo cerrado). Supabase
+  // los envuelve como "Database error saving new user".
+  [/invitacion_requerida|invitacion_invalida|database error saving new user/i,
+    "Ese código de invitación no es válido o ya se ha usado. Pide uno nuevo."],
 ];
 
 /** Convierte un error de Supabase Auth en un mensaje en español. */

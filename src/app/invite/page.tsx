@@ -25,38 +25,73 @@ const C = {
 
 type InviteSlot = {
   code: string;
-  usedBy: string | null; // null = available, string = @handle
+  usedBy: string | null; // null = disponible, string = @handle que la usó
 };
 
-// Placeholder data — replace with real data from DB
-const PLACEHOLDER_INVITES: InviteSlot[] = [
-  { code: "KOINOS-A7K2-W9MX", usedBy: "@marina.dev" },
-  { code: "KOINOS-B3F8-N4PL", usedBy: "@carlos.ui" },
-  { code: "KOINOS-D5R1-H8QT", usedBy: null },
-  { code: "KOINOS-G9J6-V2YC", usedBy: null },
-  { code: "KOINOS-M4X0-E7LB", usedBy: null },
-];
+function supabaseBrowser() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
 
 export default function InvitePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [invites] = useState<InviteSlot[]>(PLACEHOLDER_INVITES);
+  const [invites, setInvites] = useState<InviteSlot[]>([]);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const [generando, setGenerando] = useState(false);
+
+  // Carga las invitaciones reales del usuario + el @handle de quien las usó.
+  async function cargar() {
+    const supabase = supabaseBrowser();
+    const { data: filas } = await supabase
+      .from("invitations")
+      .select("code, used_by")
+      .order("created_at", { ascending: true });
+
+    const usados = [
+      ...new Set((filas ?? []).map((f) => f.used_by).filter(Boolean)),
+    ] as string[];
+    const handles: Record<string, string> = {};
+    if (usados.length) {
+      const { data: perfiles } = await supabase
+        .from("profiles")
+        .select("id, handle")
+        .in("id", usados);
+      for (const p of perfiles ?? []) handles[p.id] = p.handle;
+    }
+    setInvites(
+      (filas ?? []).map((f) => ({
+        code: f.code,
+        usedBy: f.used_by ? "@" + (handles[f.used_by] ?? "alguien") : null,
+      }))
+    );
+  }
 
   useEffect(() => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-
-    supabase.auth.getUser().then(({ data }) => {
+    const supabase = supabaseBrowser();
+    supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) {
         router.push("/login");
-      } else {
-        setLoading(false);
+        return;
       }
+      await cargar();
+      setLoading(false);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
+
+  async function generar() {
+    setGenerando(true);
+    try {
+      const supabase = supabaseBrowser();
+      await supabase.rpc("generar_invitaciones");
+      await cargar();
+    } finally {
+      setGenerando(false);
+    }
+  }
 
   const usedCount = invites.filter((i) => i.usedBy !== null).length;
 
@@ -110,7 +145,7 @@ export default function InvitePage() {
       >
         {/* Back link */}
         <Link
-          href="/feed"
+          href="/"
           style={{
             color: C.textMuted,
             fontSize: 14,
@@ -120,7 +155,7 @@ export default function InvitePage() {
             gap: 4,
           }}
         >
-          &larr; Volver al feed
+          &larr; Volver
         </Link>
 
         {/* Header */}
@@ -137,7 +172,7 @@ export default function InvitePage() {
             Tus invitaciones
           </h1>
           <p style={{ color: C.textMuted, fontSize: 15, marginTop: 6 }}>
-            Comparte KOINOS con personas que valoras
+            Comparte OCRE con personas que valoras
           </p>
         </div>
 
@@ -304,6 +339,31 @@ export default function InvitePage() {
             </div>
           ))}
         </div>
+
+        {/* Generar invitaciones (hasta el tope) */}
+        {invites.length < INVITES_PER_USER && (
+          <button
+            onClick={generar}
+            disabled={generando}
+            style={{
+              padding: "12px 16px",
+              borderRadius: 10,
+              border: `1px solid ${C.border}`,
+              background: C.surface,
+              color: C.text,
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: generando ? "default" : "pointer",
+              opacity: generando ? 0.6 : 1,
+            }}
+          >
+            {generando
+              ? "Generando…"
+              : invites.length === 0
+                ? "Generar mis invitaciones"
+                : `Generar ${INVITES_PER_USER - invites.length} más`}
+          </button>
+        )}
 
         {/* Info box */}
         <div

@@ -136,23 +136,6 @@
     "_dims_estaticas": { "dominio": 0, "canonico": 0, "compania": -1 }
   },
   {
-    "id": "video-009",
-    "kind": "video",
-    "youtube_id": "tIvzGOkq1FM",
-    "titulo": "Antonio Cubillo y la cuestión nacional canaria",
-    "canal": "",
-    "duracion_min": null,
-    "anio": null,
-    "senda": "memoria-isla",
-    "subtag": "identidad canaria",
-    "tags": ["cubillo", "canarias", "memoria", "identidad"],
-    "licencia": "youtube",
-    "idioma": "es",
-    "nota_curador": "Memoria insular: la figura de Cubillo como puerta para discutir identidad, autodeterminación y el lugar de Canarias en el mundo.",
-    "buscar": "Antonio Cubillo Canarias documental historia",
-    "_dims_estaticas": { "dominio": 0, "canonico": 0, "compania": -1 }
-  },
-  {
     "id": "video-010",
     "kind": "video",
     "youtube_id": "",

@@ -26,8 +26,6 @@ GEOFABRIK
 logs
 node_modules
 .next
-src
-packages
 
 # Archivos repo dev-only
 *.zip

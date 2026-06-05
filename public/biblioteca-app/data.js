@@ -30,6 +30,10 @@
 // La función mapearDims() acepta `ultimoTema` y devuelve el dim por
 // item — la app la llama en cada re-rank para reflejar la navegación.
 
+import { sendaDe } from "../shared/sendas.js?v=20260602-sendas";
+import { gradoDe } from "../shared/niveles.js?v=20260602-niveles";
+import { listarLibros } from "./libros-store.js?v=20260603-libros";
+
 const N_TEMAS = 21;
 
 export async function cargarItems() {
@@ -45,12 +49,17 @@ export async function cargarItems() {
     if (!Array.isArray(arr)) continue;
     for (const epi of arr) {
       if (!epi || !epi.tema_id || !epi.epi_id) continue;
-      items.push({
+      const epiItem = {
         id: epi.tema_id + ":" + epi.epi_id,
         kind: "epigrafe",
         tema_id: epi.tema_id,
         epi_id: epi.epi_id,
         resumen_html: epi.resumen || "",
+        // Eje canónico Senda (sin asignatura/tags el epígrafe queda sin
+        // clasificar → null; la UI lo trata como "sin senda") y Grado
+        // (Nociones por defecto del temario).
+        senda: epi.senda || sendaDe(epi) || null,
+        grado: gradoDe({ kind: "epigrafe", nivel: epi.nivel }),
         // dims se calculan dinámicamente vía mapearDims(); aquí dejamos
         // los componentes estáticos. dominio/canonico/compania son
         // constantes (decisión MVP); navegacion es dinámico.
@@ -59,7 +68,8 @@ export async function cargarItems() {
           canonico: -1,  // todos canónicos
           compania: -1   // todos solitarios
         }
-      });
+      };
+      items.push(epiItem);
     }
   }
   return items;
@@ -98,6 +108,10 @@ export async function cargarPildoras() {
     if (!Array.isArray(arr)) return [];
     return arr.filter(p => p && p.id && p.kind === "pildora").map(p => ({
       ...p,
+      // Ejes canónicos: Senda (explícita o derivada de tags) y Grado
+      // (Chispa por defecto: la cita corta que engancha).
+      senda: p.senda || sendaDe(p) || null,
+      grado: gradoDe(p),
       // dims por defecto si el seed no las trae explícitas. Las píldoras
       // son cortas y mixtas en origen (canónicas y críticas conviven en
       // el mismo chip): dejamos los tres ejes en cero excepto compañía,
@@ -116,6 +130,10 @@ export async function cargarHilos() {
     if (!Array.isArray(arr)) return [];
     return arr.filter(h => h && h.id && h.kind === "hilo").map(h => ({
       ...h,
+      // Ejes canónicos: Senda (derivada de asignatura_id/tags) y Grado
+      // (Contexto por defecto: artículo editorial con caso canario).
+      senda: h.senda || sendaDe(h) || null,
+      grado: gradoDe(h),
       // Los hilos son editoriales del equipo OCRE: canónicos por
       // curaduría propia, solitarios por defecto (lectura individual;
       // si entran en un quórum de lectura, el módulo correspondiente
@@ -125,6 +143,62 @@ export async function cargarHilos() {
       }
     }));
   } catch { return []; }
+}
+
+// Lente Vídeo — vídeos de YouTube curados por Senda (taxonomía canónica
+// shared/sendas.js). Seed manual `seed-videos.json`; el embed real es
+// lite-embed (thumbnail → iframe youtube-nocookie al click) y lo monta
+// la card en app.js. Aquí solo cargamos, filtramos y estampamos la senda.
+// Tolerante: si el JSON falta o un item no trae youtube_id, no rompe —
+// la card pinta un estado "pendiente de enlazar".
+export async function cargarVideos() {
+  try {
+    const arr = await fetch("../data/biblioteca/seed-videos.json")
+      .then(r => r.ok ? r.json() : []);
+    if (!Array.isArray(arr)) return [];
+    return arr.filter(v => v && v.id && v.kind === "video").map(v => ({
+      ...v,
+      // Estampamos la senda canónica (explícita en el seed, o derivada)
+      // y el grado (Contexto por defecto; un vídeo-fuente puede traer
+      // nivel:"g5" en el seed para subir a Teoría).
+      senda: v.senda || sendaDe(v),
+      grado: gradoDe(v),
+      // Mismas dims que las píldoras: cortas, mixtas en origen, solitarias.
+      _dims_estaticas: v._dims_estaticas || {
+        dominio: 0, canonico: 0, compania: -1
+      }
+    }));
+  } catch { return []; }
+}
+
+// Formato Libros — PDFs locales del usuario (IndexedDB, path A). NO hace
+// fetch: lee el catálogo del navegador (libros-store) y lo normaliza a items
+// del feed. Cada libro entra como G5 Teoría (la fuente pura, cumbre del
+// cursus) en su Senda; la señal activa que lo gradúa es ≥1 subrayado.
+export async function cargarLibros() {
+  try {
+    const metas = await listarLibros();
+    return (metas || []).map(m => ({
+      id: m.doc_id,
+      kind: "libro",
+      doc_id: m.doc_id,
+      titulo: m.titulo || m.nombre_archivo || "Documento",
+      autor: m.autor || "",
+      anio: m.anio || null,
+      paginas: m.paginas || null,
+      subtipo: m.subtipo || "libro",
+      licencia: m.licencia || "",
+      tags: Array.isArray(m.tags) ? m.tags : [],
+      // Senda elegida al añadir (o derivada por tags si la hubiera).
+      senda: m.senda || sendaDe(m) || null,
+      // Cumbre del cursus: la fuente pura es a lo que se sube.
+      grado: "g5",
+      _dims_estaticas: { dominio: 0, canonico: -1, compania: -1 }
+    }));
+  } catch (e) {
+    console.warn("[data] libros:", e);
+    return [];
+  }
 }
 
 // Aplica navegacion dinámico (mismo patrón que mapearDims de epígrafes)

@@ -38,7 +38,18 @@ export const PROJ_PRESETS = {
   // sirve para que las 7 islas se vean a la vez como tiles geográficos.
   archipielago: { ax: 0, ay: 0, sz_factor: 0.0, maxZoomRatio: 2.5 },
   isla:      { ax: 0,  ay: 0,  sz_factor: 0.0, maxZoomRatio: 3.0 },  // top-down puro
-  municipio: { ax: 0,  ay: 0,  sz_factor: 0.0, maxZoomRatio: 2.5 },  // v1.5: aplanado
+  // 2026-06-02 — maxZoomRatio subido 2.5 → 5.0 para que el wheel-zoom
+  // pueda explorar dentro del mun (centrar una zona, "acercarse" a una
+  // supra-region) ANTES de saturar el tope y disparar el commit que
+  // drillea a sección. Antes 2.5× saturaba muy rápido: el usuario apenas
+  // podía acercarse a una zona específica antes del commit, y al
+  // dispararse iba a peek-chip de supra (no a edificios). Con 5.0×
+  // tienes espacio para centrar y luego "empujar" la rueda para drill.
+  // 2026-06-02 — Into-the-Breach refinado: iso 30/30 con sz_factor 0.8
+  // (caras laterales sutiles, NO gruesas como antes). Permite que la
+  // pieza se lea como bloque elevado sin que las caras laterales sean
+  // protagonistas — coherente con la estética cubista de bordes finos.
+  municipio: { ax: 30, ay: 30, sz_factor: 0.8, maxZoomRatio: 5.0 },
   distrito:  { ax: 30, ay: 30, sz_factor: 1.6, maxZoomRatio: 6.0 },  // iso completa, relieve
   // v1.6.barrio: nivel intermedio hijo directo del municipio. Como tiene
   // menos secciones que el distrito (típicamente 3-30 vs 30-79), entra
@@ -171,13 +182,8 @@ export function fitView(bbox, canvasW, canvasH, padPx = 80, proj = "seccion") {
   // (split-view, paneles laterales) canvasW - 2·padPx podía volverse
   // negativo → baseScale negativo → scale negativo → render colapsado
   // (todo invertido, edificios invisibles). Garantizamos ≥40 px útiles.
-  // 2026-06-01 — Inset superior por las barras de chrome (OCRE topbar +
-  // tira de siluetas de islas) que se superponen sobre el #stage. Sin
-  // esto, los topónimos del borde superior del mapa quedan recortados
-  // bajo las barras. Centramos el mapa en el área visible bajo ellas.
-  const TOP_INSET = 120;
   const availW = Math.max(40, canvasW - 2 * padPx);
-  const availH = Math.max(40, canvasH - 2 * padPx - 60 - TOP_INSET); // banner + barras
+  const availH = Math.max(40, canvasH - 2 * padPx - 60); // banner
   const mx = (minx + maxx) / 2;
   const my = (miny + maxy) / 2;
 
@@ -194,7 +200,7 @@ export function fitView(bbox, canvasW, canvasH, padPx = 80, proj = "seccion") {
       maxScale: baseScale * maxZoomRatio,
       fitScale: baseScale,
       cx: canvasW / 2,
-      cy: (canvasH + TOP_INSET) / 2 + 24,
+      cy: canvasH / 2 + 24,
       tx: mx,
       ty: my,
       ax, ay, sz_factor

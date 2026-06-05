@@ -30,10 +30,13 @@ import { clasificar } from "../shared/tablero.js?v=20260529-agora-verde";
 
 export const DEFAULT_SOURCES_CONFIG = {
   bsky:   { enabled: true, hashtags: ["canarias"], accounts: [] },
-  reddit: { enabled: true, subreddits: ["canarias", "spain"] },
+  reddit: { enabled: false, subreddits: ["canarias", "spain"] },
   civic:  { enabled: true,
             kinds: ["evento", "productor", "tejido", "cultura",
-                    "agora-civic", "parque"] }
+                    "agora-civic", "parque"] },
+  // Mausoleo de Twitter: figuras históricas (canarias + universales) como
+  // cuentas. Timeline híbrido (cita real + glosa IA). Solo postura Red social.
+  mausoleo: { enabled: true }
 };
 
 // =============================================================
@@ -420,10 +423,7 @@ const CIVIC_SOURCES = [
     // sólo GC porque es el más rico (12.881 polígonos). Filtramos a los
     // park/garden/playground con nombre (la mayoría son anónimos).
     // TODO prov38: añadir si se quiere cobertura archipiélago.
-    // 2026-06-01 — osm-gc vive en R2 (no en el repo). Ágora no tiene el
-    // wiring __ASSETS_BASE de polis-app, así que apuntamos directo al
-    // Custom Domain de R2 (CORS ya permite www/apex demosios.eu).
-    url: "https://packs.demosios.eu/osm-gc/parks.json",
+    url: "../osm-gc/parks.json",
     parse: (json) => (json.features || [])
       .filter(f => {
         const t = f.properties?.type;
@@ -469,9 +469,133 @@ async function _loadCivic(cfg) {
 }
 
 // =============================================================
+// FUENTE 4 — MAUSOLEO
+//
+// Figuras históricas como cuentas. El JSON lo genera offline el pipeline
+// scripts/sourcing/mausoleo-sourcing.mjs (Wikidata+Wikiquote+Commons). Cada
+// personaje trae un timeline de posts; aquí los APLANAMOS a items de feed,
+// uno por post (cita o glosa), con el personaje como autor.
+//
+// Etiquetado ESTRUCTURAL: cada item conserva `payload.verificacion`
+// (real-sourced | real-unsourced | ai-gloss) para que el render nunca
+// confunda una glosa IA con una cita real.
+
+async function _loadMausoleo(cfg) {
+  if (!cfg || !cfg.enabled) return [];
+  let json;
+  try {
+    const res = await fetch("../data/agora/personajes.json", { cache: "no-cache" });
+    if (!res.ok) throw new Error(`personajes.json ${res.status}`);
+    json = await res.json();
+  } catch (e) {
+    console.warn("[feed/mausoleo] no disponible:", e.message);
+    return [];
+  }
+
+  // Overlay de arte curado (pintores PD con obra+glosa+chascarrillo en 1ª
+  // persona). Es un archivo aparte que el sourcing de Wikiquote NUNCA pisa;
+  // si falta, seguimos solo con el mausoleo base.
+  let figurasArte = [];
+  try {
+    const resArte = await fetch("../data/agora/personajes-arte.json", { cache: "no-cache" });
+    if (resArte.ok) figurasArte = (await resArte.json()).personajes || [];
+  } catch (e) {
+    console.warn("[feed/mausoleo] overlay arte no disponible:", e.message);
+  }
+
+  const posts = [];
+  for (const fig of [...(json.personajes || []), ...figurasArte]) {
+    const vida = [fig.nacimiento, fig.muerte].filter(Boolean).join("–");
+    const handle = "@" + fig.id;
+    for (const p of (fig.posts || [])) {
+      // Instagram-style si el post trae imagen; Twitter-style si es texto.
+      const media = (p.modo === "imagen" && p.media)
+        ? [{ url: p.media, type: "image", alt: fig.nombre }]
+        : undefined;
+      posts.push({
+        id: `mausoleo-${p.id}`,
+        source: "mausoleo",
+        source_label: "MAUSOLEO",
+        kind: "mausoleo-post",
+        author: {
+          handle,
+          display: fig.nombre,
+          avatar_url: fig.retrato_url || undefined
+        },
+        body: p.texto || "",
+        ts: null,            // se rellena abajo con un ts perenne-jitter
+        geo: null,
+        media,
+        payload: {
+          modo: p.modo,
+          verificacion: p.verificacion,
+          fuente: p.fuente || null,
+          // Capas IA de la skin "galería" (solo arte/obra). Se renderizan
+          // SIEMPRE etiquetadas y separadas de la obra real:
+          //   analisis    → glosa breve (✶ Glosa IA)
+          //   chascarrillo→ guasa divulgativa (😄 IA sobre su obra)
+          analisis: p.analisis || null,
+          chascarrillo: p.chascarrillo || null,
+          figura: {
+            id: fig.id,
+            nombre: fig.nombre,
+            vida,
+            ambito: fig.ambito,
+            corriente: fig.corriente,
+            ocupacion: fig.ocupacion,
+            retrato_url: fig.retrato_url,
+            retrato_licencia: fig.retrato_licencia,
+            fuentes: fig.fuente
+          }
+        }
+      });
+    }
+  }
+  // Baraja para intercalar figuras (si no, saldrían en bloques: 6 de Galdós,
+  // luego 6 de Viera…). Variedad tipo "descubre" en cada carga.
+  for (let i = posts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [posts[i], posts[j]] = [posts[j], posts[i]];
+  }
+  // Cupo: el mausoleo es "relleno" perenne (las figuras como cuentas), no el
+  // grueso del feed. 520 posts ahogarían el contenido real, así que sembramos
+  // una MUESTRA rotada por carga (variedad tipo "descubre"), no el corpus
+  // entero. El resto del catálogo aflora en cargas/sesiones siguientes.
+  const CUPO_MAUSOLEO = 30;
+  // Los posts de OBRA (modo:imagen, skin galería) son el escaparate visual del
+  // mausoleo: garantizamos que TODOS entren en la muestra, y rellenamos el
+  // resto del cupo con la baraja de citas/glosas. Así el feed siempre trae
+  // cuadros, no solo texto.
+  const obras = posts.filter(p => p.payload?.modo === "imagen");
+  const resto = posts.filter(p => p.payload?.modo !== "imagen");
+  const muestra = [...obras, ...resto].slice(0, Math.max(CUPO_MAUSOLEO, obras.length));
+  // Re-baraja la muestra final para que las obras no salgan todas en bloque.
+  for (let i = muestra.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [muestra[i], muestra[j]] = [muestra[j], muestra[i]];
+  }
+  // El ranking es puro sliders·dims; con sliders neutros (0) el desempate es
+  // por ts descendente. Un post sin ts cae al fondo (ese era el bug: el
+  // mausoleo quedaba SIEMPRE debajo de los posts reales con fecha). Como las
+  // figuras son atemporales, les damos un ts-jitter que ABRAZA la franja del
+  // contenido real reciente (los posts vivos rondan los 5–9 días) para que se
+  // INTERCALEN con él —ni encima de todo (ahogaría el feed) ni debajo
+  // (invisibles)—. No es "frescura" falsa: es tratar lo perenne como
+  // siempre-vigente para que aflore mezclado.
+  const DIA = 24 * 60 * 60 * 1000;
+  const ahora = Date.now();
+  for (const p of muestra) {
+    // edad uniforme en [4, 13] días → straddle del clúster de posts vivos.
+    const edadDias = 4 + Math.random() * 9;
+    p.ts = new Date(ahora - edadDias * DIA).toISOString();
+  }
+  return muestra;
+}
+
+// =============================================================
 // loadAllSources(config) — Orquestador.
 //
-// Lanza las 3 fuentes en paralelo. Cada una ya es tolerante a fallos
+// Lanza las fuentes en paralelo. Cada una ya es tolerante a fallos
 // internamente; si una entera explota, capturamos aquí también.
 //
 // Devuelve Promise<Post[]> — array de posts ya normalizados pero SIN
@@ -483,10 +607,11 @@ export async function loadAllSources(config = DEFAULT_SOURCES_CONFIG) {
   const settled = await Promise.allSettled([
     _loadBluesky(cfg.bsky),
     _loadReddit(cfg.reddit),
-    _loadCivic(cfg.civic)
+    _loadCivic(cfg.civic),
+    _loadMausoleo(cfg.mausoleo)
   ]);
   const posts = [];
-  const fuentes = ["bsky", "reddit", "civic"];
+  const fuentes = ["bsky", "reddit", "civic", "mausoleo"];
   for (let i = 0; i < settled.length; i++) {
     const r = settled[i];
     if (r.status === "fulfilled") posts.push(...r.value);
@@ -584,6 +709,15 @@ export function aplicarDims(posts) {
         else if (edad < TREINTA_DIAS) temporalidad = -0.5;
         else                          temporalidad = -1;
       }
+    }
+
+    // Mausoleo: contenido PERENNE y deliberadamente global ("relleno" de la
+    // Red social, las figuras históricas como cuentas). No debe hundirse al
+    // fondo por carecer de geo o fecha: lo tratamos como atemporal-neutro
+    // para que aflore intercalado con el feed real, no debajo de todo.
+    if (p.kind === "mausoleo-post") {
+      cercania = 0;      // universal por diseño; no penalizar el "sin geo"
+      temporalidad = 0;  // clásico perenne: nunca es "viejo"
     }
 
     // Dims temáticas del tablero (hobby + cívico). rank() solo usará las

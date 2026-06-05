@@ -1,0 +1,27 @@
+# Cloudflare Pages — headers per path
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# JS/CSS/HTML: cache-bust manejado por ?v=...
+/polis-app/*.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/polis-app/*.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/polis-app/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Section packs: contenido inmutable, cache largo
+/sections_pack/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# OSM por isla: cache medio
+/osm-gc/*
+  Cache-Control: public, max-age=86400
+
+/osm-prov38/*
+  Cache-Control: public, max-age=86400
+
+# Data: cambian con scrapes, cache corto
+/data/*
+  Cache-Control: public, max-age=3600

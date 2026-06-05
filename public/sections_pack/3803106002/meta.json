@@ -1,0 +1,87 @@
+{
+  "cusec": "3803106002",
+  "mun": "031",
+  "nmun": "Realejos, Los",
+  "area_ha": 1152.2298641886932,
+  "perimeter_m": 21959.32688121717,
+  "building_count": 1720,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 7,
+  "road_segment_count": 389,
+  "centroid_lnglat": [
+    -16.566608439367183,
+    28.33704289975071
+  ],
+  "bbox_lnglat": [
+    -16.57807,
+    28.29773,
+    -16.55567,
+    28.37509
+  ],
+  "bbox_local_m": [
+    -1123.010565559015,
+    -4235.403199751004,
+    1071.7548310918605,
+    4376.312000248859
+  ],
+  "enu_basis": {
+    "lng0": -16.566608439367183,
+    "lat0": 28.33704289975071,
+    "cos_lat0": 0.8801706617388294
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:30:02+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

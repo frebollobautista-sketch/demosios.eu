@@ -1,0 +1,87 @@
+{
+  "cusec": "3802301027",
+  "mun": "023",
+  "nmun": "San Cristóbal de La Laguna",
+  "area_ha": 20.68050075378651,
+  "perimeter_m": 2744.169229385216,
+  "building_count": 476,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 0,
+  "road_segment_count": 293,
+  "centroid_lnglat": [
+    -16.305770497890958,
+    28.478512691237718
+  ],
+  "bbox_lnglat": [
+    -16.30851,
+    28.47482,
+    -16.30163,
+    28.48249
+  ],
+  "bbox_local_m": [
+    -268.0598276640305,
+    -442.7540114170685,
+    405.14703289724724,
+    411.0703885826422
+  ],
+  "enu_basis": {
+    "lng0": -16.305770497890958,
+    "lat0": 28.478512691237718,
+    "cos_lat0": 0.878995996980978
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:22:49+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

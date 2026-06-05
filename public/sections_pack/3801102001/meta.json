@@ -1,0 +1,87 @@
+{
+  "cusec": "3801102001",
+  "mun": "011",
+  "nmun": "Candelaria",
+  "area_ha": 1127.3416028032445,
+  "perimeter_m": 22187.725115551202,
+  "building_count": 2097,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 21,
+  "road_segment_count": 857,
+  "centroid_lnglat": [
+    -16.41348918341538,
+    28.368015240325217
+  ],
+  "bbox_lnglat": [
+    -16.44763,
+    28.34029,
+    -16.37952,
+    28.39608
+  ],
+  "bbox_local_m": [
+    -3344.161972315919,
+    -3124.1690469969612,
+    3327.3501565720712,
+    3086.373753003237
+  ],
+  "enu_basis": {
+    "lng0": -16.41348918341538,
+    "lat0": 28.368015240325217,
+    "cos_lat0": 0.8799139479471623
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:14:17+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

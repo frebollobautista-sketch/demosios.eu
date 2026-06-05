@@ -1,0 +1,69 @@
+# KOINOS · Continuous Integration
+#
+# Se ejecuta en cada push a main y en cada pull request.
+# Si alguno de estos jobs falla, el PR no se puede fusionar.
+#
+# Qué comprueba:
+#   1. lint       → reglas de estilo (eslint + eslint-config-next)
+#   2. typecheck  → TypeScript estricto (tsc --noEmit)
+#   3. build      → que `next build` produce un bundle válido
+#
+# Los tres corren en paralelo para acelerar el feedback.
+# Usan caché de node_modules para que la segunda ejecución tarde segundos.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancela ejecuciones antiguas si se hace un push nuevo sobre la misma rama.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          # En CI no tenemos las claves reales de Supabase, así que pasamos
+          # placeholders. Next.js necesita que estas env vars existan en
+          # tiempo de build porque el cliente las incrusta en el bundle.
+          # La versión real vive en Vercel como "Production" env vars.
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key

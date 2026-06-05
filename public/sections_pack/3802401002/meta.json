@@ -1,0 +1,87 @@
+{
+  "cusec": "3802401002",
+  "mun": "024",
+  "nmun": "Llanos de Aridane, Los",
+  "area_ha": 9.894738401705174,
+  "perimeter_m": 1477.7013406894596,
+  "building_count": 438,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 12,
+  "road_segment_count": 139,
+  "centroid_lnglat": [
+    -17.908172478034142,
+    28.657652246222717
+  ],
+  "bbox_lnglat": [
+    -17.90989,
+    28.65597,
+    -17.90571,
+    28.66013
+  ],
+  "bbox_local_m": [
+    -167.77337806422995,
+    -275.8235504869567,
+    240.54321657000716,
+    187.26764951291315
+  ],
+  "enu_basis": {
+    "lng0": -17.908172478034142,
+    "lat0": 28.657652246222717,
+    "cos_lat0": 0.877500860990597
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:24:42+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

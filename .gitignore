@@ -50,7 +50,55 @@ yarn-error.log*
 
 # Datos brutos descargados desde portales públicos (fuente, no versionar)
 /scripts/raw/
-/public/sections_pack/
-/public/sections_pack/
-/public/sections_pack/
-.github/workflows/
+
+# Artefactos de trabajo (logs, backups) — no versionar (2026-05-29)
+/logs/
+/public/buildings_backup_catastro/
+/public/data/_*.log
+/public/data/*backup*.json
+/public/data/*.placeholder-backup.json
+
+# POLIS-APP runtime data (v1.5.3 — primer push)
+# Las sections_pack pesan 279MB total; aquí solo subimos LPGC (mun=016, ~111MB)
+# para mantener el deploy bajo el límite de Vercel free (100MB compressed).
+# El resto de GC se moverá a Vercel Blob o CDN externo en v1.6.
+/public/sections_pack/35001*/
+/public/sections_pack/35002*/
+/public/sections_pack/35005*/
+/public/sections_pack/35006*/
+/public/sections_pack/35008*/
+/public/sections_pack/35009*/
+/public/sections_pack/35011*/
+/public/sections_pack/35012*/
+/public/sections_pack/35013*/
+/public/sections_pack/35019*/
+/public/sections_pack/35020*/
+/public/sections_pack/35021*/
+/public/sections_pack/35022*/
+/public/sections_pack/35023*/
+/public/sections_pack/35025*/
+/public/sections_pack/35026*/
+/public/sections_pack/35027*/
+/public/sections_pack/35031*/
+/public/sections_pack/35032*/
+/public/sections_pack/35033*/
+/public/sections_pack/contact_sheet_gc.png
+/public/sections_pack/contact_sheet_canteras.png
+
+# Logs y backups en cualquier ruta (2026-05-29)
+*.log
+*.bak
+/scripts/_cache/
+
+# Symlinks a datos externos + intermedios + backups pesados (2026-05-29)
+/public/buildings
+/public/buildings_backup_catastro
+/public/osm-gc
+/public/osm-prov38/
+/public/sections_pack_backup_2026_05_24/
+/public/prov38-secciones-lite.json
+.claude/
+
+*.aup3
+*.mov
+*.wav

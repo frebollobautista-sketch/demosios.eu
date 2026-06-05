@@ -1,0 +1,87 @@
+{
+  "cusec": "3801701005",
+  "mun": "017",
+  "nmun": "Granadilla de Abona",
+  "area_ha": 2478.96091198354,
+  "perimeter_m": 28865.51616353957,
+  "building_count": 1596,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 11,
+  "road_segment_count": 1198,
+  "centroid_lnglat": [
+    -16.531985752779867,
+    28.13150782928009
+  ],
+  "bbox_lnglat": [
+    -16.5736,
+    28.09287,
+    -16.49013,
+    28.16743
+  ],
+  "bbox_local_m": [
+    -4085.2504310288637,
+    -3998.85604454043,
+    4108.958914490926,
+    4301.163155459368
+  ],
+  "enu_basis": {
+    "lng0": -16.531985752779867,
+    "lat0": 28.13150782928009,
+    "cos_lat0": 0.8818677159813582
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:17:58+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

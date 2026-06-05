@@ -1,0 +1,725 @@
+{
+  "version": "v0-seed-lpgc-2026-05-11",
+  "note": "Mapping curado barrio->cusecs. Aproximado para LPGC (35016) por nearest-centroid dentro del mismo distrito INE. Pendiente refinar con OSM admin_level=10 o callejero INE.",
+  "mun_filter": [
+    "35016"
+  ],
+  "barrios": {
+    "lpgc-vegueta": {
+      "name": "Vegueta",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.4145,
+        28.0985
+      ],
+      "sections": [
+        "3501601003",
+        "3501601004",
+        "3501601005",
+        "3501601007"
+      ],
+      "note": "casco histórico fundacional, sur del barranco Guiniguada"
+    },
+    "lpgc-triana": {
+      "name": "Triana",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.417,
+        28.1
+      ],
+      "sections": [
+        "3501601001",
+        "3501601015",
+        "3501601017",
+        "3501601018",
+        "3501601019",
+        "3501601041"
+      ],
+      "note": "zona comercial colonial, norte del Guiniguada"
+    },
+    "lpgc-san-cristobal": {
+      "name": "San Cristóbal",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.415,
+        28.09
+      ],
+      "sections": [
+        "3501601006",
+        "3501601008",
+        "3501601010",
+        "3501601012",
+        "3501601013",
+        "3501601044"
+      ],
+      "note": "barrio costero pesquero al sur de Vegueta"
+    },
+    "lpgc-san-juan": {
+      "name": "San Juan",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.422,
+        28.088
+      ],
+      "sections": [
+        "3501601011",
+        "3501601014",
+        "3501601020",
+        "3501601021",
+        "3501601023",
+        "3501601039",
+        "3501601040",
+        "3501601042",
+        "3501601043",
+        "3501601045",
+        "3501601053"
+      ],
+      "note": "ladera oeste sobre Vegueta"
+    },
+    "lpgc-san-jose": {
+      "name": "San José",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.422,
+        28.082
+      ],
+      "sections": [
+        "3501601024",
+        "3501601025",
+        "3501601026",
+        "3501601027",
+        "3501601029"
+      ],
+      "note": "barrio popular al suroeste"
+    },
+    "lpgc-zarate": {
+      "name": "Zárate",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.428,
+        28.076
+      ],
+      "sections": [
+        "3501601030",
+        "3501601031",
+        "3501601050",
+        "3501601051",
+        "3501601052",
+        "3501601054"
+      ],
+      "note": "barrio interior al sur, ladera"
+    },
+    "lpgc-pedro-hidalgo": {
+      "name": "Pedro Hidalgo",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.422,
+        28.07
+      ],
+      "sections": [
+        "3501601032",
+        "3501601033",
+        "3501601034",
+        "3501601035",
+        "3501601036",
+        "3501601037",
+        "3501601038"
+      ],
+      "note": "barrio del sur, ensanche obrero"
+    },
+    "lpgc-cono-sur": {
+      "name": "Cono Sur",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.43,
+        28.06
+      ],
+      "sections": [
+        "3501601048",
+        "3501601049",
+        "3501601056",
+        "3501601057"
+      ],
+      "note": "barrios meridionales (Las Torres, La Vega, Las Mesas)"
+    },
+    "lpgc-jinamar": {
+      "name": "Jinámar",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.415,
+        28.035
+      ],
+      "sections": [
+        "3501601059",
+        "3501601060",
+        "3501601061",
+        "3501601062",
+        "3501601063"
+      ],
+      "note": "valle de Jinámar, extremo sur del término"
+    },
+    "lpgc-hoya-de-la-plata": {
+      "name": "Hoya de la Plata",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "01",
+      "centroid_lnglat": [
+        -15.45,
+        28.042
+      ],
+      "sections": [
+        "3501601046",
+        "3501601047",
+        "3501601055",
+        "3501601058"
+      ],
+      "note": "barrio del sur, junto a Jinámar"
+    },
+    "lpgc-arenales": {
+      "name": "Arenales",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "02",
+      "centroid_lnglat": [
+        -15.417,
+        28.105
+      ],
+      "sections": [
+        "3501602001",
+        "3501602002",
+        "3501602003",
+        "3501602004",
+        "3501602005",
+        "3501602006",
+        "3501602007",
+        "3501602009",
+        "3501602011",
+        "3501602028"
+      ],
+      "note": "ensanche residencial al norte de Triana"
+    },
+    "lpgc-lugo-pelayo": {
+      "name": "Lugo-Pelayo",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "02",
+      "centroid_lnglat": [
+        -15.422,
+        28.095
+      ],
+      "sections": [
+        "3501602010",
+        "3501602012",
+        "3501602015"
+      ],
+      "note": "barrios interiores (Lugo, Pelayo, Perojo) al sur del distrito"
+    },
+    "lpgc-ciudad-jardin": {
+      "name": "Ciudad Jardín",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "02",
+      "centroid_lnglat": [
+        -15.42,
+        28.11
+      ],
+      "sections": [
+        "3501602013",
+        "3501602014",
+        "3501602027",
+        "3501602033",
+        "3501602034",
+        "3501602035",
+        "3501602036",
+        "3501602037"
+      ],
+      "note": "barrio residencial, manzanas regulares con jardines"
+    },
+    "lpgc-alcaravaneras": {
+      "name": "Alcaravaneras",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "02",
+      "centroid_lnglat": [
+        -15.425,
+        28.115
+      ],
+      "sections": [
+        "3501602038",
+        "3501602039",
+        "3501602040",
+        "3501602041",
+        "3501602042",
+        "3501602043",
+        "3501602044",
+        "3501602045",
+        "3501602046",
+        "3501602047"
+      ],
+      "note": "frente al puerto deportivo, sur de Sta Catalina"
+    },
+    "lpgc-santa-catalina": {
+      "name": "Santa Catalina",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "02",
+      "centroid_lnglat": [
+        -15.428,
+        28.12
+      ],
+      "sections": [
+        "3501602048",
+        "3501602049",
+        "3501602050",
+        "3501602051"
+      ],
+      "note": "parque Sta Catalina y zona del puerto"
+    },
+    "lpgc-guanarteme": {
+      "name": "Guanarteme",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "02",
+      "centroid_lnglat": [
+        -15.435,
+        28.133
+      ],
+      "sections": [
+        "3501602052",
+        "3501602053",
+        "3501602054",
+        "3501602055",
+        "3501602056",
+        "3501602057",
+        "3501602058",
+        "3501602059",
+        "3501602061",
+        "3501602064"
+      ],
+      "note": "interior denso al sur de Las Canteras"
+    },
+    "lpgc-las-canteras": {
+      "name": "Las Canteras",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "02",
+      "centroid_lnglat": [
+        -15.447,
+        28.095
+      ],
+      "sections": [
+        "3501602016",
+        "3501602018",
+        "3501602019",
+        "3501602020",
+        "3501602021",
+        "3501602022",
+        "3501602023",
+        "3501602025",
+        "3501602026",
+        "3501602029",
+        "3501602030",
+        "3501602032",
+        "3501602065"
+      ],
+      "note": "frente de playa urbana (segmento sur del distrito)"
+    },
+    "lpgc-la-isleta": {
+      "name": "La Isleta",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "03",
+      "centroid_lnglat": [
+        -15.435,
+        28.14
+      ],
+      "sections": [
+        "3501603001",
+        "3501603002",
+        "3501603003",
+        "3501603004",
+        "3501603005",
+        "3501603006",
+        "3501603007",
+        "3501603008",
+        "3501603009",
+        "3501603010",
+        "3501603011",
+        "3501603024",
+        "3501603025",
+        "3501603026",
+        "3501603028",
+        "3501603029",
+        "3501603030",
+        "3501603042",
+        "3501603043",
+        "3501603044",
+        "3501603046"
+      ],
+      "note": "península norte, barrio popular y marinero"
+    },
+    "lpgc-las-coloradas": {
+      "name": "Las Coloradas",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "03",
+      "centroid_lnglat": [
+        -15.42,
+        28.162
+      ],
+      "sections": [
+        "3501603027",
+        "3501603031",
+        "3501603032",
+        "3501603033",
+        "3501603034",
+        "3501603035",
+        "3501603036",
+        "3501603037",
+        "3501603038",
+        "3501603040",
+        "3501603041"
+      ],
+      "note": "extremo norte de La Isleta"
+    },
+    "lpgc-puerto": {
+      "name": "Puerto",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "03",
+      "centroid_lnglat": [
+        -15.443,
+        28.129
+      ],
+      "sections": [
+        "3501603012",
+        "3501603013",
+        "3501603014",
+        "3501603015",
+        "3501603016",
+        "3501603017",
+        "3501603018",
+        "3501603019",
+        "3501603020",
+        "3501603021",
+        "3501603022",
+        "3501603023",
+        "3501603045"
+      ],
+      "note": "zona portuaria y dársenas, sur del distrito"
+    },
+    "lpgc-la-paterna": {
+      "name": "La Paterna",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "04",
+      "centroid_lnglat": [
+        -15.428,
+        28.108
+      ],
+      "sections": [
+        "3501604003",
+        "3501604004",
+        "3501604005",
+        "3501604006",
+        "3501604007",
+        "3501604008",
+        "3501604009",
+        "3501604017",
+        "3501604019"
+      ],
+      "note": "barrio popular, este de Ciudad Alta"
+    },
+    "lpgc-schamann": {
+      "name": "Schamann",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "04",
+      "centroid_lnglat": [
+        -15.436,
+        28.11
+      ],
+      "sections": [
+        "3501604001",
+        "3501604002",
+        "3501604011",
+        "3501604012",
+        "3501604013",
+        "3501604014",
+        "3501604015",
+        "3501604016",
+        "3501604020",
+        "3501604021",
+        "3501604022",
+        "3501604023",
+        "3501604024",
+        "3501604025",
+        "3501604026",
+        "3501604027",
+        "3501604028",
+        "3501604029",
+        "3501604030",
+        "3501604031",
+        "3501604032",
+        "3501604033",
+        "3501604034",
+        "3501604049",
+        "3501604051",
+        "3501604052",
+        "3501604053",
+        "3501604055"
+      ],
+      "note": "núcleo de Ciudad Alta, denso"
+    },
+    "lpgc-escaleritas": {
+      "name": "Escaleritas",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "04",
+      "centroid_lnglat": [
+        -15.44,
+        28.117
+      ],
+      "sections": [
+        "3501604038",
+        "3501604043",
+        "3501604045",
+        "3501604046",
+        "3501604047",
+        "3501604048",
+        "3501604050",
+        "3501604062",
+        "3501604064",
+        "3501604067",
+        "3501604068"
+      ],
+      "note": "Ciudad Alta, norte de Schamann"
+    },
+    "lpgc-siete-palmas": {
+      "name": "Siete Palmas",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "04",
+      "centroid_lnglat": [
+        -15.438,
+        28.123
+      ],
+      "sections": [
+        "3501604039",
+        "3501604040",
+        "3501604041",
+        "3501604042",
+        "3501604056",
+        "3501604073",
+        "3501604079",
+        "3501604081",
+        "3501604083",
+        "3501604084"
+      ],
+      "note": "ensanche moderno, norte del distrito"
+    },
+    "lpgc-los-tarahales": {
+      "name": "Los Tarahales",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "04",
+      "centroid_lnglat": [
+        -15.45,
+        28.113
+      ],
+      "sections": [
+        "3501604057",
+        "3501604059",
+        "3501604061",
+        "3501604065",
+        "3501604066",
+        "3501604069",
+        "3501604070",
+        "3501604074",
+        "3501604077",
+        "3501604080",
+        "3501604082"
+      ],
+      "note": "barrio del oeste de Ciudad Alta"
+    },
+    "lpgc-altavista": {
+      "name": "Altavista",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "04",
+      "centroid_lnglat": [
+        -15.454,
+        28.105
+      ],
+      "sections": [
+        "3501604035",
+        "3501604036",
+        "3501604037",
+        "3501604058",
+        "3501604060",
+        "3501604063",
+        "3501604071",
+        "3501604075",
+        "3501604076",
+        "3501604078"
+      ],
+      "note": "ladera oeste, transición a Tafira"
+    },
+    "lpgc-marzagan": {
+      "name": "Marzagán",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "05",
+      "centroid_lnglat": [
+        -15.466,
+        28.07
+      ],
+      "sections": [
+        "3501605020",
+        "3501605022",
+        "3501605024"
+      ],
+      "note": "núcleo rural al sur, junto a la autovía del sur"
+    },
+    "lpgc-tafira-alta": {
+      "name": "Tafira Alta",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "05",
+      "centroid_lnglat": [
+        -15.488,
+        28.09
+      ],
+      "sections": [
+        "3501605007",
+        "3501605008",
+        "3501605009",
+        "3501605028",
+        "3501605032",
+        "3501605033",
+        "3501605034"
+      ],
+      "note": "núcleo universitario y residencial"
+    },
+    "lpgc-tafira-baja": {
+      "name": "Tafira Baja",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "05",
+      "centroid_lnglat": [
+        -15.47,
+        28.095
+      ],
+      "sections": [
+        "3501605001",
+        "3501605002",
+        "3501605013",
+        "3501605018",
+        "3501605023",
+        "3501605025",
+        "3501605027",
+        "3501605029",
+        "3501605031"
+      ],
+      "note": "entre Tafira Alta y la ciudad baja"
+    },
+    "lpgc-monte-coello": {
+      "name": "Monte Coello",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "05",
+      "centroid_lnglat": [
+        -15.505,
+        28.06
+      ],
+      "sections": [
+        "3501605017",
+        "3501605019",
+        "3501605021"
+      ],
+      "note": "núcleo rural al oeste, extremo sur"
+    },
+    "lpgc-san-lorenzo": {
+      "name": "San Lorenzo",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "05",
+      "centroid_lnglat": [
+        -15.49,
+        28.105
+      ],
+      "sections": [
+        "3501605014",
+        "3501605016",
+        "3501605030"
+      ],
+      "note": "pueblo histórico al oeste de Tamaraceite"
+    },
+    "lpgc-tamaraceite": {
+      "name": "Tamaraceite",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "05",
+      "centroid_lnglat": [
+        -15.47,
+        28.11
+      ],
+      "sections": [
+        "3501605003",
+        "3501605004",
+        "3501605005",
+        "3501605006",
+        "3501605026"
+      ],
+      "note": "núcleo histórico del distrito 05"
+    },
+    "lpgc-almatriche": {
+      "name": "Almatriche",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "05",
+      "centroid_lnglat": [
+        -15.467,
+        28.117
+      ],
+      "sections": [
+        "3501605010",
+        "3501605011"
+      ],
+      "note": "transición Ciudad Alta a Tamaraceite"
+    },
+    "lpgc-tenoya": {
+      "name": "Tenoya",
+      "mun": "35016",
+      "mun_name": "Las Palmas de Gran Canaria",
+      "distrito_hint": "05",
+      "centroid_lnglat": [
+        -15.49,
+        28.125
+      ],
+      "sections": [
+        "3501605012",
+        "3501605015"
+      ],
+      "note": "núcleo rural al noroeste del término"
+    }
+  }
+}

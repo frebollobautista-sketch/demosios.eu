@@ -1,0 +1,87 @@
+{
+  "cusec": "3502801003",
+  "mun": "028",
+  "nmun": "Tías",
+  "area_ha": 3101.090851229697,
+  "perimeter_m": 26044.652654838825,
+  "building_count": 3977,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 196,
+  "road_segment_count": 2666,
+  "centroid_lnglat": [
+    -13.675417008016893,
+    28.96405487639019
+  ],
+  "bbox_lnglat": [
+    -13.704,
+    28.9218,
+    -13.6338,
+    29.0024
+  ],
+  "bbox_local_m": [
+    -2783.8835122654746,
+    -4268.579160244249,
+    4053.3511158145743,
+    4703.812839755801
+  ],
+  "enu_basis": {
+    "lng0": -13.675417008016893,
+    "lat0": 28.96405487639019,
+    "cos_lat0": 0.8749236855327455
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:43:55+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "cusec": "3801401002",
+  "mun": "014",
+  "nmun": "Fuencaliente de la Palma",
+  "area_ha": 1328.8225893912486,
+  "perimeter_m": 27630.360359261536,
+  "building_count": 1336,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 13,
+  "road_segment_count": 926,
+  "centroid_lnglat": [
+    -17.86236943439349,
+    28.492739003949403
+  ],
+  "bbox_lnglat": [
+    -17.88012,
+    28.45631,
+    -17.84636,
+    28.5279
+  ],
+  "bbox_local_m": [
+    -1736.6559040496222,
+    -3914.122080352356,
+    1566.3094560630243,
+    4055.2767196476984
+  ],
+  "enu_basis": {
+    "lng0": -17.86236943439349,
+    "lat0": 28.492739003949403,
+    "cos_lat0": 0.8788775751176954
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:16:02+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

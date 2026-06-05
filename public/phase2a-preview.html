@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>POLIS · Preview Phase 2a — Mun con barrios</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<style>
+  html,body{margin:0;height:100%;background:#e8dcc0;color:#1a1612;
+    font-family:Georgia,serif;overflow:hidden}
+  #ui{position:fixed;top:14px;left:14px;background:rgba(248,240,224,.94);
+      padding:12px 16px;border:1px solid #4a3a22;border-radius:4px;
+      font:13px/1.5 Georgia,serif;max-width:380px;z-index:10}
+  #ui h1{margin:0 0 4px;font-size:14px;color:#3a2c14;font-weight:normal;
+         letter-spacing:.12em;text-transform:uppercase}
+  #ui .hint{font-size:11px;color:#6a5233;margin-top:6px;font-style:italic;line-height:1.5}
+  #stage{position:fixed;inset:0;width:100%;height:100%;display:block}
+  .pieza{transition:fill .15s ease,stroke-width .15s ease;cursor:pointer}
+  .pieza:hover{stroke:#1a1612;stroke-width:3}
+  text.label{text-anchor:middle;dominant-baseline:central;
+    pointer-events:none;font-family:Georgia,serif;font-style:italic;
+    fill:#1a1612;font-weight:600;
+    paint-order:stroke;stroke:#f6efdb;stroke-width:3;stroke-linejoin:round}
+  #tip{position:fixed;bottom:14px;right:14px;background:rgba(248,240,224,.94);
+       padding:10px 14px;border:1px solid #4a3a22;border-radius:4px;
+       font:12px/1.5 Georgia,serif;min-width:200px;display:none;z-index:10}
+  #tip b{color:#3a2c14}
+  #tip .sub{color:#6a5233;font-style:italic}
+</style>
+</head>
+<body>
+<div id="ui">
+  <h1>Phase 2a · Mun con barrios (mockup)</h1>
+  <div>Las Palmas de Gran Canaria — <b>34 piezas-barrio</b> con nombre, en lugar de las 274 secciones-INE.</div>
+  <div class="hint">Hover en pieza = highlight. Tap = simula <code>enterBarrio</code>. Solo es un mockup estático — no entra de verdad.</div>
+</div>
+<div id="tip"></div>
+<svg id="stage"></svg>
+
+<script>
+const SVGNS = 'http://www.w3.org/2000/svg';
+const STAGE = document.getElementById('stage');
+const TIP = document.getElementById('tip');
+
+// Paleta cíclica de 12 colores arena/tierra cálidos (mismo espíritu KOINOS)
+const PALETA = [
+  '#c19a6b','#a89968','#8a9c6b','#9c8a6b','#c1a86b','#9c6b8a',
+  '#6b8a9c','#7a6b9c','#c1786b','#6b9c8a','#9c6b6b','#6b7a9c'
+];
+
+async function main() {
+  const [barriosResp, seccionesResp] = await Promise.all([
+    fetch('data/barrios-gc.json').then(r => r.json()),
+    fetch('gc-secciones-lite.json').then(r => r.json())
+  ]);
+
+  // cusec -> {barrio_id, color, name}
+  const map = {};
+  const barrios = barriosResp.barrios;
+  const ids = Object.keys(barrios);
+  ids.forEach((bid, i) => {
+    const b = barrios[bid];
+    const color = PALETA[i % PALETA.length];
+    for (const c of b.sections) {
+      map[c] = { bid, color, name: b.name, secCount: b.sections.length };
+    }
+  });
+
+  // Filtrar a LPGC (mun=016)
+  const lpgcSecs = seccionesResp.features.filter(f => f.properties.mun === '016');
+
+  // Bbox para fitView
+  let minx=Infinity, miny=Infinity, maxx=-Infinity, maxy=-Infinity;
+  for (const f of lpgcSecs) {
+    const coords = f.geometry.coordinates[0];
+    for (const [x,y] of coords) {
+      if (x<minx) minx=x; if (y<miny) miny=y;
+      if (x>maxx) maxx=x; if (y>maxy) maxy=y;
+    }
+  }
+  const W = window.innerWidth, H = window.innerHeight;
+  const padPx = 80;
+  const sx = (W - 2*padPx) / (maxx - minx);
+  const sy = (H - 2*padPx) / (maxy - miny);
+  const sc = Math.min(sx, sy);
+  const cx = W/2, cy = H/2;
+  const mx = (minx + maxx) / 2;
+  const my = (miny + maxy) / 2;
+  const proj = ([x,y]) => [
+    cx + (x - mx) * sc,
+    cy - (y - my) * sc  // y invertida (lat va hacia arriba)
+  ];
+
+  // Agrupar secciones por barrio
+  const byBarrio = {};
+  for (const f of lpgcSecs) {
+    const cusec = f.properties.cusec;
+    const m = map[cusec];
+    if (!m) continue;
+    if (!byBarrio[m.bid]) byBarrio[m.bid] = { ...m, feats: [], cusecs: [] };
+    byBarrio[m.bid].feats.push(f);
+    byBarrio[m.bid].cusecs.push(cusec);
+  }
+
+  // Render por barrio: cada sección como path con el color del barrio
+  for (const bid of Object.keys(byBarrio)) {
+    const b = byBarrio[bid];
+    const group = document.createElementNS(SVGNS, 'g');
+    group.classList.add('pieza');
+    let cx_sum=0, cy_sum=0, cn=0;
+    for (const f of b.feats) {
+      const path = document.createElementNS(SVGNS, 'path');
+      const coords = f.geometry.coordinates[0];
+      const d = coords.map((c,i) => {
+        const [px,py] = proj(c);
+        cx_sum += px; cy_sum += py; cn++;
+        return (i===0?'M':'L') + px.toFixed(1) + ',' + py.toFixed(1);
+      }).join('') + 'Z';
+      path.setAttribute('d', d);
+      path.setAttribute('fill', b.color);
+      path.setAttribute('fill-opacity', '0.78');
+      path.setAttribute('stroke', '#3a2c14');
+      path.setAttribute('stroke-width', '1');
+      group.appendChild(path);
+    }
+    // Label en el centroide
+    const lx = cx_sum/cn, ly = cy_sum/cn;
+    const lbl = document.createElementNS(SVGNS, 'text');
+    lbl.setAttribute('class','label');
+    lbl.setAttribute('x', lx);
+    lbl.setAttribute('y', ly);
+    lbl.setAttribute('font-size', Math.max(9, Math.min(16, b.feats.length*1.5)));
+    lbl.textContent = b.name;
+    group.addEventListener('mouseenter', () => {
+      TIP.innerHTML = `<b>${b.name}</b><br><span class="sub">${b.cusecs.length} secciones · barrio_id <code>${b.bid}</code></span>`;
+      TIP.style.display = 'block';
+    });
+    group.addEventListener('mouseleave', () => TIP.style.display = 'none');
+    group.addEventListener('click', () => {
+      const url = `polis-app/?barrio=${b.bid}`;
+      if (confirm(`Tap pieza-barrio = enterBarrio('${b.bid}')\n\nAbrir el barrio real en polis-app/?`)) {
+        window.location.href = url;
+      }
+    });
+    STAGE.appendChild(group);
+    STAGE.appendChild(lbl);
+  }
+}
+
+main().catch(e => {
+  document.body.innerHTML = '<pre style="padding:20px">' + e.message + '</pre>';
+});
+</script>
+</body>
+</html>

@@ -36,6 +36,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 
 # Find PBF file
 PBF_CANDIDATES = [
+    os.path.join(ROOT, "GEOFABRIK", "canary-islands-latest.osm.pbf"),
     os.path.join(ROOT, "GEOFABRIK", "canary-islands-260410.osm.pbf"),
     os.path.join(ROOT, "KOINOS duplicado", "GEOFABRIK", "canary-islands-260410.osm.pbf"),
     os.path.join(ROOT, "canary-islands.osm.pbf"),
@@ -55,7 +56,10 @@ if not PBF_PATH:
 
 SECCIONES_PATH = os.path.join(ROOT, "public", "gc-secciones.json")
 if not os.path.exists(SECCIONES_PATH):
-    print("ERROR: Falta gc-secciones.json")
+    # Fallback to lite version
+    SECCIONES_PATH = os.path.join(ROOT, "public", "gc-secciones-lite.json")
+if not os.path.exists(SECCIONES_PATH):
+    print("ERROR: Falta gc-secciones.json o gc-secciones-lite.json")
     sys.exit(1)
 
 # Provincia 35 bounding box (with margin)

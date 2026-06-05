@@ -75,25 +75,26 @@ function utm28nToWgs84(easting, northing) {
 function parseGML(gmlContent) {
   const buildings = [];
   // Match each Building or BuildingPart element
-  const buildingRegex = /<bu-ext:Building[^>]*>[\s\S]*?<\/bu-ext:Building>/g;
-  const partRegex = /<bu-ext:BuildingPart[^>]*>[\s\S]*?<\/bu-ext:BuildingPart>/g;
+  // INSPIRE Catastro uses prefix bu-ext2d: (not bu-ext:)
+  const buildingRegex = /<bu-ext2d:Building\b[^>]*>[\s\S]*?<\/bu-ext2d:Building>/g;
+  const partRegex = /<bu-ext2d:BuildingPart\b[^>]*>[\s\S]*?<\/bu-ext2d:BuildingPart>/g;
 
   const allMatches = [...gmlContent.matchAll(buildingRegex), ...gmlContent.matchAll(partRegex)];
 
   for (const match of allMatches) {
     const xml = match[0];
 
-    // Extract height
+    // Extract height (catastro INSPIRE rarely has absolute height — only on parts)
     let height = null;
-    const hMatch = xml.match(/<bu-base:value>(\d+\.?\d*)<\/bu-base:value>/);
+    const hMatch = xml.match(/<bu-ext2d:height[^>]*uom="m"[^>]*>(\d+\.?\d*)<\/bu-ext2d:height>/);
     if (hMatch) height = parseFloat(hMatch[1]);
 
-    // Extract number of floors
+    // Extract number of floors above ground
     let levels = null;
-    const floorMatch = xml.match(/<bu-ext:numberOfFloorsAboveGround>(\d+)<\/bu-ext:numberOfFloorsAboveGround>/);
+    const floorMatch = xml.match(/<bu-ext2d:numberOfFloorsAboveGround>(\d+)<\/bu-ext2d:numberOfFloorsAboveGround>/);
     if (floorMatch) levels = parseInt(floorMatch[1]);
 
-    // Extract geometry (posList)
+    // Extract geometry (posList) — take only first (exterior)
     const posListMatch = xml.match(/<gml:posList[^>]*>([\s\S]*?)<\/gml:posList>/);
     if (!posListMatch) continue;
 
@@ -112,8 +113,13 @@ function parseGML(gmlContent) {
       const easting = coords[i];
       const northing = coords[i + 1];
 
-      // Skip if coordinates don't look like UTM 28N
-      if (easting < 100000 || easting > 900000 || northing < 3000000 || northing > 3200000) continue;
+      // Skip if coordinates don't look like UTM 28N de Canarias.
+      // El límite norte 3_300_000 cubre TODA Lanzarote (la isla más
+      // septentrional, punta norte ~29.4°N -> northing ~3_255_000).
+      // El valor anterior (3_200_000) recortaba todo lo situado al
+      // norte de ~28.86°N: dejaba Arrecife entera fuera (northing
+      // ~3_207_000) y clipaba la mitad norte de Lanzarote.
+      if (easting < 100000 || easting > 900000 || northing < 3000000 || northing > 3300000) continue;
 
       const [lon, lat] = utm28nToWgs84(easting, northing);
       wgs84Coords.push([lon, lat]);
@@ -162,12 +168,16 @@ async function main() {
   console.log("║  Catastro GML → Buildings JSON por sección       ║");
   console.log("╚═══════════════════════════════════════════════════╝\n");
 
-  // Load sections
-  const secPath = join(ROOT, "public", "gc-secciones.json");
+  // Load sections (prefer merged canarias-secciones-lite.json, fallback to gc-secciones.json)
+  let secPath = join(ROOT, "public", "canarias-secciones-lite.json");
   if (!existsSync(secPath)) {
-    console.error("Falta gc-secciones.json. Ejecuta primero: node scripts/extract-gc-municipios.mjs");
+    secPath = join(ROOT, "public", "gc-secciones.json");
+  }
+  if (!existsSync(secPath)) {
+    console.error("Falta archivo de secciones (canarias-secciones-lite.json o gc-secciones.json).");
     process.exit(1);
   }
+  console.log(`Secciones: ${secPath}`);
   const secciones = JSON.parse(readFileSync(secPath, "utf8"));
   console.log(`Secciones censales: ${secciones.features.length}`);
 
@@ -250,15 +260,19 @@ async function main() {
     const codMatch = dir.match(/BU\.(\d{5})/);
     const cod = codMatch ? codMatch[1] : '?';
 
-    // Find building GML file
-    const files = readdirSync(dir).filter(f => f.includes('building') && f.endsWith('.gml') && !f.includes('part'));
-    if (files.length === 0) {
+    // Find buildingpart GML file (richer: has heights AND geometry per part)
+    // Fallback to building.gml if buildingpart is missing.
+    const all = readdirSync(dir).filter(f => f.endsWith('.gml'));
+    const partFile = all.find(f => f.includes('buildingpart'));
+    const buildingFile = all.find(f => f.includes('building') && !f.includes('part'));
+    const chosen = partFile || buildingFile;
+    if (!chosen) {
       console.warn(`  No building GML in ${dir}`);
       continue;
     }
 
-    console.log(`\nProcesando ${cod} (${files[0]})...`);
-    const gmlContent = readFileSync(join(dir, files[0]), "utf8");
+    console.log(`\nProcesando ${cod} (${chosen})...`);
+    const gmlContent = readFileSync(join(dir, chosen), "utf8");
     const buildings = parseGML(gmlContent);
     console.log(`  ${buildings.length} edificios parseados`);
 

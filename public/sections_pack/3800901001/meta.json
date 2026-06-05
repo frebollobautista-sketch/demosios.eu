@@ -1,0 +1,87 @@
+{
+  "cusec": "3800901001",
+  "mun": "009",
+  "nmun": "Breña Baja",
+  "area_ha": 206.85927520116067,
+  "perimeter_m": 7466.259318702393,
+  "building_count": 1869,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 48,
+  "road_segment_count": 1035,
+  "centroid_lnglat": [
+    -17.76703987565422,
+    28.648449211922692
+  ],
+  "bbox_lnglat": [
+    -17.77546,
+    28.6377,
+    -17.75819,
+    28.66149
+  ],
+  "bbox_local_m": [
+    -822.5785321688157,
+    -1451.700528765978,
+    864.5617839568733,
+    1196.6022712342171
+  ],
+  "enu_basis": {
+    "lng0": -17.76703987565422,
+    "lat0": 28.648449211922692,
+    "cos_lat0": 0.8775778805753286
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:13:17+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

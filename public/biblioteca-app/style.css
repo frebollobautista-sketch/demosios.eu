@@ -913,6 +913,27 @@ section.feed {
   font-size: 10px;
   color: var(--text-faint);
 }
+/* Guardar la chispa = señal activa que la gradúa en el cursus (G0). */
+.pildora-guardar {
+  justify-self: start;
+  margin-top: 2px;
+  padding: 3px 10px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.pildora-guardar:hover { border-color: var(--ocre); color: var(--ocre); }
+.pildora-guardar.is-guardada {
+  background: color-mix(in srgb, var(--ocre) 18%, transparent);
+  border-color: var(--ocre);
+  color: var(--ocre);
+  cursor: default;
+}
 
 /* ─────────── Card: Hilo (desarrollo de 1-3 párrafos) ───────────
    Card expandible — colapsada muestra título + meta + preview del
@@ -993,4 +1014,219 @@ section.feed {
 }
 .hilo-toggle:hover {
   color: var(--oro);
+}
+
+/* ─────────── Lente Vídeo — card + chips de Senda (2026-06-02) ───────────
+   Hereda la paleta índigo/ocre de las cards existentes. La Senda solo es
+   visible en esta lente (alcance Opción 1). */
+
+/* Fila de filtros de Senda (insertada antes de #feed, solo lente Vídeo) */
+.senda-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-soft);
+}
+/* [hidden] debe ganar al display:flex de autor: si no, la barra de Sendas
+   de la lente Vídeos se quedaría visible al volver a Recursos/Cursos. */
+.senda-filtros[hidden] { display: none; }
+.senda-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.senda-chip:hover {
+  border-color: var(--indigo);
+  color: var(--text);
+}
+.senda-chip.is-active {
+  background: var(--bg-card-hi);
+  border-color: var(--indigo);
+  color: var(--text);
+}
+.senda-chip-glifo {
+  font-size: 13px;
+  color: var(--ocre);
+  line-height: 1;
+}
+.senda-chip-count {
+  font-size: 10px;
+  color: var(--text-faint);
+  background: var(--bg);
+  border-radius: 999px;
+  padding: 1px 6px;
+}
+.senda-chip.is-active .senda-chip-count {
+  color: var(--indigo);
+}
+
+/* Card de vídeo */
+.card-video {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.video-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--bg);
+}
+/* Thumbnail clicable (lite-embed) */
+.video-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--bg);
+  cursor: pointer;
+  overflow: hidden;
+}
+.video-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .25s, filter .25s;
+}
+.video-thumb:hover .video-thumb-img {
+  transform: scale(1.03);
+  filter: brightness(1.08);
+}
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--text);
+  background: rgba(14, 19, 32, 0.72);
+  border: 1px solid var(--ocre);
+  border-radius: 999px;
+  padding-left: 4px;
+  transition: background .15s, color .15s;
+}
+.video-thumb:hover .video-play {
+  background: var(--ocre);
+  color: var(--bg);
+}
+.video-dur {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text);
+  background: rgba(14, 19, 32, 0.82);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+/* Placeholder cuando aún no hay youtube_id válido */
+.video-thumb.is-pending {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--bg-card-hi);
+  border: 1px dashed var(--line);
+}
+.video-thumb.is-pending .video-play {
+  position: static;
+  transform: none;
+  opacity: 0.5;
+}
+.video-pending-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+}
+.video-buscar {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--indigo);
+  text-decoration: none;
+}
+.video-buscar:hover {
+  color: var(--oro);
+  text-decoration: underline;
+}
+/* Embed real (tras el click) */
+.video-embed {
+  width: 100%;
+  height: 100%;
+}
+.video-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+/* Info bajo el media */
+.video-info {
+  padding: 14px 16px 16px;
+}
+.video-titulo {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.35;
+}
+.video-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.video-canal {
+  color: var(--text);
+}
+.video-score {
+  color: var(--text-faint);
+}
+.video-senda {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  padding: 4px 11px;
+}
+.video-senda-glifo {
+  font-size: 13px;
+  color: var(--ocre);
+  line-height: 1;
+}
+.video-nota {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  border-left: 2px solid var(--line);
+  padding-left: 10px;
 }

@@ -1,0 +1,119 @@
+<svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#EFEAD8"/>
+      <stop offset="100%" stop-color="#E1D5BB"/>
+    </linearGradient>
+    <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7FB1D0"/>
+      <stop offset="100%" stop-color="#1E6FA1"/>
+    </linearGradient>
+    <radialGradient id="bicep" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0%" stop-color="#f3d6cf"/>
+      <stop offset="100%" stop-color="#c89488"/>
+    </radialGradient>
+    <radialGradient id="sol" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#DCAA5D"/>
+      <stop offset="100%" stop-color="#C5872B"/>
+    </radialGradient>
+  </defs>
+
+  <!-- cielo crema -->
+  <rect width="1600" height="600" fill="url(#cielo)"/>
+  <!-- sol ocre del faro -->
+  <circle cx="1280" cy="240" r="160" fill="url(#sol)" opacity="0.95"/>
+  <!-- agua azul faro -->
+  <rect y="600" width="1600" height="300" fill="url(#agua)"/>
+  <!-- linea de superficie -->
+  <path d="M0 605 Q200 595 400 605 T800 605 T1200 605 T1600 605" stroke="#1E6FA1" stroke-width="3" fill="none" opacity="0.6"/>
+
+  <!-- olas -->
+  <path d="M0 700 Q200 680 400 700 T800 700 T1200 700 T1600 700" stroke="#FFFFFF" stroke-width="3" fill="none" opacity="0.4"/>
+  <path d="M0 770 Q200 750 400 770 T800 770 T1200 770 T1600 770" stroke="#FFFFFF" stroke-width="2.5" fill="none" opacity="0.35"/>
+  <path d="M0 830 Q200 810 400 830 T800 830 T1200 830 T1600 830" stroke="#FFFFFF" stroke-width="2" fill="none" opacity="0.3"/>
+
+  <!-- cola larga ondulada -->
+  <path d="M280 460 C200 420, 140 480, 120 430 C100 380, 70 430, 60 400"
+        stroke="#b6857a" stroke-width="14" stroke-linecap="round" fill="none"/>
+
+  <!-- cuerpo principal -->
+  <ellipse cx="700" cy="470" rx="360" ry="150" fill="#e3c4bc"/>
+  <ellipse cx="700" cy="520" rx="320" ry="80" fill="#f3d8d0"/>
+  <!-- abs marcados -->
+  <path d="M520 410 Q700 380 900 410" stroke="#c89488" stroke-width="4" fill="none" opacity="0.7"/>
+  <path d="M620 460 Q700 470 780 460" stroke="#c89488" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M620 500 Q700 510 780 500" stroke="#c89488" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M620 540 Q700 550 780 540" stroke="#c89488" stroke-width="3" fill="none" opacity="0.6"/>
+
+  <!-- pata trasera empujando agua -->
+  <path d="M460 540 Q360 600 280 660 Q260 700 320 700 Q420 660 500 600 Z" fill="#d4a8a0"/>
+  <ellipse cx="430" cy="580" rx="50" ry="25" fill="#c89488" opacity="0.5"/>
+
+  <!-- bicep -->
+  <ellipse cx="980" cy="380" rx="120" ry="100" fill="url(#bicep)"/>
+  <ellipse cx="970" cy="350" rx="70" ry="55" fill="#e3a89c" opacity="0.85"/>
+  <ellipse cx="970" cy="335" rx="40" ry="22" fill="#f5d5cc" opacity="0.8"/>
+
+  <!-- antebrazo extendido -->
+  <path d="M1030 360 Q1180 280 1320 250 Q1380 260 1380 300 Q1280 340 1140 390 Q1080 400 1030 395 Z"
+        fill="#e3c4bc"/>
+  <ellipse cx="1200" cy="320" rx="85" ry="35" fill="#d4a8a0" transform="rotate(-12 1200 320)" opacity="0.85"/>
+
+  <!-- puno -->
+  <ellipse cx="1380" cy="280" rx="55" ry="42" fill="#e3c4bc"/>
+  <path d="M1360 250 Q1390 235 1420 255 Q1430 280 1410 295 Q1380 305 1360 290 Z" fill="#d4a8a0"/>
+  <path d="M1425 255 L1445 250" stroke="#a06054" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1430 275 L1455 275" stroke="#a06054" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1425 295 L1445 300" stroke="#a06054" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- cabeza -->
+  <ellipse cx="1080" cy="460" rx="160" ry="135" fill="#e3c4bc"/>
+  <ellipse cx="1080" cy="500" rx="120" ry="80" fill="#f3d8d0"/>
+
+  <!-- oreja -->
+  <ellipse cx="990" cy="360" rx="42" ry="55" fill="#d4a8a0"/>
+  <ellipse cx="990" cy="365" rx="22" ry="32" fill="#f5d5d0"/>
+
+  <!-- gorro de bano OCRE faros -->
+  <path d="M930 410 Q1080 270 1230 420 Q1230 450 1200 440 Q1080 380 970 440 Q935 445 930 410 Z"
+        fill="#C5872B"/>
+  <ellipse cx="1080" cy="350" rx="80" ry="20" fill="#DCAA5D" opacity="0.6"/>
+
+  <!-- gafas con montura AZUL faro -->
+  <ellipse cx="1115" cy="465" rx="45" ry="32" fill="#FFFFFF" stroke="#1E6FA1" stroke-width="7"/>
+  <ellipse cx="1025" cy="475" rx="40" ry="30" fill="#FFFFFF" stroke="#1E6FA1" stroke-width="7"/>
+  <ellipse cx="1115" cy="465" rx="30" ry="20" fill="#7FB1D0" opacity="0.55"/>
+  <ellipse cx="1025" cy="475" rx="26" ry="18" fill="#7FB1D0" opacity="0.55"/>
+  <path d="M1063 472 Q1075 470 1085 472" stroke="#1E6FA1" stroke-width="7" fill="none"/>
+  <path d="M970 490 Q940 470 935 425" stroke="#1E6FA1" stroke-width="7" fill="none"/>
+  <path d="M1160 480 Q1190 460 1200 425" stroke="#1E6FA1" stroke-width="7" fill="none"/>
+
+  <!-- hocico -->
+  <ellipse cx="1210" cy="520" rx="40" ry="28" fill="#e3c4bc"/>
+  <ellipse cx="1230" cy="520" rx="14" ry="10" fill="#6a2f2f"/>
+  <path d="M1180 555 Q1200 565 1220 558" stroke="#6a2f2f" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <rect x="1196" y="558" width="6" height="14" fill="#fff8e0" rx="1"/>
+  <rect x="1204" y="558" width="6" height="14" fill="#fff8e0" rx="1"/>
+
+  <!-- bigotes -->
+  <line x1="1170" y1="540" x2="1250" y2="535" stroke="#555" stroke-width="2"/>
+  <line x1="1170" y1="550" x2="1255" y2="555" stroke="#555" stroke-width="2"/>
+  <line x1="1170" y1="560" x2="1250" y2="575" stroke="#555" stroke-width="2"/>
+
+  <!-- splash delante (blanco) -->
+  <path d="M1400 240 Q1420 200 1450 220 Q1440 245 1420 260 Z" fill="#FFFFFF" opacity="0.95"/>
+  <circle cx="1480" cy="200" r="10" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="1500" cy="230" r="7" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="1460" cy="180" r="6" fill="#FFFFFF" opacity="0.85"/>
+  <circle cx="1430" cy="170" r="4" fill="#FFFFFF" opacity="0.8"/>
+
+  <!-- splash detras -->
+  <circle cx="270" cy="640" r="9" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="240" cy="610" r="6" fill="#FFFFFF" opacity="0.85"/>
+  <circle cx="310" cy="600" r="5" fill="#FFFFFF" opacity="0.8"/>
+  <circle cx="200" cy="660" r="5" fill="#FFFFFF" opacity="0.8"/>
+
+  <!-- splash centro -->
+  <path d="M540 380 Q560 350 590 365 Q580 385 560 395 Z" fill="#FFFFFF" opacity="0.85"/>
+  <circle cx="610" cy="350" r="5" fill="#FFFFFF" opacity="0.85"/>
+</svg>

@@ -137,13 +137,20 @@ export async function buildIndex(state, ctx) {
     }
   }
 
-  // 3.0 Barrios — TODOS los 202 barrios prov 35, siempre disponibles
-  //     desde state.barriosGc.barrios. Action: enterBarrio(id). El search
-  //     es el principal punto de descubrimiento de barrios a este nivel
-  //     porque no son tappables en el render isla.
+  // 3.0 Barrios — TODOS los barrios curados (prov 35/38), siempre
+  //     disponibles desde state.barriosGc.barrios. Action: enterBarrio(id).
+  //     2026-06-02 — Filtramos:
+  //       · piezas catch-all "<Mun> (otros)" (29 entradas que pollutan)
+  //       · piezas synthetic-mun (envuelven el mun entero, ya aparece en
+  //         la categoría "municipio" — duplicar no aporta).
+  //       · piezas con id "supra-..." (se indexan abajo desde el geojson
+  //         de supra-regiones directamente; ese flujo es el coherente).
   if (state.barriosGc?.barrios) {
     for (const [bid, meta] of Object.entries(state.barriosGc.barrios)) {
       if (!meta?.name) continue;
+      if (/\(otros\)$/i.test(meta.name)) continue;
+      if (meta.place_type === "synthetic-mun") continue;
+      if (bid.startsWith("supra-")) continue;
       out.push({
         type: "barrio",
         label: meta.name,
@@ -151,6 +158,41 @@ export async function buildIndex(state, ctx) {
         search: _normalize([meta.name, meta.mun_name, meta.place_type,
                             bid].join(" ")),
         action: () => ctx.enterBarrio(bid, true)
+      });
+    }
+  }
+
+  // 3.0.bis — Supra-piezas RURALES indexadas desde supra-regiones-{isla}.
+  //     geojson. Sub-supras + top-level sin hijos (la misma selección que
+  //     _buildSupraPiezas hace al render). Se cargan en background (cache
+  //     por isla); el usuario puede buscar "Las Cuevas" o "Barranco de
+  //     la Mina" SIN haber visitado el mun rural correspondiente. La
+  //     acción navega: enterIsla → enterMunicipio → enterBarrio cuando la
+  //     pieza esté registrada en state.barriosGc.barrios (la registra
+  //     `_buildSupraPiezas` al cargar el mun).
+  //     Resolución de mun_name: municipios-info.json solo cubre prov 35;
+  //     para prov 38 usamos los barrios canonical (state.barriosGc) que
+  //     traen mun_name. Sin este fallback los muns TF/LP/LG/EH aparecían
+  //     como "38038" en lugar de "Santa Cruz de Tenerife".
+  const munNameByCod = new Map();
+  if (state.barriosGc?.barrios) {
+    for (const meta of Object.values(state.barriosGc.barrios)) {
+      if (meta?.mun && meta?.mun_name) {
+        munNameByCod.set(meta.mun, meta.mun_name);
+      }
+    }
+  }
+  for (const isla of ['gc','tf','lp','lz','fv','lg','eh']) {
+    const supraIdx = await _loadSupraIndex(isla);
+    for (const s of supraIdx) {
+      const munName = s.munName || munNameByCod.get(s.munCod) || s.munCod;
+      out.push({
+        type: "barrio",
+        label: s.nombre,
+        sublabel: `${munName} · Pago / barranco`,
+        search: _normalize([s.nombre, munName, s.munCod,
+                            s.capa || ""].join(" ")),
+        action: () => ctx.navigateToSupraPieza(s)
       });
     }
   }
@@ -311,6 +353,57 @@ export function typeLabel(t) {
 
 // ----------------------------------------------------------
 // Helpers internos.
+
+// 2026-06-02 — Cache por isla del index de supra-piezas para el buscador.
+// Lee el geojson supra-regiones-{isla}.geojson una sola vez y deriva:
+//   { id, nombre, munCod, munName, capa, lng, lat }
+// donde id es el numérico de la supra, munCod el "35XXX"/"38XXX". El runtime
+// `_buildSupraPiezas` registra estas piezas en state.barriosGc.barrios bajo
+// `supra-{munCod}-{id}` solo al entrar al mun — el search debe poder buscar
+// SIN ese registro, por eso vamos directo al geojson.
+const _supraIdxCache = new Map();   // isla → Promise<rows[]>
+async function _loadSupraIndex(isla) {
+  if (_supraIdxCache.has(isla)) return _supraIdxCache.get(isla);
+  const p = (async () => {
+    try {
+      const r = await fetch(`../data/supra-regiones-${isla}.geojson`);
+      if (!r.ok) return [];
+      const fc = await r.json();
+      // Misma selección que _buildSupraPiezas: sub-supras + top-level
+      // sin hijos.
+      const parentsConHijos = new Set();
+      for (const f of fc.features || []) {
+        if (f.properties.parent_id != null)
+          parentsConHijos.add(String(f.properties.parent_id));
+      }
+      const munInfo = await _loadMunInfo();
+      const rows = [];
+      for (const f of fc.features || []) {
+        const p = f.properties;
+        if (!p?.nombre) continue;
+        if (p.parent_id == null && parentsConHijos.has(String(p.id))) continue;
+        const munCod = p.mun_cod || "";
+        const mun3 = munCod.replace(/^3[58]/, "");
+        const munName = munInfo[mun3]?.nombre || "";
+        const c = p.centroide?.coordinates;
+        rows.push({
+          id: p.id,
+          nombre: p.nombre,
+          munCod, munName,
+          capa: p.capa,
+          lng: c?.[0] ?? null,
+          lat: c?.[1] ?? null
+        });
+      }
+      return rows;
+    } catch (e) {
+      console.warn(`[search] supra-regiones-${isla} no cargado:`, e);
+      return [];
+    }
+  })();
+  _supraIdxCache.set(isla, p);
+  return p;
+}
 
 let _munInfoCache = null;
 async function _loadMunInfo() {

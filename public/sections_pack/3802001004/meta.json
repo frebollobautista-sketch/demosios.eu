@@ -1,0 +1,87 @@
+{
+  "cusec": "3802001004",
+  "mun": "020",
+  "nmun": "Güímar",
+  "area_ha": 640.0252924957027,
+  "perimeter_m": 11335.186103899221,
+  "building_count": 1912,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 24,
+  "road_segment_count": 463,
+  "centroid_lnglat": [
+    -16.391423249447286,
+    28.313725958195615
+  ],
+  "bbox_lnglat": [
+    -16.40973,
+    28.29775,
+    -16.37617,
+    28.32928
+  ],
+  "bbox_local_m": [
+    -1794.0998722929135,
+    -1731.4759336642023,
+    1494.8503726333208,
+    1778.443666335804
+  ],
+  "enu_basis": {
+    "lng0": -16.391423249447286,
+    "lat0": 28.313725958195615,
+    "cos_lat0": 0.880363754173587
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:20:10+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

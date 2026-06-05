@@ -1,0 +1,87 @@
+{
+  "cusec": "3802901001",
+  "mun": "029",
+  "nmun": "Puntagorda",
+  "area_ha": 1303.5595162077466,
+  "perimeter_m": 32219.496063250263,
+  "building_count": 1472,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 20,
+  "road_segment_count": 1539,
+  "centroid_lnglat": [
+    -17.961190782435587,
+    28.770395722745445
+  ],
+  "bbox_lnglat": [
+    -18.00581,
+    28.74759,
+    -17.89023,
+    28.79609
+  ],
+  "bbox_local_m": [
+    -4353.860980458975,
+    -2860.2869439770598,
+    6924.222311678382,
+    2538.733056023013
+  ],
+  "enu_basis": {
+    "lng0": -17.961190782435587,
+    "lat0": 28.770395722745445,
+    "cos_lat0": 0.8765554813814108
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:28:54+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

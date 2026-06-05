@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "tipo": "maquina-estados-deliberacion",
+    "nota": "Ciclo de vida de una propuesta ciudadana, inspirado en el trámite Decidim/CONSUL + iniciativas parlamentarias. Valor educativo: la ciudadanía VE en qué punto del proceso está cada propuesta.",
+    "generado": "2026-06-03"
+  },
+  "estados": [
+    { "id": "presentada", "orden": 0, "label": "Presentada", "ico": "📨",
+      "desc": "La propuesta entra en el registro. Cualquiera puede leerla." },
+    { "id": "admitida", "orden": 1, "label": "Admitida", "ico": "✅",
+      "desc": "Cumple requisitos formales y se admite a trámite." },
+    { "id": "apoyos", "orden": 2, "label": "Apoyos", "ico": "✋",
+      "desc": "Recoge apoyos ciudadanos. Si alcanza el umbral, avanza." },
+    { "id": "debate", "orden": 3, "label": "Debate", "ico": "💬",
+      "desc": "Debate público abierto: enmiendas y comentarios." },
+    { "id": "votacion", "orden": 4, "label": "Votación", "ico": "🗳",
+      "desc": "Votación final vinculante o consultiva." },
+    { "id": "publicada", "orden": 5, "label": "Resultado", "ico": "🏁",
+      "desc": "Resultado publicado y, en su caso, en ejecución." }
+  ]
+}

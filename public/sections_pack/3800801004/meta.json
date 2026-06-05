@@ -1,0 +1,87 @@
+{
+  "cusec": "3800801004",
+  "mun": "008",
+  "nmun": "Breña Alta",
+  "area_ha": 83.0425755739768,
+  "perimeter_m": 4818.3884954912455,
+  "building_count": 1191,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 5,
+  "road_segment_count": 448,
+  "centroid_lnglat": [
+    -17.780010097870058,
+    28.661496595401818
+  ],
+  "bbox_lnglat": [
+    -17.78728,
+    28.65833,
+    -17.76906,
+    28.66638
+  ],
+  "bbox_local_m": [
+    -710.1226848650462,
+    -543.6205998696246,
+    1069.603518731738,
+    352.505400130462
+  ],
+  "enu_basis": {
+    "lng0": -17.780010097870058,
+    "lat0": 28.661496595401818,
+    "cos_lat0": 0.8774686811829727
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:13:10+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

@@ -1,0 +1,1144 @@
+{
+  "version": "1.0",
+  "produced_at": "2026-05-10T11:00:11+00:00",
+  "total_packs": 562,
+  "total_passed": 523,
+  "total_failed": 39,
+  "tolerances": {
+    "area_pct": 2.0,
+    "bbox_pct": 30.0
+  },
+  "failures": [
+    {
+      "cusec": "3500201006",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3500201006",
+        "area_meta_ha": 12.8571,
+        "area_geom_ha": 12.8571,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -342.3,
+          -310.1,
+          494.3,
+          357.8
+        ],
+        "bbox_diff_pct": 16.5,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 272,
+        "bld_count_geo": 272,
+        "mz_count_geo": 24,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3500201010",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3500201010",
+        "area_meta_ha": 33.1451,
+        "area_geom_ha": 33.1451,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -319.5,
+          -730.0,
+          408.8,
+          516.8
+        ],
+        "bbox_diff_pct": 60.6,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 11,
+        "bld_count_geo": 11,
+        "mz_count_geo": 11,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3500601001",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3500601001",
+        "area_meta_ha": 55.5477,
+        "area_geom_ha": 55.5477,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -508.3,
+          -765.8,
+          689.5,
+          670.2
+        ],
+        "bbox_diff_pct": 25.2,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 70,
+        "bld_count_geo": 70,
+        "mz_count_geo": 17,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3500603004",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3500603004",
+        "area_meta_ha": 56.5142,
+        "area_geom_ha": 56.5142,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -1118.4,
+          -343.4,
+          972.4,
+          870.0
+        ],
+        "bbox_diff_pct": 54.8,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 257,
+        "bld_count_geo": 257,
+        "mz_count_geo": 54,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3500604004",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3500604004",
+        "area_meta_ha": 76.6708,
+        "area_geom_ha": 76.6708,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -437.6,
+          -834.8,
+          495.0,
+          857.3
+        ],
+        "bbox_diff_pct": 99.6,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 1,
+        "bld_count_geo": 1,
+        "mz_count_geo": 1,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3500606003",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3500606003",
+        "area_meta_ha": 281.0141,
+        "area_geom_ha": 281.0141,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -1577.1,
+          -1144.7,
+          1968.1,
+          903.6
+        ],
+        "bbox_diff_pct": 61.0,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 7,
+        "bld_count_geo": 7,
+        "mz_count_geo": 7,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3500901008",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3500901008",
+        "area_meta_ha": 63.7819,
+        "area_geom_ha": 63.7819,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -1001.9,
+          -848.7,
+          470.7,
+          1578.0
+        ],
+        "bbox_diff_pct": 98.8,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 1,
+        "bld_count_geo": 1,
+        "mz_count_geo": 1,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501101004",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501101004",
+        "area_meta_ha": 71.8075,
+        "area_geom_ha": 71.8075,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -789.3,
+          -755.1,
+          450.2,
+          680.9
+        ],
+        "bbox_diff_pct": 34.3,
+        "bld_outside_pct": 0.1,
+        "bld_count_meta": 141,
+        "bld_count_geo": 141,
+        "mz_count_geo": 110,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501301002",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501301002",
+        "area_meta_ha": 310.8372,
+        "area_geom_ha": 310.8372,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -1327.2,
+          -1687.8,
+          1078.1,
+          1328.9
+        ],
+        "bbox_diff_pct": 65.5,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 3,
+        "bld_count_geo": 3,
+        "mz_count_geo": 3,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501601010",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501601010",
+        "area_meta_ha": 10.2433,
+        "area_geom_ha": 10.2433,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -169.0,
+          -246.1,
+          233.6,
+          388.4
+        ],
+        "bbox_diff_pct": 12.4,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 31,
+        "bld_count_geo": 31,
+        "mz_count_geo": 24,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501601011",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501601011",
+        "area_meta_ha": 9.1069,
+        "area_geom_ha": 9.1069,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -127.9,
+          -359.9,
+          166.7,
+          363.7
+        ],
+        "bbox_diff_pct": 29.2,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 45,
+        "bld_count_geo": 45,
+        "mz_count_geo": 13,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501601025",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501601025",
+        "area_meta_ha": 16.6462,
+        "area_geom_ha": 16.6462,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -223.7,
+          -663.5,
+          188.8,
+          427.4
+        ],
+        "bbox_diff_pct": 50.2,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 70,
+        "bld_count_geo": 70,
+        "mz_count_geo": 24,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501601032",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501601032",
+        "area_meta_ha": 7.1836,
+        "area_geom_ha": 7.1836,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -231.4,
+          -175.0,
+          141.8,
+          225.7
+        ],
+        "bbox_diff_pct": 18.6,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 20,
+        "bld_count_geo": 20,
+        "mz_count_geo": 9,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501601038",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501601038",
+        "area_meta_ha": 47.5569,
+        "area_geom_ha": 47.5569,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -336.4,
+          -888.5,
+          528.0,
+          1093.0
+        ],
+        "bbox_diff_pct": 54.9,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 176,
+        "bld_count_geo": 176,
+        "mz_count_geo": 31,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501601043",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501601043",
+        "area_meta_ha": 12.4026,
+        "area_geom_ha": 12.4026,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -223.4,
+          -479.0,
+          267.6,
+          300.3
+        ],
+        "bbox_diff_pct": 19.8,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 31,
+        "bld_count_geo": 31,
+        "mz_count_geo": 24,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501602012",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501602012",
+        "area_meta_ha": 48.0985,
+        "area_geom_ha": 48.0985,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -669.3,
+          -450.3,
+          587.7,
+          462.5
+        ],
+        "bbox_diff_pct": 10.0,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 454,
+        "bld_count_geo": 454,
+        "mz_count_geo": 53,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501602047",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501602047",
+        "area_meta_ha": 9.8311,
+        "area_geom_ha": 9.8311,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -209.6,
+          -331.1,
+          212.5,
+          236.6
+        ],
+        "bbox_diff_pct": 42.4,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 19,
+        "bld_count_geo": 19,
+        "mz_count_geo": 8,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501603027",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501603027",
+        "area_meta_ha": 4.8402,
+        "area_geom_ha": 4.8402,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -180.4,
+          -165.3,
+          163.1,
+          146.4
+        ],
+        "bbox_diff_pct": 35.7,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 141,
+        "bld_count_geo": 141,
+        "mz_count_geo": 11,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501604003",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501604003",
+        "area_meta_ha": 12.5314,
+        "area_geom_ha": 12.5314,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -275.0,
+          -495.2,
+          569.4,
+          673.7
+        ],
+        "bbox_diff_pct": 11.3,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 326,
+        "bld_count_geo": 326,
+        "mz_count_geo": 43,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501604005",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501604005",
+        "area_meta_ha": 7.5364,
+        "area_geom_ha": 7.5364,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -184.3,
+          -271.3,
+          139.7,
+          162.9
+        ],
+        "bbox_diff_pct": 6.2,
+        "bld_outside_pct": 1.6,
+        "bld_count_meta": 222,
+        "bld_count_geo": 222,
+        "mz_count_geo": 27,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501604028",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501604028",
+        "area_meta_ha": 3.5034,
+        "area_geom_ha": 3.5034,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -109.2,
+          -123.6,
+          126.5,
+          132.4
+        ],
+        "bbox_diff_pct": 43.1,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 9,
+        "bld_count_geo": 9,
+        "mz_count_geo": 7,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501604030",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501604030",
+        "area_meta_ha": 3.9896,
+        "area_geom_ha": 3.9896,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -155.7,
+          -140.7,
+          158.5,
+          193.2
+        ],
+        "bbox_diff_pct": 16.9,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 33,
+        "bld_count_geo": 33,
+        "mz_count_geo": 7,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501604038",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501604038",
+        "area_meta_ha": 14.6786,
+        "area_geom_ha": 14.6786,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -264.4,
+          -423.6,
+          344.3,
+          466.9
+        ],
+        "bbox_diff_pct": 18.1,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 138,
+        "bld_count_geo": 138,
+        "mz_count_geo": 22,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501605002",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501605002",
+        "area_meta_ha": 93.0523,
+        "area_geom_ha": 93.0523,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -901.1,
+          -435.2,
+          1190.6,
+          388.5
+        ],
+        "bbox_diff_pct": 31.8,
+        "bld_outside_pct": 0.3,
+        "bld_count_meta": 260,
+        "bld_count_geo": 260,
+        "mz_count_geo": 49,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501605013",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501605013",
+        "area_meta_ha": 14.8678,
+        "area_geom_ha": 14.8678,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -168.0,
+          -387.6,
+          234.6,
+          369.3
+        ],
+        "bbox_diff_pct": 17.6,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 132,
+        "bld_count_geo": 132,
+        "mz_count_geo": 24,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501901001",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501901001",
+        "area_meta_ha": 10706.0204,
+        "area_geom_ha": 10706.0204,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -7719.3,
+          -6618.1,
+          6053.6,
+          7953.7
+        ],
+        "bbox_diff_pct": 7.6,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 1743,
+        "bld_count_geo": 1743,
+        "mz_count_geo": 1065,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501902003",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501902003",
+        "area_meta_ha": 23.9081,
+        "area_geom_ha": 23.9081,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -550.6,
+          -255.3,
+          591.7,
+          434.9
+        ],
+        "bbox_diff_pct": 60.4,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 295,
+        "bld_count_geo": 295,
+        "mz_count_geo": 34,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501903007",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501903007",
+        "area_meta_ha": 5.9597,
+        "area_geom_ha": 5.9597,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -280.4,
+          -215.2,
+          192.5,
+          152.1
+        ],
+        "bbox_diff_pct": 15.2,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 28,
+        "bld_count_geo": 28,
+        "mz_count_geo": 15,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501903010",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501903010",
+        "area_meta_ha": 15.4004,
+        "area_geom_ha": 15.4004,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -336.9,
+          -371.1,
+          165.5,
+          241.2
+        ],
+        "bbox_diff_pct": 6.4,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 152,
+        "bld_count_geo": 152,
+        "mz_count_geo": 36,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501903011",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501903011",
+        "area_meta_ha": 602.7281,
+        "area_geom_ha": 602.7281,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -2323.8,
+          -1720.9,
+          2168.6,
+          1741.2
+        ],
+        "bbox_diff_pct": 10.9,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 1252,
+        "bld_count_geo": 1252,
+        "mz_count_geo": 355,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3501903018",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3501903018",
+        "area_meta_ha": 27.0567,
+        "area_geom_ha": 27.0567,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -691.2,
+          -568.0,
+          1022.7,
+          222.4
+        ],
+        "bbox_diff_pct": 26.1,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 109,
+        "bld_count_geo": 109,
+        "mz_count_geo": 21,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3502103002",
+      "reasons": [
+        "bbox edificios sobresale 52.2% del bbox sección (>30.0%)"
+      ],
+      "stats": {
+        "cusec": "3502103002",
+        "area_meta_ha": 75.7526,
+        "area_geom_ha": 75.7526,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": true,
+        "sec_bbox": [
+          -1113.5,
+          -430.6,
+          930.4,
+          471.0
+        ],
+        "bbox_diff_pct": 17.2,
+        "bld_outside_pct": 52.2,
+        "bld_count_meta": 35,
+        "bld_count_geo": 35,
+        "mz_count_geo": 23,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "bbox edificios sobresale 52.2% del bbox sección (>30.0%)"
+        ]
+      }
+    },
+    {
+      "cusec": "3502103004",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3502103004",
+        "area_meta_ha": 368.5369,
+        "area_geom_ha": 368.5369,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -2207.8,
+          -953.7,
+          1929.0,
+          1562.1
+        ],
+        "bbox_diff_pct": 46.4,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 78,
+        "bld_count_geo": 78,
+        "mz_count_geo": 28,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3502203010",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3502203010",
+        "area_meta_ha": 15.0178,
+        "area_geom_ha": 15.0178,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -251.7,
+          -321.9,
+          260.1,
+          346.0
+        ],
+        "bbox_diff_pct": 2.7,
+        "bld_outside_pct": 0.2,
+        "bld_count_meta": 44,
+        "bld_count_geo": 44,
+        "mz_count_geo": 32,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3502602011",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3502602011",
+        "area_meta_ha": 5.5695,
+        "area_geom_ha": 5.5695,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -235.2,
+          -225.9,
+          177.7,
+          141.4
+        ],
+        "bbox_diff_pct": 85.8,
+        "bld_outside_pct": 1.2,
+        "bld_count_meta": 2,
+        "bld_count_geo": 2,
+        "mz_count_geo": 1,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3502605009",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3502605009",
+        "area_meta_ha": 128.7865,
+        "area_geom_ha": 128.7865,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -606.2,
+          -1603.7,
+          700.9,
+          978.9
+        ],
+        "bbox_diff_pct": 18.2,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 257,
+        "bld_count_geo": 257,
+        "mz_count_geo": 91,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3502701006",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3502701006",
+        "area_meta_ha": 603.3758,
+        "area_geom_ha": 603.3758,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -2334.6,
+          -2179.5,
+          2988.7,
+          1382.7
+        ],
+        "bbox_diff_pct": 66.3,
+        "bld_outside_pct": 0.0,
+        "bld_count_meta": 6,
+        "bld_count_geo": 6,
+        "mz_count_geo": 6,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    },
+    {
+      "cusec": "3503101001",
+      "reasons": [
+        "bbox edificios sobresale 35.3% del bbox sección (>30.0%)"
+      ],
+      "stats": {
+        "cusec": "3503101001",
+        "area_meta_ha": 252.1633,
+        "area_geom_ha": 252.1633,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": true,
+        "sec_bbox": [
+          -1525.4,
+          -722.2,
+          1599.9,
+          869.7
+        ],
+        "bbox_diff_pct": 85.4,
+        "bld_outside_pct": 35.3,
+        "bld_count_meta": 90,
+        "bld_count_geo": 90,
+        "mz_count_geo": 33,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "bbox edificios sobresale 35.3% del bbox sección (>30.0%)"
+        ]
+      }
+    },
+    {
+      "cusec": "3503301004",
+      "reasons": [
+        "centroide fuera del polígono (no convexo o topología degradada)"
+      ],
+      "stats": {
+        "cusec": "3503301004",
+        "area_meta_ha": 446.3128,
+        "area_geom_ha": 446.3128,
+        "area_diff_pct": 0.0,
+        "centroid_in_poly": false,
+        "sec_bbox": [
+          -2197.3,
+          -1696.5,
+          3011.1,
+          1676.5
+        ],
+        "bbox_diff_pct": 38.8,
+        "bld_outside_pct": 1.3,
+        "bld_count_meta": 28,
+        "bld_count_geo": 28,
+        "mz_count_geo": 12,
+        "mz_count_meta": null,
+        "passed": false,
+        "reasons": [
+          "centroide fuera del polígono (no convexo o topología degradada)"
+        ]
+      }
+    }
+  ]
+}

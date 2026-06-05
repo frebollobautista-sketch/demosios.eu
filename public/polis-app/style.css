@@ -114,11 +114,12 @@ html, body {
 }
 .cog-menu {
   position: fixed;
-  /* [I] ITB v2 — cog ahora vive en la hud-toolbar (bottom 16, alto 52).
-     El menu se ancla justo encima de la toolbar, centrado. */
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
+  /* 2026-06-02 — Re-anclado bajo la rueda cog-toggle (top:56 right:16).
+     Antes vivía en bottom-center desde una iteración donde la rueda
+     estaba en hud-toolbar inferior; la rueda volvió a top-right pero el
+     menú quedó descalcado flotando en medio de la pantalla. */
+  top: 108px;     /* 56 (rueda top) + 44 (alto rueda) + 8 (gap) */
+  right: 16px;    /* alineado con la rueda */
   background: var(--paper);
   border: 2px solid var(--ink);
   border-radius: 14px;
@@ -475,13 +476,6 @@ html[data-cog-fontscale="l"] { font-size: 18px; }
   align-items: center;
   gap: 4px;
 }
-
-/* 2026-06-01 — Ocultar el membrete negro (breadcrumb flotante "Canarias ▾"
-   + "Isla · N municipios/edificios"). La información de nivel y los
-   topónimos ya se manifiestan al hover / al acercarse, así que estos
-   chips negros sobran. La navegación se mantiene con el back-arrow y la
-   tira de siluetas. !important porque el JS alterna su display por nivel. */
-.membrete { display: none !important; }
 .membrete .mb-parents {
   font-size: 11px;
   color: var(--paper);
@@ -2972,6 +2966,45 @@ body.lv-archipielago .admin-badge {
 }
 .archipielago-grid[hidden] { display: none; }
 
+/* 2026-06-02 — Limpieza visual a niveles "dentro del polígono". El
+   usuario está ya en su polígono objetivo (sección/manzana) y el
+   chrome adicional resta foco al mapa:
+   · lod-pill — el badge "LOD: sección" es info para desarrolladores
+     y compite con el contenido visual.
+   · siluetas-strip — la fila de islas arriba ya no aporta navegación
+     útil en sección (el back-btn ya gestiona la subida).
+   · membrete — la barra "Canarias › Gran Canaria › Vega › Distrito"
+     es ruido a sección; el back-btn es suficiente.
+   Mantenemos: back-btn, search-toggle, layer-panel-toggle (afordancias
+   activas), dashboard (info cívica), registro-toggle. */
+body.lv-seccion .lod-pill,
+body.lv-seccion .siluetas-strip,
+body.lv-seccion .membrete,
+body.lv-manzana .lod-pill,
+body.lv-manzana .siluetas-strip,
+body.lv-manzana .membrete {
+  display: none !important;
+}
+
+/* Dentro de una supra-region activa (vista interna del municipio), el
+   usuario ya ha elegido su zona — limpiamos LOD pill y membrete redundante.
+   Mantenemos siluetas-strip por si quiere saltar de isla rápido. */
+body.lv-supra-active .lod-pill,
+body.lv-supra-active .membrete {
+  display: none !important;
+}
+
+/* 2026-06-02 — Petición usuario: ocultar también el LOD pill a nivel
+   municipio. Era indicador de debug ("LOD: municipio"), no aporta al
+   ciudadano. El membrete superior ya dice "Vega de San Mateo" / breadcrumb
+   Canarias › Gran Canaria, suficiente. */
+body.lv-municipio .lod-pill,
+body.lv-barrio .lod-pill,
+body.lv-distrito .lod-pill,
+body.lv-isla .lod-pill {
+  display: none !important;
+}
+
 .isla-card {
   appearance: none;
   -webkit-appearance: none;
@@ -4341,6 +4374,42 @@ body.skin-ocre .lp-chip { border-radius: 14px; }
 
 /* Silueta de isla activa → acento terracota (coincide con el resto) */
 body.skin-ocre .silueta-chip.active svg path { fill: var(--terracota); }
+
+/* ============================================================
+   MOBILE FIXES (2026-05-29) — chrome móvil más limpio para que el
+   mapa ocupe más pantalla. Aplica solo en anchos ≤ 480 px.
+   ============================================================ */
+@media (max-width: 480px) {
+  /* Coachmark "Esto está en tus manos": que no tape la mitad del mapa.
+     Anclado abajo, pequeño, no bloquea el lienzo. */
+  #gestos-coach {
+    left: 12px !important;
+    right: 12px !important;
+    top: auto !important;
+    bottom: 12px !important;
+    transform: none !important;
+    max-width: none !important;
+  }
+  #gestos-coach > div:last-child { display: none; } /* flecha al FAB */
+
+  /* Avatar-fab (perfil con badge ?): a esquina y más pequeño,
+     no compite con el contenido. */
+  .app-avatar-fab {
+    width: 34px !important;
+    height: 34px !important;
+    opacity: 0.78;
+  }
+  .app-avatar-fab:hover { opacity: 1; }
+
+  /* Chips POLIS/ÁGORA/BIBLIOTHEKA del topbar: colapsar al icono activo
+     en móvil. Reduce el chrome superior ~40 %. */
+  .app-topbar .app-topbar-toolbar-views .twb-chip:not(.active) { display: none; }
+  .app-topbar .app-topbar-toolbar-views { padding: 2px; }
+
+  /* Breadcrumb (membrete) más compacto cuando hay 4+ niveles */
+  .mb-parents { font-size: 11px !important; }
+  .mb-current { font-size: 14px !important; }
+}
 
 /* Line-art en polilíneas en las tarjetas de verbo de la hoja de gestos
    (#gestos-sheet). Sustituye al emoji; el trazo hereda currentColor. */

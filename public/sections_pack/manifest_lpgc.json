@@ -1,0 +1,3855 @@
+{
+  "version": "1.1",
+  "produced_at": "2026-05-10T01:17:45+00:00",
+  "zone": "lpgc",
+  "total_sections": 274,
+  "successful": 274,
+  "failed": 0,
+  "totals": {
+    "buildings": 45093,
+    "manzanas": 8127,
+    "trees": 3071,
+    "monuments": 0,
+    "pois": 6111,
+    "area_ha": 10243.119
+  },
+  "sections": [
+    {
+      "cusec": "3501601001",
+      "area_ha": 9.5651,
+      "buildings": 200,
+      "manzanas": 13,
+      "pois": 35,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.417615123809513,
+        28.099220342857127
+      ],
+      "preview": "sections_pack/3501601001/preview.png"
+    },
+    {
+      "cusec": "3501601003",
+      "area_ha": 23.0543,
+      "buildings": 440,
+      "manzanas": 18,
+      "pois": 142,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.41346445392762,
+        28.10047372372375
+      ],
+      "preview": "sections_pack/3501601003/preview.png"
+    },
+    {
+      "cusec": "3501601004",
+      "area_ha": 4.6951,
+      "buildings": 178,
+      "manzanas": 6,
+      "pois": 30,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.414131664726423,
+        28.09796589057042
+      ],
+      "preview": "sections_pack/3501601004/preview.png"
+    },
+    {
+      "cusec": "3501601005",
+      "area_ha": 12.5278,
+      "buildings": 326,
+      "manzanas": 30,
+      "pois": 36,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.414752137870863,
+        28.096487449098323
+      ],
+      "preview": "sections_pack/3501601005/preview.png"
+    },
+    {
+      "cusec": "3501601006",
+      "area_ha": 23.062,
+      "buildings": 36,
+      "manzanas": 22,
+      "pois": 6,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.41477252903532,
+        28.09027388796714
+      ],
+      "preview": "sections_pack/3501601006/preview.png"
+    },
+    {
+      "cusec": "3501601007",
+      "area_ha": 5.0069,
+      "buildings": 20,
+      "manzanas": 9,
+      "pois": 12,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.414758114992722,
+        28.094432860262007
+      ],
+      "preview": "sections_pack/3501601007/preview.png"
+    },
+    {
+      "cusec": "3501601008",
+      "area_ha": 3.3343,
+      "buildings": 20,
+      "manzanas": 11,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.417034863387984,
+        28.093610491803286
+      ],
+      "preview": "sections_pack/3501601008/preview.png"
+    },
+    {
+      "cusec": "3501601010",
+      "area_ha": 10.2433,
+      "buildings": 31,
+      "manzanas": 24,
+      "pois": 13,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.417478939879048,
+        28.094189203130558
+      ],
+      "preview": "sections_pack/3501601010/preview.png"
+    },
+    {
+      "cusec": "3501601011",
+      "area_ha": 9.1069,
+      "buildings": 45,
+      "manzanas": 13,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.418797278911567,
+        28.087667046818726
+      ],
+      "preview": "sections_pack/3501601011/preview.png"
+    },
+    {
+      "cusec": "3501601012",
+      "area_ha": 1.9679,
+      "buildings": 27,
+      "manzanas": 5,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.418073333333338,
+        28.089021111111112
+      ],
+      "preview": "sections_pack/3501601012/preview.png"
+    },
+    {
+      "cusec": "3501601013",
+      "area_ha": 6.0292,
+      "buildings": 22,
+      "manzanas": 12,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.417222997884558,
+        28.090090843155043
+      ],
+      "preview": "sections_pack/3501601013/preview.png"
+    },
+    {
+      "cusec": "3501601014",
+      "area_ha": 4.1162,
+      "buildings": 30,
+      "manzanas": 13,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.41796888003541,
+        28.086886277113763
+      ],
+      "preview": "sections_pack/3501601014/preview.png"
+    },
+    {
+      "cusec": "3501601015",
+      "area_ha": 7.1876,
+      "buildings": 384,
+      "manzanas": 5,
+      "pois": 11,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.420101470215467,
+        28.09768590621038
+      ],
+      "preview": "sections_pack/3501601015/preview.png"
+    },
+    {
+      "cusec": "3501601017",
+      "area_ha": 2.9625,
+      "buildings": 162,
+      "manzanas": 6,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.420953813038132,
+        28.09588671586716
+      ],
+      "preview": "sections_pack/3501601017/preview.png"
+    },
+    {
+      "cusec": "3501601018",
+      "area_ha": 11.3145,
+      "buildings": 291,
+      "manzanas": 8,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422465475040251,
+        28.09526888888888
+      ],
+      "preview": "sections_pack/3501601018/preview.png"
+    },
+    {
+      "cusec": "3501601019",
+      "area_ha": 5.6518,
+      "buildings": 385,
+      "manzanas": 3,
+      "pois": 9,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.419205738233403,
+        28.095701579626063
+      ],
+      "preview": "sections_pack/3501601019/preview.png"
+    },
+    {
+      "cusec": "3501601020",
+      "area_ha": 4.9851,
+      "buildings": 260,
+      "manzanas": 3,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.420200109649112,
+        28.09318698830408
+      ],
+      "preview": "sections_pack/3501601020/preview.png"
+    },
+    {
+      "cusec": "3501601021",
+      "area_ha": 13.2828,
+      "buildings": 529,
+      "manzanas": 8,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42110903978052,
+        28.090794828532257
+      ],
+      "preview": "sections_pack/3501601021/preview.png"
+    },
+    {
+      "cusec": "3501601023",
+      "area_ha": 11.0748,
+      "buildings": 225,
+      "manzanas": 7,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.421820269825595,
+        28.087796824613363
+      ],
+      "preview": "sections_pack/3501601023/preview.png"
+    },
+    {
+      "cusec": "3501601024",
+      "area_ha": 39.9844,
+      "buildings": 258,
+      "manzanas": 48,
+      "pois": 13,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.416613722541248,
+        28.078205815331344
+      ],
+      "preview": "sections_pack/3501601024/preview.png"
+    },
+    {
+      "cusec": "3501601025",
+      "area_ha": 16.6462,
+      "buildings": 70,
+      "manzanas": 24,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.419422189381498,
+        28.080439529282966
+      ],
+      "preview": "sections_pack/3501601025/preview.png"
+    },
+    {
+      "cusec": "3501601026",
+      "area_ha": 22.8829,
+      "buildings": 29,
+      "manzanas": 9,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422928268832619,
+        28.08415125816215
+      ],
+      "preview": "sections_pack/3501601026/preview.png"
+    },
+    {
+      "cusec": "3501601027",
+      "area_ha": 6.3468,
+      "buildings": 52,
+      "manzanas": 10,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42061889175999,
+        28.081436003445315
+      ],
+      "preview": "sections_pack/3501601027/preview.png"
+    },
+    {
+      "cusec": "3501601029",
+      "area_ha": 10.8624,
+      "buildings": 18,
+      "manzanas": 6,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422802449253492,
+        28.079946586143272
+      ],
+      "preview": "sections_pack/3501601029/preview.png"
+    },
+    {
+      "cusec": "3501601030",
+      "area_ha": 27.061,
+      "buildings": 6,
+      "manzanas": 6,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42711367676768,
+        28.07761090235691
+      ],
+      "preview": "sections_pack/3501601030/preview.png"
+    },
+    {
+      "cusec": "3501601031",
+      "area_ha": 59.618,
+      "buildings": 86,
+      "manzanas": 23,
+      "pois": 5,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.426073969127305,
+        28.074258838453304
+      ],
+      "preview": "sections_pack/3501601031/preview.png"
+    },
+    {
+      "cusec": "3501601032",
+      "area_ha": 7.1836,
+      "buildings": 20,
+      "manzanas": 9,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.41864368340943,
+        28.075627701674275
+      ],
+      "preview": "sections_pack/3501601032/preview.png"
+    },
+    {
+      "cusec": "3501601033",
+      "area_ha": 3.4114,
+      "buildings": 12,
+      "manzanas": 10,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42005325854701,
+        28.074766185897424
+      ],
+      "preview": "sections_pack/3501601033/preview.png"
+    },
+    {
+      "cusec": "3501601034",
+      "area_ha": 5.2429,
+      "buildings": 77,
+      "manzanas": 11,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.419188946819597,
+        28.073373548835594
+      ],
+      "preview": "sections_pack/3501601034/preview.png"
+    },
+    {
+      "cusec": "3501601035",
+      "area_ha": 33.7601,
+      "buildings": 345,
+      "manzanas": 37,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.426419546558707,
+        28.070463314439937
+      ],
+      "preview": "sections_pack/3501601035/preview.png"
+    },
+    {
+      "cusec": "3501601036",
+      "area_ha": 30.1415,
+      "buildings": 569,
+      "manzanas": 22,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.426962162162159,
+        28.068038726646105
+      ],
+      "preview": "sections_pack/3501601036/preview.png"
+    },
+    {
+      "cusec": "3501601037",
+      "area_ha": 10.0872,
+      "buildings": 14,
+      "manzanas": 10,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422465311653117,
+        28.068720614272813
+      ],
+      "preview": "sections_pack/3501601037/preview.png"
+    },
+    {
+      "cusec": "3501601038",
+      "area_ha": 47.5569,
+      "buildings": 176,
+      "manzanas": 31,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.41957521652487,
+        28.063618628803564
+      ],
+      "preview": "sections_pack/3501601038/preview.png"
+    },
+    {
+      "cusec": "3501601039",
+      "area_ha": 60.4437,
+      "buildings": 308,
+      "manzanas": 30,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.425548037619823,
+        28.093384349189122
+      ],
+      "preview": "sections_pack/3501601039/preview.png"
+    },
+    {
+      "cusec": "3501601040",
+      "area_ha": 34.6377,
+      "buildings": 391,
+      "manzanas": 48,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.431752253958239,
+        28.095645415811916
+      ],
+      "preview": "sections_pack/3501601040/preview.png"
+    },
+    {
+      "cusec": "3501601041",
+      "area_ha": 8.1386,
+      "buildings": 231,
+      "manzanas": 9,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.427412737855377,
+        28.09847678531451
+      ],
+      "preview": "sections_pack/3501601041/preview.png"
+    },
+    {
+      "cusec": "3501601042",
+      "area_ha": 14.0203,
+      "buildings": 30,
+      "manzanas": 21,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.427745795971417,
+        28.094507498375577
+      ],
+      "preview": "sections_pack/3501601042/preview.png"
+    },
+    {
+      "cusec": "3501601043",
+      "area_ha": 12.4026,
+      "buildings": 31,
+      "manzanas": 24,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43112522403408,
+        28.09199731159101
+      ],
+      "preview": "sections_pack/3501601043/preview.png"
+    },
+    {
+      "cusec": "3501601044",
+      "area_ha": 3.2086,
+      "buildings": 11,
+      "manzanas": 6,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.415946053378761,
+        28.092608347529808
+      ],
+      "preview": "sections_pack/3501601044/preview.png"
+    },
+    {
+      "cusec": "3501601045",
+      "area_ha": 1.5414,
+      "buildings": 7,
+      "manzanas": 7,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.428507092198588,
+        28.09556052009457
+      ],
+      "preview": "sections_pack/3501601045/preview.png"
+    },
+    {
+      "cusec": "3501601046",
+      "area_ha": 105.2143,
+      "buildings": 476,
+      "manzanas": 162,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.469143588677547,
+        28.05615038977237
+      ],
+      "preview": "sections_pack/3501601046/preview.png"
+    },
+    {
+      "cusec": "3501601047",
+      "area_ha": 79.4299,
+      "buildings": 511,
+      "manzanas": 191,
+      "pois": 6,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.463359266143462,
+        28.052862458121066
+      ],
+      "preview": "sections_pack/3501601047/preview.png"
+    },
+    {
+      "cusec": "3501601048",
+      "area_ha": 190.1749,
+      "buildings": 615,
+      "manzanas": 245,
+      "pois": 12,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.454868621588469,
+        28.068793727959214
+      ],
+      "preview": "sections_pack/3501601048/preview.png"
+    },
+    {
+      "cusec": "3501601049",
+      "area_ha": 181.4256,
+      "buildings": 277,
+      "manzanas": 69,
+      "pois": 10,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.444627364233611,
+        28.063259239949335
+      ],
+      "preview": "sections_pack/3501601049/preview.png"
+    },
+    {
+      "cusec": "3501601050",
+      "area_ha": 98.4114,
+      "buildings": 409,
+      "manzanas": 88,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.45062171055068,
+        28.080955188312412
+      ],
+      "preview": "sections_pack/3501601050/preview.png"
+    },
+    {
+      "cusec": "3501601051",
+      "area_ha": 24.4895,
+      "buildings": 39,
+      "manzanas": 13,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.444289025297614,
+        28.086480625000004
+      ],
+      "preview": "sections_pack/3501601051/preview.png"
+    },
+    {
+      "cusec": "3501601052",
+      "area_ha": 14.6556,
+      "buildings": 42,
+      "manzanas": 21,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.440753810767138,
+        28.08497017282107
+      ],
+      "preview": "sections_pack/3501601052/preview.png"
+    },
+    {
+      "cusec": "3501601053",
+      "area_ha": 17.1314,
+      "buildings": 216,
+      "manzanas": 31,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.440060497766439,
+        28.0883605828547
+      ],
+      "preview": "sections_pack/3501601053/preview.png"
+    },
+    {
+      "cusec": "3501601054",
+      "area_ha": 371.8051,
+      "buildings": 312,
+      "manzanas": 78,
+      "pois": 12,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.437697121053946,
+        28.07807783250748
+      ],
+      "preview": "sections_pack/3501601054/preview.png"
+    },
+    {
+      "cusec": "3501601055",
+      "area_ha": 523.4535,
+      "buildings": 503,
+      "manzanas": 316,
+      "pois": 11,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.45247855784701,
+        28.0413625775716
+      ],
+      "preview": "sections_pack/3501601055/preview.png"
+    },
+    {
+      "cusec": "3501601056",
+      "area_ha": 196.4775,
+      "buildings": 439,
+      "manzanas": 155,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.442906383353755,
+        28.054520767004348
+      ],
+      "preview": "sections_pack/3501601056/preview.png"
+    },
+    {
+      "cusec": "3501601057",
+      "area_ha": 198.5179,
+      "buildings": 362,
+      "manzanas": 122,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.428900857502219,
+        28.059983887404627
+      ],
+      "preview": "sections_pack/3501601057/preview.png"
+    },
+    {
+      "cusec": "3501601058",
+      "area_ha": 202.2106,
+      "buildings": 693,
+      "manzanas": 299,
+      "pois": 9,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434142049798064,
+        28.04149028468917
+      ],
+      "preview": "sections_pack/3501601058/preview.png"
+    },
+    {
+      "cusec": "3501601059",
+      "area_ha": 65.4672,
+      "buildings": 442,
+      "manzanas": 134,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.425009639963248,
+        28.039223217219394
+      ],
+      "preview": "sections_pack/3501601059/preview.png"
+    },
+    {
+      "cusec": "3501601060",
+      "area_ha": 355.1993,
+      "buildings": 221,
+      "manzanas": 58,
+      "pois": 14,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.417420485068677,
+        28.044227090357612
+      ],
+      "preview": "sections_pack/3501601060/preview.png"
+    },
+    {
+      "cusec": "3501601061",
+      "area_ha": 39.5372,
+      "buildings": 34,
+      "manzanas": 18,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.406847005118257,
+        28.03069318946833
+      ],
+      "preview": "sections_pack/3501601061/preview.png"
+    },
+    {
+      "cusec": "3501601062",
+      "area_ha": 4.8893,
+      "buildings": 6,
+      "manzanas": 6,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.41535410141685,
+        28.034477255779258
+      ],
+      "preview": "sections_pack/3501601062/preview.png"
+    },
+    {
+      "cusec": "3501601063",
+      "area_ha": 5.8027,
+      "buildings": 6,
+      "manzanas": 5,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.41510518378889,
+        28.033026044612015
+      ],
+      "preview": "sections_pack/3501601063/preview.png"
+    },
+    {
+      "cusec": "3501602001",
+      "area_ha": 5.4491,
+      "buildings": 55,
+      "manzanas": 5,
+      "pois": 103,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.414819090605153,
+        28.104644199264463
+      ],
+      "preview": "sections_pack/3501602001/preview.png"
+    },
+    {
+      "cusec": "3501602002",
+      "area_ha": 4.3832,
+      "buildings": 19,
+      "manzanas": 5,
+      "pois": 34,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.415030133000828,
+        28.10739226932668
+      ],
+      "preview": "sections_pack/3501602002/preview.png"
+    },
+    {
+      "cusec": "3501602003",
+      "area_ha": 7.5096,
+      "buildings": 245,
+      "manzanas": 7,
+      "pois": 128,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.416191606016497,
+        28.10400553129549
+      ],
+      "preview": "sections_pack/3501602003/preview.png"
+    },
+    {
+      "cusec": "3501602004",
+      "area_ha": 17.0737,
+      "buildings": 289,
+      "manzanas": 19,
+      "pois": 153,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.417478979940253,
+        28.107719003414427
+      ],
+      "preview": "sections_pack/3501602004/preview.png"
+    },
+    {
+      "cusec": "3501602005",
+      "area_ha": 6.2525,
+      "buildings": 117,
+      "manzanas": 14,
+      "pois": 60,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.419328875291367,
+        28.105258508158503
+      ],
+      "preview": "sections_pack/3501602005/preview.png"
+    },
+    {
+      "cusec": "3501602006",
+      "area_ha": 7.7502,
+      "buildings": 155,
+      "manzanas": 14,
+      "pois": 67,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.417458815232727,
+        28.102304160789846
+      ],
+      "preview": "sections_pack/3501602006/preview.png"
+    },
+    {
+      "cusec": "3501602007",
+      "area_ha": 24.6657,
+      "buildings": 531,
+      "manzanas": 24,
+      "pois": 41,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422404860033977,
+        28.10463072605068
+      ],
+      "preview": "sections_pack/3501602007/preview.png"
+    },
+    {
+      "cusec": "3501602009",
+      "area_ha": 3.8751,
+      "buildings": 168,
+      "manzanas": 5,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42150606488012,
+        28.101959097320183
+      ],
+      "preview": "sections_pack/3501602009/preview.png"
+    },
+    {
+      "cusec": "3501602010",
+      "area_ha": 13.6149,
+      "buildings": 95,
+      "manzanas": 11,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.424102448815736,
+        28.101336999866177
+      ],
+      "preview": "sections_pack/3501602010/preview.png"
+    },
+    {
+      "cusec": "3501602011",
+      "area_ha": 11.0571,
+      "buildings": 250,
+      "manzanas": 4,
+      "pois": 20,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42043517877739,
+        28.100753402537496
+      ],
+      "preview": "sections_pack/3501602011/preview.png"
+    },
+    {
+      "cusec": "3501602012",
+      "area_ha": 48.0985,
+      "buildings": 454,
+      "manzanas": 53,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.432484329545458,
+        28.099655087121214
+      ],
+      "preview": "sections_pack/3501602012/preview.png"
+    },
+    {
+      "cusec": "3501602013",
+      "area_ha": 2.1588,
+      "buildings": 3,
+      "manzanas": 3,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.427509451476796,
+        28.10547713080169
+      ],
+      "preview": "sections_pack/3501602013/preview.png"
+    },
+    {
+      "cusec": "3501602014",
+      "area_ha": 4.8916,
+      "buildings": 15,
+      "manzanas": 14,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.430249571694608,
+        28.10555635009311
+      ],
+      "preview": "sections_pack/3501602014/preview.png"
+    },
+    {
+      "cusec": "3501602015",
+      "area_ha": 9.04,
+      "buildings": 26,
+      "manzanas": 14,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.431261729141465,
+        28.103347017331703
+      ],
+      "preview": "sections_pack/3501602015/preview.png"
+    },
+    {
+      "cusec": "3501602016",
+      "area_ha": 30.4602,
+      "buildings": 306,
+      "manzanas": 43,
+      "pois": 9,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.437946324540945,
+        28.10086260541898
+      ],
+      "preview": "sections_pack/3501602016/preview.png"
+    },
+    {
+      "cusec": "3501602018",
+      "area_ha": 18.3602,
+      "buildings": 66,
+      "manzanas": 12,
+      "pois": 8,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.442949786642847,
+        28.094819400615272
+      ],
+      "preview": "sections_pack/3501602018/preview.png"
+    },
+    {
+      "cusec": "3501602019",
+      "area_ha": 64.762,
+      "buildings": 215,
+      "manzanas": 66,
+      "pois": 15,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.440082615912672,
+        28.093098359779436
+      ],
+      "preview": "sections_pack/3501602019/preview.png"
+    },
+    {
+      "cusec": "3501602020",
+      "area_ha": 13.2712,
+      "buildings": 38,
+      "manzanas": 18,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.445430203185063,
+        28.09688603789126
+      ],
+      "preview": "sections_pack/3501602020/preview.png"
+    },
+    {
+      "cusec": "3501602021",
+      "area_ha": 7.6305,
+      "buildings": 37,
+      "manzanas": 10,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.448110959885387,
+        28.095685458452696
+      ],
+      "preview": "sections_pack/3501602021/preview.png"
+    },
+    {
+      "cusec": "3501602022",
+      "area_ha": 3.4381,
+      "buildings": 10,
+      "manzanas": 6,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.448018335983042,
+        28.09424387917329
+      ],
+      "preview": "sections_pack/3501602022/preview.png"
+    },
+    {
+      "cusec": "3501602023",
+      "area_ha": 2.0826,
+      "buildings": 19,
+      "manzanas": 4,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.44725818022747,
+        28.093956430446184
+      ],
+      "preview": "sections_pack/3501602023/preview.png"
+    },
+    {
+      "cusec": "3501602025",
+      "area_ha": 2.0552,
+      "buildings": 18,
+      "manzanas": 4,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.450069946808515,
+        28.09408989361703
+      ],
+      "preview": "sections_pack/3501602025/preview.png"
+    },
+    {
+      "cusec": "3501602026",
+      "area_ha": 26.8002,
+      "buildings": 293,
+      "manzanas": 36,
+      "pois": 6,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.452313318376493,
+        28.092726031681273
+      ],
+      "preview": "sections_pack/3501602026/preview.png"
+    },
+    {
+      "cusec": "3501602027",
+      "area_ha": 4.6019,
+      "buildings": 0,
+      "manzanas": 0,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.426347189232,
+        28.10466813143311
+      ],
+      "preview": "sections_pack/3501602027/preview.png"
+    },
+    {
+      "cusec": "3501602028",
+      "area_ha": 5.9082,
+      "buildings": 19,
+      "manzanas": 9,
+      "pois": 50,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.413501387604066,
+        28.10516885599753
+      ],
+      "preview": "sections_pack/3501602028/preview.png"
+    },
+    {
+      "cusec": "3501602029",
+      "area_ha": 43.063,
+      "buildings": 105,
+      "manzanas": 15,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.448336472878063,
+        28.089795189134303
+      ],
+      "preview": "sections_pack/3501602029/preview.png"
+    },
+    {
+      "cusec": "3501602030",
+      "area_ha": 3.1103,
+      "buildings": 5,
+      "manzanas": 5,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.451839894551854,
+        28.089411130638553
+      ],
+      "preview": "sections_pack/3501602030/preview.png"
+    },
+    {
+      "cusec": "3501602032",
+      "area_ha": 2.0935,
+      "buildings": 4,
+      "manzanas": 4,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.450449086161882,
+        28.091617667536994
+      ],
+      "preview": "sections_pack/3501602032/preview.png"
+    },
+    {
+      "cusec": "3501602033",
+      "area_ha": 9.8592,
+      "buildings": 137,
+      "manzanas": 20,
+      "pois": 55,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422590484109387,
+        28.110218606799705
+      ],
+      "preview": "sections_pack/3501602033/preview.png"
+    },
+    {
+      "cusec": "3501602034",
+      "area_ha": 7.5147,
+      "buildings": 243,
+      "manzanas": 15,
+      "pois": 106,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.420577357575755,
+        28.110077575757572
+      ],
+      "preview": "sections_pack/3501602034/preview.png"
+    },
+    {
+      "cusec": "3501602035",
+      "area_ha": 7.4163,
+      "buildings": 147,
+      "manzanas": 13,
+      "pois": 92,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.418060009825595,
+        28.110192999263084
+      ],
+      "preview": "sections_pack/3501602035/preview.png"
+    },
+    {
+      "cusec": "3501602036",
+      "area_ha": 6.0936,
+      "buildings": 115,
+      "manzanas": 11,
+      "pois": 75,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.419742600896859,
+        28.112084304932736
+      ],
+      "preview": "sections_pack/3501602036/preview.png"
+    },
+    {
+      "cusec": "3501602037",
+      "area_ha": 15.2912,
+      "buildings": 18,
+      "manzanas": 11,
+      "pois": 101,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.417513342863943,
+        28.113060721944244
+      ],
+      "preview": "sections_pack/3501602037/preview.png"
+    },
+    {
+      "cusec": "3501602038",
+      "area_ha": 7.6238,
+      "buildings": 66,
+      "manzanas": 26,
+      "pois": 70,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422839999999997,
+        28.112736869773
+      ],
+      "preview": "sections_pack/3501602038/preview.png"
+    },
+    {
+      "cusec": "3501602039",
+      "area_ha": 8.5308,
+      "buildings": 194,
+      "manzanas": 25,
+      "pois": 68,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422090049113818,
+        28.11439715994021
+      ],
+      "preview": "sections_pack/3501602039/preview.png"
+    },
+    {
+      "cusec": "3501602040",
+      "area_ha": 6.2354,
+      "buildings": 12,
+      "manzanas": 8,
+      "pois": 39,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.420500584282799,
+        28.116875226409576
+      ],
+      "preview": "sections_pack/3501602040/preview.png"
+    },
+    {
+      "cusec": "3501602041",
+      "area_ha": 8.0773,
+      "buildings": 310,
+      "manzanas": 24,
+      "pois": 24,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.426156427604866,
+        28.113873883626525
+      ],
+      "preview": "sections_pack/3501602041/preview.png"
+    },
+    {
+      "cusec": "3501602042",
+      "area_ha": 4.4047,
+      "buildings": 140,
+      "manzanas": 13,
+      "pois": 31,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.424423945409428,
+        28.115565798180317
+      ],
+      "preview": "sections_pack/3501602042/preview.png"
+    },
+    {
+      "cusec": "3501602043",
+      "area_ha": 3.6943,
+      "buildings": 92,
+      "manzanas": 7,
+      "pois": 42,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422924408284024,
+        28.115671548323473
+      ],
+      "preview": "sections_pack/3501602043/preview.png"
+    },
+    {
+      "cusec": "3501602044",
+      "area_ha": 5.5633,
+      "buildings": 73,
+      "manzanas": 12,
+      "pois": 25,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.426964538310422,
+        28.116378814669304
+      ],
+      "preview": "sections_pack/3501602044/preview.png"
+    },
+    {
+      "cusec": "3501602045",
+      "area_ha": 3.2188,
+      "buildings": 44,
+      "manzanas": 8,
+      "pois": 24,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42536853423882,
+        28.117017034521783
+      ],
+      "preview": "sections_pack/3501602045/preview.png"
+    },
+    {
+      "cusec": "3501602046",
+      "area_ha": 3.2079,
+      "buildings": 98,
+      "manzanas": 10,
+      "pois": 36,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42350948324815,
+        28.117522771152743
+      ],
+      "preview": "sections_pack/3501602046/preview.png"
+    },
+    {
+      "cusec": "3501602047",
+      "area_ha": 9.8311,
+      "buildings": 19,
+      "manzanas": 8,
+      "pois": 46,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422464702612535,
+        28.11932551417448
+      ],
+      "preview": "sections_pack/3501602047/preview.png"
+    },
+    {
+      "cusec": "3501602048",
+      "area_ha": 5.0822,
+      "buildings": 27,
+      "manzanas": 9,
+      "pois": 41,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.425483010752693,
+        28.118590967741934
+      ],
+      "preview": "sections_pack/3501602048/preview.png"
+    },
+    {
+      "cusec": "3501602049",
+      "area_ha": 20.1155,
+      "buildings": 141,
+      "manzanas": 42,
+      "pois": 43,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.428166005614425,
+        28.120442977451784
+      ],
+      "preview": "sections_pack/3501602049/preview.png"
+    },
+    {
+      "cusec": "3501602050",
+      "area_ha": 6.6177,
+      "buildings": 18,
+      "manzanas": 8,
+      "pois": 36,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.424965675750062,
+        28.121360996421693
+      ],
+      "preview": "sections_pack/3501602050/preview.png"
+    },
+    {
+      "cusec": "3501602051",
+      "area_ha": 36.8364,
+      "buildings": 520,
+      "manzanas": 85,
+      "pois": 37,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.428881657066897,
+        28.12433670063504
+      ],
+      "preview": "sections_pack/3501602051/preview.png"
+    },
+    {
+      "cusec": "3501602052",
+      "area_ha": 24.9064,
+      "buildings": 361,
+      "manzanas": 52,
+      "pois": 38,
+      "trees": 154,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43189997074741,
+        28.127163046657895
+      ],
+      "preview": "sections_pack/3501602052/preview.png"
+    },
+    {
+      "cusec": "3501602053",
+      "area_ha": 4.9233,
+      "buildings": 40,
+      "manzanas": 11,
+      "pois": 17,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434044765075837,
+        28.12943092859784
+      ],
+      "preview": "sections_pack/3501602053/preview.png"
+    },
+    {
+      "cusec": "3501602054",
+      "area_ha": 5.6445,
+      "buildings": 121,
+      "manzanas": 9,
+      "pois": 26,
+      "trees": 60,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.431360890609874,
+        28.129754598257502
+      ],
+      "preview": "sections_pack/3501602054/preview.png"
+    },
+    {
+      "cusec": "3501602055",
+      "area_ha": 3.0053,
+      "buildings": 42,
+      "manzanas": 8,
+      "pois": 26,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.433772060606062,
+        28.131190000000004
+      ],
+      "preview": "sections_pack/3501602055/preview.png"
+    },
+    {
+      "cusec": "3501602056",
+      "area_ha": 4.6117,
+      "buildings": 146,
+      "manzanas": 9,
+      "pois": 33,
+      "trees": 56,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.431063112164296,
+        28.13105710900474
+      ],
+      "preview": "sections_pack/3501602056/preview.png"
+    },
+    {
+      "cusec": "3501602057",
+      "area_ha": 4.4423,
+      "buildings": 104,
+      "manzanas": 12,
+      "pois": 65,
+      "trees": 70,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.433250061500615,
+        28.132880483804843
+      ],
+      "preview": "sections_pack/3501602057/preview.png"
+    },
+    {
+      "cusec": "3501602058",
+      "area_ha": 6.0706,
+      "buildings": 159,
+      "manzanas": 14,
+      "pois": 47,
+      "trees": 84,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.430689018901894,
+        28.132299939994002
+      ],
+      "preview": "sections_pack/3501602058/preview.png"
+    },
+    {
+      "cusec": "3501602059",
+      "area_ha": 3.191,
+      "buildings": 16,
+      "manzanas": 4,
+      "pois": 80,
+      "trees": 49,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434199600456626,
+        28.13388555936074
+      ],
+      "preview": "sections_pack/3501602059/preview.png"
+    },
+    {
+      "cusec": "3501602061",
+      "area_ha": 2.6828,
+      "buildings": 26,
+      "manzanas": 2,
+      "pois": 74,
+      "trees": 47,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43166754921928,
+        28.13431398506449
+      ],
+      "preview": "sections_pack/3501602061/preview.png"
+    },
+    {
+      "cusec": "3501602064",
+      "area_ha": 18.02,
+      "buildings": 96,
+      "manzanas": 40,
+      "pois": 154,
+      "trees": 471,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.427767960380015,
+        28.135098029108537
+      ],
+      "preview": "sections_pack/3501602064/preview.png"
+    },
+    {
+      "cusec": "3501602065",
+      "area_ha": 2.7166,
+      "buildings": 65,
+      "manzanas": 3,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.445145003353451,
+        28.09265285043595
+      ],
+      "preview": "sections_pack/3501602065/preview.png"
+    },
+    {
+      "cusec": "3501603001",
+      "area_ha": 12.9536,
+      "buildings": 116,
+      "manzanas": 20,
+      "pois": 112,
+      "trees": 330,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.429594573316463,
+        28.14615834387741
+      ],
+      "preview": "sections_pack/3501603001/preview.png"
+    },
+    {
+      "cusec": "3501603002",
+      "area_ha": 15.708,
+      "buildings": 169,
+      "manzanas": 33,
+      "pois": 155,
+      "trees": 327,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.429242434782608,
+        28.140848289855075
+      ],
+      "preview": "sections_pack/3501603002/preview.png"
+    },
+    {
+      "cusec": "3501603003",
+      "area_ha": 5.3161,
+      "buildings": 113,
+      "manzanas": 9,
+      "pois": 122,
+      "trees": 78,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.432400959232613,
+        28.14223603973962
+      ],
+      "preview": "sections_pack/3501603003/preview.png"
+    },
+    {
+      "cusec": "3501603004",
+      "area_ha": 13.4736,
+      "buildings": 253,
+      "manzanas": 32,
+      "pois": 206,
+      "trees": 256,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43148106244931,
+        28.138467072181662
+      ],
+      "preview": "sections_pack/3501603004/preview.png"
+    },
+    {
+      "cusec": "3501603005",
+      "area_ha": 5.3216,
+      "buildings": 182,
+      "manzanas": 7,
+      "pois": 153,
+      "trees": 82,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434908487337438,
+        28.139686755646814
+      ],
+      "preview": "sections_pack/3501603005/preview.png"
+    },
+    {
+      "cusec": "3501603006",
+      "area_ha": 6.0539,
+      "buildings": 118,
+      "manzanas": 11,
+      "pois": 93,
+      "trees": 160,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43044509626956,
+        28.136721690734067
+      ],
+      "preview": "sections_pack/3501603006/preview.png"
+    },
+    {
+      "cusec": "3501603007",
+      "area_ha": 5.3437,
+      "buildings": 198,
+      "manzanas": 12,
+      "pois": 122,
+      "trees": 104,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.432965337423319,
+        28.136262304021827
+      ],
+      "preview": "sections_pack/3501603007/preview.png"
+    },
+    {
+      "cusec": "3501603008",
+      "area_ha": 7.5237,
+      "buildings": 263,
+      "manzanas": 17,
+      "pois": 191,
+      "trees": 146,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.435707867344462,
+        28.137525974340363
+      ],
+      "preview": "sections_pack/3501603008/preview.png"
+    },
+    {
+      "cusec": "3501603009",
+      "area_ha": 5.606,
+      "buildings": 141,
+      "manzanas": 13,
+      "pois": 178,
+      "trees": 54,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.436043242365171,
+        28.135704808317094
+      ],
+      "preview": "sections_pack/3501603009/preview.png"
+    },
+    {
+      "cusec": "3501603010",
+      "area_ha": 4.4586,
+      "buildings": 59,
+      "manzanas": 8,
+      "pois": 88,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43722634803921,
+        28.13414064542482
+      ],
+      "preview": "sections_pack/3501603010/preview.png"
+    },
+    {
+      "cusec": "3501603011",
+      "area_ha": 4.994,
+      "buildings": 153,
+      "manzanas": 18,
+      "pois": 86,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.438529029905187,
+        28.135628738147346
+      ],
+      "preview": "sections_pack/3501603011/preview.png"
+    },
+    {
+      "cusec": "3501603012",
+      "area_ha": 2.59,
+      "buildings": 17,
+      "manzanas": 4,
+      "pois": 48,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.438410548523207,
+        28.133079957805908
+      ],
+      "preview": "sections_pack/3501603012/preview.png"
+    },
+    {
+      "cusec": "3501603013",
+      "area_ha": 2.0873,
+      "buildings": 18,
+      "manzanas": 4,
+      "pois": 31,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.437634293193721,
+        28.131948516579413
+      ],
+      "preview": "sections_pack/3501603013/preview.png"
+    },
+    {
+      "cusec": "3501603014",
+      "area_ha": 5.4641,
+      "buildings": 23,
+      "manzanas": 8,
+      "pois": 62,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.435786533333337,
+        28.132407999999998
+      ],
+      "preview": "sections_pack/3501603014/preview.png"
+    },
+    {
+      "cusec": "3501603015",
+      "area_ha": 1.9944,
+      "buildings": 16,
+      "manzanas": 6,
+      "pois": 15,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.437366484018266,
+        28.13096319634703
+      ],
+      "preview": "sections_pack/3501603015/preview.png"
+    },
+    {
+      "cusec": "3501603016",
+      "area_ha": 9.8244,
+      "buildings": 214,
+      "manzanas": 19,
+      "pois": 62,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.44249289951798,
+        28.13218781979977
+      ],
+      "preview": "sections_pack/3501603016/preview.png"
+    },
+    {
+      "cusec": "3501603017",
+      "area_ha": 3.437,
+      "buildings": 95,
+      "manzanas": 11,
+      "pois": 42,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.44166417594065,
+        28.13053508214097
+      ],
+      "preview": "sections_pack/3501603017/preview.png"
+    },
+    {
+      "cusec": "3501603018",
+      "area_ha": 11.841,
+      "buildings": 142,
+      "manzanas": 21,
+      "pois": 35,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.439833856329791,
+        28.12902670358407
+      ],
+      "preview": "sections_pack/3501603018/preview.png"
+    },
+    {
+      "cusec": "3501603019",
+      "area_ha": 5.9942,
+      "buildings": 196,
+      "manzanas": 20,
+      "pois": 46,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.44477283500456,
+        28.12996040717106
+      ],
+      "preview": "sections_pack/3501603019/preview.png"
+    },
+    {
+      "cusec": "3501603020",
+      "area_ha": 27.0535,
+      "buildings": 313,
+      "manzanas": 32,
+      "pois": 57,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.447987975493152,
+        28.12869452635831
+      ],
+      "preview": "sections_pack/3501603020/preview.png"
+    },
+    {
+      "cusec": "3501603021",
+      "area_ha": 4.1635,
+      "buildings": 88,
+      "manzanas": 16,
+      "pois": 41,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.4400834208224,
+        28.13441867891513
+      ],
+      "preview": "sections_pack/3501603021/preview.png"
+    },
+    {
+      "cusec": "3501603022",
+      "area_ha": 2.2129,
+      "buildings": 30,
+      "manzanas": 4,
+      "pois": 34,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.439250123456791,
+        28.132396213991772
+      ],
+      "preview": "sections_pack/3501603022/preview.png"
+    },
+    {
+      "cusec": "3501603023",
+      "area_ha": 3.5735,
+      "buildings": 15,
+      "manzanas": 8,
+      "pois": 30,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.440263506625895,
+        28.131499031600406
+      ],
+      "preview": "sections_pack/3501603023/preview.png"
+    },
+    {
+      "cusec": "3501603024",
+      "area_ha": 8.0255,
+      "buildings": 320,
+      "manzanas": 14,
+      "pois": 64,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.431156893424033,
+        28.149308956916116
+      ],
+      "preview": "sections_pack/3501603024/preview.png"
+    },
+    {
+      "cusec": "3501603025",
+      "area_ha": 4.6108,
+      "buildings": 256,
+      "manzanas": 18,
+      "pois": 10,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.430911334913114,
+        28.15196832543444
+      ],
+      "preview": "sections_pack/3501603025/preview.png"
+    },
+    {
+      "cusec": "3501603026",
+      "area_ha": 3.3707,
+      "buildings": 18,
+      "manzanas": 4,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.4318964343598,
+        28.153007887628302
+      ],
+      "preview": "sections_pack/3501603026/preview.png"
+    },
+    {
+      "cusec": "3501603027",
+      "area_ha": 4.8402,
+      "buildings": 141,
+      "manzanas": 11,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43156207674942,
+        28.15461538750938
+      ],
+      "preview": "sections_pack/3501603027/preview.png"
+    },
+    {
+      "cusec": "3501603028",
+      "area_ha": 31.1898,
+      "buildings": 303,
+      "manzanas": 44,
+      "pois": 100,
+      "trees": 58,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.424812156244531,
+        28.148047083552285
+      ],
+      "preview": "sections_pack/3501603028/preview.png"
+    },
+    {
+      "cusec": "3501603029",
+      "area_ha": 3.6112,
+      "buildings": 257,
+      "manzanas": 10,
+      "pois": 44,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.428140191628854,
+        28.14995683308119
+      ],
+      "preview": "sections_pack/3501603029/preview.png"
+    },
+    {
+      "cusec": "3501603030",
+      "area_ha": 4.447,
+      "buildings": 235,
+      "manzanas": 8,
+      "pois": 39,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.429136691236693,
+        28.151172358722352
+      ],
+      "preview": "sections_pack/3501603030/preview.png"
+    },
+    {
+      "cusec": "3501603031",
+      "area_ha": 5.1844,
+      "buildings": 283,
+      "manzanas": 9,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.429100000000005,
+        28.153415841236402
+      ],
+      "preview": "sections_pack/3501603031/preview.png"
+    },
+    {
+      "cusec": "3501603032",
+      "area_ha": 4.5779,
+      "buildings": 46,
+      "manzanas": 18,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.427674383452665,
+        28.155004773269688
+      ],
+      "preview": "sections_pack/3501603032/preview.png"
+    },
+    {
+      "cusec": "3501603033",
+      "area_ha": 5.037,
+      "buildings": 306,
+      "manzanas": 4,
+      "pois": 35,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.425735827910337,
+        28.150790166305136
+      ],
+      "preview": "sections_pack/3501603033/preview.png"
+    },
+    {
+      "cusec": "3501603034",
+      "area_ha": 6.4737,
+      "buildings": 406,
+      "manzanas": 9,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.426095414908586,
+        28.152308663853717
+      ],
+      "preview": "sections_pack/3501603034/preview.png"
+    },
+    {
+      "cusec": "3501603035",
+      "area_ha": 2.4037,
+      "buildings": 150,
+      "manzanas": 4,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.427561818181815,
+        28.15356803030302
+      ],
+      "preview": "sections_pack/3501603035/preview.png"
+    },
+    {
+      "cusec": "3501603036",
+      "area_ha": 3.4908,
+      "buildings": 227,
+      "manzanas": 2,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.4258034428795,
+        28.15397162232655
+      ],
+      "preview": "sections_pack/3501603036/preview.png"
+    },
+    {
+      "cusec": "3501603037",
+      "area_ha": 5.2937,
+      "buildings": 317,
+      "manzanas": 5,
+      "pois": 20,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.422698142414863,
+        28.15141558307534
+      ],
+      "preview": "sections_pack/3501603037/preview.png"
+    },
+    {
+      "cusec": "3501603038",
+      "area_ha": 8.3365,
+      "buildings": 517,
+      "manzanas": 6,
+      "pois": 6,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.423000305810401,
+        28.153352118829186
+      ],
+      "preview": "sections_pack/3501603038/preview.png"
+    },
+    {
+      "cusec": "3501603040",
+      "area_ha": 676.517,
+      "buildings": 1049,
+      "manzanas": 376,
+      "pois": 58,
+      "trees": 8,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.415214130224149,
+        28.160963042062317
+      ],
+      "preview": "sections_pack/3501603040/preview.png"
+    },
+    {
+      "cusec": "3501603041",
+      "area_ha": 261.8918,
+      "buildings": 366,
+      "manzanas": 96,
+      "pois": 5,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.430681106823796,
+        28.166331359543946
+      ],
+      "preview": "sections_pack/3501603041/preview.png"
+    },
+    {
+      "cusec": "3501603042",
+      "area_ha": 1.4042,
+      "buildings": 7,
+      "manzanas": 7,
+      "pois": 56,
+      "trees": 14,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434093904020754,
+        28.134956290531772
+      ],
+      "preview": "sections_pack/3501603042/preview.png"
+    },
+    {
+      "cusec": "3501603043",
+      "area_ha": 2.4424,
+      "buildings": 9,
+      "manzanas": 2,
+      "pois": 83,
+      "trees": 84,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.431832662192393,
+        28.135095973154357
+      ],
+      "preview": "sections_pack/3501603043/preview.png"
+    },
+    {
+      "cusec": "3501603044",
+      "area_ha": 3.4639,
+      "buildings": 93,
+      "manzanas": 6,
+      "pois": 95,
+      "trees": 63,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434216719242901,
+        28.141157570977917
+      ],
+      "preview": "sections_pack/3501603044/preview.png"
+    },
+    {
+      "cusec": "3501603045",
+      "area_ha": 6.9396,
+      "buildings": 133,
+      "manzanas": 27,
+      "pois": 32,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.442706141732282,
+        28.12844514435695
+      ],
+      "preview": "sections_pack/3501603045/preview.png"
+    },
+    {
+      "cusec": "3501603046",
+      "area_ha": 12.6644,
+      "buildings": 102,
+      "manzanas": 16,
+      "pois": 122,
+      "trees": 307,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42971488352028,
+        28.14325924647686
+      ],
+      "preview": "sections_pack/3501603046/preview.png"
+    },
+    {
+      "cusec": "3501604001",
+      "area_ha": 17.1871,
+      "buildings": 417,
+      "manzanas": 43,
+      "pois": 15,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.431404568097504,
+        28.115880042395325
+      ],
+      "preview": "sections_pack/3501604001/preview.png"
+    },
+    {
+      "cusec": "3501604002",
+      "area_ha": 3.8419,
+      "buildings": 131,
+      "manzanas": 9,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.430130678046472,
+        28.115166714082505
+      ],
+      "preview": "sections_pack/3501604002/preview.png"
+    },
+    {
+      "cusec": "3501604003",
+      "area_ha": 12.5314,
+      "buildings": 326,
+      "manzanas": 43,
+      "pois": 99,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42699893879924,
+        28.113051969763042
+      ],
+      "preview": "sections_pack/3501604003/preview.png"
+    },
+    {
+      "cusec": "3501604004",
+      "area_ha": 7.4874,
+      "buildings": 235,
+      "manzanas": 8,
+      "pois": 22,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.424260170316302,
+        28.108758175182487
+      ],
+      "preview": "sections_pack/3501604004/preview.png"
+    },
+    {
+      "cusec": "3501604005",
+      "area_ha": 7.5364,
+      "buildings": 222,
+      "manzanas": 27,
+      "pois": 10,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.42972293932801,
+        28.111763065022963
+      ],
+      "preview": "sections_pack/3501604005/preview.png"
+    },
+    {
+      "cusec": "3501604006",
+      "area_ha": 10.2254,
+      "buildings": 260,
+      "manzanas": 25,
+      "pois": 26,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.427476946374497,
+        28.110587724924294
+      ],
+      "preview": "sections_pack/3501604006/preview.png"
+    },
+    {
+      "cusec": "3501604007",
+      "area_ha": 17.3688,
+      "buildings": 31,
+      "manzanas": 21,
+      "pois": 8,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.428926452695618,
+        28.108077868680525
+      ],
+      "preview": "sections_pack/3501604007/preview.png"
+    },
+    {
+      "cusec": "3501604008",
+      "area_ha": 7.4056,
+      "buildings": 70,
+      "manzanas": 12,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.426044698646987,
+        28.10687911439114
+      ],
+      "preview": "sections_pack/3501604008/preview.png"
+    },
+    {
+      "cusec": "3501604009",
+      "area_ha": 2.0658,
+      "buildings": 51,
+      "manzanas": 2,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43071675485009,
+        28.112576895943572
+      ],
+      "preview": "sections_pack/3501604009/preview.png"
+    },
+    {
+      "cusec": "3501604011",
+      "area_ha": 2.197,
+      "buildings": 64,
+      "manzanas": 8,
+      "pois": 6,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.431673880597014,
+        28.112086069651745
+      ],
+      "preview": "sections_pack/3501604011/preview.png"
+    },
+    {
+      "cusec": "3501604012",
+      "area_ha": 1.4756,
+      "buildings": 42,
+      "manzanas": 6,
+      "pois": 6,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.432748518518517,
+        28.111785432098763
+      ],
+      "preview": "sections_pack/3501604012/preview.png"
+    },
+    {
+      "cusec": "3501604013",
+      "area_ha": 5.0608,
+      "buildings": 234,
+      "manzanas": 15,
+      "pois": 13,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.432364830813537,
+        28.109759971202305
+      ],
+      "preview": "sections_pack/3501604013/preview.png"
+    },
+    {
+      "cusec": "3501604014",
+      "area_ha": 7.6184,
+      "buildings": 59,
+      "manzanas": 16,
+      "pois": 6,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43564555236729,
+        28.111574414155914
+      ],
+      "preview": "sections_pack/3501604014/preview.png"
+    },
+    {
+      "cusec": "3501604015",
+      "area_ha": 5.5089,
+      "buildings": 246,
+      "manzanas": 12,
+      "pois": 11,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.433932440476188,
+        28.110370171957676
+      ],
+      "preview": "sections_pack/3501604015/preview.png"
+    },
+    {
+      "cusec": "3501604016",
+      "area_ha": 3.1371,
+      "buildings": 80,
+      "manzanas": 14,
+      "pois": 8,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43257799070848,
+        28.10755749128919
+      ],
+      "preview": "sections_pack/3501604016/preview.png"
+    },
+    {
+      "cusec": "3501604017",
+      "area_ha": 2.2299,
+      "buildings": 28,
+      "manzanas": 7,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43217712418301,
+        28.106682026143798
+      ],
+      "preview": "sections_pack/3501604017/preview.png"
+    },
+    {
+      "cusec": "3501604019",
+      "area_ha": 1.4975,
+      "buildings": 2,
+      "manzanas": 2,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.432571897810224,
+        28.105377858880775
+      ],
+      "preview": "sections_pack/3501604019/preview.png"
+    },
+    {
+      "cusec": "3501604020",
+      "area_ha": 2.0987,
+      "buildings": 26,
+      "manzanas": 4,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43795190972222,
+        28.109300520833326
+      ],
+      "preview": "sections_pack/3501604020/preview.png"
+    },
+    {
+      "cusec": "3501604021",
+      "area_ha": 6.2632,
+      "buildings": 315,
+      "manzanas": 23,
+      "pois": 8,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.435391768470035,
+        28.10887876672483
+      ],
+      "preview": "sections_pack/3501604021/preview.png"
+    },
+    {
+      "cusec": "3501604022",
+      "area_ha": 2.6234,
+      "buildings": 64,
+      "manzanas": 8,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.435135972222225,
+        28.106784236111114
+      ],
+      "preview": "sections_pack/3501604022/preview.png"
+    },
+    {
+      "cusec": "3501604023",
+      "area_ha": 3.077,
+      "buildings": 75,
+      "manzanas": 10,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.433792303137954,
+        28.1071400828893
+      ],
+      "preview": "sections_pack/3501604023/preview.png"
+    },
+    {
+      "cusec": "3501604024",
+      "area_ha": 0.8581,
+      "buildings": 7,
+      "manzanas": 5,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.433073248407647,
+        28.106316348195328
+      ],
+      "preview": "sections_pack/3501604024/preview.png"
+    },
+    {
+      "cusec": "3501604025",
+      "area_ha": 2.9841,
+      "buildings": 14,
+      "manzanas": 10,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434918864468864,
+        28.105348168498168
+      ],
+      "preview": "sections_pack/3501604025/preview.png"
+    },
+    {
+      "cusec": "3501604026",
+      "area_ha": 2.5304,
+      "buildings": 132,
+      "manzanas": 6,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.437495104391648,
+        28.10833354931605
+      ],
+      "preview": "sections_pack/3501604026/preview.png"
+    },
+    {
+      "cusec": "3501604027",
+      "area_ha": 3.3503,
+      "buildings": 144,
+      "manzanas": 8,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.436905383360518,
+        28.107188743882546
+      ],
+      "preview": "sections_pack/3501604027/preview.png"
+    },
+    {
+      "cusec": "3501604028",
+      "area_ha": 3.5034,
+      "buildings": 9,
+      "manzanas": 7,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.436987831513258,
+        28.105389287571498
+      ],
+      "preview": "sections_pack/3501604028/preview.png"
+    },
+    {
+      "cusec": "3501604029",
+      "area_ha": 8.0562,
+      "buildings": 24,
+      "manzanas": 15,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.436202645861597,
+        28.10376793306197
+      ],
+      "preview": "sections_pack/3501604029/preview.png"
+    },
+    {
+      "cusec": "3501604030",
+      "area_ha": 3.9896,
+      "buildings": 33,
+      "manzanas": 7,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.438514474885848,
+        28.110035662100458
+      ],
+      "preview": "sections_pack/3501604030/preview.png"
+    },
+    {
+      "cusec": "3501604031",
+      "area_ha": 5.0282,
+      "buildings": 127,
+      "manzanas": 6,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.439103297101454,
+        28.10663710144928
+      ],
+      "preview": "sections_pack/3501604031/preview.png"
+    },
+    {
+      "cusec": "3501604032",
+      "area_ha": 2.0003,
+      "buildings": 17,
+      "manzanas": 6,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.439444990892529,
+        28.108211930783227
+      ],
+      "preview": "sections_pack/3501604032/preview.png"
+    },
+    {
+      "cusec": "3501604033",
+      "area_ha": 7.5534,
+      "buildings": 15,
+      "manzanas": 14,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43882173178967,
+        28.10360332850941
+      ],
+      "preview": "sections_pack/3501604033/preview.png"
+    },
+    {
+      "cusec": "3501604034",
+      "area_ha": 17.2604,
+      "buildings": 30,
+      "manzanas": 18,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.441631845049608,
+        28.102090173105335
+      ],
+      "preview": "sections_pack/3501604034/preview.png"
+    },
+    {
+      "cusec": "3501604035",
+      "area_ha": 7.2967,
+      "buildings": 23,
+      "manzanas": 12,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.445112184769041,
+        28.100842971285886
+      ],
+      "preview": "sections_pack/3501604035/preview.png"
+    },
+    {
+      "cusec": "3501604036",
+      "area_ha": 2.4486,
+      "buildings": 22,
+      "manzanas": 5,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.446717708333336,
+        28.10036666666668
+      ],
+      "preview": "sections_pack/3501604036/preview.png"
+    },
+    {
+      "cusec": "3501604037",
+      "area_ha": 6.0178,
+      "buildings": 187,
+      "manzanas": 13,
+      "pois": 9,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.447627823191041,
+        28.098695821980048
+      ],
+      "preview": "sections_pack/3501604037/preview.png"
+    },
+    {
+      "cusec": "3501604038",
+      "area_ha": 14.6786,
+      "buildings": 138,
+      "manzanas": 22,
+      "pois": 13,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.433006775874906,
+        28.11669446512782
+      ],
+      "preview": "sections_pack/3501604038/preview.png"
+    },
+    {
+      "cusec": "3501604039",
+      "area_ha": 20.1092,
+      "buildings": 266,
+      "manzanas": 66,
+      "pois": 42,
+      "trees": 9,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434661793478261,
+        28.12475080615942
+      ],
+      "preview": "sections_pack/3501604039/preview.png"
+    },
+    {
+      "cusec": "3501604040",
+      "area_ha": 5.1531,
+      "buildings": 57,
+      "manzanas": 9,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.435115942028986,
+        28.12221841640155
+      ],
+      "preview": "sections_pack/3501604040/preview.png"
+    },
+    {
+      "cusec": "3501604041",
+      "area_ha": 1.7815,
+      "buildings": 3,
+      "manzanas": 3,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.436558588957048,
+        28.122548875255617
+      ],
+      "preview": "sections_pack/3501604041/preview.png"
+    },
+    {
+      "cusec": "3501604042",
+      "area_ha": 3.2569,
+      "buildings": 28,
+      "manzanas": 10,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.436145134228182,
+        28.120835570469787
+      ],
+      "preview": "sections_pack/3501604042/preview.png"
+    },
+    {
+      "cusec": "3501604043",
+      "area_ha": 18.9355,
+      "buildings": 434,
+      "manzanas": 36,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.434964454064458,
+        28.118476507936514
+      ],
+      "preview": "sections_pack/3501604043/preview.png"
+    },
+    {
+      "cusec": "3501604045",
+      "area_ha": 6.9457,
+      "buildings": 17,
+      "manzanas": 9,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.438453448728044,
+        28.119712378704435
+      ],
+      "preview": "sections_pack/3501604045/preview.png"
+    },
+    {
+      "cusec": "3501604046",
+      "area_ha": 3.328,
+      "buildings": 5,
+      "manzanas": 5,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.43759874110564,
+        28.118663656267117
+      ],
+      "preview": "sections_pack/3501604046/preview.png"
+    },
+    {
+      "cusec": "3501604047",
+      "area_ha": 10.5964,
+      "buildings": 57,
+      "manzanas": 23,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.44016587588104,
+        28.11646883273166
+      ],
+      "preview": "sections_pack/3501604047/preview.png"
+    },
+    {
+      "cusec": "3501604048",
+      "area_ha": 5.2354,
+      "buildings": 69,
+      "manzanas": 12,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.437388030619346,
+        28.11552115518441
+      ],
+      "preview": "sections_pack/3501604048/preview.png"
+    },
+    {
+      "cusec": "3501604049",
+      "area_ha": 4.6972,
+      "buildings": 62,
+      "manzanas": 16,
+      "pois": 5,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.436027435001945,
+        28.114031276678308
+      ],
+      "preview": "sections_pack/3501604049/preview.png"
+    },
+    {
+      "cusec": "3501604050",
+      "area_ha": 4.1424,
+      "buildings": 72,
+      "manzanas": 17,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.439170844327174,
+        28.114953166226904
+      ],
+      "preview": "sections_pack/3501604050/preview.png"
+    },
+    {
+      "cusec": "3501604051",
+      "area_ha": 2.3773,
+      "buildings": 79,
+      "manzanas": 5,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.436709808429118,
+        28.113053103448276
+      ],
+      "preview": "sections_pack/3501604051/preview.png"
+    },
+    {
+      "cusec": "3501604052",
+      "area_ha": 3.1315,
+      "buildings": 111,
+      "manzanas": 11,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.438000290866782,
+        28.11278621291449
+      ],
+      "preview": "sections_pack/3501604052/preview.png"
+    },
+    {
+      "cusec": "3501604053",
+      "area_ha": 2.7326,
+      "buildings": 11,
+      "manzanas": 10,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.438536066666666,
+        28.111525933333322
+      ],
+      "preview": "sections_pack/3501604053/preview.png"
+    },
+    {
+      "cusec": "3501604055",
+      "area_ha": 35.8851,
+      "buildings": 67,
+      "manzanas": 19,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.441517245405624,
+        28.108516351913877
+      ],
+      "preview": "sections_pack/3501604055/preview.png"
+    },
+    {
+      "cusec": "3501604056",
+      "area_ha": 15.0053,
+      "buildings": 37,
+      "manzanas": 19,
+      "pois": 24,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.440894355426073,
+        28.125200485554757
+      ],
+      "preview": "sections_pack/3501604056/preview.png"
+    },
+    {
+      "cusec": "3501604057",
+      "area_ha": 1.6614,
+      "buildings": 10,
+      "manzanas": 2,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.444458442982453,
+        28.111414583333335
+      ],
+      "preview": "sections_pack/3501604057/preview.png"
+    },
+    {
+      "cusec": "3501604058",
+      "area_ha": 34.8921,
+      "buildings": 127,
+      "manzanas": 41,
+      "pois": 9,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.450312766290716,
+        28.10317318817877
+      ],
+      "preview": "sections_pack/3501604058/preview.png"
+    },
+    {
+      "cusec": "3501604059",
+      "area_ha": 4.8695,
+      "buildings": 20,
+      "manzanas": 4,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.444103254769924,
+        28.109693191170983
+      ],
+      "preview": "sections_pack/3501604059/preview.png"
+    },
+    {
+      "cusec": "3501604060",
+      "area_ha": 29.0982,
+      "buildings": 58,
+      "manzanas": 29,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.445767781116949,
+        28.10478407838717
+      ],
+      "preview": "sections_pack/3501604060/preview.png"
+    },
+    {
+      "cusec": "3501604061",
+      "area_ha": 67.0689,
+      "buildings": 323,
+      "manzanas": 48,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.453973660338399,
+        28.11906156875526
+      ],
+      "preview": "sections_pack/3501604061/preview.png"
+    },
+    {
+      "cusec": "3501604062",
+      "area_ha": 34.8272,
+      "buildings": 52,
+      "manzanas": 26,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.446183555625305,
+        28.117842606830923
+      ],
+      "preview": "sections_pack/3501604062/preview.png"
+    },
+    {
+      "cusec": "3501604063",
+      "area_ha": 94.7168,
+      "buildings": 340,
+      "manzanas": 41,
+      "pois": 11,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.456398014888329,
+        28.09846887875815
+      ],
+      "preview": "sections_pack/3501604063/preview.png"
+    },
+    {
+      "cusec": "3501604064",
+      "area_ha": 13.9959,
+      "buildings": 14,
+      "manzanas": 8,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.444177821163612,
+        28.114069152674748
+      ],
+      "preview": "sections_pack/3501604064/preview.png"
+    },
+    {
+      "cusec": "3501604065",
+      "area_ha": 2.1915,
+      "buildings": 14,
+      "manzanas": 6,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.445498420615126,
+        28.111078137988358
+      ],
+      "preview": "sections_pack/3501604065/preview.png"
+    },
+    {
+      "cusec": "3501604066",
+      "area_ha": 1.962,
+      "buildings": 10,
+      "manzanas": 4,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.446397864438248,
+        28.110407149489316
+      ],
+      "preview": "sections_pack/3501604066/preview.png"
+    },
+    {
+      "cusec": "3501604067",
+      "area_ha": 4.5579,
+      "buildings": 1,
+      "manzanas": 1,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.443454876099123,
+        28.112094084732224
+      ],
+      "preview": "sections_pack/3501604067/preview.png"
+    },
+    {
+      "cusec": "3501604068",
+      "area_ha": 8.7821,
+      "buildings": 5,
+      "manzanas": 5,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.442996183364444,
+        28.11660688653806
+      ],
+      "preview": "sections_pack/3501604068/preview.png"
+    },
+    {
+      "cusec": "3501604069",
+      "area_ha": 4.4979,
+      "buildings": 15,
+      "manzanas": 7,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.446434426893479,
+        28.10829967598217
+      ],
+      "preview": "sections_pack/3501604069/preview.png"
+    },
+    {
+      "cusec": "3501604070",
+      "area_ha": 16.423,
+      "buildings": 275,
+      "manzanas": 32,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.451841963394333,
+        28.10987894620075
+      ],
+      "preview": "sections_pack/3501604070/preview.png"
+    },
+    {
+      "cusec": "3501604071",
+      "area_ha": 58.1506,
+      "buildings": 223,
+      "manzanas": 52,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.456779649122806,
+        28.10868807017543
+      ],
+      "preview": "sections_pack/3501604071/preview.png"
+    },
+    {
+      "cusec": "3501604073",
+      "area_ha": 15.7492,
+      "buildings": 125,
+      "manzanas": 20,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.44059520009253,
+        28.120803608605133
+      ],
+      "preview": "sections_pack/3501604073/preview.png"
+    },
+    {
+      "cusec": "3501604074",
+      "area_ha": 6.6345,
+      "buildings": 13,
+      "manzanas": 11,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.452210323997802,
+        28.11397424492037
+      ],
+      "preview": "sections_pack/3501604074/preview.png"
+    },
+    {
+      "cusec": "3501604075",
+      "area_ha": 4.7605,
+      "buildings": 7,
+      "manzanas": 7,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.453593953310367,
+        28.103128281668564
+      ],
+      "preview": "sections_pack/3501604075/preview.png"
+    },
+    {
+      "cusec": "3501604076",
+      "area_ha": 14.7139,
+      "buildings": 12,
+      "manzanas": 12,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.453268449727592,
+        28.098439264487375
+      ],
+      "preview": "sections_pack/3501604076/preview.png"
+    },
+    {
+      "cusec": "3501604077",
+      "area_ha": 7.7386,
+      "buildings": 25,
+      "manzanas": 15,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.452035758003767,
+        28.112302000941607
+      ],
+      "preview": "sections_pack/3501604077/preview.png"
+    },
+    {
+      "cusec": "3501604078",
+      "area_ha": 8.4276,
+      "buildings": 16,
+      "manzanas": 14,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.45190745784695,
+        28.10670940337226
+      ],
+      "preview": "sections_pack/3501604078/preview.png"
+    },
+    {
+      "cusec": "3501604079",
+      "area_ha": 14.9669,
+      "buildings": 35,
+      "manzanas": 18,
+      "pois": 20,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.437782049409762,
+        28.12624566143361
+      ],
+      "preview": "sections_pack/3501604079/preview.png"
+    },
+    {
+      "cusec": "3501604080",
+      "area_ha": 17.7127,
+      "buildings": 19,
+      "manzanas": 9,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.447733014501702,
+        28.110056155507575
+      ],
+      "preview": "sections_pack/3501604080/preview.png"
+    },
+    {
+      "cusec": "3501604081",
+      "area_ha": 30.186,
+      "buildings": 46,
+      "manzanas": 22,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.445072169925178,
+        28.123591316678738
+      ],
+      "preview": "sections_pack/3501604081/preview.png"
+    },
+    {
+      "cusec": "3501604082",
+      "area_ha": 16.3786,
+      "buildings": 158,
+      "manzanas": 12,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.450044121899676,
+        28.11425243020798
+      ],
+      "preview": "sections_pack/3501604082/preview.png"
+    },
+    {
+      "cusec": "3501604083",
+      "area_ha": 4.2952,
+      "buildings": 10,
+      "manzanas": 7,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.438035835453778,
+        28.12249881255301
+      ],
+      "preview": "sections_pack/3501604083/preview.png"
+    },
+    {
+      "cusec": "3501604084",
+      "area_ha": 4.3839,
+      "buildings": 4,
+      "manzanas": 4,
+      "pois": 5,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.439206982543642,
+        28.126084829592696
+      ],
+      "preview": "sections_pack/3501604084/preview.png"
+    },
+    {
+      "cusec": "3501605001",
+      "area_ha": 12.3254,
+      "buildings": 446,
+      "manzanas": 19,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.472336053215079,
+        28.098070110864747
+      ],
+      "preview": "sections_pack/3501605001/preview.png"
+    },
+    {
+      "cusec": "3501605002",
+      "area_ha": 93.0523,
+      "buildings": 260,
+      "manzanas": 49,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.47262397399749,
+        28.09559022164786
+      ],
+      "preview": "sections_pack/3501605002/preview.png"
+    },
+    {
+      "cusec": "3501605003",
+      "area_ha": 36.5756,
+      "buildings": 319,
+      "manzanas": 17,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.476816258218756,
+        28.10300049312613
+      ],
+      "preview": "sections_pack/3501605003/preview.png"
+    },
+    {
+      "cusec": "3501605004",
+      "area_ha": 10.9803,
+      "buildings": 414,
+      "manzanas": 18,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.469657806537256,
+        28.102888800398205
+      ],
+      "preview": "sections_pack/3501605004/preview.png"
+    },
+    {
+      "cusec": "3501605005",
+      "area_ha": 22.4137,
+      "buildings": 368,
+      "manzanas": 11,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.467646866617901,
+        28.105755872551416
+      ],
+      "preview": "sections_pack/3501605005/preview.png"
+    },
+    {
+      "cusec": "3501605006",
+      "area_ha": 56.4205,
+      "buildings": 247,
+      "manzanas": 41,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.463075682133763,
+        28.104142613581335
+      ],
+      "preview": "sections_pack/3501605006/preview.png"
+    },
+    {
+      "cusec": "3501605007",
+      "area_ha": 122.9379,
+      "buildings": 394,
+      "manzanas": 83,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.488926255261134,
+        28.097466102021446
+      ],
+      "preview": "sections_pack/3501605007/preview.png"
+    },
+    {
+      "cusec": "3501605008",
+      "area_ha": 15.086,
+      "buildings": 303,
+      "manzanas": 34,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.482970748792281,
+        28.095537681159417
+      ],
+      "preview": "sections_pack/3501605008/preview.png"
+    },
+    {
+      "cusec": "3501605009",
+      "area_ha": 24.456,
+      "buildings": 17,
+      "manzanas": 13,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.490265064818947,
+        28.08962365519295
+      ],
+      "preview": "sections_pack/3501605009/preview.png"
+    },
+    {
+      "cusec": "3501605010",
+      "area_ha": 403.831,
+      "buildings": 624,
+      "manzanas": 90,
+      "pois": 29,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.467157678237145,
+        28.115523641202607
+      ],
+      "preview": "sections_pack/3501605010/preview.png"
+    },
+    {
+      "cusec": "3501605011",
+      "area_ha": 286.8906,
+      "buildings": 292,
+      "manzanas": 80,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.473986533846325,
+        28.126432871763598
+      ],
+      "preview": "sections_pack/3501605011/preview.png"
+    },
+    {
+      "cusec": "3501605012",
+      "area_ha": 170.116,
+      "buildings": 675,
+      "manzanas": 102,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.484224775397005,
+        28.116657440543126
+      ],
+      "preview": "sections_pack/3501605012/preview.png"
+    },
+    {
+      "cusec": "3501605013",
+      "area_ha": 14.8678,
+      "buildings": 132,
+      "manzanas": 24,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.46188888480392,
+        28.09231789215687
+      ],
+      "preview": "sections_pack/3501605013/preview.png"
+    },
+    {
+      "cusec": "3501605014",
+      "area_ha": 52.8263,
+      "buildings": 597,
+      "manzanas": 50,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.495455545210026,
+        28.110957379819297
+      ],
+      "preview": "sections_pack/3501605014/preview.png"
+    },
+    {
+      "cusec": "3501605015",
+      "area_ha": 135.9108,
+      "buildings": 219,
+      "manzanas": 74,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.490930762632358,
+        28.11712262967431
+      ],
+      "preview": "sections_pack/3501605015/preview.png"
+    },
+    {
+      "cusec": "3501605016",
+      "area_ha": 48.1601,
+      "buildings": 239,
+      "manzanas": 69,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.50265279385616,
+        28.09634799303901
+      ],
+      "preview": "sections_pack/3501605016/preview.png"
+    },
+    {
+      "cusec": "3501605017",
+      "area_ha": 513.9195,
+      "buildings": 474,
+      "manzanas": 244,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.507167179754472,
+        28.07723864540561
+      ],
+      "preview": "sections_pack/3501605017/preview.png"
+    },
+    {
+      "cusec": "3501605018",
+      "area_ha": 7.6302,
+      "buildings": 129,
+      "manzanas": 5,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.469498782234949,
+        28.099080969436454
+      ],
+      "preview": "sections_pack/3501605018/preview.png"
+    },
+    {
+      "cusec": "3501605019",
+      "area_ha": 449.2543,
+      "buildings": 389,
+      "manzanas": 269,
+      "pois": 2,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.505721743769502,
+        28.058321830183083
+      ],
+      "preview": "sections_pack/3501605019/preview.png"
+    },
+    {
+      "cusec": "3501605020",
+      "area_ha": 532.4536,
+      "buildings": 664,
+      "manzanas": 234,
+      "pois": 4,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.480736600233422,
+        28.071441425456825
+      ],
+      "preview": "sections_pack/3501605020/preview.png"
+    },
+    {
+      "cusec": "3501605021",
+      "area_ha": 185.4495,
+      "buildings": 365,
+      "manzanas": 181,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.486368055391761,
+        28.057099227503247
+      ],
+      "preview": "sections_pack/3501605021/preview.png"
+    },
+    {
+      "cusec": "3501605022",
+      "area_ha": 123.632,
+      "buildings": 309,
+      "manzanas": 65,
+      "pois": 7,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.4582629539559,
+        28.08325820215778
+      ],
+      "preview": "sections_pack/3501605022/preview.png"
+    },
+    {
+      "cusec": "3501605023",
+      "area_ha": 208.2616,
+      "buildings": 405,
+      "manzanas": 111,
+      "pois": 6,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.4679186798957,
+        28.085278505433344
+      ],
+      "preview": "sections_pack/3501605023/preview.png"
+    },
+    {
+      "cusec": "3501605024",
+      "area_ha": 116.7589,
+      "buildings": 399,
+      "manzanas": 125,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.465096144721233,
+        28.069668060498206
+      ],
+      "preview": "sections_pack/3501605024/preview.png"
+    },
+    {
+      "cusec": "3501605025",
+      "area_ha": 25.1448,
+      "buildings": 168,
+      "manzanas": 31,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.462227050724623,
+        28.089299239130412
+      ],
+      "preview": "sections_pack/3501605025/preview.png"
+    },
+    {
+      "cusec": "3501605026",
+      "area_ha": 9.4937,
+      "buildings": 303,
+      "manzanas": 21,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.467236307810396,
+        28.102727557090773
+      ],
+      "preview": "sections_pack/3501605026/preview.png"
+    },
+    {
+      "cusec": "3501605027",
+      "area_ha": 10.0733,
+      "buildings": 22,
+      "manzanas": 16,
+      "pois": 3,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.472811557243618,
+        28.10061922589979
+      ],
+      "preview": "sections_pack/3501605027/preview.png"
+    },
+    {
+      "cusec": "3501605028",
+      "area_ha": 19.6836,
+      "buildings": 135,
+      "manzanas": 34,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.481357280385083,
+        28.091451920762754
+      ],
+      "preview": "sections_pack/3501605028/preview.png"
+    },
+    {
+      "cusec": "3501605029",
+      "area_ha": 19.6659,
+      "buildings": 36,
+      "manzanas": 15,
+      "pois": 1,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.466614017046496,
+        28.098894598851196
+      ],
+      "preview": "sections_pack/3501605029/preview.png"
+    },
+    {
+      "cusec": "3501605030",
+      "area_ha": 139.645,
+      "buildings": 394,
+      "manzanas": 117,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.495711022831035,
+        28.103168957599472
+      ],
+      "preview": "sections_pack/3501605030/preview.png"
+    },
+    {
+      "cusec": "3501605031",
+      "area_ha": 15.6593,
+      "buildings": 24,
+      "manzanas": 6,
+      "pois": 5,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.47933505526468,
+        28.100135764979637
+      ],
+      "preview": "sections_pack/3501605031/preview.png"
+    },
+    {
+      "cusec": "3501605032",
+      "area_ha": 25.3681,
+      "buildings": 341,
+      "manzanas": 18,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.486190117072459,
+        28.09278778998778
+      ],
+      "preview": "sections_pack/3501605032/preview.png"
+    },
+    {
+      "cusec": "3501605033",
+      "area_ha": 255.0813,
+      "buildings": 167,
+      "manzanas": 54,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.488985750412551,
+        28.08094291735424
+      ],
+      "preview": "sections_pack/3501605033/preview.png"
+    },
+    {
+      "cusec": "3501605034",
+      "area_ha": 15.415,
+      "buildings": 16,
+      "manzanas": 11,
+      "pois": 0,
+      "trees": 0,
+      "monuments": 0,
+      "centroid_lnglat": [
+        -15.487660638297873,
+        28.088047115839256
+      ],
+      "preview": "sections_pack/3501605034/preview.png"
+    }
+  ],
+  "failures": []
+}

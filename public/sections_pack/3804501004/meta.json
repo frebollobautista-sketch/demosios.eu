@@ -1,0 +1,87 @@
+{
+  "cusec": "3804501004",
+  "mun": "045",
+  "nmun": "Tazacorte",
+  "area_ha": 143.78744631008053,
+  "perimeter_m": 7967.462932695916,
+  "building_count": 299,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 26,
+  "road_segment_count": 772,
+  "centroid_lnglat": [
+    -17.941377696961414,
+    28.653850564494082
+  ],
+  "bbox_lnglat": [
+    -17.94963,
+    28.64284,
+    -17.93415,
+    28.66272
+  ],
+  "bbox_local_m": [
+    -806.142214550039,
+    -987.3455605188177,
+    706.0515843066769,
+    1225.6960394812452
+  ],
+  "enu_basis": {
+    "lng0": -17.941377696961414,
+    "lat0": 28.653850564494082,
+    "cos_lat0": 0.8775326797578112
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:36:24+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

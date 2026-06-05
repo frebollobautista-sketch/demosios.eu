@@ -1,0 +1,87 @@
+{
+  "cusec": "3501701002",
+  "mun": "017",
+  "nmun": "Puerto del Rosario",
+  "area_ha": 64.55525492878296,
+  "perimeter_m": 4756.686781665055,
+  "building_count": 1149,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 56,
+  "road_segment_count": 478,
+  "centroid_lnglat": [
+    -13.866005615070993,
+    28.496321594263993
+  ],
+  "bbox_lnglat": [
+    -13.8741,
+    28.4925,
+    -13.8575,
+    28.4999
+  ],
+  "bbox_local_m": [
+    -791.9006394092877,
+    -398.3481265323593,
+    832.1326539772392,
+    425.41987346769827
+  ],
+  "enu_basis": {
+    "lng0": -13.866005615070993,
+    "lat0": 28.496321594263993,
+    "cos_lat0": 0.8788477445822575
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:30:09+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

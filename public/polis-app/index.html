@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css?v=20260601-inset" />
+  <link rel="stylesheet" href="./style.css?v=20260602-lodpill" />
 </head>
 <body class="skin-ocre" data-view="polis">
   <header class="banner">
@@ -59,7 +59,7 @@
          verde). El mapa POLIS sigue ocre; el color sólo vive en el toggle
          como diferenciador de sección. -->
     <nav class="app-pillars" aria-label="Saltar entre pilares" role="tablist">
-      <a class="pillar pillar-polis is-active" href="./index.html" aria-current="page" role="tab">
+      <a class="pillar pillar-polis is-active" href="./" aria-current="page" role="tab">
         <span class="pillar-ico" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="18" height="18">
             <path fill="currentColor" d="M12 2 1 8h22z"/>
@@ -73,7 +73,7 @@
         </span>
         <span class="pillar-label">POLIS</span>
       </a>
-      <a class="pillar pillar-agora" href="../agora-app/index.html" role="tab">
+      <a class="pillar pillar-agora" href="../agora-app/" role="tab">
         <span class="pillar-ico" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="18" height="18">
             <path fill="currentColor" d="M2 4h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H7l-3 3v-3H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
@@ -82,7 +82,7 @@
         </span>
         <span class="pillar-label">ÁGORA</span>
       </a>
-      <a class="pillar pillar-biblioteca" href="../biblioteca-app/index.html" role="tab">
+      <a class="pillar pillar-biblioteca" href="../biblioteca-app/" role="tab">
         <span class="pillar-ico" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="18" height="18">
             <path fill="currentColor" d="M3 5c2.8-1 5.7-1 9 .6 3.3-1.6 6.2-1.6 9-.6v13.5c-2.8-1-5.7-1-9 .5-3.3-1.5-6.2-1.5-9-.5z"/>
@@ -724,15 +724,13 @@
   </div>
 
   <!-- Base de assets pesados (sections_pack / osm-gc / osm-prov38).
-       En local → '' (rutas relativas a public/). En prod → bucket R2
-       servido por Custom Domain de Cloudflare (sin rate-limit, con caché).
-       Antes usaba la Public Development URL (r2.dev), que limitaba por tasa
-       (503 bajo la carga del juego). -->
+       En local → '' (rutas relativas a public/). En prod → bucket R2.
+       Public Development URL del bucket demosios-packs (r2.dev). -->
   <script>
     window.__ASSETS_BASE = (location.hostname === 'localhost' ||
       location.hostname === '127.0.0.1') ? '' :
-      'https://packs.demosios.eu';
+      'https://pub-0c67711c0e0e4675b73de73f0e49a32c.r2.dev';
   </script>
-  <script type="module" src="./app.js?v=20260601-perfil1"></script>
+  <script type="module" src="./app.js?v=20260602-itb-sides"></script>
 </body>
 </html>

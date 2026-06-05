@@ -1,0 +1,87 @@
+{
+  "cusec": "3503001006",
+  "mun": "030",
+  "nmun": "Tuineje",
+  "area_ha": 675.6981557088878,
+  "perimeter_m": 13381.05812009244,
+  "building_count": 1294,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 16,
+  "road_segment_count": 385,
+  "centroid_lnglat": [
+    -14.018764706737759,
+    28.23432711854362
+  ],
+  "bbox_lnglat": [
+    -14.0329,
+    28.213,
+    -14.003,
+    28.2536
+  ],
+  "bbox_local_m": [
+    -1386.3212373099589,
+    -2145.4571637239073,
+    1546.126234883229,
+    2374.134836275842
+  ],
+  "enu_basis": {
+    "lng0": -14.018764706737759,
+    "lat0": 28.23432711854362,
+    "cos_lat0": 0.8810201787108146
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:45:56+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

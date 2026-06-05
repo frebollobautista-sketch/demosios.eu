@@ -186,7 +186,13 @@ export function attach(canvas, state, requestRender, onTap, onSwipe) {
       if (_wheelAccum >= WHEEL_COMMIT_IN) {
         _wheelAccum = 0;
         _wheelCooldownUntil = now + 500;
+        // 2026-06-02 — flag de origen para que handleTap del lod=municipio
+        // sepa que viene de un wheel-commit y deba SALTAR el peek-chip de
+        // supra (no quiero un 1er tap=peek; quiero drill directo a sección
+        // con edificios). En lod no-municipio el flag es inocuo.
+        state._wheelDrill = true;
         onTap(mx, my);
+        state._wheelDrill = false;
         return;
       }
     } else if (atMin && factor < 1) {

@@ -1,0 +1,87 @@
+{
+  "cusec": "3803807004",
+  "mun": "038",
+  "nmun": "Santa Cruz de Tenerife",
+  "area_ha": 18.894589203876674,
+  "perimeter_m": 2030.7917789563003,
+  "building_count": 645,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 6,
+  "road_segment_count": 135,
+  "centroid_lnglat": [
+    -16.23961448962572,
+    28.485863747823878
+  ],
+  "bbox_lnglat": [
+    -16.24287,
+    28.48237,
+    -16.23736,
+    28.489
+  ],
+  "bbox_local_m": [
+    -318.52897749353116,
+    -349.127592246026,
+    220.5860810408428,
+    388.9240077541127
+  ],
+  "enu_basis": {
+    "lng0": -16.23961448962572,
+    "lat0": 28.485863747823878,
+    "cos_lat0": 0.878934812499592
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:33:06+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

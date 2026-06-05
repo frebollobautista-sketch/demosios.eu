@@ -407,6 +407,47 @@ Propuesta del usuario: añadir en la Bibliotheka un editor para publicar artícu
 
 Pendiente de respuesta del usuario para fijar nombre/estructura/editor antes de construir.
 
+## Ágora — tablero de aficiones / feed
+
+### 2026-05-29 — Tablero de aficiones y preferencias: diseño cerrado
+Sesión dedicada a diseñar (no construir aún) el algoritmo de un "tablero de aficiones y preferencias" para Ágora. Vanilla ES modules, sin build, todo localStorage de momento.
+
+**Hallazgo de partida:** hoy las aficiones NO son dimensiones del algoritmo — son una capa de *boost*. En `descubre.js`, los intereses de `PALETA_AMPLIA` solo (a) multiplican peso por match de keyword (`construirBoost`), (b) deciden qué subreddits se cargan, (c) aplican un `dimBias` pequeño. Los ítems (`feed.js:aplicarDims`) solo llevan 4 dims posturales (`cercania, conocidos, reaccionar, temporalidad`), ninguna temática. Por eso el interés no se ve en sliders, `explicar()` no lo nombra y `aprenderDeFeedback()` no lo aprende. Ya existía un proto-toggle: los presets `✦ Intereses` / `🏛 Cívico`.
+
+**Re-encuadre:** promover las aficiones de "boost" a **dimensiones de primera clase**. En cuanto cada interés es una `dim` con su slider y los ítems se puntúan en dims temáticas, `rank()` (agnóstico de dims), `explicar()` y `aprenderDeFeedback()` funcionan gratis. Es "enchufarse al motor sin reescribirlo".
+
+**Decisiones cerradas con el usuario:**
+- **Opción A — dos tableros separados** (hobby/entretenimiento · cívico/sociopolítico), cada uno su set de dims, sus sliders y su clave de storage. (Se descartaron B unificado y C crossfader jerárquico).
+- **Familia cívica derivada de `taxonomia.js`** (los 10 verbos) por mapeo fino, sin editar el fichero (sólo-lectura; otra sesión es dueña de él). Fuente de verdad única.
+- **Solo Ágora en v1**; `biblioteca-app` reutilizará `shared/tablero.js` después.
+- **Tablero = SOLO afinidad de tema** (sliders para gustos estables). Hobby: 10 intereses de `PALETA_AMPLIA` + mando **Descubrimiento** (seguro↔sorpresa, expone `serendipia`). Cívico: 10 verbos + Descubrimiento.
+- **Posturales recortados** (los 4 `DIMS_AGORA` heredados convencían poco al usuario, "complicaban los filtros"). Lugar/tiempo/postura son propiedades *por-ítem*, no preferencias estables → **chips en la propia tarjeta** que al tocarlos pivotan (patrón 1, elegido sobre rails y maqueta). El pivot = **boost transitorio, visible y reversible, NO aprendido ni persistido** (lente de sesión, no algoritmo propio). La "Acción" (consumir↔convocar) se vuelve **botón *actuar* + chip de postura** en la tarjeta — gana, no se pierde. Única excepción de control persistente: **chip de alcance geográfico** (barrio/isla) fijo arriba. `cercania`/`ts` quedan como sesgo de orden interno en `rank()`, ya no user-facing.
+- **Entrega dual con cambio en vivo:** *toggle* (un tablero activo a la vez) ⇄ *feed único intercalado* (ratio ajustable + cuota cívica ≥1 por ventana). El usuario alterna entre ambos modos cuando quiera.
+- **Anti-dilución de lo sociopolítico (3 capas):** inyección cívica (`INJECT_CADA=6`) promovida de Descubre a invariante del feed; suelo de familia en modo único; enganche del "éxito" al `honestyMeter` de `loops.js` (celebrar fin real, nunca engagement por engagement).
+
+**Distinción clave de la filosofía:** pulgares sobre el tema = aprendizaje persistido (tu algoritmo, dueño tú); pivots de chip = lente transitoria.
+
+**Plan de implementación (validado, pendiente luz verde para codear):**
+1. `shared/tablero.js` **nuevo** — define las dos familias como sets de dims, `dimsMeta` por familia, `clasificar(item)` (texto/kind/subreddit/overlay → dims temáticas, sustituye a `construirBoost` como señal de tema), `pivotBoost(item, pivots)` transitorio, `interleave(hobby, civico, ratio)` + cuota cívica, estado/persistencia `agora-tablero` con migración desde `agora-sliders` + `agora-descubre-config`.
+2. `feed.js` — `aplicarDims` llama a `tablero.clasificar(item)`; `cercania`/`ts` pasan a sesgo de orden; cada ítem expone geo/ts/postura para los chips.
+3. `sliders.js` → `mountTablero(container, familia, onChange)` (reusa persistencia/`setState` existentes).
+4. `descubre.js` — presets = entrada Descubre de cada tablero; retira `construirBoost` como señal de tema; promueve inyección cívica.
+5. `app.js` — familia activa, interruptor en vivo toggle⇄único, chips de pivot + chip de alcance, pasar dims/sliders correctos a `rank()`.
+6. Anti-dilución + hook a `honestyMeter`.
+
+Se reutilizan `rank.js`, `stumble.js`, `hud.js`, `gestos.js`, `loops.js`, `taxonomia.js` **sin editarlos**.
+
+### 2026-05-29 — Ágora alineada al formato de POLIS: skin verde oscuro + touchbar mutada
+Decisión del usuario: Ágora "forma parte de la misma app" que POLIS, así que adopta su formato (membrete serif, barras paper/ink, IBM Plex Mono para números/UID, idioma neobrutalista) pero con **skin verde oscuro** en vez del ocre/papel de POLIS — manteniendo el **acento cálido (oro PHAROS)** como POLIS. Paleta nueva en `agora-app/style.css` `:root` (bg `#0e1712`, surfaces verdes, text parchemino, `--ocre` oro intacto, `--font-serif`/`--font-mono`).
+
+**Header portado de POLIS (no recoloreado):** Ágora adopta el shell real de POLIS — membrete **"OCRE ▾"** (icono pieza de ajedrez oro + serif) con su **dropdown de vistas** (POLIS→`../polis-app/`, ÁGORA activo, BIBLIOTHEKA→`../biblioteca-app/`) y los iconos ✦/⚙/Entrar a la derecha. **Se retiró `shared/navbar.js`** (la barra de 3 pestañas Mapa/Ágora/Biblioteca): la navegación entre caras vive ahora en el dropdown OCRE▾, como en el mapa. CSS portado a `agora-app/style.css` (.app-topbar, .app-topbar-brand, .app-topbar-menu/.atm-item) adaptado a verde.
+
+**Touchbar mutada:** la tira de siluetas de islas de POLIS (`siluetas-strip`, salto de contexto territorial) muta en Ágora a la **tira selectora de feed** (salto de contexto algorítmico): `✦ Aficiones · 🏛 Cívico · ⇄ Mezcla`. Es donde se conmuta en vivo entre los dos tableros y el feed único intercalado — entrega el "cambio en vivo" del diseño en el mismo sitio donde POLIS pone las islas. Alternativas anotadas para más adelante: chips de intereses activos (silenciar/solo), zonas cívicas con actividad, sub-secciones.
+
+**Ruteo de feeds por FUENTE** (no por tema): Aficiones = reddit/bsky (el ancho de la web), Cívico = overlays/quórums/sillas/eventos (vida local), Mezcla = interleave de ambos con cuota cívica. Coherente con los presets originales de Descubre. Las dims temáticas del tablero ordenan DENTRO de cada feed.
+
+Bug colateral cazado y corregido: el comentario de documentación del timeline en `index.html` anidaba `<!-- opcional -->` dentro de otro comentario → el primer `-->` lo cerraba y renderizaba los botones de ejemplo + un `-->` suelto sobre el feed. Eliminado.
+
 ## Sin clasificar
 
 ### 2026-04-19 — Preview renderizable dentro de Cowork
@@ -567,113 +608,53 @@ Próximos pasos: (1) enriquecer alturas con datos catastrales de plantas cuando 
 ### 2026-04-19 — Cuarto eje opcional `oikonomia`
 Se decidió reducir a 3 ejes (koinonía/paideía/politeía). Si en iteraciones posteriores aparece una economía local productiva en OCRE, la interfaz `PesoPorEje` admite ampliarla sin romper contribuciones existentes.
 
-### 2026-05-06 — POLIS-juego: cartografía colaborativa estilo Dorfromantik
-Minijuego dentro de POLIS donde los ciudadanos rellenan los huecos del mapa satélite trazando polígonos sobre las zonas sin geometría OSM/Catastro. Es el motor de entrada para mejorar el mapeo + uno de los canales de distribución de PHAROS (decisión pendiente: si es la única puerta de entrada o una de varias).
+## POLIS — Sistema de gestos
 
-**Mecánica núcleo (decidida):**
-1. El usuario ve un hueco en el satélite y traza un polígono con 4-8 vértices.
-2. Etiqueta el tipo: edificio, parque, plaza peatonal, paseo, bus stop, etc.
-3. Si es edificio → indica nº de plantas (1-15) → al cerrar el polígono se eleva a 3D con animación (`fill-extrusion-height` interpolado, easeOutCubic, ~800ms).
-4. Si NO es edificio → fade-in del relleno con color/patrón por tipo (verde para parque, gris claro para peatonal, etc.).
-5. El trazo queda **translúcido = pendiente de validar**. Esa visibilidad de "pendiente" es el motor social: ver un trazo translúcido invita a confirmar o disputar.
+### 2026-05-13 — Trámites cívicos como categoría nueva del árbol (DIFERIDO — requiere identidad real)
+Hoy el catálogo de gestos cubre expresión cívica declarativa (señalo, reporto, recomiendo, me comprometo). Falta el gesto que **mueve un trámite administrativo real** — la pieza que cierra el círculo "el mapa hace, no sólo muestra". Categoría nueva propuesta, **reservada en IDEAS hasta tener backend de identidad real (Cl@ve / certificado digital)** porque todos estos gestos exigen identidad oficial verificable, no anónimo ni pseudónimo:
 
-**Paleta de estados:**
-- Validado: opaco, #c8b898 (mismo tono que el visor actual).
-- Pendiente de otros: translúcido azul polis #3DBBF0, opacidad 0.45, borde punteado animado.
-- Tu propio trazo pendiente: translúcido oro PHAROS #D4AF37 — para distinguirlo del de otros de un vistazo.
+- `queja_oficial` — un `reporte` que el usuario eleva con identidad. Va al organismo competente (ayuntamiento, cabildo, SCS, GovCan) con seguimiento del expediente. Un bache reportado se vuelve queja municipal trazable.
+- `solicitud_cita` — pedir cita en padrón / servicios sociales / SCS desde el popup del equipamiento. El catálogo dice qué citas aplican a cada tipo de equipamiento.
+- `consultar_padron` — sobre `vivienda` residencial. Certificado, cambio de domicilio, comprobación.
+- `pago_tasa` — IBI, basura, agua, terraza, vado. No procesamos pago: redirigimos a la sede electrónica con contexto rellenado.
+- `licencia_menor` — obra menor, mudanza, fiesta de calle, mercado puntual.
+- `subvencion_o_ayuda` — sobre entidad cívica o comercio. Solicitar la subvención aplicable (cultura, vivienda, REA, bono cultural).
+- `transparencia` — sobre equipamiento o entidad. Solicitud formal de información pública (ley de transparencia).
+- `firma_propuesta` — firmar una `propuesta` (capa 3 del catálogo activo) elevándola a petición oficial al alcanzar quórum.
 
-**Motor de competición (híbrido velocidad + calidad):**
-Quien primero traza un hueco se lleva PHAROS *pendientes*. Cuando el trazo se valida (consenso de otros usuarios), los cobra + bonus por haber sido quien lo abrió. Así el incentivo es trazar rápido **y** trazar bien — el griefing no paga porque las recompensas se liberan en la validación, no en el acto.
+Decisiones a tomar cuando se desbloqueen: qué 3 trámites empezar (voto: queja oficial + cita SCS + consulta padrón), quién hospeda el puente administrativo (sede electrónica vs capa Next.js que envía por email firmado vs API directa si existe), y cómo se cablea Cl@ve/certificado contra la identidad pseudónima del sistema actual. Probablemente implica una **capa 6** nueva o ampliación de capa 5 con tipo de identidad `identidad_oficial`.
 
-**Validación por consenso (mecánica detallada — pendiente para fase posterior):**
-N trazos sobre el mismo punto con IoU ≥ X% → polígono mediana entra al GeoJSON oficial. El umbral 10/80% funciona en zonas urbanas pero no en medianías ni pueblos pequeños — hay que diseñar fallbacks (contraste contra Catastro/OSM cuando exista, umbral adaptativo por densidad, validación asíncrona por admin). El usuario marcó esto como "problema posterior" — se cierra primero la mecánica de la pieza.
+### 2026-05-13 — Acción colectiva con quórums
+Mecánicas que dan sentido a sumarse: individualmente valen poco, colectivamente se transforman. Algunas piezas **podrían funcionar sin identidad real** (anónimo agregado o pseudónimo estable) y entrarían al catálogo activo en una iteración futura; otras dependen de los trámites (que están diferidos):
 
-**Reuso del catálogo existente:**
-Las 274 piezas SVG ya generadas en `polis-piezas/` siguen útiles como (a) referencia visual de cómo se ven manzanas reales en LPGC, (b) piezas pre-validadas que arrancan el sistema sin esperar al consenso de la comunidad.
+- `convoco_quorum` — propongo acción que requiere N personas. Si llega: se eleva. Ej: limpieza de playa (12+ → cabildo), paso peatonal (50+ → queja colectiva), consulta de barrio (100+ → resultado público no vinculante). Convocar puede hacerse con pseudónimo estable; lo que se eleva ya requiere identidad real.
+- `firmo_quorum` — adhesión a una convocatoria. Más fuerte que `senal_pos`: es compromiso de presencia o consentimiento formal. Anónimo con UID estable evita duplicados sin exigir identidad.
+- `voto_consulta_local` — si alguien activó una consulta informal, voto. Anónimo agregado por barrio.
+- `mision_barrio` — el sistema propone misiones desde la analítica de gestos: "7 reportes de alumbrado este mes en tu barrio → ¿lo elevamos a queja colectiva?". No es gesto del usuario, es propuesta automática del sistema sobre un patrón detectado.
 
-**Decisiones pendientes antes de prototipar:**
-- Si POLIS-juego es la principal puerta de entrada de PHAROS o una de varias (afecta a cómo se cuadra con Ágora/Bibliotheka).
-- Dónde vive el modo: archivo nuevo `public/polis-juego.html` reusando MapLibre del visor, vs modo dentro de `polis-provincia.html` con toggle. Probablemente archivo nuevo para iterar sin romper el visor.
+Sujetos nuevos posibles: `convocatoria_quorum` (efímera con umbral, parecida a `evento` pero con condición de activación).
 
-**Detalle técnico (animación de elevación):**
-~30 líneas de JS sin librería — `setPaintProperty('fill-extrusion-height', h)` dentro de un `requestAnimationFrame` con easing easeOutCubic, target = `plantas × 3m`.
+Pendiente de decidir: ¿quórums los convoca cualquiera con pseudónimo, o sólo rol Mediador? ¿Misiones de barrio las propone el sistema automáticamente o las activa un Mediador?
 
-### 2026-05-09 — POLIS-juego (motor base): tablero vectorial del archipiélago
+### 2026-05-13 — Gamificación como puerta a capacidades (no como puntos decorativos)
+Reformulación del sentido de la gamificación dentro del árbol de gestos. Los badges actuales (si se diseñaran como simples puntos coleccionables) serían vacíos. La propuesta es que cada badge **desbloquee una superficie de acción**, no acumule trofeo:
 
-Sandbox vectorial puro sin satélite. Es **la base del motor de la versión gamificada de KOINOS** — no la mecánica de juego en sí, sino la capa de navegación territorial sobre la que se monta el resto.
+- **Vecino reconocido en X barrio** — tras N gestos válidos en el barrio. Sus reportes ganan peso en agregación pública; sus propuestas arrancan con +5 firmas implícitas.
+- **Curador de tejido** — tras N `alta_ciudadana` validadas correctamente por moderación. Sus altas siguientes entran sin cola.
+- **Mediador** — tras cumplir N compromisos públicos. Puede convocar consultas informales sin requerir activación admin.
+- **Representante de entidad verificado** — ya existe como `soy_de_entidad` (capa 5 actual). Da `publico_balance`, `alianza`, etc.
+- **Validador de zona** — tras señales que después se confirman correctas. Sus reportes saltan el filtro inicial de moderación.
 
-**Archivos:**
-- `polis-piezas/_data/formas-canarias.json` (1.87 MB) — 1.381 secciones censales, 88 municipios, 7 islas. Polígonos simplificados con shapely a 8 m de tolerancia (vértices reducidos al 14 % del original). Sistema de coordenadas: equirectangular cos lat, origen NW (-18.20, 29.35), 1 unidad SVG = 1 m.
-- `polis-piezas/tablero-formas.html` — visor con 5 niveles drill-down: **Archipiélago → Isla → Municipio → Distrito → Sección**.
+Principio: quien no juega no pierde nada. Quien juega obtiene **más superficies de acción**, no medallas. Coherente con la filosofía "anonimato por defecto, identidad opcional verificable" — los badges no exponen a nadie, solo añaden permisos.
 
-**Mecánicas de navegación (decididas y validadas):**
-- Click izquierdo = baja un nivel · Click derecho = sube un nivel · Esc = sube · Breadcrumb clicable = salta arbitrariamente arriba.
-- Drill-down "blando": las hermanas del nivel se atenúan (opacidad 0.10–0.45) en lugar de desaparecer del DOM, manteniendo contexto periférico.
-- Animación viewBox interpolada con easeInOutCubic ~700 ms.
-- Etiquetas con tamaño dinámico en función del viewBox (no escalan visualmente con el zoom). Visibilidad por nivel: islas en archipiélago, municipios en isla, distritos en municipio (si tiene > 1), barrios en distrito/sección.
-- Selección simple (un activo por nivel).
+Lo único que entraría al catálogo activo sin esperar backend serían los conteos internos para detectar candidatos a cada badge. La concesión efectiva de capacidades requiere backend Supabase (perfil persistente, rol, validación de reportes). Por eso queda apuntado aquí.
 
-**Conexión con el siguiente nivel — vista isométrica (en desarrollo, fuera de este sandbox):**
-La sección censal es el **punto de pivote** entre el tablero plano (este motor) y la vista isométrica donde ocurre la mecánica Dorfromantik (trazado de edificios/parques/peatonales del 2026-05-06).
+### 2026-05-13 — Pendientes que se moverán al catálogo cuando se acuerden
+Lista de cosas a decidir antes de mover ideas de IDEAS a `GESTO-CATALOG.md`:
 
-Conexión natural:
-1. Cuando el usuario llega al nivel `seccion` en el tablero plano → al hacer click siguiente, en lugar de quedarse en plano, **transición a vista isométrica** de esa sección con su `cusec` como entrada.
-2. Click derecho desde el isométrico → vuelve al nivel `seccion` del tablero plano (continuidad de la pila de niveles).
-
-**Identificadores y datos compartidos entre tablero plano e isométrico:**
-- `cusec` (10 dígitos) como clave universal de sección.
-- Misma proyección (1 m = 1 unidad). Geometrías reusables sin reproyectar.
-- Misma paleta de colores por distrito (cíclica de 12).
-- Misma jerarquía de breadcrumb (el isométrico añade un nivel más al final).
-
-**Decisiones pendientes para integrar tablero ↔ isométrico:**
-1. **¿Transición por click o por zoom progresivo?** Click es claro pero rompe la continuidad visual. Zoom progresivo (a partir de cierto viewBox.w aparece el isométrico) es más fluido pero técnicamente más complejo.
-2. **¿Alcance del isométrico?** ¿Una sección a la vez (más manejable, ~50–500 edificios), o un distrito (cientos de secciones)? Si la mecánica Dorfromantik se hace edificio a edificio, una sección parece la unidad correcta.
-3. **¿El isométrico vive como vista 2.5D dentro del mismo SVG/DOM, o como pantalla aparte?** Si comparte SVG, la transición es animable; si es pantalla aparte (Canvas/Godot/Three.js), hay que serializar/deserializar el estado.
-
-Estas tres decisiones son las que hay que cerrar **antes** de empezar a pegar el isométrico al tablero plano. Idealmente las decide el módulo isométrico, no este — el tablero plano es agnóstico mientras respete `cusec` como entrada/salida.
-
-**URL local:** `http://localhost:8091/polis-piezas/tablero-formas.html` (server `ocre-static` desde `/Users/panch/OCRE`).
-
-### 2026-05-11 — Cruceros: derrama economica visible (capa Egalite)
-
-Idea de Panch que pivota sobre el problema civico del **trickle-down que no llega**. Los cruceros traen miles de pasajeros/dia a LPA pero la mayor parte del valor se queda en la naviera (operador del barco, mayoritariamente extranjero). Mostrar visualmente cuanto se queda en Canarias vs cuanto se va = "palanca civica concreta" que diferenciaria OCRE.
-
-**Tres capas posibles (decidir alcance al retomar):**
-
-1. **Calendario de escalas** (factible 100%) — Autoridad Portuaria de LPA publica el calendario semanal/mensual: barco, hora llegada, hora salida, plazas, naviera. Scrape o API si existe.
-
-2. **Posicion en tiempo real (AIS)** — barcos moviendose en vivo. Fuentes posibles: MarineTraffic (iframe gratis / API key 50 EUR/mes), VesselFinder (similar), **aisstream.io** (WebSocket gratuito, calidad razonable, lo mas prometedor). Calibre medio porque depende de fiabilidad endpoint publico.
-
-3. **Derrama economica estimada** (lo civicamente potente) — para cada crucero:
-   - Pasajeros declarados (calendario AP)
-   - Gasto medio en tierra: ~70 EUR/dia por crucerista (ISTAC Encuesta Gasto Turistico + Cabildo GC, fuentes publicas)
-   - Total derrama estimada = pasajeros x 70 EUR
-   - **Comparativa contundente**: precio medio crucero ~= 200 EUR/dia por pax → solo **30-35%** del valor que paga el crucerista queda en Canarias. El resto lo captura la naviera.
-
-**Framing critico** (decision pendiente — mas activista que descriptivo):
-> *"Hoy entra el barco X con 5.000 pasajeros. La derrama estimada en tierra es 350.000 EUR. El precio medio del crucero es 1.000.000 EUR/dia. El 65% se va con el barco."*
-
-**Implementacion propuesta (cuando se retome):**
-- Capa 1+3 en un solo commit (calendario + derrama). Capa 2 (AIS) en iteracion 2 si aisstream.io funciona.
-- Marcador grande sobre el puerto LPA con total semanal (pasajeros + derrama EUR).
-- Click → tabla de cruceros proximos 7 dias con barco, plazas, derrama, naviera.
-- Nota civica con cita ISTAC.
-
-**Alcance v1**: solo Las Palmas (prov 35). Tenerife/Lanzarote/Fuerteventura en v2.
-
-**Pendiente confirmar con Panch antes de implementar:**
-- Si el framing "el 65% se va" se publica tal cual o se neutraliza ("el 65% no queda en Canarias segun gasto medio declarado").
-- Si anadir comparativa con Hotel-todo-incluido (mismo problema economico pero anclado en tierra).
-- Si anadir contadores acumulados ano-corriente (cruceristas que han pisado tierra ese ano, etc.).
-
-### 2026-05-11 — GTFS-Realtime Guaguas: endpoint publico no existe
-
-Probado en sesion. El servidor de guaguas.com devuelve 200 con HTML generico a cualquier ruta /transit/.../realtime/* — pantalla de error camuflada de 200. El feed GTFS-RT con posiciones de autobuses en vivo **NO esta publicado** por Guaguas Municipales.
-
-Opciones para retomar:
-- Escribir a Guaguas Municipales SA pidiendo apertura del feed RT (CCN: gobierno LPGC).
-- Probar otros operadores canarios con GTFS-RT: TITSA (Tenerife) puede tener feed; Global GC (interurbano) probablemente no.
-- Alternativa: scrape de la app **Wayke** (la que usan los guaguistas para ver tiempo de espera). Fragil y posible problema TOS.
-
-Dejamos GTFS estatico funcionando (paradas + lineas + cobertura 300m).
+1. ¿Qué 3 trámites empezamos cuando llegue identidad real? Voto inicial: queja oficial + cita SCS + consulta padrón.
+2. ¿Quién hospeda el puente administrativo? Sede electrónica municipal con redirect, o capa Next.js propia que envía por email firmado, o API directa del organismo si existe.
+3. ¿Quórums abiertos a cualquier pseudónimo o sólo rol Mediador?
+4. ¿Misiones de barrio: propuestas automáticas del sistema o activación manual por Mediadores?
+5. ¿Cómo se cablea Cl@ve/certificado contra la identidad pseudónima actual? Probablemente cuenta verificada que cuelga del pseudónimo estable, no reemplazo.
+6. ¿Capa 6 nueva (identidad oficial) o ampliación de capa 5?

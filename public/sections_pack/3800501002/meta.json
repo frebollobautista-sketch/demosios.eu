@@ -1,0 +1,87 @@
+{
+  "cusec": "3800501002",
+  "mun": "005",
+  "nmun": "Arico",
+  "area_ha": 3067.1737236035756,
+  "perimeter_m": 43487.34147786069,
+  "building_count": 949,
+  "tree_count": 0,
+  "tree_data_source": null,
+  "monument_count": 0,
+  "poi_count": 44,
+  "road_segment_count": 2423,
+  "centroid_lnglat": [
+    -16.54592159382169,
+    28.177316439172035
+  ],
+  "bbox_lnglat": [
+    -16.59971,
+    28.10776,
+    -16.48119,
+    28.23366
+  ],
+  "bbox_local_m": [
+    -5278.122838799187,
+    -6272.165191369112,
+    6351.9506900703145,
+    7743.02280863105
+  ],
+  "enu_basis": {
+    "lng0": -16.54592159382169,
+    "lat0": 28.177316439172035,
+    "cos_lat0": 0.881490467174373
+  },
+  "godot_axis_mapping": "X=east_m, Y=height_m, Z=south_m (right-handed, Y up)",
+  "produced_at": "2026-05-24T11:09:41+00:00",
+  "producer": "iso_pack.py v1",
+  "categories": {
+    "restauracion": {
+      "color": "#E68A4F",
+      "extrude": false
+    },
+    "comercio": {
+      "color": "#4F8AE6",
+      "extrude": false
+    },
+    "alojamiento": {
+      "color": "#9F4FE6",
+      "extrude": false
+    },
+    "salud": {
+      "color": "#4FE69F",
+      "extrude": false
+    },
+    "finanzas": {
+      "color": "#E6C44F",
+      "extrude": false
+    },
+    "residencial": {
+      "color": "#C8B898",
+      "extrude": true
+    },
+    "publico": {
+      "color": "#A06544",
+      "extrude": true
+    },
+    "monumento": {
+      "color": "#7A3A1A",
+      "extrude": true
+    },
+    "arbol": {
+      "color": "#5E8A3E",
+      "extrude": true
+    },
+    "calle": {
+      "color": "#8A8276",
+      "extrude": false
+    },
+    "parque": {
+      "color": "#A8C28A",
+      "extrude": false
+    },
+    "agua": {
+      "color": "#7AA0C2",
+      "extrude": false
+    }
+  }
+}

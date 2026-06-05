@@ -7,11 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260531-unifyheader">
-  <link rel="stylesheet" href="sillas.css?v=20260531-unifyheader">
-  <link rel="stylesheet" href="quorums.css?v=20260531-unifyheader">
-  <link rel="stylesheet" href="pulso.css?v=20260531-unifyheader">
-  <link rel="stylesheet" href="descubre.css?v=20260531-unifyheader">
+  <link rel="stylesheet" href="style.css?v=20260603-maus98delib">
+  <link rel="stylesheet" href="sillas.css?v=20260603-maus98delib">
+  <link rel="stylesheet" href="quorums.css?v=20260603-maus98delib">
+  <link rel="stylesheet" href="pulso.css?v=20260603-maus98delib">
+  <link rel="stylesheet" href="descubre.css?v=20260603-maus98delib">
 </head>
 <body>
   <!-- [VERDE-SKIN 2026-05-29] Header OCRE portado de POLIS (mismo shell):
@@ -32,7 +32,7 @@
            sección, color identidad (POLIS azul, ÁGORA rojo, BIBLIOTHEKA
            verde). El segmento activo se rellena con su color. -->
       <nav class="app-pillars" aria-label="Saltar entre pilares" role="tablist">
-        <a class="pillar pillar-polis" href="../polis-app/index.html" role="tab">
+        <a class="pillar pillar-polis" href="../polis-app/" role="tab">
           <span class="pillar-ico" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="18" height="18">
               <path fill="currentColor" d="M12 2 1 8h22z"/>
@@ -46,7 +46,7 @@
           </span>
           <span class="pillar-label">POLIS</span>
         </a>
-        <a class="pillar pillar-agora is-active" href="../agora-app/index.html" aria-current="page" role="tab">
+        <a class="pillar pillar-agora is-active" href="../agora-app/" aria-current="page" role="tab">
           <span class="pillar-ico" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="18" height="18">
               <path fill="currentColor" d="M2 4h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H7l-3 3v-3H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
@@ -55,7 +55,7 @@
           </span>
           <span class="pillar-label">ÁGORA</span>
         </a>
-        <a class="pillar pillar-biblioteca" href="../biblioteca-app/index.html" role="tab">
+        <a class="pillar pillar-biblioteca" href="../biblioteca-app/" role="tab">
           <span class="pillar-ico" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="18" height="18">
               <path fill="currentColor" d="M3 5c2.8-1 5.7-1 9 .6 3.3-1.6 6.2-1.6 9-.6v13.5c-2.8-1-5.7-1-9 .5-3.3-1.5-6.2-1.5-9-.5z"/>
@@ -74,7 +74,25 @@
       </div>
     </header>
 
-    <!-- Tira "multitouch": selector de feed (la cablea app.js: montarStrip). -->
+    <!-- [2026-06-02] Conmutador de POSTURA: Red social ↔ Deliberación.
+         Nivel superior al strip de familia. El Ágora es dos cosas a la vez:
+         una red social (modelo anti-big-tech, con mausoleo) y un espacio de
+         deliberación (paridad Decidim/CONSUL). Lo cablea app.js (montarPostura). -->
+    <div id="agora-postura" class="agora-postura" role="tablist" aria-label="Postura del Ágora">
+      <button type="button" class="postura-seg is-active" data-postura="social"
+              role="tab" aria-selected="true">
+        <span class="postura-ico" aria-hidden="true">🗣</span>
+        <span class="postura-label">Red social</span>
+      </button>
+      <button type="button" class="postura-seg" data-postura="deliberacion"
+              role="tab" aria-selected="false">
+        <span class="postura-ico" aria-hidden="true">🏛</span>
+        <span class="postura-label">Deliberación</span>
+      </button>
+    </div>
+
+    <!-- Tira "multitouch": selector de feed (la cablea app.js: montarStrip).
+         Solo aplica a la postura Red social. -->
     <div id="agora-strip" class="agora-strip" role="tablist" aria-label="Feed activo"></div>
   </div>
 
@@ -117,6 +135,23 @@
 
     <div class="timeline-paginacion">
       <button id="btn-mas" class="btn-mas" type="button" hidden>siguientes →</button>
+    </div>
+  </main>
+
+  <!-- ───────────────────── Postura: Deliberación ──────────────────────
+       Superficie tipo Decidim/CONSUL. Oculta mientras la postura activa
+       sea "Red social". La cablea deliberacion.js (Fase 3); en Fase 0 es
+       un esqueleto. app.js (aplicarPostura) alterna timeline ↔ esto.
+       ──────────────────────────────────────────────────────────────── -->
+  <main id="deliberacion" class="deliberacion" role="main"
+        aria-label="Deliberación ciudadana" hidden>
+    <div class="deliberacion-placeholder">
+      <span class="delib-ico" aria-hidden="true">🏛</span>
+      <h2 class="delib-title">Deliberación ciudadana</h2>
+      <p class="delib-lead">
+        Propuestas, apoyos, debate y votación con paridad Decidim/CONSUL.
+      </p>
+      <p class="delib-soon">En construcción — Fase 3.</p>
     </div>
   </main>
 
@@ -303,6 +338,6 @@
     </div>
   </div>
 
-  <script type="module" src="app.js?v=20260601-perfil1"></script>
+  <script type="module" src="app.js?v=20260603-maus98delib"></script>
 </body>
 </html>
